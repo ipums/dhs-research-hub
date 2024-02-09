@@ -1,0 +1,158 @@
+---
+title: |
+  Developing Robust Conceptual Models in
+  Climate Change and Health Research
+description: |
+  Introducing the theoretical foundations for effective research on climate change and
+  health
+author:
+  - name: Elizabeth Heger Boyle
+    affiliation: Professor, Department of Sociology, University of Minnesota
+  - name: Kathryn Grace
+    affiliation: Professor, Department of Geography, Environment, and Society, University of Minnesota
+  - name: Audrey Dorélien
+    affiliation: Associate Professor, Humphrey School of Public Affairs, University of Minnesota
+  - name: Devon Kristiansen
+    affiliation: Research Manager, IPUMS
+date: 02-03-2024
+categories:
+  - Climate
+  - Methodology
+  - Research concepts
+fig-width: 10
+fig-height: 8
+bibliography: references.bib
+---
+
+Unpacking the relationship between climate change and health requires
+not only technical skills, but also a strong theoretical foundation.
+Climate change, health, and their relationships are all complex.
+Researchers begin by conceptualizing—for their specific questions—1) the
+nature of the climate event, 2) the details of the health outcome, and
+3) the temporal and spatial relationships between the climate and health
+phenomena of interest.
+
+![Figure 1: Pathways of climate effects on health Available at:
+<https://nca2018.globalchange.gov/chapter/14/>
+[@Ebi2018]](images/pathways.png)
+
+Beyond these three elements, contextual factors are crucial for
+identifying the complex causal pathways among climate change and health.
+Figure 1 illustrates how the pathway from a climate event, its
+manifestation in the environment, and its impact on various health
+outcomes is embedded within larger contexts. As suggested by the gray
+box on the right, individuals will be impacted by climate change in
+unique ways based on their demographic characteristics and social
+determinants that affect their lived experiences. The gray box on the
+left illustrates how environmental and institutional contexts will also
+influence relationships between climatic events and health. Contexts
+influence the impact of exposures on individuals as well as their
+mitigation and adaptation strategies in response to climate risks.
+
+## Building a conceptual model
+
+Below, we provide the steps in creating a tailored conceptual model for
+climate change and health research.
+
+### 1. Assessing the temporal and spatial nature of climate risk
+
+Risks arising from climate change vary in their temporal and spatial
+scales. In terms of timing, risks may be acute or protracted. Acute
+risks arise when one-time exposure to a climate event is sufficient to
+trigger health outcomes, for example, when flooding makes water unsafe
+for drinking. Protracted risks, in contrast, arise from sustained
+exposure to climate phenomenon, such as the inhalation of dust over the
+course of enduring dry periods. The impact of climate change is also
+spatially variable. While some climate events affect wide areas, others’
+scope is limited to discrete locations. Determining the type of risk
+depends on both the nature of the climate event and the health outcome
+studied. Identifying the temporal and spatial dimensions of risk provide
+the basis for decisions concerning temporal aggregation of climate data,
+as well as the length of expected lags between initial exposure to a
+climate event and the manifestation of the health outcome.
+
+### 2. Incorporating social and behavioral context
+
+Certain climate events are known to have deleterious effects on humans.
+For example, exposure to extremely high temperatures during the first
+trimester of pregnancy increases the risk of low birth-weight babies.
+[@Grace2021] Basic biological truths such as this are insufficient,
+however, to fully assess the impact of climate events on individual
+health because individuals have dramatically different access to
+resources, opportunities, and constraints. A pregnant person who lives
+in an air-conditioned house will experience extreme temperatures very
+differently than a person who is houseless. Demographic characteristics,
+such as age, gender, wealth, and partnership status matter when
+assessing climate impacts.
+
+Furthermore, the characteristics of societies (e.g., rural versus urban,
+gender roles, livelihoods) matter. Consider rising temperatures in
+nomadic versus other types of communities.[@Grace2017] For both,
+temperature change may make it harder to access water. In nomadic
+communities, the result could be men driving herds further from the
+community and thus staying away longer, while in other communities, the
+result could be that children tasked with collecting water find the task
+more physically demanding. Who and how individuals are affected by water
+shortages will vary depending on community norms and roles. Community
+characteristics will also affect the instigation and nature of
+mitigation and adaptation efforts. While analyses that map the nature of
+climate change over time provide a useful starting point, they cannot
+fully capture the individual- and community-specific impacts of climate
+change.[@Grace2017]
+
+### 3. Understanding environmental and institutional contexts
+
+Environmental and institutional contexts are also influential in shaping
+causal pathways between climate change and health. The physical
+environment, such as altitude and the demarcation of seasons, can
+provide some level of protection from some climatic events. For
+instance, a small reduction in annual rainfall can have a devastating
+effect in an arid location where there is a close correspondence between
+a rainy season and agricultural production.[@Dorelien2023] The same
+reduction in rainfall might have only a minor impact in a location where
+annual precipitation is diffused throughout the year and is less closely
+tied to the agricultural season. Understanding such differences is
+important for selecting accurate measurements. In the former location,
+the rain shortfall might best be measured through the length of the
+rainy season. In the latter location, considering rainfall deviation
+from a monthly or annual average could be more
+appropriate.[@Dorelien2023]
+
+Institutional contexts include the built environment, such as the
+presence of roads, wells, and irrigation systems, as well as
+organizations designed to facilitate human capabilities, such as
+political, healthcare, and education systems. Local governments’
+capacities to intervene to protect populations faced with climate risks
+can reduce negative health outcomes. Healthcare systems affect the
+accessibility of treatment (both physically and financially), while
+education systems provide individuals with the knowledge of when and how
+to respond to climatic events. Climate change and health research that
+fails to capture these contextual effects can lead to faulty
+conclusions.
+
+## Conclusion
+
+Theorizing the core relationship among specific climate events and
+specific health outcomes is the first step in developing a conceptual
+model but is insufficient to fully capture complex causal pathways.
+Individual characteristics, social determinants of health, and
+environmental and institutional environments are also critical. Informed
+and clearly identified spatial and temporal measurement of climate
+exposures is necessary, and these exposures should be thoughtfully,
+appropriately, and explicitly linked to the particular health outcomes
+of interest. Community-focused expertise and stakeholder engagement is
+vital to fully understand and incorporate how broader contexts interact
+with local circumstances to uniquely influence how climate change is
+experienced.
+
+### For more information
+
+To learn more about the technical modeling implications of
+climate-change-and-health conceptual models, see Dorélien and Grace
+(2023). [@Dorelien2023]
+
+To see a specific model of the impact of climate change on women’s
+reproductive health in Africa, see Grace (2017).[@Grace2017]
+
+For further delineation of the elements in climate-change-and-health
+models (in the U.S. context), see Balbus et al. (2016).[@Balbus2016]

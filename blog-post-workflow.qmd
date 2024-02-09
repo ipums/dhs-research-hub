@@ -1,0 +1,753 @@
+---
+title: "Blog Post Workflow"
+description: |
+  Instructions for contributing to the DHS Research Hub blog
+author: 
+  - name: "Finn Roberts"
+    affiliation: Senior Data Analyst, IPUMS
+  - name: "Matt Gunther"
+    affiliation: Research Methodologist, NORC
+date: 02-04-2024
+knitr:
+  opts_chunk: 
+    echo: false
+    fig-align: center
+title-block-banner: true
+---
+
+# All users: First time setup
+
+To work on the blog, you'll need the following:
+
+-   R
+-   RStudio
+-   Git
+-   A few particular R packages
+
+If you're working on your own machine, follow the instructions below to
+get this software installed.
+
+The MPC also hosts a [server instance](https://rstudio.pop.umn.edu/) of
+R and RStudio, which you can access using your UMN login credentials. If
+you prefer to work on the server, then R, RStudio, and Git will already
+be installed. However, you will still need to install the indicated R
+packages and configure your Git setup (if you haven't done so before),
+so we still suggest reading through these instructions.
+
+## Set up R and RStudio
+
+### Install R
+
+To install R, visit the [Comprehensive R Archive
+Network](https://cloud.r-project.org/) (CRAN) and choose the appropriate
+download link for your operating system.
+
+### Install RStudio
+
+RStudio is an interactive development environment (IDE) for R that
+provides an interface and code editing tools that make it much, much
+easier to write and edit R code.
+
+The DHS Research Hub is organized as an [RStudio
+Project](https://support.rstudio.com/hc/en-us/articles/200526207-Using-Projects),
+which requires RStudio. You can download RStudio
+[here](https://rstudio.com/products/rstudio/download/).
+
+### Install required R packages {#install-r-packages}
+
+When you've got RStudio set up, install these R packages by running the
+following in the RStudio console:
+
+```{r, eval = F, echo = T}
+# For writing blog posts
+install.packages("rmarkdown")
+install.packages("knitr")
+
+# For help setting up Git
+install.packages("usethis")
+install.packages("gert")
+install.packages("gitcreds")
+```
+
+::: callout-tip
+If you have trouble installing any of these packages, try to install
+them in a fresh RStudio session (in the RStudio toolbar, select *Session
+\> Restart R*).
+:::
+
+## Configure Git and access blog materials
+
+### Initialize your UMN GitHub account
+
+The DHS Research Hub blog materials exist in both a **public** and
+**private** format. When you're working on the blog, you'll be working
+on the private site, which is hosted on the UMN Enterprise GitHub server
+at <https://github.umn.edu/mpc/dhs-research-hub>.
+
+The UMN GitHub server is accessible only to people affiliated with UMN.
+By working in this environment, we can develop and edit new posts
+without having to worry about them becoming visible on the public site
+prematurely. Also, it allows us to store files necessary for certain
+posts (e.g. IPUMS data files) without making those files publicly
+visible. Members of the blog "admin" team will be responsible for
+migrating completed posts to the public version of the site.
+
+Since you're affiliated with UMN, you automatically have access to an
+account on UMN GitHub. To initialize an account, visit
+<https://github.umn.edu> and log in with your University Internet ID and
+password.
+
+### Install Git
+
+To interact with GitHub, you'll need to install Git on your local
+machine. Git is the version control software that allows us to track the
+blog's history and manage line-by-line changes to files as we edit new
+posts.
+
+#### MacOS
+
+MacOS comes with Git already installed. To confirm, you can check its
+location by running `which git` in the Mac Terminal. You can also check
+the version you have installed by running `git --version`.
+
+If for some reason Git is not installed, use the [Install Git using
+Homebrew](https://jennybc.github.io/2014-05-12-ubc/ubc-r/session03_git.html#)
+instructions to install it.
+
+#### Other OS
+
+Users of other operating systems should
+[download](http://git-scm.com/downloads) the appropriate git for their
+operating system.
+
+### Link RStudio and Git
+
+Next, we'll link RStudio and Git. This adds a new tab to your RStudio
+interface where you can see your files being tracked by Git in a
+convenient point-and-click format.
+
+In the RStudio toolbar, select *Tools \> Global Options* and locate the
+*Git/SVN* tab. Ensure that the box shown below is checked, and then
+enter the location of the executable file. To find the git executable
+
+-   **on MacOS**: run `which git` in Terminal
+-   **on Windows**: look for `git.exe` in your file explorer (most
+    likely in *Program Files*)
+
+```{r}
+#| fig-align: center
+knitr::include_graphics("images/bpw/git-menu.png")
+```
+
+### Configure Git with your UMN GitHub credentials {#configure-git}
+
+Finally, we'll provide Git with the username and email associated with
+our UMN GitHub account. We'll also need to generate a Personal Access
+Token (PAT) for our account. The PAT functions like a password that
+allows you to interact with your UMN GitHub account from R and the
+command line.
+
+If you've installed the packages listed [above](#install-r-packages),
+you can use R code (rather than the command line) to configure your
+credentials. This is what we demonstrate below.
+
+First, set the username and email address associated with your UMN
+GitHub account. For example, I'd run:
+
+```{r, eval=F, echo=T}
+gert::git_config_global_set("user.name", "Finn Roberts")
+gert::git_config_global_set("user.email", "robe2037@umn.edu")
+```
+
+::: callout-note
+You don't necessarily need to store your credentials to use Git, but if
+you don't, you'll have to enter them in a popup window each time you
+interact with GitHub from R or the command line.
+:::
+
+Next, create a PAT for your account. Run the following in your RStudio
+console to launch a webpage where you can configure a new PAT:
+
+```{r, eval = F, echo = T}
+usethis::create_github_token(host = "https://github.umn.edu")
+```
+
+You can leave the default boxes checked and click the green *Generate
+Token* button. This should display a long string of digits—this is your
+new PAT. **Don't close this page yet!** Return to your RStudio console
+and run:
+
+```{r, eval=F, echo=T}
+gitcreds::gitcreds_set("https://github.umn.edu")
+```
+
+This will prompt you to enter a new token. Follow the instructions to
+copy and paste the PAT you just generated in your browser and press
+*Enter*. From now on, RStudio and Git will be able to access your UMN
+GitHub account automatically.
+
+::: callout-note
+If you have a personal GitHub account at
+[https://github.com](https://www.github.com) you could repeat this
+process substituting `"https://github.com"` for
+`"https://github.umn.edu"`, and Git will automatically choose the right
+credentials based on the repository associated with your project.
+:::
+
+### Clone the DHS Research Hub Repository
+
+Now that we have Git configured, we can download (or *clone*) a copy of
+the blog materials from UMN GitHub.
+
+Open RStudio and navigate to *File \> New Project*, then select *Version
+Control*:
+
+```{r}
+knitr::include_graphics("images/bpw/version_control.png")
+```
+
+Choose *Git* to clone the project from a GitHub repository:
+
+```{r}
+knitr::include_graphics("images/bpw/use_git.png")
+```
+
+On the next menu page, enter the address for the UMN GitHub repository:
+`https://github.umn.edu/mpc/dhs-research-hub/`
+
+Hit *Tab* and the project directory name should populate automatically.
+If not, enter `dhs-research-hub` as the directory name:
+
+```{r}
+knitr::include_graphics("images/bpw/clone_info.png")
+```
+
+::: callout-warning
+Make sure to clone the **private** version of the repository (the one
+located at github.umn.edu), not the **public** version (located at
+github.com).
+:::
+
+In the third field, choose the location where you would like to store
+the blog materials on your computer. This can be anywhere that makes
+sense with your personal file organization approach.
+
+::: column-margin
+When choosing a place to save this project, *do not save to a network
+drive*. This seems to cause RStudio to crash!
+:::
+
+Finally, click *Create Project*. After a short bit, RStudio will
+relaunch and open the new project. If you adjust the windows to show the
+**Files** (left) and **Git** (right) tabs, you should see something like
+this:
+
+::: column-page
+![](images/bpw/clone_success.png)
+:::
+
+You have now downloaded a copy of the DHS Research Hub blog to your
+computer!
+
+Moreover, because you've connected these files to a GitHub repository,
+the RStudio Project will now keep track of changes you make to the files
+in this folder, and it will prompt you to upload your changes back to
+GitHub: as you add, edit, or delete files, a list of changes will appear
+in the Git tab.
+
+::: callout-note
+To ensure that RStudio recognizes the project is being used with Git,
+make sure to open the `.Rproj` file before working on any of the blog
+materials.
+
+To open the project, simply click on the `dhs-research-hub.Rproj` file
+or navigate to *File \> Open Project*. (You only need to do this once at
+the start of your R session.)
+:::
+
+# Authors: Create a new post
+
+### Working in Quarto {#working-in-quarto}
+
+The DHS Research Hub is built using [Quarto](https://quarto.org/).
+Quarto is an integrated system for generating technical documents,
+presentations, and websites. Currently, Quarto supports several
+programming languages, including R.
+
+Quarto builds upon the popular RMarkdown framework for writing documents
+with R. If you're already familiar with RMarkdown, most of what you've
+already learned can be transferred to Quarto. For an overview of
+Quarto's markdown syntax, check out this
+[documentation](https://quarto.org/docs/authoring/markdown-basics.html).
+
+### Create a new branch
+
+Git allows users to create what are called *branches* when working on a
+project. A branch functions as an independent parallel version of all of
+the blog materials. Any changes you make on a branch won't automatically
+appear on the "main" branch of the repository. That means that you can
+safely modify files in a separate environment without jeopardizing work
+that has already been prepared for the blog.
+
+To create a new branch, click on the purple icon in the Git tab of
+RStudio (notice that it currently says "main", indicating we're
+currently on the main branch of the repository):
+
+```{r}
+knitr::include_graphics("images/bpw/new_branch.png")
+```
+
+You can name the new branch anything you like, but we recommend using
+your URL slug if possible (e.g. "blog-post-workflow" is the end of the
+URL for this webpage). Leave the box next to *Sync branch with remote*
+checked, as this will create your branch both locally and on our GitHub
+page:
+
+```{r}
+knitr::include_graphics("images/bpw/branch_name.png")
+```
+
+RStudio now displays the new branch name in place of "main" to show that
+we're working on the new branch:
+
+```{r}
+knitr::include_graphics("images/bpw/new_branch2.png")
+```
+
+Any changes you make here won't be reflected on the main branch, meaning
+that the core content of the site is safe if you make a mistake on your
+own branch.
+
+### Create a new post directory
+
+The `posts` directory contains the files for each of the blog's posts.
+
+```{r}
+knitr::include_graphics("images/bpw/file_window1.png")
+```
+
+Each post has its own sub-directory inside the `posts` directory:
+
+```{r}
+knitr::include_graphics("images/bpw/posts_list.png")
+```
+
+To create a new post, create a sub-directory inside `posts` with the
+date and a shorthand name for the post. Within that directory, create a
+new Quarto document (*File \> New File \> Quarto Document*) named
+`index.qmd`. This should open up a blank file in your RStudio session as
+shown below. Notice in the Git pane that Git has recognized that a new
+directory has been added.
+
+::: column-page
+![](images/bpw/post_added.png)
+:::
+
+You'll notice that the .qmd file contains a **header** with various
+specifications about your post. The main options that you're likely to
+use are:
+
+-   `title`: the title of the post
+-   `description`: brief subtitle of the post
+-   `author`: the author(s) of the post (and their affiliations)
+-   `date`: the publication date of the post (this will be modified by
+    the site admin when publishing)
+-   `categories`: tags that will be displayed and used to put posts into
+    groups
+-   `bibliography`: a .bib file that contains the citation information
+    for any citations used in the post. This is used to automatically
+    format the reference list that appears at the bottom of each post.
+    Most citation managers have an option to export a .bib file.
+
+As an example, here's the header for one of the posts on the blog:
+
+```{.yaml filename="dhs-chirps.qmd"}         
+---
+title: "Attaching CHIRPS Precipitation Data to DHS Surveys"
+description: |
+  Remotely sensed precipitation data can provide important context for
+  understanding the health outcomes reported in the DHS
+author:
+  - name: Finn Roberts
+    affiliation: Senior Data Analyst, IPUMS
+  - name: Matt Gunther
+    affiliation: Research Methodologist, NORC
+date: 02-04-2024
+categories:
+  - CHIRPS
+  - Precipitation
+  - Climate 
+  - Agriculture
+  - terra 
+  - sf 
+  - ggspatial
+  - R
+bibliography: references.bib
+---
+```
+
+If you're curious, you can check out the [Quarto
+documentation](https://quarto.org/docs/reference/formats/html.html) for
+a comprehensive list of the available options.
+
+At this point, you can proceed to write your post in Quarto/RMarkdown
+format, as mentioned [above](#working-in-quarto). As you're working on a
+post, you can get a preview of what the post will look like on the site
+by clicking the *Render* button in the toolbar above the .qmd document
+you're editing.
+
+::: column-margin
+You can switch between previewing the page in the RStudio Viewer tab or
+in your computer's default web browser. Click the settings icon next to
+the *Render* button for preview options.
+:::
+
+### Put your data in `data`!
+
+We have to be careful when working with IPUMS data for a post as we want
+to avoid publishing any data to the public version of the site. However,
+editors of your post will need to have access to your data when working
+on the post.
+
+To get around this, if you're working with IPUMS data in your post, put
+it in a sub-directory called `data`. The admin team has set up a
+workflow that will automatically remove contents of a post's `data`
+directory when publishing to the public version of the site.
+
+For example, we stored the DHS extract used in the `dhs-chirps` post
+like so:
+
+```         
+./posts/2024-02-04-dhs-chirps/data/dhs/idhs_00018.dat.gz
+./posts/2024-02-04-dhs-chirps/data/dhs/idhs_00018.xml
+```
+
+This structure will allow the data to be shared within the team in the
+UMN GitHub repository, but will prevent those data from being published
+publicly.
+
+::: callout-tip
+If you're working with any data that you don't even want to publish to
+*UMN GitHub* (e.g. if the data files are too large), put those files in
+a sub-directory called `data_local`. These files will automatically be
+ignored by Git, but they will still be available on your local system.
+:::
+
+### Push your post to GitHub
+
+When you're finished writing, you'll need to share (or *push*) your
+changes to the UMN GitHub repository.
+
+::: callout-note
+Pushing to the UMN GitHub repository is not the same thing as publishing
+your post to the live website. Your post won't go live until someone
+from the admin team merges your post into the main branch and migrates
+it to the public GitHub repository.
+:::
+
+Render your post one more time by clicking *Render*.
+
+Now, enter the following commands into the RStudio console. This will
+make a Git *commit*, which is simply a snapshot of the files in the
+repository with an associated message describing the updates you're
+making. Be sure to adjust brief commit message (in line 2) so it's
+relevant to your new post:
+
+```{r, echo=T, eval=F}
+gert::git_add(".")
+gert::git_commit("New draft: blog-post-workflow") # Change this!
+gert::git_push()
+```
+
+Now, if you visit the repository on UMN GitHub, your post will appear in
+a new branch!
+
+::: column-page
+![](images/bpw/see_branches.png)
+:::
+
+# Editors: Review a new post
+
+### Pull the author's branch to your computer
+
+Any time that you want to review an author's post, you'll always need to
+get the latest copy of their branch from the UMN GitHub repository. If
+this is the first time you've read a draft for the post, the author's
+branch won't yet be listed in RStudio.
+
+The **Pull** button in RStudio's Git tab will gather information about
+all of the new branches on GitHub, and it will download a copy of each
+one onto your computer:
+
+```{r}
+knitr::include_graphics("images/bpw/pull_button.png")
+```
+
+Returning to RStudio's main window, notice that you can now toggle
+between the working on the remote `main` branch, or the new remote
+branch (in this example, `blog-post-workflow`). When you're ready to
+edit the author's post, use this menu to click their branch under *Local
+Branches*.
+
+```{r}
+knitr::include_graphics("images/bpw/toggle_branches.png")
+```
+
+RStudio will automatically create a local version of this branch on your
+computer, and it should report that your changes will be tracked and
+pushed to the remote branch of the same name.
+
+### Locate and edit the new post
+
+At this point, the Git tab should show that you're working on the
+author's branch, and you'll see their post listed in the `posts` folder
+in the Files tab. Navigate to the `index.qmd` file for their post and
+open it to begin making edits.
+
+You can edit using RMarkdown just as you would as an author. Remember
+that you can preview the post by clicking the *Render* button at the top
+of the file.
+
+### Push the edited post back to GitHub
+
+When you're finished editing, click the *Render* button one more time to
+render a final HTML version of the page. (This may also generate other
+ancillary files used on the site, which you'll see in the Git tab.)
+
+Now, make a commit recording your edits (again, adjust the commit
+message as appropriate).
+
+```{r, echo=T, eval=F}
+gert::git_add(".")
+gert::git_commit("Draft edited: blog-post-workflow") # Change this!
+gert::git_push()
+```
+
+Now, if you visit our UMN GitHub repository, you'll see that your edited
+files appear on the author's branch.
+
+# Site Admin: Publish a new post
+
+The following instructions demonstrate how to add an additional remote
+to your local dhs-research-hub repository. **You only need to follow
+these instructions if you are involved in managing updates to the live
+blog.** All of these commands can be run in the RStudio Terminal.
+
+### Rename UMN GitHub remote
+
+Before adding a second remote, it's best to rename the UMN GitHub remote
+to disambiguate it from the public repository remote that you will be
+adding. You can check the current name with:
+
+```{.bash filename="Terminal"}
+git remote
+```
+
+By default, the remote will be called `origin`. We suggest renaming it
+to `private`:
+
+```{.bash filename="Terminal"}
+git remote rename origin private
+```
+
+Similarly, you should also give the `private/main` branch a new name, as
+the public repository will also contain a `main` branch.
+
+To see all of the remote branches currently in use:
+
+```{.bash filename="Terminal"}
+git remote show private
+```
+
+Checkout `main` and change its name. We suggest `private-main`:
+
+```{.bash filename="Terminal"}   
+git checkout main
+git branch -m "private-main"
+```
+
+Now, add the **public remote** and fetch its branches (there should only
+be one, called `main`):
+
+```{.bash filename="Terminal"}
+git remote add public https://github.com/ipums/dhs-research-hub
+git fetch public
+```
+
+Create a local branch called `public-main` set to track with `main` on
+the `public` remote:
+
+```{.bash filename="Terminal"}   
+git branch public-main public/main
+```
+
+At this point, you'll notice that RStudio shows two remotes (with the
+branches you've fetched) and all of the local branches you've created so
+far.
+
+```{r}
+knitr::include_graphics("images/bpw/dual-remotes.png")
+```
+
+### Create a Git Hook to remove data from the public repo
+
+**We should never push IPUMS data extracts to the public repository**,
+but we need to have these data available on the private repository in
+order to build each others' posts when we want to review or merge new
+content.
+
+Recall that all data used in a post should be stored in the `data`
+directory. Fortunately, we don't have to manually delete every `data`
+directory before merging to the public remote. Instead, we can use [git
+hooks](https://git-scm.com/docs/githooks) to automate the process of
+deleting these files every time a post is merged to the public remote.
+
+To do so, create a file called `post-merge` containing the following
+code, and put it in the `.git/hooks/` directory:
+
+```{.bash filename=".git/hooks/post-merge"}          
+#! /bin/sh
+green='\033[0;32m'
+nc='\033[0m'
+
+# Start from the repository root.
+cd ./$(git rev-parse --show-cdup)
+
+# Delete data files and empty directories.
+if [ `git rev-parse --abbrev-ref HEAD` == "public-main" ]; then
+  echo "${green}Deleting data files...${nc}"
+  find . -path '*/data/*' -delete
+  find . -type d -empty -delete
+fi
+```
+
+::: callout-note
+This will only delete `data` folders if a branch called `public-main` is
+currently checked out when we run `git merge` (see below). **If you gave
+a different name to your local public branch, you'll have to edit this
+code.**
+:::
+
+You also must make this file executable. For MacOS users, you can do
+this by entering the following command into Terminal (assuming you're
+already in the `dhs-research-hub` directory):
+
+```{.bash filename="Terminal"}
+chmod +x .git/hooks/post-merge
+```
+
+Now, when you follow the merging steps below, any file saved in a
+directory called `data` (including all sub-directories) will be deleted
+automatically.
+
+### Merge a new post
+
+To merge a new post, we first need to merge the content from the
+author's branch to the main branch of the private repository. Then, we
+need to merge the main branch of the private repository to the main
+branch of the public repository.
+
+We follow a "squash and merge" workflow to help avoid creating divergent
+commit histories between the private and public repositories:
+
+1.  Squash and Merge the author's branch to `private/main`
+2.  Build site, Commit, and Push to `private/main`
+3.  Merge `private/main` to `public/main`
+4.  Push to `public/main`
+
+Our authoring/editing workflow generates a commit each time someone adds
+a change to the branch for a new post. We will [squash and
+merge](https://docs.gitlab.com/ee/user/project/merge_requests/squash_and_merge.html)
+this commit history into a single commit on `private/main`.
+
+For example, with a new post on the branch `blog-post-workflow`:
+
+```{.bash filename="Terminal"}
+git checkout private-main
+git merge --squash blog-post-workflow
+```
+
+Now that the post is merged, we can render the full site by running:
+
+```{.bash filename="Terminal"}
+quarto render
+```
+
+Look over the site to make sure everything looks good. It's also worth
+double-checking the `git diff` to make sure that there aren't any
+unexpected file changes that resulted from adding the new post. We won't
+be making edits directly to the public repository, so this is the time
+to make any final changes.
+
+::: callout-tip
+Reviewing Git changes is more easily done in a Git client interface.
+Unfortunately, not all Git clients are freely available for GitHub
+Enterprise repositories, but [GitHub
+Desktop](https://desktop.github.com/) is one option that we find
+helpful.
+:::
+
+When you're ready, add all files and commit your changes with a relevant
+message:
+
+```{.bash filename="Terminal"}
+git add .
+git commit -m "new post: blog-post-workflow"
+```
+
+Although your local branch has a different name than the branch on the
+remote, you can still push your commit to the remote `main` with the
+following command:
+
+```{.bash filename="Terminal"}
+git push private HEAD:main
+```
+
+<!-- You'll now see that the GitHub Pages site hosted at UMN GitHub should -->
+
+<!-- update to reflect your changes. -->
+
+To merge your `private-main` to `public-main`:
+
+```{.bash filename="Terminal"}
+git checkout public-main
+git merge --squash --allow-unrelated-histories private-main -X theirs
+```
+
+::: callout-note
+`--squash` once again squashes all changes in the private repository
+into a single commit. This means that all changes since the last merge
+to the public repository will be reflected in this commit. You may want
+to update your commit message to reflect this fact (e.g. if you are
+merging multiple posts at once).
+
+`--allow-unrelated-histories` allows the merge even though the public
+and private repositories do not share a baseline history. This isn't a
+concern here—we don't want the public version of the site to reflect all
+our small changes when working on posts.
+
+`-X theirs` indicates that we want to defer to the changes on
+`private-main` over those on `public-main` in the event that there are
+any conflicts.
+:::
+
+At this point, review the files that will be included in the merge
+commit. You should not see any `data` folders, as they should be deleted
+automatically (if not, **delete them now**).
+
+When you're ready to commit the merge, run the following (with a
+relevant commit message):
+
+```{.bash filename="Terminal"}          
+git add .
+git commit -m "new post: blog-post-workflow"
+```
+
+Finally, push the new post to the `main` branch of the public
+repository:
+
+```{.bash filename="Terminal"}
+git push public HEAD:main
+```
+
+The new post has now gone live!

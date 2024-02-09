@@ -1,2 +1,1 @@
-# dhs-launchpad
-IPUMS DHS Climate Change and Health Launchpad
+# IPUMS DHS Climate Change and Health Research Hub

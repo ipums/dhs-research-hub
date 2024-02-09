@@ -1,0 +1,79 @@
+project:
+  type: website
+  output-dir: docs
+
+website:
+  title: "IPUMS DHS Climate Change and Health Research Hub"
+  description: "An IPUMS DHS Blog"
+  favicon: images/favicon/favicon-32x32.ico
+  site-url: https://ipums.github.io/dhs-research-hub
+  page-footer:
+    center: |
+      Developed by <a href = https://www.ipums.org>IPUMS</a> at the 
+      University of Minnesota<br>Licensed under the
+      <a href=https://www.mozilla.org/en-US/MPL/2.0/>Mozilla Public License Version 2.0</a>
+  navbar:
+    title: false
+    logo: images/dhs_logo_white.png
+    logo-href: https://www.idhsdata.org/idhs/
+    left:
+      - text: "Climate Change and Health Research Hub"
+        file: index.qmd
+    right:
+      - text: "Posts"
+        file: index.html
+      - text: "Getting Started"
+        menu:
+          - text: "An Introduction to R"
+            file: posts/2024-02-01-getting-started-with-r/index.html
+          - text: "Obtaining IPUMS DHS Data"
+            file: posts/2024-02-02-download-dhs-data/index.html
+      - text: "Community"
+        menu:
+          - text: "IPUMS Forum"
+            href: https://forum.ipums.org
+          - text: "Code of Conduct"
+            href: CODE_OF_CONDUCT.html
+          - text: "License"
+            href: LICENSE.html
+      - text: "About"
+        href: about.qmd
+      - text: "{{< fa brands github >}}"
+        href: https://github.com/ipums/dhs-research-hub
+      - text: "{{< fa rss >}}"
+        href: index.xml
+      - text: "{{< fa brands x-twitter >}}"
+        href: https://twitter.com/ipumsGH
+      - text: "{{< fa users >}}"
+        href: https://forum.ipums.org
+      - text: "{{< fa globe >}}"
+        href: https://www.ipums.org/
+  search:
+    type: textbox
+  google-analytics: "G-0WLH5S9VD5"
+    
+format:
+  html:
+    theme:
+      - cosmo
+      - custom.scss
+    toc: true
+    toc-location: left
+    toc-expand: 1
+    toc-title: "Contents"
+    code-block-border-left: false
+    code-block-bg: true
+    highlight-style: arrow
+    code-line-numbers: false
+    code-link: true
+    appendix-style: default
+
+csl: csl/apa-numeric-superscript.csl
+
+knitr:
+  opts_chunk: 
+    collapse: true
+    comment: "#>"
+
+editor: visual
+

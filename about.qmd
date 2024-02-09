@@ -1,0 +1,99 @@
+---
+title: "About this Blog"
+title-block-banner: true
+---
+
+## Supporting climate and health research
+
+IPUMS DHS data provide a critical resource to help illuminate the
+relationship between climate change and population health. To support
+such research, the IPUMS Global Health team received a 2023 supplemental
+grant from the Eunice Kennedy Shriver National Institute of Child Health
+and Human Development, or NICHD (3R01HD069471-12S1).
+
+This blog is designed to be a resource for researchers who are familiar
+with population health survey data but new to research using spatial
+data sources. The blog will introduce spatial data concepts and
+demonstrate basic spatial data processing techniques in R.
+
+Additionally, the supplemental grant supports:
+
+-   the integration and dissemination of DHS malaria monitoring data
+    (MIS surveys) in IPUMS DHS.
+-   the dissemination of displaced GPS coordinates for DHS primary
+    sampling units and the addition of new contextual variables to the
+    IPUMS data extract system.
+
+These three elements will make it easier to add environmental context to
+research using IPUMS DHS surveys and will provide additional data
+relevant to disease vector transmission. Combined, they will enhance
+researchers' ability to use IPUMS DHS data to understand the impacts of
+climate change on health.
+
+#### Additional support
+
+This blog is developed in collaboration with the [Climate Hazards
+Center](https://chc.ucsb.edu/) at the University of California, Santa
+Barbara and is supported by USAID Cooperative Agreement 72DFFP19CA00001.
+
+The IPUMS research team also receives support as members of the
+[Minnesota Population Center](https://pop.umn.edu/) through a grant from
+the NICHD Population Research Infrastructure Program (P2C HD041023).
+
+## What is IPUMS DHS?
+
+[IPUMS](https://www.ipums.org) provides census and survey data from
+around the world integrated across time and space. IPUMS integration and
+documentation makes it easy to study change, conduct comparative
+research, merge information across data types, and analyze individuals
+within family and community context.
+
+IPUMS is comprised of several individual products, each with different
+data sources and content areas. [IPUMS
+DHS](https://www.idhsdata.org/idhs/) is one of several [IPUMS Global
+Health](https://globalhealth.ipums.org/) products---representative
+household surveys, primarily from low- and middle-income countries, that
+gather extensive information on health, family planning, living
+conditions, and more.
+
+IPUMS DHS specifically facilitates analysis of data provided by [The
+Demographic and Health Surveys Program](https://www.dhsprogram.com/)
+(DHS), which has been administered in low- and middle-income countries
+since the 1980s.
+
+IPUMS DHS harmonizes DHS variables over time and provides comprehensive
+cross-survey documentation to make it easier to find and understand DHS
+data.
+
+IPUMS DHS data are available free of charge, but users must
+[register](https://dhsprogram.com/data/new-user-registration.cfm) with
+The DHS Program to gain access. Registered DHS users can enter their DHS
+username and password to access data from IPUMS DHS. For more
+information about downloading IPUMS DHS data, see the [associated
+post](posts/2024-02-02-download-dhs-data).
+
+## How to cite
+
+For a comprehensive guide to citing IPUMS DHS, see the [citation
+page](https://www.idhsdata.org/idhs/citation.shtml) on the IPUMS DHS
+website.
+
+To cite an individual post on this blog, we suggest the following
+format:
+
+> Roberts, F., & Gunther, M. (2024, Februrary 4). *Attaching CHIRPS
+> precipitation data to DHS surveys*. IPUMS DHS Climate Change and
+> Health Research Hub.
+> https://tech.popdata.org/dhs-research-hub/posts/2024-02-04-dhs-chirps/index.html
+
+## Getting help
+
+IPUMS users can find help on the [IPUMS User
+Forum](https://forum.ipums.org/) or by contacting IPUMS user support at
+ipums\@umn.edu.
+
+## Related work
+
+IPUMS Global Health also houses the [IPUMS PMA Data Analysis
+Hub](https://tech.popdata.org/pma-data-hub/), a similar blog focused on
+working with IPUMS PMA data in R.

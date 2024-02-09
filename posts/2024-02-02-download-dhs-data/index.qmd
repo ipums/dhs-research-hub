@@ -1,0 +1,210 @@
+---
+title: "Obtaining Data from IPUMS DHS"
+description: |
+  Identify and download data from the IPUMS DHS website and load it into R
+author:
+  - name: Finn Roberts
+    affiliation: Senior Data Analyst, IPUMS
+  - name: Matt Gunther
+    affiliation: Research Methodologist, NORC
+date: 02-02-2024
+categories:
+  - Tips
+  - Importing data
+  - R
+fig-width: 10
+fig-height: 8
+image: ../../images/dhs_logo_navy.png
+---
+
+```{r}
+#| results: hide
+#| echo: false
+source("../../R/utils.R")
+```
+
+[The Demographic and Health Surveys Program](https://dhsprogram.com/)
+(DHS) is the leading source of population health data for low- and
+middle-income countries around the world. [IPUMS
+DHS](https://www.idhsdata.org/idhs/) disseminates a harmonized version
+of the DHS survey results in which variables are integrated across time
+and space, facilitating comparative and longitudinal analysis.
+Furthermore, IPUMS DHS provides a web interface and streamlined
+documentation to make the data discovery and download process easier.
+
+# Accessing the data
+
+To obtain access to IPUMS DHS data, you must first [request data
+access](https://dhsprogram.com/data/new-user-registration.cfm) from the
+DHS Program. Once you've done so, you can use your username and password
+from DHS to log in to IPUMS DHS.
+
+## Browse data
+
+Users can browse the available data using the IPUMS DHS [data selection
+interface](https://www.idhsdata.org/idhs-action/variables/group), which
+includes sample and variable availability, descriptions, codes, and
+more.
+
+For more information about how to use the interface, see the IPUMS DHS
+[user guide](https://www.idhsdata.org/idhs/user_guide.shtml).
+
+## Select data
+
+Once you've selected the samples and variables you want to include in
+your data extract, click **View Cart** to review your selections. If
+you're satisfied with the contents of your extract, click **Create Data
+Extract**.
+
+```{r}
+#| echo: false
+#| column: screen-inset
+#| fig-align: center
+
+knitr::include_graphics("images/dhs-download1.png")
+```
+
+IPUMS DHS allows you to select one of several output file formats. On
+this blog, we will use the default *fixed-width* (.dat) file option,
+which is the format expected by the data-reading functions provided in
+ipumsr.
+
+```{r}
+#| echo: false
+#| column: screen-inset
+#| fig-align: center
+
+knitr::include_graphics("images/dhs-download2.png")
+```
+
+Click **Submit Extract** to submit your extract for processing on the
+IPUMS servers. You'll receive an email when your extract is complete and
+ready to download.
+
+## Download data
+
+Click the green download button to download the compressed data file for
+your extract.
+
+You will also need to download an associated metadata (DDI) file. This
+is an XML file that contains parsing instructions for the fixed-width
+data file as well as descriptive information about the variables
+contained in an extract.
+
+::: column-margin
+DDI stands for [Data Documentation
+Initiative](https://ddialliance.org/), an international standard for
+documenting data obtained in survey research.
+:::
+
+You can do so by right clicking the **DDI** link and selecting **Save
+link as...**.
+
+```{r}
+#| echo: false
+#| column: screen-inset
+#| fig-align: center
+
+knitr::include_graphics("images/microdata_annotated_screenshot.png")
+```
+
+::: callout-tip
+The specific text included in the dropdown may differ based on the
+browser that you are using. For instance, Safari displays the option
+**Download Linked File As...**.
+
+The important thing is that you download the DDI file in **.xml**
+format, *not* .html format.
+:::
+
+# Load IPUMS DHS data into R
+
+The [ipumsr](https://tech.popdata.org/ipumsr/index.html) package
+provides the tools you'll need to easily load your extract into R.
+
+::: column-margin
+`r hex("ipumsr")`
+:::
+
+If you haven't previously installed the package, you can do so with:
+
+```{r}
+#| eval: false
+install.packages("ipumsr")
+```
+
+To load your data, use `read_ipums_micro()`. If your data file and DDI
+file are in the same directory, you can load the data by providing only
+the DDI file path. To be safe, we typically provide the path to both
+files.
+
+Note that you'll need to adjust the file paths to reflect the location
+of the files on your local system.
+
+```{r}
+library(ipumsr)
+
+dhs <- read_ipums_micro(
+  ddi = "data/dhs/idhs_00015.xml",
+  data_file = "data/dhs/idhs_00015.dat.gz",
+)
+```
+
+You should now have a tabular data source loaded into R:
+
+```{r}
+dhs
+```
+
+### Why use ipumsr?
+
+Several R packages already exist for reading external data files. There
+are a few reasons we suggest using ipumsr to work with IPUMS data.
+
+#### Load compressed files
+
+First, IPUMS delivers data extracts as compressed archives. ipumsr
+anticipates this and allows you to load data directly without having to
+manually decompress these files.
+
+#### View variable metadata
+
+Furthermore, ipumsr uses the metadata contained in an extract's DDI file
+to attach contextual information to the loaded data. For instance, to
+get a description of a variable contained in an extract, use
+`ipums_var_label()`:
+
+```{r}
+ipums_var_label(dhs$HWHAZWHO)
+```
+
+Use `ipums_val_labels()` to check if there are any labeled values in the
+data for that variable. Labeled values typically represent categories
+(for non-continuous variables) or contain information about the codes
+used for missing values.
+
+For `HWHAZWHO`, several values represent different types of missing
+data. (You will likely want to convert these values to `NA` before
+conducting an analysis using this variable!)
+
+```{r}
+ipums_val_labels(dhs$HWHAZWHO)
+```
+
+More details about working with IPUMS metadata can be found in the
+[ipumsr
+documentation](https://tech.popdata.org/ipumsr/articles/value-labels.html).
+
+#### Access the IPUMS API
+
+Finally, ipumsr provides an R interface for the IPUMS API, allowing you
+to request and download data entirely within your R environment. While
+these features do not currently support IPUMS DHS, work on the API is
+ongoing, so you may be able to access IPUMS DHS data in the future! To
+see more about the projects that are currently supported by the IPUMS
+API, check out the [API
+documentation](https://developer.ipums.org/docs/v2/apiprogram/).
+
+See the [API
+introduction](https://tech.popdata.org/ipumsr/articles/ipums-api.html)
+to learn how to use ipumsr to interact with the IPUMS API.

@@ -1,0 +1,354 @@
+---
+title: "An Introduction to R"
+description: "Getting started with R and RStudio"
+author:
+  - name: Finn Roberts
+    affiliation: Senior Data Analyst, IPUMS
+  - name: Matt Gunther
+    affiliation: Research Methodologist, NORC
+categories:
+  - Tips
+  - R
+date: 02-01-2024
+---
+
+```{r}
+#| results: hide
+#| echo: false
+source("../../R/utils.R")
+```
+
+The IPUMS DHS Climate Change and Health Research Hub is designed to
+introduce spatial data concepts for researchers who work with population
+health survey data.
+
+To do so, the blog will provide both **conceptual** content describing
+ways in which spatial data can be appropriately included in population
+research as well as **technical** content demonstrating how to implement
+some of these approaches using statistical software.
+
+Technical content will rely primarily on the R programming language. Not
+only is R one of the most popular platforms for data analysis around the
+world, but its open-source nature aligns well with IPUMS values. R is
+freely available for Windows, MacOS, and a wide variety of UNIX
+platforms and similar systems (including FreeBSD and Linux).
+
+::: column-margin
+For those interested in analyzing IPUMS DHS data with other statistical
+platforms, IPUMS does provide data extracts in proprietary formats, like
+SPSS, Stata, and SAS.
+:::
+
+# Why R?
+
+::: column-margin
+`r hex("Rlogo")`
+:::
+
+Plenty of people come to R after working with more common types of data
+analysis software, like Microsoft Excel or other spreadsheet programs.
+
+It's certainly possible to download a CSV file from IPUMS DHS and open
+it in Excel; however, compared to Excel (and some other analysis
+software), R has several advantages:
+
+-   **Reproducibility & automation:** R allows you to explicitly write
+    the sequence of data processing steps used in an analysis. This
+    allows you to demonstrate to others exactly what steps you took in
+    an analysis, and also makes it much easier for you to automate
+    processing tasks that you do regularly.
+-   **Advanced statistical procedures:** R is first and foremost a
+    statistical software. This means that a wide array of statistical
+    methodologies have already been implemented in R, and more are being
+    added all the time.
+-   **Data visualization:** R is well-known for its strong graphics
+    capabilities. In many cases, you can produce professional-quality
+    visuals with R code alone.
+-   **Spatial data:** R is not limited to spreadsheets: it supports a
+    variety of more complex data structures, including several spatial
+    data representations.
+-   **Community support:** R users are active on forums like [Stack
+    Overflow](https://stackoverflow.com/) and
+    [R-bloggers](https://www.r-bloggers.com/). Groups like
+    [R-ladies](https://rladies.org/) even organize in-person meetups in
+    cities around the world to help promote inclusion within the R
+    community.
+-   **More than just statistics:** You can use R to build a website
+    (like this one), manage and share a code repository on GitHub,
+    scrape and compile a social media database, or automatically
+    generate word documents, slide presentations, and more! There are
+    practically endless ways to use functional programming in R that
+    have nothing to do with statistics at all.
+
+Additionally, R provides specific tools for working with IPUMS data
+through the [ipumsr](https://tech.popdata.org/ipumsr) package:
+
+-   **Specialized functions** to ease the process of loading IPUMS data
+    into R
+-   **Enhanced metadata** that is not available in Excel spreadsheets
+-   A **client interface** to the [IPUMS
+    API](https://developer.ipums.org/docs/v2/apiprogram/), which allows
+    you to request and download data from IPUMS using R code alone.
+
+::: column-margin
+IPUMS DHS is not yet supported via the IPUMS API, but the IPUMS API is
+under active development, and more projects will continue to be added.
+Check out the [API
+documentation](https://developer.ipums.org/docs/v2/apiprogram/apis/) to
+see the projects that are supported, and stay tuned for updates!
+:::
+
+The flip side to these benefits is the learning curve for those just
+starting out. Learning R *will* take practice, but doing so will almost
+certainly make your work much more efficient!
+
+## Getting started with R
+
+To download R, visit the [Comprehensive R Archive
+Network](https://cloud.r-project.org/) (CRAN) and choose the appropriate
+download link for your operating system.
+
+::: callout-note
+## R Version Requirements
+
+This blog is designed to work with R 4.1.0 and later. The 4.1.0 release
+included several notable updates that are used in this blog, including
+the introduction of the native pipe operator `|>`.
+
+If you've previously downloaded R, you'll need to update your R version
+to run some of the code presented in this blog.
+:::
+
+There are countless free resources available for learning R, from
+foundational knowledge to niche topics. Here are a few of our favorite
+resources to help you get started:
+
+-   [R for Data Science](https://r4ds.hadley.nz/) for beginners
+-   [Advanced R](https://adv-r.hadley.nz/) for a deeper dive
+-   [RSpatial](https://rspatial.org/) and [Geocomputation with
+    R](https://r.geocompx.org/) for analysis with spatial data
+-   [ggplot2](https://ggplot2-book.org/) for data visualization
+-   [Mastering Shiny](https://mastering-shiny.org/) for interactive
+    applications
+-   [R Markdown: The Definitive
+    Guide](https://bookdown.org/yihui/rmarkdown/) for producing
+    annotated code, word documents, presentations, web pages, and more
+-   [R-bloggers](https://www.r-bloggers.com/) for regular news and
+    tutorials
+
+Additionally, you can always get help on Stack Overflow and—for
+[packages](#packages) hosted on GitHub—their GitHub issues page. No
+matter what question you have, you're unlikely to be the first person to
+encounter it, so it's always worth checking to see whether your problem
+has been solved in the past.
+
+# RStudio
+
+We **strongly** recommend running R within
+[RStudio](https://posit.co/products/open-source/rstudio/), a free
+integrated development environment (IDE) designed to make your
+experience with R *much easier*. Some features of RStudio include:
+
+-   a multi-pane window that puts your R console, source code, output,
+    and help files all in one place.
+-   syntax highlighting and code completion.
+-   support for [R
+    Projects](https://support.rstudio.com/hc/en-us/articles/200526207-Using-Projects),
+    a crucial approach to organizing your work and sharing it with
+    others.
+-   support for [RMarkdown](https://rmarkdown.rstudio.com/), an R
+    package that allows you write text-based documents with embedded
+    snippets of code that can be passed directly to your R console.
+-   a variety of other helpful tools. Check out the [Posit
+    blog](https://posit.co/blog/) for the latest!
+
+# R packages {#packages}
+
+An R *package* is a collection of functions created by other R users
+that you can download and install for yourself. Most R packages can be
+downloaded from CRAN (the same resource used to download "base" R).
+
+You can install packages from CRAN using `install.packages()`. For
+instance, to install ipumsr:
+
+::: column-margin
+This function saves package files in your default "library" location. If
+you're using a Linux machine and don't have root access, you'll need to
+[set up](https://www.r-bloggers.com/2010/11/installing-r-packages) R to
+save packages to a location where you're able to write files.
+:::
+
+```{r}
+#| eval: false
+install.packages("ipumsr")
+```
+
+::: callout-tip
+## Other Package Sources
+
+It's also possible to download packages from other public sources, like
+[GitHub](https://github.com/). This may be the only way to get the
+latest updates to a package or to install newer packages that haven't
+yet been submitted to CRAN.
+
+Use `remotes::install_github()` to install packages from GitHub.
+:::
+
+In order to access functions from a package, you'll need to *load* it
+with `library()`:
+
+```{r}
+#| eval: false
+library(ipumsr)
+```
+
+::: callout-note
+## Installing vs. Loading
+
+Note the difference between *installing* a package and *loading* a
+package. Installing downloads the package files to your system, but does
+not automatically make those functions available in your R session.
+Loading a package takes a previously installed package and makes its
+functions available for use.
+:::
+
+Once you've done so, all the functions provided by ipumsr will be
+available for use, and you can call them by name. For instance, to use
+ipumsr's `read_ipums_micro()`:
+
+```{r}
+#| eval: false
+read_ipums_micro(
+  ddi = "data/dhs/idhs_00015.xml",
+  data_file = "data/dhs/idhs_00015.dat.gz"
+)
+```
+
+On occasion, you may see the alternative `::` notation:
+
+```{r, eval=F, echo=T}
+ipumsr::read_ipums_micro(
+  ddi = "data/dhs/idhs_00015.xml",
+  data_file = "data/dhs/idhs_00015.dat.gz"
+)
+```
+
+This is simply a more explicit way of indicating that we want to use the
+`read_ipums_micro()` function *from* the ipumsr package. If you've
+already loaded the package with `library()`, you don't need to use `::`
+notation every time you use a package function. (On the other hand, even
+if you haven't loaded an entire package, you can always use `::`
+notation to access its functions.)
+
+Packages also come with help files detailing the purpose and possible
+inputs, or *arguments*, of each included function. To access help files,
+use `?`:
+
+```{r}
+#| eval: false
+?read_ipums_micro
+```
+
+## Essential packages
+
+Several packages will come into frequent use on this blog.
+
+### ipumsr
+
+The [ipumsr](https://tech.popdata.org/ipumsr/) package contains
+functions that make it easier to load IPUMS data into R.
+
+::: column-margin
+`r hex("ipumsr")`
+:::
+
+For IPUMS DHS, the most relevant of these is `read_ipums_micro()`, which
+allows you to load a fixed-width data file along with associated
+metadata.
+
+ipumsr also contains functions to interact with variable metadata after
+loading, like `ipums_var_info()`, `ipums_val_labels()`, and so on.
+
+As mentioned above, ipumsr also contains client tools for interacting
+with the IPUMS API. This allows users to request and download IPUMS data
+entirely within their R environment. While not available for IPUMS DHS,
+users of supported IPUMS collections can learn more from the API
+workflows introduced on the ipumsr
+[website](https://tech.popdata.org/ipumsr/articles/ipums-api.html)
+
+### tidyverse
+
+The [tidyverse](https://www.tidyverse.org/packages/) package actually
+refers to a family of related packages. Installing tidyverse will
+actually install each of these component packages:
+
+::: column-margin
+`r hex("tidyverse")`
+:::
+
+-   [ggplot2](https://ggplot2.tidyverse.org/) for data visualization
+-   [dplyr](https://dplyr.tidyverse.org/) for data manipulation
+-   [tidyr](https://tidyr.tidyverse.org/) for data tidying
+-   [readr](https://readr.tidyverse.org/) for data import
+-   [purrr](https://purrr.tidyverse.org/) for functional programming
+-   [tibble](https://tibble.tidyverse.org/) for tibbles (a modern
+    re-imagining of data frames)
+-   [stringr](https://github.com/tidyverse/stringr) for string
+    manipulation
+-   [forcats](https://github.com/hadley/forcats) for factor handling
+
+It's possible to call `library(tidyverse)` to load *all* the packages in
+the tidyverse collection, but in most cases it's best to individually
+load the specific packages you need for a given R script. This allows
+you and other users to more easily identify the specific packages
+required to run your code. It also makes your code more accessible—other
+users won't have to have the entire tidyverse collection installed to
+run your code, only the specific packages that are actually required.
+
+In general, this blog will follow the tidyverse [style
+guide](https://style.tidyverse.org/) where possible. So-called "tidy"
+conventions are designed with the express purpose of making code and
+console output more human readable.
+
+::: callout-tip
+Sometimes, human readability imposes a performance cost: in our
+experience, IPUMS DHS datasets are small enough that this is not an
+issue. For larger datasets, we recommend exploring the
+`r funlink(data.table)` package instead.
+:::
+
+### sf
+
+::: column-margin
+`r hex("sf")`
+:::
+
+`r funlink(sf)`, which stands for *simple features*, is the main R
+package for working with spatial vector data.
+
+sf represents spatial data in a "tidy" format that resembles those used
+by tidyverse packages mentioned above. sf objects contain tabular data
+along with a record of the *geometry* associated with each individual
+record.
+
+This format makes it easy to perform spatial operations, attach spatial
+information to non-spatial data sources (like DHS surveys), and generate
+maps.
+
+### terra
+
+::: column-margin
+`r hex("terra")`
+:::
+
+`r funlink(terra)` provides a general framework for working with spatial
+data in both raster and vector format.
+
+While sf provides an alternative approach to working with vector data,
+terra's raster handling stands alone and provides robust methods to
+quickly index, aggregate, and manipulate raster data.
+
+Because of its speed and simplicity, terra has superseded the long-lived
+raster package, which is being retired. You may still see online
+resources that reference the raster package, but we suggest relying only
+on terra.
