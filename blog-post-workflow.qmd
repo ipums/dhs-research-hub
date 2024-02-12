@@ -343,7 +343,21 @@ directory has been added.
 ![](images/bpw/post_added.png)
 :::
 
-You'll notice that the .qmd file contains a **header** with various
+At this point, you can proceed to write your post in Quarto/RMarkdown
+format, as mentioned [above](#working-in-quarto). As you're working on a
+post, you can get a preview of what the post will look like on the site
+by clicking the *Render* button in the toolbar above the .qmd document
+you're editing.
+
+::: column-margin
+You can switch between previewing the page in the RStudio Viewer tab or
+in your computer's default web browser. Click the settings icon next to
+the *Render* button for preview options.
+:::
+
+### Post metadata
+
+You'll notice that the .qmd file contains a **YAML header** with various
 specifications about your post. The main options that you're likely to
 use are:
 
@@ -358,10 +372,17 @@ use are:
     for any citations used in the post. This is used to automatically
     format the reference list that appears at the bottom of each post.
     Most citation managers have an option to export a .bib file.
+-   `open-graph` and `twitter-card`: Specifications for the text and images
+    to display when linking to this post (for instance, on Facebook, 
+    Twitter, etc.). In general, the title should be the same as the post title,
+    with a `"IPUMS DHS Research Hub —"` prefix. The description can mirror
+    the post description. The `image` field should be a file path (relative
+    to the post location) to the image to use as a thumbnail that will accompany
+    the link. Usually this will come from the body of the post.
 
 As an example, here's the header for one of the posts on the blog:
 
-```{.yaml filename="dhs-chirps.qmd"}         
+```{.yaml filename="posts/2024-02-04-dhs-chirps/index.qmd"}         
 ---
 title: "Attaching CHIRPS Precipitation Data to DHS Surveys"
 description: |
@@ -383,24 +404,24 @@ categories:
   - ggspatial
   - R
 bibliography: references.bib
+open-graph:
+  title: "IPUMS DHS Research Hub — Attaching CHIRPS Precipitation Data to DHS Surveys"
+  description: |
+    Remotely sensed precipitation data can provide important context for
+    understanding the health outcomes reported in the DHS
+  image: index_files/figure-html/listing-img-1.png
+twitter-card:
+  title: "IPUMS DHS Research Hub — Attaching CHIRPS Precipitation Data to DHS Surveys"
+  description: |
+    Remotely sensed precipitation data can provide important context for
+    understanding the health outcomes reported in the DHS
+  image: index_files/figure-html/listing-img-1.png
 ---
 ```
 
 If you're curious, you can check out the [Quarto
 documentation](https://quarto.org/docs/reference/formats/html.html) for
 a comprehensive list of the available options.
-
-At this point, you can proceed to write your post in Quarto/RMarkdown
-format, as mentioned [above](#working-in-quarto). As you're working on a
-post, you can get a preview of what the post will look like on the site
-by clicking the *Render* button in the toolbar above the .qmd document
-you're editing.
-
-::: column-margin
-You can switch between previewing the page in the RStudio Viewer tab or
-in your computer's default web browser. Click the settings icon next to
-the *Render* button for preview options.
-:::
 
 ### Put your data in `data`!
 

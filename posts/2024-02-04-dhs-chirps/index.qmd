@@ -22,6 +22,18 @@ fig-width: 10
 fig-height: 8
 image: index_files/figure-html/listing-img-1.png
 bibliography: references.bib
+open-graph:
+  title: "IPUMS DHS Research Hub — Attaching CHIRPS Precipitation Data to DHS Surveys"
+  description: |
+    Remotely sensed precipitation data can provide important context for
+    understanding the health outcomes reported in the DHS
+  image: index_files/figure-html/listing-img-1.png
+twitter-card:
+  title: "IPUMS DHS Research Hub — Attaching CHIRPS Precipitation Data to DHS Surveys"
+  description: |
+    Remotely sensed precipitation data can provide important context for
+    understanding the health outcomes reported in the DHS
+  image: index_files/figure-html/listing-img-1.png
 ---
 
 We know that health outcomes are significantly impacted by individuals'
@@ -108,8 +120,8 @@ terms) from IPUMS DHS and load it into R. The extract in this post
 contains the `HWHAZWHO` variable (which contains the height-for-age
 Z-score) along with several pre-selected variables for the **2010
 Burkina Faso** sample. If you need a refresher on how to download IPUMS
-DHS data, see the 
-[Downloading IPUMS DHS Data](../2024-02-02-download-dhs-data/index.html) post.
+DHS data, see the [Downloading IPUMS DHS
+Data](../2024-02-02-download-dhs-data/index.html) post.
 
 ::: column-margin
 `r hex("ipumsr")`

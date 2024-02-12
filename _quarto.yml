@@ -4,9 +4,17 @@ project:
 
 website:
   title: "IPUMS DHS Climate Change and Health Research Hub"
-  description: "An IPUMS DHS Blog"
+  description: "Understand population health in its environmental context"
   favicon: images/favicon/favicon-32x32.ico
   site-url: https://ipums.github.io/dhs-research-hub
+  open-graph:
+    title: "IPUMS DHS Climate Change and Health Research Hub"
+    description: "Understand population health in its environmental context"
+    image: images/dhs_logo_navy_pad.png
+  twitter-card:
+    title: "IPUMS DHS Climate Change and Health Research Hub"
+    description: "Understand population health in its environmental context"
+    image: images/dhs_logo_navy_pad.png
   page-footer:
     center: |
       Developed by <a href = https://www.ipums.org>IPUMS</a> at the 

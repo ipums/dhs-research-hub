@@ -15,6 +15,16 @@ categories:
 fig-width: 10
 fig-height: 8
 image: ../../images/dhs_logo_navy.png
+open-graph:
+  title: "IPUMS DHS Research Hub — Obtaining Data from IPUMS DHS"
+  description: |
+    Identify and download data from the IPUMS DHS website and load it into R
+  image: ../../images/dhs_logo_navy_pad.png
+twitter-card:
+  title: "IPUMS DHS Research Hub — Obtaining Data from IPUMS DHS"
+  description: |
+    Identify and download data from the IPUMS DHS website and load it into R
+  image: ../../images/dhs_logo_navy_pad.png
 ---
 
 ```{r}

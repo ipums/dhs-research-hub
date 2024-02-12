@@ -101,6 +101,18 @@ function gtag(){dataLayer.push(arguments);}
 gtag('js', new Date());
 gtag('config', 'G-0WLH5S9VD5', { 'anonymize_ip': true});
 </script>
+<meta property="og:title" content="IPUMS DHS Climate Change and Health Research Hub">
+<meta property="og:description" content="Understand population health in its environmental context">
+<meta property="og:image" content="https://ipums.github.io/dhs-research-hub/images/dhs_logo_navy_pad.png">
+<meta property="og:site-name" content="IPUMS DHS Climate Change and Health Research Hub">
+<meta property="og:image:height" content="600">
+<meta property="og:image:width" content="1154">
+<meta name="twitter:title" content="IPUMS DHS Climate Change and Health Research Hub">
+<meta name="twitter:description" content="Understand population health in its environmental context">
+<meta name="twitter:image" content="https://ipums.github.io/dhs-research-hub/images/dhs_logo_navy_pad.png">
+<meta name="twitter:image-height" content="600">
+<meta name="twitter:image-width" content="1154">
+<meta name="twitter:card" content="summary_large_image">
 </head>
 <body class="floating nav-fixed slimcontent">
 
@@ -270,6 +282,7 @@ gtag('config', 'G-0WLH5S9VD5', { 'anonymize_ip': true});
 <li><a href="#working-in-quarto" id="toc-working-in-quarto" class="nav-link" data-scroll-target="#working-in-quarto">Working in Quarto</a></li>
   <li><a href="#create-a-new-branch" id="toc-create-a-new-branch" class="nav-link" data-scroll-target="#create-a-new-branch">Create a new branch</a></li>
   <li><a href="#create-a-new-post-directory" id="toc-create-a-new-post-directory" class="nav-link" data-scroll-target="#create-a-new-post-directory">Create a new post directory</a></li>
+  <li><a href="#post-metadata" id="toc-post-metadata" class="nav-link" data-scroll-target="#post-metadata">Post metadata</a></li>
   <li><a href="#put-your-data-in-data" id="toc-put-your-data-in-data" class="nav-link" data-scroll-target="#put-your-data-in-data">Put your data in <code>data</code>!</a></li>
   <li><a href="#push-your-post-to-github" id="toc-push-your-post-to-github" class="nav-link" data-scroll-target="#push-your-post-to-github">Push your post to GitHub</a></li>
   </ul>
@@ -533,7 +546,12 @@ Note
 <div class="column-page">
 <p><img src="images/bpw/post_added.png" class="img-fluid"></p>
 </div>
-<p>You’ll notice that the .qmd file contains a <strong>header</strong> with various specifications about your post. The main options that you’re likely to use are:</p>
+<p>At this point, you can proceed to write your post in Quarto/RMarkdown format, as mentioned <a href="#working-in-quarto">above</a>. As you’re working on a post, you can get a preview of what the post will look like on the site by clicking the <em>Render</em> button in the toolbar above the .qmd document you’re editing.</p>
+
+<div class="no-row-height column-margin column-container"><div class="">
+<p>You can switch between previewing the page in the RStudio Viewer tab or in your computer’s default web browser. Click the settings icon next to the <em>Render</em> button for preview options.</p>
+</div></div></section><section id="post-metadata" class="level3"><h3 class="anchored" data-anchor-id="post-metadata">Post metadata</h3>
+<p>You’ll notice that the .qmd file contains a <strong>YAML header</strong> with various specifications about your post. The main options that you’re likely to use are:</p>
 <ul>
 <li>
 <code>title</code>: the title of the post</li>
@@ -547,11 +565,13 @@ Note
 <code>categories</code>: tags that will be displayed and used to put posts into groups</li>
 <li>
 <code>bibliography</code>: a .bib file that contains the citation information for any citations used in the post. This is used to automatically format the reference list that appears at the bottom of each post. Most citation managers have an option to export a .bib file.</li>
+<li>
+<code>open-graph</code> and <code>twitter-card</code>: Specifications for the text and images to display when linking to this post (for instance, on Facebook, Twitter, etc.). In general, the title should be the same as the post title, with a <code>"IPUMS DHS Research Hub —"</code> prefix. The description can mirror the post description. The <code>image</code> field should be a file path (relative to the post location) to the image to use as a thumbnail that will accompany the link. Usually this will come from the body of the post.</li>
 </ul>
 <p>As an example, here’s the header for one of the posts on the blog:</p>
 <div class="code-with-filename">
 <div class="code-with-filename-file">
-<pre><strong>dhs-chirps.qmd</strong></pre>
+<pre><strong>posts/2024-02-04-dhs-chirps/index.qmd</strong></pre>
 </div>
 <div class="sourceCode" id="cb5"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">title</span><span class="kw">:</span><span class="at"> </span><span class="st">"Attaching CHIRPS Precipitation Data to DHS Surveys"</span></span>
@@ -574,14 +594,22 @@ Note
 <span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> ggspatial</span></span>
 <span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> R</span></span>
 <span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a><span class="fu">bibliography</span><span class="kw">:</span><span class="at"> references.bib</span></span>
-<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a><span class="fu">open-graph</span><span class="kw">:</span></span>
+<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">title</span><span class="kw">:</span><span class="at"> </span><span class="st">"IPUMS DHS Research Hub — Attaching CHIRPS Precipitation Data to DHS Surveys"</span></span>
+<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a><span class="fu">  description</span><span class="kw">: </span><span class="ch">|</span></span>
+<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a>    Remotely sensed precipitation data can provide important context for</span>
+<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a>    understanding the health outcomes reported in the DHS</span>
+<span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">image</span><span class="kw">:</span><span class="at"> index_files/figure-html/listing-img-1.png</span></span>
+<span id="cb5-28"><a href="#cb5-28" aria-hidden="true" tabindex="-1"></a><span class="fu">twitter-card</span><span class="kw">:</span></span>
+<span id="cb5-29"><a href="#cb5-29" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">title</span><span class="kw">:</span><span class="at"> </span><span class="st">"IPUMS DHS Research Hub — Attaching CHIRPS Precipitation Data to DHS Surveys"</span></span>
+<span id="cb5-30"><a href="#cb5-30" aria-hidden="true" tabindex="-1"></a><span class="fu">  description</span><span class="kw">: </span><span class="ch">|</span></span>
+<span id="cb5-31"><a href="#cb5-31" aria-hidden="true" tabindex="-1"></a>    Remotely sensed precipitation data can provide important context for</span>
+<span id="cb5-32"><a href="#cb5-32" aria-hidden="true" tabindex="-1"></a>    understanding the health outcomes reported in the DHS</span>
+<span id="cb5-33"><a href="#cb5-33" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">image</span><span class="kw">:</span><span class="at"> index_files/figure-html/listing-img-1.png</span></span>
+<span id="cb5-34"><a href="#cb5-34" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>If you’re curious, you can check out the <a href="https://quarto.org/docs/reference/formats/html.html">Quarto documentation</a> for a comprehensive list of the available options.</p>
-<p>At this point, you can proceed to write your post in Quarto/RMarkdown format, as mentioned <a href="#working-in-quarto">above</a>. As you’re working on a post, you can get a preview of what the post will look like on the site by clicking the <em>Render</em> button in the toolbar above the .qmd document you’re editing.</p>
-
-<div class="no-row-height column-margin column-container"><div class="">
-<p>You can switch between previewing the page in the RStudio Viewer tab or in your computer’s default web browser. Click the settings icon next to the <em>Render</em> button for preview options.</p>
-</div></div></section><section id="put-your-data-in-data" class="level3"><h3 class="anchored" data-anchor-id="put-your-data-in-data">Put your data in <code>data</code>!</h3>
+</section><section id="put-your-data-in-data" class="level3"><h3 class="anchored" data-anchor-id="put-your-data-in-data">Put your data in <code>data</code>!</h3>
 <p>We have to be careful when working with IPUMS data for a post as we want to avoid publishing any data to the public version of the site. However, editors of your post will need to have access to your data when working on the post.</p>
 <p>To get around this, if you’re working with IPUMS data in your post, put it in a sub-directory called <code>data</code>. The admin team has set up a workflow that will automatically remove contents of a post’s <code>data</code> directory when publishing to the public version of the site.</p>
 <p>For example, we stored the DHS extract used in the <code>dhs-chirps</code> post like so:</p>

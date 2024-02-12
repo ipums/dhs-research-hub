@@ -22,6 +22,18 @@ categories:
 fig-width: 10
 fig-height: 8
 bibliography: references.bib
+open-graph:
+  title: |
+    IPUMS DHS Research Hub — Developing Robust Conceptual Models in Climate Change and Health Research
+  description: |
+    Introducing the theoretical foundations for effective research on climate change and health
+  image: images/pathways.png
+twitter-card:
+  title: |
+    IPUMS DHS Research Hub — Developing Robust Conceptual Models in Climate Change and Health Research
+  description: |
+    Introducing the theoretical foundations for effective research on climate change and health
+  image: images/pathways.png
 ---
 
 Unpacking the relationship between climate change and health requires

@@ -10,6 +10,14 @@ categories:
   - Tips
   - R
 date: 02-01-2024
+open-graph:
+  title: "IPUMS DHS Research Hub — An Introduction to R"
+  description: "Getting started with R and RStudio"
+  image: ../../images/hex/Rlogo.png
+twitter-card:
+  title: "IPUMS DHS Research Hub — An Introduction to R"
+  description: "Getting started with R and RStudio"
+  image: ../../images/hex/Rlogo.png
 ---
 
 ```{r}
