@@ -1248,3 +1248,9 @@ Using geographic data therefore requires careful planning and thought.
 Nonetheless, the workflow and methods introduced in this post should
 give you a solid foundation from which to start thinking about how to
 integrate spatial data into analyses of IPUMS DHS data.
+
+## Getting Help {.appendix}
+
+Questions or comments? Check out the 
+[IPUMS User Forum](https://forum.ipums.org) or reach out to IPUMS User Support 
+at ipums@umn.edu.

@@ -360,3 +360,9 @@ Because of its speed and simplicity, terra has superseded the long-lived
 raster package, which is being retired. You may still see online
 resources that reference the raster package, but we suggest relying only
 on terra.
+
+## Getting Help {.appendix}
+
+Questions or comments? Check out the 
+[IPUMS User Forum](https://forum.ipums.org) or reach out to IPUMS User Support 
+at ipums@umn.edu.

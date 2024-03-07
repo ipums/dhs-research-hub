@@ -218,3 +218,9 @@ documentation](https://developer.ipums.org/docs/v2/apiprogram/).
 See the [API
 introduction](https://tech.popdata.org/ipumsr/articles/ipums-api.html)
 to learn how to use ipumsr to interact with the IPUMS API.
+
+## Getting Help {.appendix}
+
+Questions or comments? Check out the 
+[IPUMS User Forum](https://forum.ipums.org) or reach out to IPUMS User Support 
+at ipums@umn.edu.

@@ -1,0 +1,364 @@
+---
+title: "Droplets of Insights for Integrating DHS and Rainfall Data"
+description: |
+  Some factors to consider when obtaining and preparing precipitation data for
+  use with DHS surveys
+author:
+  - name: Audrey Dorélien
+    affiliation: Associate Professor, Humphrey School of Public Affairs, University of Minnesota
+  - name: Molly Brown
+    affiliation: Research Professor, Department of Geographical Sciences, University of Maryland College Park
+date: 02-23-2024
+categories:
+  - Climate
+  - Precipitation
+  - CHIRPS
+  - Methodology
+  - Research concepts
+fig-width: 10
+fig-height: 8
+bibliography: references.bib
+image: images/storm-clouds-over-wheat-field-danger-weather-with-dark-sky-over-fields-SBI-300870591.jpg
+open-graph:
+  title: |
+    IPUMS DHS Research Hub — Droplets of Insights for Integrating 
+    DHS and Rainfall Data
+  image: images/storm-clouds-over-wheat-field-danger-weather-with-dark-sky-over-fields-SBI-300870591.jpg
+twitter-card:
+  title: |
+    IPUMS DHS Research Hub — Droplets of Insights for Integrating 
+    DHS and Rainfall Data
+  image: images/storm-clouds-over-wheat-field-danger-weather-with-dark-sky-over-fields-SBI-300870591.jpg
+---
+
+One barrier to climate change and health research is that many
+surveys—including the [The Demographic and Health Surveys Program
+(DHS)](https://dhsprogram.com/)—do not collect detailed information on
+local environmental conditions in survey areas. Fortunately,
+organizations like [IPUMS DHS](https://www.idhsdata.org/idhs/) are now
+taking steps to use DHS enumeration cluster coordinates to link a
+limited set of climate variables—including monthly and long-term average
+precipitation—to individual and household records within the
+DHS.[@boyle_contextual_2020]
+
+However, in many cases, these pre-calculated time series may not meet
+researchers' needs because they reflect only average conditions and not
+the experience of the specific surveyed households. To obtain a more
+nuanced understanding of a survey response's environmental context, some
+researchers may choose to calculate and link climate variables
+themselves. We introduced some methods for doing so in our [recent
+post](../2024-02-04-dhs-chirps/index.html), where we demonstrated how to
+integrate raw precipitation data from the [Climate Hazards Center
+InfraRed Precipitation with Station
+Dataset](https://www.chc.ucsb.edu/data/chirps) (CHIRPS) with survey data
+from IPUMS DHS.
+
+This post aims to serve as a guide for new researchers wading into
+research on the health impacts of climate events. While we focus on
+rainfall, it is important to note that there are significant
+interactions between rainfall and other variables such as temperature
+and vegetation. Furthermore, rainfall alone may be a crude measure; for
+instance, Grace et al. (2021) highlight multiple and nuanced ways in
+which precipitation can impact health.[@grace_exploring_2021]
+Nevertheless, this blog post outlines key concepts to consider when
+thinking through the health impacts of precipitation patterns, selecting
+a data source, and operationalizing precipitation data. We draw examples
+from recent publications that utilize DHS data; however, their inclusion
+does not constitute an endorsement of the publications themselves.
+
+## Impacts of rainfall on human health
+
+Rainfall can impact human health in both direct and indirect ways, with
+important consequences when linking precipitation data to survey
+responses. For instance, researchers interested in indirect mechanisms
+may need to incorporate a time lag between climate events and survey
+response dates, since the impact of rainfall events in one period may
+not appear until later.[@grace_building_2020]
+
+Below, we outline several of the most common pathways through which
+precipitation impacts health outcomes.
+
+### Disasters and precipitation extremes
+
+**Direct and immediate impacts on human health**
+
+Extreme rainfall can result in flooding or landslides, which may lead to
+death or injury. Furthermore, extreme events often contribute to
+indirect health impacts through the other pathways described below.
+
+### Agriculture and nutrition
+
+**Indirect impacts on human health**
+
+Rainfall directly impacts crop growth and agricultural productivity,
+which then affects food security and nutrition. It takes time for plants
+to grow, so the impacts on health and well-being may not be immediate.
+
+Precipitation is not the only variable that can be used to explore these
+pathways; Normalized Difference Vegetation Index (NDVI) can also be used
+as a proxy for food security.[@grace_exploring_2021]
+
+### Infectious diseases
+
+**Indirect impacts on human health**
+
+Rainfall can impact the transmission of enteric disease like cholera
+(through its effects on sanitation practices, water quality, and
+hygiene) as well as vector-borne diseases like malaria and dengue
+(through its effects on water supply and vector habitats).
+
+Ideally, researchers would be able to explore these pathways through
+more proximate measures of transmission risks like disease incidence.
+However, in resource-poor settings these data may not be available at
+fine temporal and spatial resolutions.
+
+### Crime and violence
+
+**Indirect impacts on human health**
+
+Rainfall shocks may be linked to crime and violence through their
+impacts on economic activities, stress, and competition for limited
+resources. For instance, rainfall impacts on economic security may lead
+to herder and farmer conflicts.
+
+## Choosing a rainfall data source
+
+The specific research question and estimation strategy should play a
+central role in determining the most suitable rainfall data source.
+Researchers have various factors to consider when making this choice,
+including the available time span[@abiona_adverse_2017;
+@hyland_water_2019], the manner in which data were collected (for
+instance, accurate ground-based station data versus satellite
+data),[@le-utero_2021] and the extent of coverage for the geographic
+location of interest.[@randell_climate_2019]
+
+### Data accuracy
+
+It’s important for researchers to recognize the trade-offs between data
+accuracy and coverage. In many cases, more accurate products will have
+more limited geographic coverage, so researchers with a small area of
+interest may be able to use a more accurate data product.
+
+### Temporal resolution
+
+Researchers must also consider the temporal resolution of the data (e.g.
+hourly, daily, monthly, etc.). An appropriate temporal resolution is
+likely to depend on the characteristics of the survey data that will be
+joined to the environmental data. For instance, it may not be necessary
+to use hourly precipitation data when linking to the DHS, since survey
+response dates are often provided only at the monthly level. However, it
+is always possible to aggregate fine-grained data to a larger temporal
+scale, and fine-grained data may provide more flexibility in the way
+aggregation is carried out.
+
+### Spatial resolution
+
+The majority of rainfall data is available in [raster
+format](../2024-02-04-dhs-chirps/#chirps-precipitation-data), wherein
+precipitation data are stored in a grid of cells, each with a particular
+precipitation value. If the grid cells are very large and encompass many
+DHS clusters, there won’t be enough variation to exploit in an analysis.
+On the other hand, if the grid cells are less than 10 kilometers across
+(a plausible [buffer size](../2024-02-04-dhs-chirps/#cluster-buffers)
+around DHS cluster coordinates), then their values will need to be
+aggregated within each DHS cluster region.
+
+### Data accessibility
+
+Of course, data availability and accessibility often drive data source
+decisions. Researchers may opt to use data that they or collaborators
+have previously used or have easy access to in order to reduce the
+difficulty of setting up an analysis with a new source.
+
+| **Name**                                                                                                        | **Finest Resolution** | **Geo. Range**                   | **Temp. Range**   | **Time Step**                                               | **Rainfall Data Source**                                         |
+|------------|------------|------------|------------|------------|------------|
+| [CHIRPS](https://www.chc.ucsb.edu/data/chirps)                                                                  | 0.05°                 | 50°S-50°N (all longitudes)       | 1981-near present | Daily, pentad, dekad, monthly, 2-monthly, 3-monthly, annual | Weather station records and geostationary satellite observations |
+| [CRU TS](https://crudata.uea.ac.uk/cru/data/hrg/)                                                               | 0.5°                  | All land except Antarctica       | 1901-2022         | Monthly                                                     | Weather station records                                          |
+| [UDEL-TS](https://psl.noaa.gov/data/gridded/data.UDel_AirT_Precip.html)                                         | 0.5°                  | 89.75°N-89.75°S, 0.25°E-359.75°E | 1901-2014         | Monthly                                                     | Weather station records                                          |
+| [GPCC](https://psl.noaa.gov/data/gridded/data.gpcc.html)                                                        | 0.25°                 | 90.0°N-90.0°S, 0.0°E-360.0°E     | 1891-2019         | Monthly                                                     | Weather station records                                          |
+| [ERA5](https://cds.climate.copernicus.eu/cdsapp#!/dataset/reanalysis-era5-single-levels-monthly-means?tab=form) | 0.25°                 | Global                           | 1940-present      | Hourly, monthly                                             | Reanalysis (model estimates from satellite data assimilation)    |
+
+: Comparison of Selected Precipitation Data Sources {.hover .bordered
+.column-body-outset}
+
+## Measuring rainfall
+
+Scholars frequently aggregate total rainfall over an interval (for
+instance, to calculate annual, seasonal, or monthly precipitation
+summaries). Additionally, researchers often generate long-term rainfall
+averages for use in identifying anomalies and extreme rainfall
+events.[@grace_building_2020] It is imperative that researchers justify
+their choice of temporal aggregation.
+
+In this section, we summarize several publications that highlight
+different techniques for measuring rainfall.
+
+### Total precipitation
+
+Studies that simply use raw precipitation totals are able to test
+whether additional rainfall has a negative or positive impact on the
+outcome of interest.[@Mukabutera2016]
+
+#### Total precipitation during the growing season
+
+Some studies restrict their focus to a region's growing season to better
+assess the impacts of climate conditions on agricultural production
+and—indirectly—nutrition and food security.[@grace_linking_2015]
+
+#### Total rainy season precipitation
+
+Specific details of the geographical area of interest may inform the
+manner in which data are aggregated. For instance, Randell, Gray, and
+Shayo (2022) take region-specific rainfall patterns into account in
+research on Tanzania, where depending on the region there might be one
+(Msimu) or two rainy seasons (Masika and Vuli) during the
+year.[@randell_climatic_2022]
+
+### Rainfall variability and anomalies
+
+Measures of rainfall *variability* consider how rainfall at a specific
+time and location compares to the long-term average rainfall in that
+same location. However, several measures of variability exist, and
+information should be provided to explain how the reference period was
+chosen and how results change if the reference period changes.
+
+#### Annual variability
+
+-   **Rainfall deviation percentile** can be used to quantify how a
+    specific rainfall event compares to historical data for that same
+    location. For instance, in Epstein et al. (2023), the 50th
+    percentile represents a year with median rainfall levels compared to
+    29 previous years; numbers closer to 0 represent drier than average
+    years and closer to 1 represent wetter
+    years.[@epstein_precipitation_2023]
+
+-   **Rainfall Z-scores** quantify how many standard deviations a
+    rainfall event differs from the mean. Negative Z-scores indicate
+    below-average rainfall while positive Z-scores indicate
+    above-average rainfall.[@thiede_climate_2020]
+
+-   **Standardized Precipitation Index (SPI)** is similar to the Z-score
+    but first corrects for the skew found in rainfall distributions by
+    transforming the data using a gamma
+    distribution.[@hyland_water_2019]
+
+#### Seasonal variability
+
+Rainfall is often seasonal, and depending on the health pathway of
+interest, researchers should think critically about how seasons may
+impact their analyses. Rainfall during the dry season is likely to have
+a different effect than rainfall in the wet season, for
+instance.[@bandyopadhyay_impact_2012]
+
+-   Randell et al. (2021) calculate Z-scores for 2015 monsoon rainfall
+    based on monsoon rainfalls during 1980-2015 reference
+    period.[@randell_food_2021]
+
+-   Omiat and Shively (2020) calculate deviation during the main
+    rainfall season of the survey year and of the previous
+    year.[@omiat_rainfall_2020]
+
+-   Abiona (2017) calculates the percentage deviation from the mean
+    agricultural season average. Specifically, this was generated using
+    the natural logarithm of the current agricultural season minus the
+    30-year historical average for the same
+    locality.[@abiona_adverse_2017]
+
+#### Climate variability during specific windows in the respondent's life course
+
+Environmental analyses should be tied to survey responses during
+specific exposure windows to determine the impact of
+extremes.[@grace_building_2020] For instance, research on the impact of
+precipitation on weight at birth may want to focus on precipitation
+anomalies during the months of gestation. Or, if gestational length is
+unknown, researchers may choose to use anomalies during the 12 months
+prior to birth. It is often necessary to make approximations like this
+based on the available data.
+
+-   In studying in-utero rainfall variability, Le and Nguyen (2021) use
+    "the deviation of the nine-month in-utero rainfall from the long run
+    average of total rainfall during those nine months".[@le-utero_2021]
+    In this case, the long-run average was based on data from 1981-2018.
+    The authors further dichotomized their results in order to more
+    easily summarize the impact of wet versus dry shocks.
+
+### Precipitation extremes: Floods and droughts
+
+It is uncommon for researchers to use rainfall data alone to define a
+flood event. Instead, an indicator for flood is generated based on
+precipitation anomalies. Consequently, we recommend using the term
+*extreme rainfall* rather than *flood event* when relying solely on
+rainfall data.
+
+Researchers often use rainfall data alone to identify droughts, though
+in these instances they are really capturing **meteorological**
+droughts.[@mishra_review_2010] Depending on the type of drought of
+interest, researchers may want to use a combination of temperature,
+rainfall, and other data sources to identify droughts associated with
+low soil moisture (**agricultural** droughts), low ground water, or
+surface runoff. As with all environmental metrics, researchers should
+think critically about time scales when operationalizing drought; a
+drought lasting 1 month is likely to have a very different effect than a
+drought lasting 6 or 12 months.
+
+Specific drought indices are also available to identify drought
+conditions. The Standardized Precipitation Evaporation Index (SPEI)
+takes into account rainfall as well as evaporation, and the Palmer
+Drought Severity Index (PDSI) includes rainfall, evapotranspiration, and
+runoff.
+
+Below we highlight some ways researchers using DHS data have used
+rainfall data to quantify the impacts of extreme precipitation. These
+examples illustrate that there are a wide range of cutoffs used to
+identify droughts. While this makes comparisons difficult, it's
+appropriate that drought should be defined specific to the place, time,
+and water use patterns of a given region.
+
+-   **Extreme rainfall:** rainfall deviation ≥ 90th
+    percentile[@uttajug_association_2023]
+
+-   **Flood:** rainfall deviation \> 75th
+    percentile[@abiona_adverse_2017]
+
+-   **Drought:** rainfall deviation is \< 25th
+    percentile[@abiona_adverse_2017]
+
+-   **Drought:** binary variable for rainfall ≤ 15th
+    percentile[@nagata_drought_2021]
+
+-   **Drought:** SPI values \< -1.5[@hyland_water_2019]
+
+-   **Drought:** classified as ordinal categorical
+    variable:[@epstein_drought_2020]
+
+    -   *Severe* (≤ 10 percentile)
+    -   *Mild/moderate* (\> 10th percentile to ≤ 30th percentile)
+    -   *None* (\> 30th percentile)
+
+## Context matters
+
+#### How might the same shock have different effects in different regions?
+
+Studies that span geographic areas with heterogeneous climatic zones and
+other characteristics often stratify or interact rainfall with regional
+characteristics. This is because the same rainfall event most likely
+does not have the same impact on outcomes in areas with different
+geographic features (for instance, in arid versus non arid
+areas,[@kudamatsu_weather_2012] rural versus urban
+areas,[@marteleto_climate_2023] or on individuals with different
+livelihoods[@davenport_investigating_2020]).
+
+This highlights the most important point when working with climate data:
+no one-size-fits-all approach exists. The manner in which data are
+selected, operationalized, and analyzed must be consistently informed by
+the physical and cultural specifics of the geographic region under
+consideration.
+
+We hope that these drops of wisdom are a good starting point for your
+research.
+
+## Getting Help {.appendix}
+
+Questions or comments? Check out the [IPUMS User
+Forum](https://forum.ipums.org) or reach out to IPUMS User Support at
+ipums\@umn.edu.

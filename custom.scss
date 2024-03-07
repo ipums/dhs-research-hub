@@ -25,6 +25,8 @@ $h5-font-size: 24px !default;
 $code-color: #4758AB !default;
 $btn-code-copy-color-active: $link-color !default;
 
+$table-border-color: rgba($primary, 0.2) !default;
+
 /*-- scss:rules --*/
 // TOC
 #toc-title {
@@ -213,4 +215,32 @@ b, strong {
 
 .nav-footer a:hover {
   color: white;
+}
+
+// tables
+.table > :not(:first-child),
+.table > :not(caption) > :not(:last-child) > * {
+  border-top: solid 1px $table-border-color;
+  border-bottom: solid 1px $table-border-color;
+}
+
+.table > thead > tr > :not(th:last-child) {
+  border-right: solid 1px white;  
+}
+
+.table thead {
+  background-color: $primary;
+  color: white;
+}
+
+.table a {
+  word-break: normal;
+}
+
+.table caption {
+  color: rgba($primary, 0.7);
+}
+
+.table td {
+  vertical-align: middle;
 }
