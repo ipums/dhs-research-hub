@@ -28,12 +28,14 @@ open-graph:
   description: |
     Data and techniques for dealing with shifting boundaries in longitudinal
     research
+  image: images/sampleSpecific_all.png
 twitter-card:
   title: |
     Demystifying and Demonstrating Spatially Harmonized Geography in IPUMS DHS
   description: |
     Data and techniques for dealing with shifting boundaries in longitudinal
     research
+  image: images/sampleSpecific_all.png
 ---
 
 # Why use spatially harmonized geography?
@@ -124,13 +126,14 @@ sample years.
 
 | Country    | Survey Year 1 | Survey Year 2 | Boundary changes?                    |
 |------------------|------------------|------------------|-------------------|
-| Malawi     | 2010            | 2016            | Yes—28 sub-regions to 32 sub-regions |
-| Tanzania   | 2010            | 2015            | Yes—26 regions to 30 regions         |
-| Mozambique | 2011            | --              | No—single year with 11 regions       |
-| Zambia     | 2007            | 2013            | Yes—9 regions to 10 regions          |
-| Zimbabwe   | 2010            | 2015            | No—10 regions in both years          |
+| Malawi     | 2010          | 2016          | Yes—28 sub-regions to 32 sub-regions |
+| Tanzania   | 2010          | 2015          | Yes—26 regions to 30 regions         |
+| Mozambique | 2011          | --            | No—single year with 11 regions       |
+| Zambia     | 2007          | 2013          | Yes—9 regions to 10 regions          |
+| Zimbabwe   | 2010          | 2015          | No—10 regions in both years          |
 
-: Summary of samples used in this demonstration {.hover .bordered tbl-colwidths="[20,18,18,46]"}
+: Summary of samples used in this demonstration {.hover .bordered
+tbl-colwidths="\[20,18,18,46\]"}
 
 ## Visualizing the percent of households using improved drinking water
 
