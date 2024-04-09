@@ -10,7 +10,23 @@
 <atom:link href="https://ipums.github.io/dhs-research-hub/index.xml" rel="self" type="application/rss+xml"/>
 <description>Understand population health in its environmental context</description>
 <generator>quarto-1.3.450</generator>
-<lastBuildDate>Thu, 07 Mar 2024 05:00:00 GMT</lastBuildDate>
+<lastBuildDate>Tue, 09 Apr 2024 04:00:00 GMT</lastBuildDate>
+<item>
+  <title>Demystifying Spatially Harmonized Geography in IPUMS DHS</title>
+  <dc:creator>Sula Sarkar</dc:creator>
+  <dc:creator>Devon Kristiansen</dc:creator>
+  <dc:creator>Miriam King</dc:creator>
+  <link>https://ipums.github.io/dhs-research-hub/posts/2024-04-09-spatial-harmonization/index.html</link>
+  <description><![CDATA[ The <a href="https://dhsprogram.com/">Demographic and Health Surveys</a> (DHS) are the leading source of population and health data for low and middle-income countries. The data from the nationally representative DHS samples can be disaggregated by regions and, in some cases, by sub-regions, such as districts. However, changes in the boundaries of reported regions are common, due to either shifts in the survey sampling strategy or due to political changes within countries. Researchers using DHS data to study change over time need to hold space constant by using regions with a consistent geographic footprint to get meaningful results. ]]></description>
+  <category>Integrated geography</category>
+  <category>Spatial harmonization</category>
+  <category>Longitudinal analysis</category>
+  <category>Methodology</category>
+  <category>Research concepts</category>
+  <category>Cartography</category>
+  <guid>https://ipums.github.io/dhs-research-hub/posts/2024-04-09-spatial-harmonization/index.html</guid>
+  <pubDate>Tue, 09 Apr 2024 04:00:00 GMT</pubDate>
+</item>
 <item>
   <title>Droplets of Insights for Integrating DHS and Rainfall Data</title>
   <dc:creator>Audrey Dorélien</dc:creator>
