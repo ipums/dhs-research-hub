@@ -129,7 +129,7 @@ format, *not* .html format.
 
 # Load IPUMS DHS data into R
 
-The [ipumsr](https://tech.popdata.org/ipumsr/index.html) package
+The `{ipumsr}` package
 provides the tools you'll need to easily load your extract into R.
 
 ::: column-margin
@@ -221,6 +221,6 @@ to learn how to use ipumsr to interact with the IPUMS API.
 
 ## Getting Help {.appendix}
 
-Questions or comments? Check out the 
-[IPUMS User Forum](https://forum.ipums.org) or reach out to IPUMS User Support 
-at ipums@umn.edu.
+Questions or comments? Check out the [IPUMS User
+Forum](https://forum.ipums.org) or reach out to IPUMS User Support at
+ipums\@umn.edu.

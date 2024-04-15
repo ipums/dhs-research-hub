@@ -89,7 +89,7 @@ software), R has several advantages:
     have nothing to do with statistics at all.
 
 Additionally, R provides specific tools for working with IPUMS data
-through the [ipumsr](https://tech.popdata.org/ipumsr) package:
+through the `{ipumsr}` package:
 
 -   **Specialized functions** to ease the process of loading IPUMS data
     into R
@@ -263,7 +263,7 @@ Several packages will come into frequent use on this blog.
 
 ### ipumsr
 
-The [ipumsr](https://tech.popdata.org/ipumsr/) package contains
+The `{ipumsr}` package contains
 functions that make it easier to load IPUMS data into R.
 
 ::: column-margin
@@ -286,7 +286,7 @@ workflows introduced on the ipumsr
 
 ### tidyverse
 
-The [tidyverse](https://www.tidyverse.org/packages/) package actually
+The `{tidyverse}` package actually
 refers to a family of related packages. Installing tidyverse will
 actually install each of these component packages:
 
@@ -294,16 +294,16 @@ actually install each of these component packages:
 `r hex("tidyverse")`
 :::
 
--   [ggplot2](https://ggplot2.tidyverse.org/) for data visualization
--   [dplyr](https://dplyr.tidyverse.org/) for data manipulation
--   [tidyr](https://tidyr.tidyverse.org/) for data tidying
--   [readr](https://readr.tidyverse.org/) for data import
--   [purrr](https://purrr.tidyverse.org/) for functional programming
--   [tibble](https://tibble.tidyverse.org/) for tibbles (a modern
+-   `{ggplot2}` for data visualization
+-   `{dplyr}` for data manipulation
+-   `{tidyr}` for data tidying
+-   `{readr}` for data import
+-   `{purrr}` for functional programming
+-   `{tibble}` for tibbles (a modern
     re-imagining of data frames)
--   [stringr](https://github.com/tidyverse/stringr) for string
+-   `{stringr}` for string
     manipulation
--   [forcats](https://github.com/hadley/forcats) for factor handling
+-   `{forcats}` for factor handling
 
 It's possible to call `library(tidyverse)` to load *all* the packages in
 the tidyverse collection, but in most cases it's best to individually
@@ -322,7 +322,7 @@ console output more human readable.
 Sometimes, human readability imposes a performance cost: in our
 experience, IPUMS DHS datasets are small enough that this is not an
 issue. For larger datasets, we recommend exploring the
-`r funlink(data.table)` package instead.
+`{data.table}` package instead.
 :::
 
 ### sf
@@ -331,7 +331,7 @@ issue. For larger datasets, we recommend exploring the
 `r hex("sf")`
 :::
 
-`r funlink(sf)`, which stands for *simple features*, is the main R
+`{sf}`, which stands for *simple features*, is the main R
 package for working with spatial vector data.
 
 sf represents spatial data in a "tidy" format that resembles those used
@@ -349,7 +349,7 @@ maps.
 `r hex("terra")`
 :::
 
-`r funlink(terra)` provides a general framework for working with spatial
+`{terra}` provides a general framework for working with spatial
 data in both raster and vector format.
 
 While sf provides an alternative approach to working with vector data,

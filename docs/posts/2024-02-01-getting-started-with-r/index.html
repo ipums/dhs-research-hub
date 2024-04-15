@@ -312,7 +312,7 @@ gtag('config', 'G-0WLH5S9VD5', { 'anonymize_ip': true});
 <li>
 <strong>More than just statistics:</strong> You can use R to build a website (like this one), manage and share a code repository on GitHub, scrape and compile a social media database, or automatically generate word documents, slide presentations, and more! There are practically endless ways to use functional programming in R that have nothing to do with statistics at all.</li>
 </ul>
-<p>Additionally, R provides specific tools for working with IPUMS data through the <a href="https://tech.popdata.org/ipumsr">ipumsr</a> package:</p>
+<p>Additionally, R provides specific tools for working with IPUMS data through the <a href="https://tech.popdata.org/ipumsr/">ipumsr</a> package:</p>
 <ul>
 <li>
 <strong>Specialized functions</strong> to ease the process of loading IPUMS data into R</li>
@@ -437,28 +437,28 @@ Installing vs.&nbsp;Loading
 <p>ipumsr also contains functions to interact with variable metadata after loading, like <code><a href="http://tech.popdata.org/ipumsr/reference/ipums_var_info.html">ipums_var_info()</a></code>, <code><a href="http://tech.popdata.org/ipumsr/reference/ipums_var_info.html">ipums_val_labels()</a></code>, and so on.</p>
 <p>As mentioned above, ipumsr also contains client tools for interacting with the IPUMS API. This allows users to request and download IPUMS data entirely within their R environment. While not available for IPUMS DHS, users of supported IPUMS collections can learn more from the API workflows introduced on the ipumsr <a href="https://tech.popdata.org/ipumsr/articles/ipums-api.html">website</a></p>
 </section><section id="tidyverse" class="level3 page-columns page-full"><h3 class="anchored" data-anchor-id="tidyverse">tidyverse</h3>
-<p>The <a href="https://www.tidyverse.org/packages/">tidyverse</a> package actually refers to a family of related packages. Installing tidyverse will actually install each of these component packages:</p>
+<p>The <a href="https://tidyverse.tidyverse.org">tidyverse</a> package actually refers to a family of related packages. Installing tidyverse will actually install each of these component packages:</p>
 
 <div class="no-row-height column-margin column-container"><div class="">
 <p></p>
 <div class="hex"> <a href="https://tidyverse.tidyverse.org/index.html" class="hex"> <img src="../../images/hex/tidyverse.png" class="hex-img"></a> <p class="hex-cap">© RStudio, Inc. (MIT)</p> </div>
 </div></div><ul>
 <li>
-<a href="https://ggplot2.tidyverse.org/">ggplot2</a> for data visualization</li>
+<a href="https://ggplot2.tidyverse.org">ggplot2</a> for data visualization</li>
 <li>
-<a href="https://dplyr.tidyverse.org/">dplyr</a> for data manipulation</li>
+<a href="https://dplyr.tidyverse.org">dplyr</a> for data manipulation</li>
 <li>
-<a href="https://tidyr.tidyverse.org/">tidyr</a> for data tidying</li>
+<a href="https://tidyr.tidyverse.org">tidyr</a> for data tidying</li>
 <li>
-<a href="https://readr.tidyverse.org/">readr</a> for data import</li>
+<a href="https://readr.tidyverse.org">readr</a> for data import</li>
 <li>
 <a href="https://purrr.tidyverse.org/">purrr</a> for functional programming</li>
 <li>
 <a href="https://tibble.tidyverse.org/">tibble</a> for tibbles (a modern re-imagining of data frames)</li>
 <li>
-<a href="https://github.com/tidyverse/stringr">stringr</a> for string manipulation</li>
+<a href="https://stringr.tidyverse.org">stringr</a> for string manipulation</li>
 <li>
-<a href="https://github.com/hadley/forcats">forcats</a> for factor handling</li>
+<a href="https://forcats.tidyverse.org/">forcats</a> for factor handling</li>
 </ul>
 <p>It’s possible to call <code><a href="https://tidyverse.tidyverse.org">library(tidyverse)</a></code> to load <em>all</em> the packages in the tidyverse collection, but in most cases it’s best to individually load the specific packages you need for a given R script. This allows you and other users to more easily identify the specific packages required to run your code. It also makes your code more accessible—other users won’t have to have the entire tidyverse collection installed to run your code, only the specific packages that are actually required.</p>
 <p>In general, this blog will follow the tidyverse <a href="https://style.tidyverse.org/">style guide</a> where possible. So-called “tidy” conventions are designed with the express purpose of making code and console output more human readable.</p>

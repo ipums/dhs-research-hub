@@ -9,6 +9,7 @@ author:
   - name: Matt Gunther
     affiliation: Research Methodologist, NORC
 date: 02-04-2024
+date-modified: 04-15-2024
 categories:
   - CHIRPS
   - Precipitation
@@ -226,9 +227,9 @@ geometric shapes like points, lines, and polygons.
 
 ![Basic features of the vector data model [@Minn]](images/plp1.png)
 
-In R, the `r funlink(sf)` package provides an intuitive tabular
+In R, the `{sf}` package provides an intuitive tabular
 framework for working with vector data. sf objects look much like a
-familiar `r funlink(tibble::tibble)` or `r funlink(base::data.frame)`,
+familiar `{tibble}` or `data.frame`,
 but also include an additional `geometry` column, which stores the
 spatial features that correspond to each set of observations.
 
@@ -314,8 +315,8 @@ bf_gps <- bf_gps |>
 
 It's always worth double-checking that spatial data are being processed
 as expected, and this is often most easily done visually. We'll use the
-`r funlink(ggspatial)` package to visualize our spatial data. This
-package is a convenient extension of the popular `r funlink(ggplot2)`
+`{ggspatial}` package to visualize our spatial data. This
+package is a convenient extension of the popular `{ggplot2}`
 package.
 
 ::: column-margin
@@ -391,7 +392,7 @@ should be safe to continue and load our precipitation data.
 
 For this post, we will use precipitation data from
 [CHIRPS](https://www.chc.ucsb.edu/data/chirps), a quasi-global gridded
-rainfall time-series with data from 1981 to the near-present.[@Funk2015]
+rainfall time eries with data from 1981 to the near-present.[@Funk2015]
 CHIRPS is frequently used in health, agricultural, and hydrological
 research because of its relatively high spatial and temporal resolution,
 and validation studies have shown it to perform better than other
@@ -408,7 +409,7 @@ precipitation value (in millimeters).
 ![Comparison of vector and raster data models [@Minn]](images/plp2.png)
 
 sf doesn't provide support for raster data---instead, we'll turn to the
-`r funlink(terra)` package.
+`{terra}` package.
 
 ### Raster data
 
@@ -460,7 +461,7 @@ particular area:
     hosts a graphical user interface (GUI) that allows you to select an
     area of interest on a map.
 2.  Access data through the CHIRPS API using the API client tools
-    provided by the `r funlink(chirps)` package.
+    provided by the `{chirps}` package.
 
 The first option has the advantage of being visual and intuitive.
 However, if you need to update your data for a new area or time range,
@@ -470,7 +471,7 @@ In contrast, the second option prioritizes reproducibility and
 adaptability: updating the data used in your analysis is a matter of
 adjusting just a few lines of code. However, your R session will be
 occupied while downloading data, which can take a fair amount of time
-for long time-series.
+for long time series.
 
 #### Option 1: ClimateSERV
 
@@ -553,7 +554,7 @@ bf_precip <- rast(chirps_files)
 
 #### Option 2: The chirps package
 
-We can use the `get_chirps()` function from the `r funlink(chirps)`
+We can use the `get_chirps()` function from the `{chirps}`
 package to access CHIRPS data via the CHIRPS API. Since we don't have a
 map where we can select our region of interest, we'll have to provide a
 pre-loaded region representing the area for which we'd like data.
@@ -668,18 +669,7 @@ ggplot() +
     text_col = "#999999",
     line_col = "#999999"
   ) +
-  scale_fill_gradient(low = "white", high = "#00263A", na.value = NA) +
-  guides(
-    fill = guide_colorbar(
-      title.position = "top",
-      title.hjust = 0.5,
-      label.hjust = 0.5,
-      barwidth = 15,
-      barheight = 0.5,
-      ticks.colour = "white",
-      frame.colour = "#999999"
-    )
-  )
+  scale_fill_gradient(low = "white", high = "#00263A", na.value = NA)
 ```
 
 It can be unwieldy to manage many layers of raster data. In the next
@@ -727,22 +717,11 @@ ggplot() +
     caption = "Source: Climate Hazards Center InfraRed Precipitation with Station (CHIRPS)"
   ) +
   annotation_scale(
-    aes(style = "ticks", location = "br"), 
+    aes(style = "ticks", location = "br"),
     text_col = "#999999",
     line_col = "#999999"
   ) +
-  scale_fill_gradient(low = "#FAEFD1", high = "#00263A", na.value = NA) +
-  guides(
-    fill = guide_colorbar(
-      title.position = "top",
-      title.hjust = 0.5,
-      label.hjust = 0.5,
-      barwidth = 15,
-      barheight = 0.5,
-      ticks.colour = "white",
-      frame.colour = "#999999"
-    )
-  )
+  scale_fill_gradient(low = "#FAEFD1", high = "#00263A", na.value = NA)
 ```
 
 At this point, our primary data sources still remain completely
@@ -918,17 +897,6 @@ ggplot() +
     high = "#00263A", 
     na.value = NA, 
     limits = c(2.3, 2.5)
-  ) +
-  guides(
-    fill = guide_colorbar(
-      title.position = "top",
-      title.hjust = 0.5,
-      label.hjust = 0.5,
-      barwidth = 15,
-      barheight = 0.5,
-      ticks.colour = "white",
-      frame.colour = "#999999"
-    )
   )
 ```
 
@@ -990,17 +958,6 @@ ggplot() +
     high = "#00263A", 
     na.value = NA, 
     limits = c(2.3, 2.5)
-  ) +
-  guides(
-    fill = guide_colorbar(
-      title.position = "top",
-      title.hjust = 0.5,
-      label.hjust = 0.5,
-      barwidth = 15,
-      barheight = 0.5,
-      ticks.colour = "white",
-      frame.colour = "#999999"
-    )
   )
 ```
 
@@ -1126,18 +1083,8 @@ ggplot() +
     text_col = "#999999",
     line_col = "#999999"
   ) +
-  guides( # Override some of our theme_dhs_extended() defaults for this plot
-    fill = guide_colorbar(       
-      title.position = "top",
-      title.hjust = 0.5,
-      label.hjust = 0.5,
-      barwidth = 15,
-      barheight = 0.5,
-      ticks.colour = NA,
-      frame.colour = "#999999"
-    )
-  ) +
-  scale_fill_steps(low = "#FAEFD1", high = "#00263A", n.breaks = 4)
+  scale_fill_steps(low = "#FAEFD1", high = "#00263A", n.breaks = 4) +
+  theme(legend.ticks = element_blank())
 ```
 
 # Join data sources
@@ -1251,6 +1198,6 @@ integrate spatial data into analyses of IPUMS DHS data.
 
 ## Getting Help {.appendix}
 
-Questions or comments? Check out the 
-[IPUMS User Forum](https://forum.ipums.org) or reach out to IPUMS User Support 
-at ipums@umn.edu.
+Questions or comments? Check out the [IPUMS User
+Forum](https://forum.ipums.org) or reach out to IPUMS User Support at
+ipums\@umn.edu.

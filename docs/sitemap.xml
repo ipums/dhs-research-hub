@@ -2,46 +2,50 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://ipums.github.io/dhs-research-hub/LICENSE.html</loc>
-    <lastmod>2024-04-09T19:34:19.074Z</lastmod>
+    <lastmod>2024-04-15T17:36:32.212Z</lastmod>
   </url>
   <url>
     <loc>https://ipums.github.io/dhs-research-hub/CODE_OF_CONDUCT.html</loc>
-    <lastmod>2024-04-09T19:34:18.046Z</lastmod>
+    <lastmod>2024-04-15T17:36:31.035Z</lastmod>
   </url>
   <url>
     <loc>https://ipums.github.io/dhs-research-hub/blog-post-workflow.html</loc>
-    <lastmod>2024-04-09T19:34:16.867Z</lastmod>
+    <lastmod>2024-04-15T17:36:29.699Z</lastmod>
   </url>
   <url>
-    <loc>https://ipums.github.io/dhs-research-hub/posts/2024-02-23-rainfall-insights/index.html</loc>
-    <lastmod>2024-04-09T19:34:03.553Z</lastmod>
-  </url>
-  <url>
-    <loc>https://ipums.github.io/dhs-research-hub/posts/2024-02-01-getting-started-with-r/index.html</loc>
-    <lastmod>2024-04-09T19:34:02.080Z</lastmod>
-  </url>
-  <url>
-    <loc>https://ipums.github.io/dhs-research-hub/posts/2024-04-09-spatial-harmonization/index.html</loc>
-    <lastmod>2024-04-09T19:35:04.850Z</lastmod>
-  </url>
-  <url>
-    <loc>https://ipums.github.io/dhs-research-hub/posts/2024-02-02-download-dhs-data/index.html</loc>
-    <lastmod>2024-04-09T19:33:58.910Z</lastmod>
+    <loc>https://ipums.github.io/dhs-research-hub/posts/2024-04-15-chirts-metrics/index.html</loc>
+    <lastmod>2024-04-15T17:35:52.612Z</lastmod>
   </url>
   <url>
     <loc>https://ipums.github.io/dhs-research-hub/posts/2024-02-03-climate-theory/index.html</loc>
-    <lastmod>2024-04-09T19:34:02.644Z</lastmod>
+    <lastmod>2024-04-15T17:33:32.621Z</lastmod>
+  </url>
+  <url>
+    <loc>https://ipums.github.io/dhs-research-hub/posts/2024-02-02-download-dhs-data/index.html</loc>
+    <lastmod>2024-04-15T17:33:25.956Z</lastmod>
+  </url>
+  <url>
+    <loc>https://ipums.github.io/dhs-research-hub/posts/2024-04-09-spatial-harmonization/index.html</loc>
+    <lastmod>2024-04-15T17:33:20.139Z</lastmod>
+  </url>
+  <url>
+    <loc>https://ipums.github.io/dhs-research-hub/posts/2024-02-01-getting-started-with-r/index.html</loc>
+    <lastmod>2024-04-15T17:33:31.208Z</lastmod>
+  </url>
+  <url>
+    <loc>https://ipums.github.io/dhs-research-hub/posts/2024-02-23-rainfall-insights/index.html</loc>
+    <lastmod>2024-04-15T17:33:33.565Z</lastmod>
   </url>
   <url>
     <loc>https://ipums.github.io/dhs-research-hub/posts/2024-02-04-dhs-chirps/index.html</loc>
-    <lastmod>2024-04-09T19:34:11.627Z</lastmod>
+    <lastmod>2024-04-15T17:36:24.589Z</lastmod>
   </url>
   <url>
     <loc>https://ipums.github.io/dhs-research-hub/index.html</loc>
-    <lastmod>2024-04-09T19:34:53.537Z</lastmod>
+    <lastmod>2024-04-15T17:36:30.544Z</lastmod>
   </url>
   <url>
     <loc>https://ipums.github.io/dhs-research-hub/about.html</loc>
-    <lastmod>2024-04-09T19:34:18.407Z</lastmod>
+    <lastmod>2024-04-15T17:36:31.410Z</lastmod>
   </url>
 </urlset>
