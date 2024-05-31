@@ -1,0 +1,1983 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.4.553">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<meta name="author" content="Finn Roberts">
+<meta name="dcterms.date" content="2024-05-31">
+<meta name="description" content="Fine-tune an analysis by incorporating temporal information from a DHS survey with longitudinal climate data">
+<title>IPUMS DHS Climate Change and Health Research Hub - Time-specific temperature exposures for DHS survey respondents</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<link href="../../images/favicon/favicon-32x32.ico" rel="icon">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/quarto-contrib/fontawesome6-0.1.0/all.css" rel="stylesheet">
+<link href="../../site_libs/quarto-contrib/fontawesome6-0.1.0/latex-fontsize.css" rel="stylesheet"><script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script><script async="" src="https://www.googletagmanager.com/gtag/js?id=G-0WLH5S9VD5"></script><script type="text/javascript">
+
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-0WLH5S9VD5', { 'anonymize_ip': true});
+</script>
+<meta property="og:title" content="Untitled">
+<meta property="og:description" content="Understand population health in its environmental context">
+<meta property="og:image" content="https://ipums.github.io/dhs-research-hub/posts/2024-05-31-ts-join/index_files/figure-html/listing-img-1.png">
+<meta property="og:site_name" content="IPUMS DHS Climate Change and Health Research Hub">
+<meta property="og:image:height" content="1536">
+<meta property="og:image:width" content="1920">
+<meta name="twitter:title" content="Untitled">
+<meta name="twitter:description" content="Understand population health in its environmental context">
+<meta name="twitter:image" content="https://ipums.github.io/dhs-research-hub/posts/2024-05-31-ts-join/index_files/figure-html/listing-img-1.png">
+<meta name="twitter:image-height" content="1536">
+<meta name="twitter:image-width" content="1920">
+<meta name="twitter:card" content="summary_large_image">
+</head>
+<body class="floating nav-fixed slimcontent">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top quarto-banner"><nav class="navbar navbar-expand-lg " data-bs-theme="dark"><div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a href="https://www.idhsdata.org/idhs/" class="navbar-brand navbar-brand-logo">
+    <img src="../../images/dhs_logo_white.png" alt="" class="navbar-logo"></a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+<li class="nav-item">
+    <a class="nav-link" href="../../index.html"> 
+<span class="menu-text">Climate Change and Health Research Hub</span></a>
+  </li>  
+</ul>
+<ul class="navbar-nav navbar-nav-scroll ms-auto">
+<li class="nav-item">
+    <a class="nav-link" href="../../index.html"> 
+<span class="menu-text">Posts</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-getting-started" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Getting Started</span>
+    </a>
+    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="nav-menu-getting-started">
+<li>
+    <a class="dropdown-item" href="../../posts/2024-02-01-getting-started-with-r/index.html">
+ <span class="dropdown-text">An Introduction to R</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../posts/2024-02-02-download-dhs-data/index.html">
+ <span class="dropdown-text">Obtaining IPUMS DHS Data</span></a>
+  </li>  
+    </ul>
+</li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-community" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Community</span>
+    </a>
+    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="nav-menu-community">
+<li>
+    <a class="dropdown-item" href="https://forum.ipums.org">
+ <span class="dropdown-text">IPUMS Forum</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../CODE_OF_CONDUCT.html">
+ <span class="dropdown-text">Code of Conduct</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../LICENSE.html">
+ <span class="dropdown-text">License</span></a>
+  </li>  
+    </ul>
+</li>
+  <li class="nav-item">
+    <a class="nav-link" href="../../about.html"> 
+<span class="menu-text">About</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="https://github.com/ipums/dhs-research-hub"> 
+<span class="menu-text"><i class="fa-brands fa-github" aria-label="github"></i></span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../index.xml"> 
+<span class="menu-text"><i class="fa-solid fa-rss" aria-label="rss"></i></span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="https://twitter.com/ipumsGH"> 
+<span class="menu-text"><i class="fa-brands fa-x-twitter" aria-label="x-twitter"></i></span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="https://forum.ipums.org"> 
+<span class="menu-text"><i class="fa-solid fa-users" aria-label="users"></i></span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="https://www.ipums.org/"> 
+<span class="menu-text"><i class="fa-solid fa-globe" aria-label="globe"></i></span></a>
+  </li>  
+</ul>
+</div> <!-- /navcollapse -->
+          <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav></header><!-- content --><header id="title-block-header" class="quarto-title-block default toc-left page-columns page-full"><div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body">
+      <h1 class="title">Time-specific temperature exposures for DHS survey respondents</h1>
+                  <div>
+        <div class="description">
+          <p>Fine-tune an analysis by incorporating temporal information from a DHS survey with longitudinal climate data</p>
+        </div>
+      </div>
+                          <div class="quarto-categories">
+                <div class="quarto-category">CHIRTS</div>
+                <div class="quarto-category">Temperature</div>
+                <div class="quarto-category">Heat</div>
+                <div class="quarto-category">Longitudinal Analysis</div>
+                <div class="quarto-category">Time series</div>
+                <div class="quarto-category">Multilevel Modeling</div>
+                <div class="quarto-category">Climate</div>
+                <div class="quarto-category">terra</div>
+                <div class="quarto-category">lme4</div>
+                <div class="quarto-category">tidyr</div>
+                <div class="quarto-category">R</div>
+              </div>
+                  </div>
+  </div>
+    
+  <div class="quarto-title-meta-author">
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-heading">Affiliation</div>
+    
+      <div class="quarto-title-meta-contents">
+      <p class="author">Finn Roberts </p>
+    </div>
+    <div class="quarto-title-meta-contents">
+          <p class="affiliation">
+              Senior Data Analyst, IPUMS
+            </p>
+        </div>
+    </div>
+
+  <div class="quarto-title-meta">
+
+        
+      <div>
+      <div class="quarto-title-meta-heading">Published</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">May 31, 2024</p>
+      </div>
+    </div>
+    
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto"><nav id="TOC" role="doc-toc" class="toc-active" data-toc-expanded="1"><h2 id="toc-title">Contents</h2>
+   
+  <ul>
+<li>
+<a href="#data" id="toc-data" class="nav-link active" data-scroll-target="#data">Data</a>
+  <ul class="collapse">
+<li><a href="#dhs-survey-data" id="toc-dhs-survey-data" class="nav-link" data-scroll-target="#dhs-survey-data">DHS survey data</a></li>
+  <li><a href="#dhs-boundaries" id="toc-dhs-boundaries" class="nav-link" data-scroll-target="#dhs-boundaries">DHS boundaries</a></li>
+  <li><a href="#dhs-enumeration-clusters" id="toc-dhs-enumeration-clusters" class="nav-link" data-scroll-target="#dhs-enumeration-clusters">DHS enumeration clusters</a></li>
+  <li>
+<a href="#chirts" id="toc-chirts" class="nav-link" data-scroll-target="#chirts">CHIRTS</a>
+  <ul class="collapse">
+<li><a href="#extending-chirts-time-series" id="toc-extending-chirts-time-series" class="nav-link" data-scroll-target="#extending-chirts-time-series">Extending CHIRTS time series</a></li>
+  </ul>
+</li>
+  </ul>
+</li>
+  <li>
+<a href="#attach-heatwave-metrics-to-dhs-survey-data" id="toc-attach-heatwave-metrics-to-dhs-survey-data" class="nav-link" data-scroll-target="#attach-heatwave-metrics-to-dhs-survey-data">Attach heatwave metrics to DHS survey data</a>
+  <ul class="collapse">
+<li><a href="#reconcile-date-representations" id="toc-reconcile-date-representations" class="nav-link" data-scroll-target="#reconcile-date-representations">Reconcile date representations</a></li>
+  <li>
+<a href="#attaching-heatwaves-to-dhs-clusters" id="toc-attaching-heatwaves-to-dhs-clusters" class="nav-link" data-scroll-target="#attaching-heatwaves-to-dhs-clusters">Attaching heatwaves to DHS clusters</a>
+  <ul class="collapse">
+<li><a href="#wide-vs.-long-format" id="toc-wide-vs.-long-format" class="nav-link" data-scroll-target="#wide-vs.-long-format">Wide vs.&nbsp;long format</a></li>
+  </ul>
+</li>
+  <li>
+<a href="#joining-on-dhs-survey-data" id="toc-joining-on-dhs-survey-data" class="nav-link" data-scroll-target="#joining-on-dhs-survey-data">Joining on DHS survey data</a>
+  <ul class="collapse">
+<li><a href="#dhs-survey-data-preparation" id="toc-dhs-survey-data-preparation" class="nav-link" data-scroll-target="#dhs-survey-data-preparation">DHS survey data preparation</a></li>
+  <li><a href="#attaching-data-sources" id="toc-attaching-data-sources" class="nav-link" data-scroll-target="#attaching-data-sources">Attaching data sources</a></li>
+  </ul>
+</li>
+  </ul>
+</li>
+  <li>
+<a href="#a-basic-model" id="toc-a-basic-model" class="nav-link" data-scroll-target="#a-basic-model">A basic model</a>
+  <ul class="collapse">
+
+  </ul>
+</li>
+  </ul></nav>
+</nav><div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+    </div>
+<!-- main -->
+<main class="content quarto-banner-title-block page-columns page-full" id="quarto-document-content"><p>In our <a href="../2024-04-15-chirts-metrics/">last technical post</a>, we demonstrated how to calculate several different monthly temperature metrics with the ultimate goal of linking these values to individual child records in the 2012 Mali DHS survey.</p>
+<p>However, in contrast to the technique we used in our <a href="../2024-02-04-dhs-chirps">CHIRPS post</a>, we can’t simply join our temperature data onto our DHS sample by enumeration cluster alone because each child in our sample has a different birth date, and therefore different temperature exposure prior to birth.</p>
+<p>To account for this, we need to join our temperature data to each child survey record both by <strong>enumeration cluster</strong> (which contains the spatial information) <em>as well as</em> the child’s <strong>birth date</strong> (which contains the temporal information).</p>
+<p>First, we’ll identify the monthly CHIRTS data corresponding to each of our enumeration cluster areas, producing a time series of temperature values for each cluster. Next, we’ll identify the time series of temperature values for the 9 months prior to each child’s birth and use it to calculate trimester-specific temperature exposure values for each child. Finally, we’ll use the joined data to build a simple model predicting birth weight outcomes from temperature exposure.</p>
+<p>This post will build on our <a href="../2024-04-15-chirts-metrics/">previous post</a> where we built several monthly temperature metrics. If you haven’t had the chance to read through that post yet, we encourage you to start there.</p>
+<p>Before getting started, we’ll load the necessary packages for this post:</p>
+<div class="cell">
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tech.popdata.org/ipumsr/">ipumsr</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://r-spatial.github.io/sf/">sf</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyr.tidyverse.org">tidyr</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org">dplyr</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://rspatial.org/">terra</a></span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<section id="data" class="level1"><h1>Data</h1>
+<section id="dhs-survey-data" class="level2"><h2 class="anchored" data-anchor-id="dhs-survey-data">DHS survey data</h2>
+<p>We will obtain 2012 Mali data from IPUMS DHS. In this extract, we’ve selected the following variables:</p>
+<ul>
+<li>
+<code>HEIGHTFEM</code>: Height of woman in centimeters</li>
+<li>
+<code>KIDSEX</code>: Sex of child</li>
+<li>
+<code>KIDDOBCMC</code>: Child’s date of birth (CMC)</li>
+<li>
+<code>BIRTHWT</code>: Birth weight in kilos</li>
+<li>
+<code>BIRTHWTREF</code>: Source of weight at birth (health card or recall)</li>
+</ul>
+<!-- - `HWHAZWHO`: Height for age standard deviations from median (WHO)  --><!--      *TODO* Should this be removed?  --><p>Check out our <a href="../2024-02-02-download-dhs-data/">walkthrough</a> for downloading IPUMS DHS data if you need help producing a similar extract.</p>
+<p>We’ll load our data using <a href="https://tech.popdata.org/ipumsr/">ipumsr</a>:</p>
+<div class="cell">
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">ml_dhs</span> <span class="op">&lt;-</span> <span class="fu"><a href="http://tech.popdata.org/ipumsr/reference/read_ipums_micro.html">read_ipums_micro</a></span><span class="op">(</span><span class="st">"data/idhs_00021.xml"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Use of data from IPUMS DHS is subject to conditions including that users should cite the data appropriately. Use command `ipums_conditions()` for more details.</span></span>
+<span></span>
+<span><span class="va">ml_dhs</span></span>
+<span><span class="co">#&gt; # A tibble: 10,326 × 48</span></span>
+<span><span class="co">#&gt;    SAMPLE            SAMPLESTR     COUNTRY    YEAR IDHSPID IDHSHID DHSID IDHSPSU</span></span>
+<span><span class="co">#&gt;    &lt;int+lbl&gt;         &lt;chr+lbl&gt;     &lt;int+lbl&gt; &lt;int&gt; &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;   &lt;dbl&gt;</span></span>
+<span><span class="co">#&gt;  1 46605 [Mali 2012] 46605 [Mali … 466 [Mal…  2012 46605 … 46605 … ML20… 4.66e10</span></span>
+<span><span class="co">#&gt;  2 46605 [Mali 2012] 46605 [Mali … 466 [Mal…  2012 46605 … 46605 … ML20… 4.66e10</span></span>
+<span><span class="co">#&gt;  3 46605 [Mali 2012] 46605 [Mali … 466 [Mal…  2012 46605 … 46605 … ML20… 4.66e10</span></span>
+<span><span class="co">#&gt;  4 46605 [Mali 2012] 46605 [Mali … 466 [Mal…  2012 46605 … 46605 … ML20… 4.66e10</span></span>
+<span><span class="co">#&gt;  5 46605 [Mali 2012] 46605 [Mali … 466 [Mal…  2012 46605 … 46605 … ML20… 4.66e10</span></span>
+<span><span class="co">#&gt;  6 46605 [Mali 2012] 46605 [Mali … 466 [Mal…  2012 46605 … 46605 … ML20… 4.66e10</span></span>
+<span><span class="co">#&gt;  7 46605 [Mali 2012] 46605 [Mali … 466 [Mal…  2012 46605 … 46605 … ML20… 4.66e10</span></span>
+<span><span class="co">#&gt;  8 46605 [Mali 2012] 46605 [Mali … 466 [Mal…  2012 46605 … 46605 … ML20… 4.66e10</span></span>
+<span><span class="co">#&gt;  9 46605 [Mali 2012] 46605 [Mali … 466 [Mal…  2012 46605 … 46605 … ML20… 4.66e10</span></span>
+<span><span class="co">#&gt; 10 46605 [Mali 2012] 46605 [Mali … 466 [Mal…  2012 46605 … 46605 … ML20… 4.66e10</span></span>
+<span><span class="co">#&gt; # ℹ 10,316 more rows</span></span>
+<span><span class="co">#&gt; # ℹ 40 more variables: IDHSSTRATA &lt;dbl&gt;, CASEID &lt;chr&gt;, HHID &lt;chr&gt;, PSU &lt;dbl&gt;,</span></span>
+<span><span class="co">#&gt; #   STRATA &lt;dbl&gt;, DOMAIN &lt;dbl&gt;, HHNUM &lt;dbl&gt;, CLUSTERNO &lt;dbl&gt;, LINENO &lt;int&gt;,</span></span>
+<span><span class="co">#&gt; #   BIDX &lt;int&gt;, PERWEIGHT &lt;dbl&gt;, KIDWT &lt;dbl&gt;, AWFACTT &lt;dbl&gt;, AWFACTU &lt;dbl&gt;,</span></span>
+<span><span class="co">#&gt; #   AWFACTR &lt;dbl&gt;, AWFACTE &lt;dbl&gt;, AWFACTW &lt;dbl&gt;, DVWEIGHT &lt;dbl&gt;,</span></span>
+<span><span class="co">#&gt; #   URBAN &lt;int+lbl&gt;, GEO_ML1987_2018 &lt;int+lbl&gt;, GEO_ML1995_2018 &lt;int+lbl&gt;,</span></span>
+<span><span class="co">#&gt; #   GEO_ML2012 &lt;int+lbl&gt;, AGE &lt;int&gt;, AGE5YEAR &lt;int+lbl&gt;, RESIDENT &lt;int+lbl&gt;, …</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section><section id="dhs-boundaries" class="level2"><h2 class="anchored" data-anchor-id="dhs-boundaries">DHS boundaries</h2>
+<p>We’ll use the Mali borders that we prepared in our previous <a href="../2024-04-15-chirts-metrics/">CHIRTS post</a>. We describe the process there, but we’ve reproduced the code in the following collapsed block if you need to refresh your memory. As a reminder, you can obtain IPUMS integrated geography files from <a href="https://www.idhsdata.org/idhs/gis.shtml">this table</a>.</p>
+<div class="cell">
+<details class="code-fold"><summary>Border preparation</summary><div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">ml_borders</span> <span class="op">&lt;-</span> <span class="fu"><a href="http://tech.popdata.org/ipumsr/reference/read_ipums_sf.html">read_ipums_sf</a></span><span class="op">(</span><span class="st">"data/gps/geo_ml1995_2018.zip"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Validate internal borders</span></span>
+<span><span class="va">ml_borders_neat</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r-spatial.github.io/sf/reference/valid.html">st_make_valid</a></span><span class="op">(</span><span class="va">ml_borders</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Collapse internal borders to get single country border</span></span>
+<span><span class="va">ml_borders_out</span> <span class="op">&lt;-</span> <span class="va">ml_borders_neat</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://r-spatial.github.io/sf/reference/geos_combine.html">st_union</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://r-spatial.github.io/sf/reference/geos_unary.html">st_simplify</a></span><span class="op">(</span>dTolerance <span class="op">=</span> <span class="fl">1000</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_as_sf.html">st_as_sf</a></span><span class="op">(</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Transform to UTM 29N coordinates, buffer, and convert back to WGS84</span></span>
+<span><span class="va">ml_borders_buffer</span> <span class="op">&lt;-</span> <span class="va">ml_borders_out</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_transform.html">st_transform</a></span><span class="op">(</span>crs <span class="op">=</span> <span class="fl">32629</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://r-spatial.github.io/sf/reference/geos_unary.html">st_buffer</a></span><span class="op">(</span>dist <span class="op">=</span> <span class="fl">10000</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_transform.html">st_transform</a></span><span class="op">(</span>crs <span class="op">=</span> <span class="fl">4326</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</section><section id="dhs-enumeration-clusters" class="level2"><h2 class="anchored" data-anchor-id="dhs-enumeration-clusters">DHS enumeration clusters</h2>
+<p>We can download the enumeration cluster coordinates from the <a href="https://www.dhsprogram.com/">DHS Program</a>. We first described this process in our <a href="../2024-02-04-dhs-chirps/#dhs-cluster-coordinates">CHIRPS post</a>. Simply follow the same instructions, substituting Mali where we previously used Burkina Faso.</p>
+<p>You should obtain a file called <code>MLGE6BFL.zip</code>, which can be loaded with <code><a href="http://tech.popdata.org/ipumsr/reference/read_ipums_sf.html">read_ipums_sf()</a></code>:</p>
+<div class="cell">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">ml_clust</span> <span class="op">&lt;-</span> <span class="fu"><a href="http://tech.popdata.org/ipumsr/reference/read_ipums_sf.html">read_ipums_sf</a></span><span class="op">(</span><span class="st">"data/MLGE6BFL.zip"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>As we’ve done <a href="../2024-02-04-dhs-chirps/#cluster-buffers">in the past</a>, we’ll buffer our cluster coordinates so we capture the climate effects of the general region around each survey location</p>
+<div class="cell">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">ml_clust_buffer</span> <span class="op">&lt;-</span> <span class="va">ml_clust</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_transform.html">st_transform</a></span><span class="op">(</span>crs <span class="op">=</span> <span class="fl">32629</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://r-spatial.github.io/sf/reference/geos_unary.html">st_buffer</a></span><span class="op">(</span>dist <span class="op">=</span> <span class="fl">10000</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_transform.html">st_transform</a></span><span class="op">(</span>crs <span class="op">=</span> <span class="fl">4326</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section><section id="chirts" class="level2"><h2 class="anchored" data-anchor-id="chirts">CHIRTS</h2>
+<p>For this post, we’ll use the monthly heatwave proportions that we calculated at the end of our <a href="../2024-04-15-chirts-metrics/#heatwaves-consecutive-days-above-a-temperature-threshold">previous CHIRTS post</a>.</p>
+<p>However for the purposes of demonstration, in that post we used a single year of CHIRTS data. Now that we’re planning to attach temperature data to our DHS survey data, we need to consider the full range of birth dates represented in our sample.</p>
+<section id="extending-chirts-time-series" class="level3"><h3 class="anchored" data-anchor-id="extending-chirts-time-series">Extending CHIRTS time series</h3>
+<p>The DHS contains records for children born <strong>within 5 years</strong> of the survey date to women between 15 and 49 years of age. Thus, for the 2012 Mali sample, we will have records for children ranging from 2008-2012. Further, since we want to identify monthly climate records for the time <strong>preceding</strong> each birth, we will also need to have data for the year prior to the earliest birth in the sample.</p>
+<p>That means that for our 2012 Mali sample, we’ll actually need CHIRTS data for 2007-2012.</p>
+<p>Fortunately, the pipeline we set up in our previous post can be easily scaled to accommodate additional years of data. Recall that we built a dedicated function to calculate monthly heatwave proportions:</p>
+<div class="cell">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">prop_heatwave</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">temps</span>, <span class="va">thresh</span>, <span class="va">n_seq</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="co"># Convert to RLE of days above threshold</span></span>
+<span>  <span class="va">bin_rle</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/rle.html">rle</a></span><span class="op">(</span><span class="va">temps</span> <span class="op">&gt;=</span> <span class="va">thresh</span><span class="op">)</span></span>
+<span>  </span>
+<span>  <span class="co"># Identify heatwave events based on sequence length</span></span>
+<span>  <span class="va">is_heatwave</span> <span class="op">&lt;-</span> <span class="va">bin_rle</span><span class="op">$</span><span class="va">values</span> <span class="op">&amp;</span> <span class="op">(</span><span class="va">bin_rle</span><span class="op">$</span><span class="va">lengths</span> <span class="op">&gt;=</span> <span class="va">n_seq</span><span class="op">)</span></span>
+<span>  </span>
+<span>  <span class="co"># Count heatwave days and divide by total number of days</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">bin_rle</span><span class="op">$</span><span class="va">lengths</span><span class="op">[</span><span class="va">is_heatwave</span><span class="op">]</span><span class="op">)</span> <span class="op">/</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">temps</span><span class="op">)</span></span>
+<span><span class="op">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>All we need to do, then, is apply this function to input CHIRTS data for 2007 to 2012, rather than just for 2012. To do so, we’ve downloaded all 6 years of data manually as <a href="../2024-04-15-chirts-metrics/#manual-download">described previously</a> and placed each file in a <code>data/chirts</code> directory.</p>
+<p>We can load them by first obtaining the file path to each file with <code><a href="https://rdrr.io/r/base/list.files.html">list.files()</a></code>. Then, we use the familiar <code><a href="https://rspatial.github.io/terra/reference/rast.html">rast()</a></code> to load all 6 files into a single <code>SpatRaster</code>.</p>
+<div class="cell">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">chirts_files</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.files.html">list.files</a></span><span class="op">(</span><span class="st">"data/chirts"</span>, full.names <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">ml_chirts</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rspatial.github.io/terra/reference/rast.html">rast</a></span><span class="op">(</span><span class="va">chirts_files</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>As we did last time, we’ll crop the CHIRTS raster to the region directly around Mali:</p>
+<div class="cell">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">ml_chirts</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rspatial.github.io/terra/reference/crop.html">crop</a></span><span class="op">(</span><span class="va">ml_chirts</span>, <span class="va">ml_borders_buffer</span>, snap <span class="op">=</span> <span class="st">"out"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Now we can use the <code><a href="https://rspatial.github.io/terra/reference/tapp.html">tapp()</a></code> function introduced in our previous post to calculate monthly heatwave proportions for each month/year combination. The only difference here is that we use <code>index = "yearmonths"</code> instead of <code>index = "months"</code> since we have multiple years of data. This ensures that we don’t aggregate months together across years.</p>
+<div class="cell">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Calculate monthly proportion of heatwave days</span></span>
+<span><span class="va">ml_chirts_heatwave</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rspatial.github.io/terra/reference/tapp.html">tapp</a></span><span class="op">(</span></span>
+<span>  <span class="va">ml_chirts</span>,</span>
+<span>  <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu">prop_heatwave</span><span class="op">(</span><span class="va">x</span>, thresh <span class="op">=</span> <span class="fl">35</span>, n_seq <span class="op">=</span> <span class="fl">3</span><span class="op">)</span>,</span>
+<span>  index <span class="op">=</span> <span class="st">"yearmonths"</span> <span class="co"># New index to account for multiple years</span></span>
+<span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>As expected, we now have a <code>SpatRaster</code> with 72 layers: one for each month/year combination from 2007-2012. Each layer contains the proportion of days that met our heatwave threshold of 3+ consecutive days exceeding 35°C.</p>
+<div class="cell">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">ml_chirts_heatwave</span></span>
+<span><span class="co">#&gt; class       : SpatRaster </span></span>
+<span><span class="co">#&gt; dimensions  : 301, 335, 72  (nrow, ncol, nlyr)</span></span>
+<span><span class="co">#&gt; resolution  : 0.05, 0.05  (x, y)</span></span>
+<span><span class="co">#&gt; extent      : -12.35, 4.399999, 10.05, 25.1  (xmin, xmax, ymin, ymax)</span></span>
+<span><span class="co">#&gt; coord. ref. : lon/lat WGS 84 </span></span>
+<span><span class="co">#&gt; source      : ml_chirts_heatwave.nc </span></span>
+<span><span class="co">#&gt; names       : ml_ch~ave_1, ml_ch~ave_2, ml_ch~ave_3, ml_ch~ave_4, ml_ch~ave_5, ml_ch~ave_6, ... </span></span>
+<span><span class="co">#&gt; time (ymnts): 2007-Jan to 2012-Dec</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="callout callout-style-default callout-caution callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Caution
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>This post was built using terra 1.7-78. Older versions of terra contain a <a href="https://github.com/rspatial/terra/issues/1483">bug</a> that may produce incorrect time units when <code>index = "yearmonths"</code>.</p>
+<p>If you’re running an older version of terra, we suggest updating the package with <code>install.packages("terra")</code>. Otherwise, you may be able to temporarily avoid the issue by manually setting the correct time values:</p>
+<div class="cell">
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Manual update of offset date values</span></span>
+<span><span class="va">year_months</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span></span>
+<span>  <span class="fu">lubridate</span><span class="fu">::</span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/ymd.html">ym</a></span><span class="op">(</span><span class="st">"2007-01"</span><span class="op">)</span>, </span>
+<span>  <span class="fu">lubridate</span><span class="fu">::</span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/ymd.html">ym</a></span><span class="op">(</span><span class="st">"2012-12"</span><span class="op">)</span>, </span>
+<span>  by <span class="op">=</span> <span class="st">"months"</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rspatial.github.io/terra/reference/time.html">time</a></span><span class="op">(</span><span class="va">ml_chirts_heatwave</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">year_months</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
+</section></section></section><section id="attach-heatwave-metrics-to-dhs-survey-data" class="level1 page-columns page-full"><h1>Attach heatwave metrics to DHS survey data</h1>
+<p>Now that we have our heatwave proportions for the full time range of the children in our DHS sample, we can shift our focus to joining these two data sources.</p>
+<section id="reconcile-date-representations" class="level2 page-columns page-full"><h2 class="anchored" data-anchor-id="reconcile-date-representations">Reconcile date representations</h2>
+<p>To deal with the temporal component of the join, we’ll need to identify the relevant months of data for each child in our DHS sample. Each child’s birth date recorded in the <code>KIDDOBCMC</code> variable:</p>
+<div class="cell" data-out.lines="3">
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">ml_dhs</span><span class="op">$</span><span class="va">KIDDOBCMC</span></span>
+<span><span class="co">#&gt;     [1] 1311 1301 1316 1356 1305 1337 1301 1318 1337 1313 1354 1313 1326 1312</span></span>
+<span><span class="co">#&gt;    [15] 1330 1316 1354 1311 1335 1338 1305 1321 1305 1347 1315 1354 1309 1323</span></span>
+<span><span class="co">#&gt;    [29] 1324 1349 1315 1297 1334 1317 1336 1334 1338 1304 1323 1307 1354 1311</span></span>
+<span><span class="va">....</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>You might have expected that these would be dates, but we actually have a series of 4-digit numbers. This is because dates are encoded as <strong>century month codes</strong> in the DHS. A century month code (CMC) encodes time as the number of months that have elapsed since 1900. CMCs are useful for calculating intervals of time, because they can be easily added and subtracted.</p>
+<p>However, the time encoded in our CHIRTS heatwave data aren’t encoded in CMC format, so we’ll need to reconcile these two time representations.</p>
+<section id="working-with-cmcs" class="level4 page-columns page-full"><h4 class="anchored" data-anchor-id="working-with-cmcs">Working with CMCs</h4>
+<p>Since converting between CMCs and traditional dates is a common and well-defined task, we’ll build some helper functions to handle the conversion. That way, we can easily convert back and forth without having to remember the CMC conversion formula each time.</p>
+<p>Fortunately, the description of the <code>KIDDOBCMC</code> variable describes the arithmetic required to convert. We’ve translated that text into the following function, which takes an input CMC and converts it to year-month format:</p>
+
+<div class="no-row-height column-margin column-container"><div class="">
+<p>You can view the description for any variable in your extract using the <code><a href="http://tech.popdata.org/ipumsr/reference/ipums_var_info.html">ipums_var_desc()</a></code> function from ipumsr.</p>
+</div></div><div class="cell">
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">cmc_to_ym</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">cmc</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="va">year</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">floor</a></span><span class="op">(</span><span class="op">(</span><span class="va">cmc</span> <span class="op">-</span> <span class="fl">1</span><span class="op">)</span> <span class="op">/</span> <span class="fl">12</span><span class="op">)</span> <span class="op">+</span> <span class="fl">1900</span></span>
+<span>  <span class="va">month</span> <span class="op">&lt;-</span> <span class="va">cmc</span> <span class="op">-</span> <span class="op">(</span><span class="op">(</span><span class="va">year</span> <span class="op">-</span> <span class="fl">1900</span><span class="op">)</span> <span class="op">*</span> <span class="fl">12</span><span class="op">)</span></span>
+<span>  </span>
+<span>  <span class="va">year_month</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span><span class="op">(</span><span class="va">year</span>, <span class="va">month</span>, sep <span class="op">=</span> <span class="st">"-"</span><span class="op">)</span></span>
+<span>  </span>
+<span>  <span class="fu">lubridate</span><span class="fu">::</span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/ymd.html">ym</a></span><span class="op">(</span><span class="va">year_month</span><span class="op">)</span></span>
+<span><span class="op">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Similarly, we’ll create a function that goes in the reverse direction:</p>
+<div class="cell">
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">ym_to_cmc</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">date</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="va">year</span> <span class="op">&lt;-</span> <span class="fu">lubridate</span><span class="fu">::</span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/year.html">year</a></span><span class="op">(</span><span class="va">date</span><span class="op">)</span></span>
+<span>  <span class="va">month</span> <span class="op">&lt;-</span> <span class="fu">lubridate</span><span class="fu">::</span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/month.html">month</a></span><span class="op">(</span><span class="va">date</span><span class="op">)</span></span>
+<span>  </span>
+<span>  <span class="op">(</span><span class="va">year</span> <span class="op">-</span> <span class="fl">1900</span><span class="op">)</span> <span class="op">*</span> <span class="fl">12</span> <span class="op">+</span> <span class="va">month</span></span>
+<span><span class="op">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>For instance, a CMC of 1307 turns out to be the same as November, 2008:</p>
+<div class="cell">
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">cmc_to_ym</span><span class="op">(</span><span class="fl">1307</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "2008-11-01"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>And vice versa:</p>
+<div class="cell">
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">ym_to_cmc</span><span class="op">(</span><span class="st">"2008-11-01"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 1307</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Now we have an easy way to reconcile the temporal information in our two data sources.</p>
+</section></section><section id="attaching-heatwaves-to-dhs-clusters" class="level2 page-columns page-full"><h2 class="anchored" data-anchor-id="attaching-heatwaves-to-dhs-clusters">Attaching heatwaves to DHS clusters</h2>
+<p>To extract the average heatwave proportions for each DHS enumeration cluster, we’ll use terra’s <code><a href="https://tidyr.tidyverse.org/reference/extract.html">extract()</a></code>, which we’ve introduced <a href="../2024-02-04-dhs-chirps/#aggregating-rainfall-within-cluster-regions">previously</a>.</p>
+<div class="cell">
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Extract mean heatwave proportions for each DHS cluster region</span></span>
+<span><span class="va">chirts_clust</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tidyr.tidyverse.org/reference/extract.html">extract</a></span><span class="op">(</span></span>
+<span>  <span class="va">ml_chirts_heatwave</span>, </span>
+<span>  <span class="va">ml_clust_buffer</span>, </span>
+<span>  fun <span class="op">=</span> <span class="va">mean</span>,</span>
+<span>  weights <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://tibble.tidyverse.org/reference/as_tibble.html">as_tibble</a></span><span class="op">(</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">chirts_clust</span></span>
+<span><span class="co">#&gt; # A tibble: 413 × 73</span></span>
+<span><span class="co">#&gt;       ID ml_chirts_heatwave_1 ml_chirts_heatwave_2 ml_chirts_heatwave_3</span></span>
+<span><span class="co">#&gt;    &lt;int&gt;                &lt;dbl&gt;                &lt;dbl&gt;                &lt;dbl&gt;</span></span>
+<span><span class="co">#&gt;  1     1                0.210                0.498                0.806</span></span>
+<span><span class="co">#&gt;  2     2                0.226                0.714                0.903</span></span>
+<span><span class="co">#&gt;  3     3                0.270                0.910                1    </span></span>
+<span><span class="co">#&gt;  4     4                0.226                0.857                0.968</span></span>
+<span><span class="co">#&gt;  5     5                0.258                0.898                0.996</span></span>
+<span><span class="co">#&gt;  6     6                0.226                0.841                0.935</span></span>
+<span><span class="co">#&gt;  7     7                0.169                0.679                0.903</span></span>
+<span><span class="co">#&gt;  8     8                0.161                0.5                  0.892</span></span>
+<span><span class="co">#&gt;  9     9                0.226                0.858                0.973</span></span>
+<span><span class="co">#&gt; 10    10                0.194                0.627                0.924</span></span>
+<span><span class="co">#&gt; # ℹ 403 more rows</span></span>
+<span><span class="co">#&gt; # ℹ 69 more variables: ml_chirts_heatwave_4 &lt;dbl&gt;, ml_chirts_heatwave_5 &lt;dbl&gt;,</span></span>
+<span><span class="co">#&gt; #   ml_chirts_heatwave_6 &lt;dbl&gt;, ml_chirts_heatwave_7 &lt;dbl&gt;,</span></span>
+<span><span class="co">#&gt; #   ml_chirts_heatwave_8 &lt;dbl&gt;, ml_chirts_heatwave_9 &lt;dbl&gt;,</span></span>
+<span><span class="co">#&gt; #   ml_chirts_heatwave_10 &lt;dbl&gt;, ml_chirts_heatwave_11 &lt;dbl&gt;,</span></span>
+<span><span class="co">#&gt; #   ml_chirts_heatwave_12 &lt;dbl&gt;, ml_chirts_heatwave_13 &lt;dbl&gt;,</span></span>
+<span><span class="co">#&gt; #   ml_chirts_heatwave_14 &lt;dbl&gt;, ml_chirts_heatwave_15 &lt;dbl&gt;, …</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<section id="wide-vs.-long-format" class="level3 page-columns page-full"><h3 class="anchored" data-anchor-id="wide-vs.-long-format">Wide vs.&nbsp;long format</h3>
+<p><code><a href="https://tidyr.tidyverse.org/reference/extract.html">extract()</a></code> provides data in <em>wide</em> format, where each column represents our temperature values (in this case, <strong>mean proportion of heatwave days in a given month</strong>) and each row represents a DHS enumeration cluster.</p>
+<p>To join on our DHS survey data, we’ll want our data to be in <em>long</em> format, where each row represents a single month of temperature data for a single DHS cluster. We can accomplish this conversion with the <code><a href="https://tidyr.tidyverse.org/reference/pivot_longer.html">pivot_longer()</a></code> function from the <a href="https://tidyr.tidyverse.org">tidyr</a> package.</p>
+
+<div class="no-row-height column-margin column-container"><div class="">
+<p></p>
+<div class="hex"> <a href="https://tidyr.tidyverse.org/index.html" class="hex"> <img src="../../images/hex/tidyr.png" class="hex-img"></a> <p class="hex-cap">© RStudio, Inc. (MIT)</p> </div>
+</div></div><p>First, we’ll rename the columns in our extracted data. Currently, they’re listed in incremental order, which isn’t very intuitive. Instead, we’ll rename them using the CMC code of the month that each column represents. We can use our helper function to convert these dates to CMC format.</p>
+<p>We’ll also update the <code>"ID"</code> column to be named <code>"DHSID"</code> for consistency with the name used in the DHS survey to represent the enumeration cluster ID:</p>
+<div class="cell">
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Sequence of months for the time range in our data</span></span>
+<span><span class="va">year_months</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span></span>
+<span>  <span class="fu">lubridate</span><span class="fu">::</span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/ymd.html">ym</a></span><span class="op">(</span><span class="st">"2007-01"</span><span class="op">)</span>, </span>
+<span>  <span class="fu">lubridate</span><span class="fu">::</span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/ymd.html">ym</a></span><span class="op">(</span><span class="st">"2012-12"</span><span class="op">)</span>, </span>
+<span>  by <span class="op">=</span> <span class="st">"months"</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Change layer names</span></span>
+<span><span class="fu"><a href="https://rspatial.github.io/terra/reference/names.html">names</a></span><span class="op">(</span><span class="va">chirts_clust</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"DHSID"</span>, <span class="fu">ym_to_cmc</span><span class="op">(</span><span class="va">year_months</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Next, we need to convert the incremental ID numbers for each cluster to their corresponding DHSID code. The ID values in <code>chirts_clust</code> represent the clusters extracted from <code>ml_clust</code> in index order. Thus, we simply need to reassign the incremental ID codes in <code>chirts_clust</code> with the IDs in <code>ml_clust</code>.</p>
+<div class="cell">
+<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Convert index numbers to corresponding DHSID codes</span></span>
+<span><span class="va">chirts_clust</span><span class="op">$</span><span class="va">DHSID</span> <span class="op">&lt;-</span> <span class="va">ml_clust</span><span class="op">$</span><span class="va">DHSID</span></span>
+<span></span>
+<span><span class="va">chirts_clust</span></span>
+<span><span class="co">#&gt; # A tibble: 413 × 73</span></span>
+<span><span class="co">#&gt;    DHSID  `1285` `1286` `1287` `1288` `1289` `1290`  `1291` `1292` `1293` `1294`</span></span>
+<span><span class="co">#&gt;    &lt;chr&gt;   &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;</span></span>
+<span><span class="co">#&gt;  1 ML201…  0.210  0.498  0.806  1      1      0.935 0.358        0 0.318   1    </span></span>
+<span><span class="co">#&gt;  2 ML201…  0.226  0.714  0.903  1      0.999  0.825 0.346        0 0.0355  0.857</span></span>
+<span><span class="co">#&gt;  3 ML201…  0.270  0.910  1      0.999  1      0.604 0            0 0       0.150</span></span>
+<span><span class="co">#&gt;  4 ML201…  0.226  0.857  0.968  1      1      0.718 0.186        0 0       0.159</span></span>
+<span><span class="co">#&gt;  5 ML201…  0.258  0.898  0.996  0.988  1      0.599 0            0 0       0.141</span></span>
+<span><span class="co">#&gt;  6 ML201…  0.226  0.841  0.935  1      1      0.572 0            0 0       0.373</span></span>
+<span><span class="co">#&gt;  7 ML201…  0.169  0.679  0.903  1      1      0.933 0.305        0 0.427   0.778</span></span>
+<span><span class="co">#&gt;  8 ML201…  0.161  0.5    0.892  1      1      0.967 0.581        0 0.5     0.901</span></span>
+<span><span class="co">#&gt;  9 ML201…  0.226  0.858  0.973  0.991  1      0.569 0.00296      0 0       0.144</span></span>
+<span><span class="co">#&gt; 10 ML201…  0.194  0.627  0.924  1      1      1.00  0.572        0 0.385   0.957</span></span>
+<span><span class="co">#&gt; # ℹ 403 more rows</span></span>
+<span><span class="co">#&gt; # ℹ 62 more variables: `1295` &lt;dbl&gt;, `1296` &lt;dbl&gt;, `1297` &lt;dbl&gt;, `1298` &lt;dbl&gt;,</span></span>
+<span><span class="co">#&gt; #   `1299` &lt;dbl&gt;, `1300` &lt;dbl&gt;, `1301` &lt;dbl&gt;, `1302` &lt;dbl&gt;, `1303` &lt;dbl&gt;,</span></span>
+<span><span class="co">#&gt; #   `1304` &lt;dbl&gt;, `1305` &lt;dbl&gt;, `1306` &lt;dbl&gt;, `1307` &lt;dbl&gt;, `1308` &lt;dbl&gt;,</span></span>
+<span><span class="co">#&gt; #   `1309` &lt;dbl&gt;, `1310` &lt;dbl&gt;, `1311` &lt;dbl&gt;, `1312` &lt;dbl&gt;, `1313` &lt;dbl&gt;,</span></span>
+<span><span class="co">#&gt; #   `1314` &lt;dbl&gt;, `1315` &lt;dbl&gt;, `1316` &lt;dbl&gt;, `1317` &lt;dbl&gt;, `1318` &lt;dbl&gt;,</span></span>
+<span><span class="co">#&gt; #   `1319` &lt;dbl&gt;, `1320` &lt;dbl&gt;, `1321` &lt;dbl&gt;, `1322` &lt;dbl&gt;, `1323` &lt;dbl&gt;, …</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Now we’re ready to convert to long format data. <code><a href="https://tidyr.tidyverse.org/reference/pivot_longer.html">pivot_longer()</a></code> will convert a set of columns in our wide data to two columns in our long data. The names of these columns will be stored in one of the output columns, and their associated values will be stored in the other.</p>
+<p>Below, we indicate that we want to pivot all columns <em>except</em> the DHSID column (the data are already long on <code>DHSID</code>). We also indicate that we want the new column of <em>names</em> to be called <code>"CHIRTSCMC"</code> and the new column of <em>values</em> to be called <code>"PROPHEATWAVE"</code>. Finally, we use the <code>names_transform</code> argument to convert all the names to numeric format, so they will be interpretable as CMCs.</p>
+<div class="cell">
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Convert to long format for each cluster/month combination</span></span>
+<span><span class="va">chirts_clust</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tidyr.tidyverse.org/reference/pivot_longer.html">pivot_longer</a></span><span class="op">(</span></span>
+<span>  <span class="va">chirts_clust</span>,</span>
+<span>  cols <span class="op">=</span> <span class="op">-</span><span class="va">DHSID</span>,</span>
+<span>  names_to <span class="op">=</span> <span class="st">"CHIRTSCMC"</span>,</span>
+<span>  values_to <span class="op">=</span> <span class="st">"PROPHEATWAVE"</span>,</span>
+<span>  names_transform <span class="op">=</span> <span class="va">as.numeric</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">chirts_clust</span></span>
+<span><span class="co">#&gt; # A tibble: 29,736 × 3</span></span>
+<span><span class="co">#&gt;    DHSID          CHIRTSCMC PROPHEATWAVE</span></span>
+<span><span class="co">#&gt;    &lt;chr&gt;              &lt;dbl&gt;        &lt;dbl&gt;</span></span>
+<span><span class="co">#&gt;  1 ML201200000001      1285        0.210</span></span>
+<span><span class="co">#&gt;  2 ML201200000001      1286        0.498</span></span>
+<span><span class="co">#&gt;  3 ML201200000001      1287        0.806</span></span>
+<span><span class="co">#&gt;  4 ML201200000001      1288        1    </span></span>
+<span><span class="co">#&gt;  5 ML201200000001      1289        1    </span></span>
+<span><span class="co">#&gt;  6 ML201200000001      1290        0.935</span></span>
+<span><span class="co">#&gt;  7 ML201200000001      1291        0.358</span></span>
+<span><span class="co">#&gt;  8 ML201200000001      1292        0    </span></span>
+<span><span class="co">#&gt;  9 ML201200000001      1293        0.318</span></span>
+<span><span class="co">#&gt; 10 ML201200000001      1294        1    </span></span>
+<span><span class="co">#&gt; # ℹ 29,726 more rows</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>As you can see, each row now corresponds to a cluster/month combination, and the corresponding heatwave value is stored in the <code>PROPHEATWAVE</code> column.</p>
+</section></section><section id="joining-on-dhs-survey-data" class="level2"><h2 class="anchored" data-anchor-id="joining-on-dhs-survey-data">Joining on DHS survey data</h2>
+<p>Before we join our heatwave data on our DHS survey data, we need to do some housekeeping. Some of the variables we want to include in our model include missing values or implied decimals, which we’ll want to clean up before we try to join the DHS survey with our CHIRTS data.</p>
+<section id="dhs-survey-data-preparation" class="level3"><h3 class="anchored" data-anchor-id="dhs-survey-data-preparation">DHS survey data preparation</h3>
+<p>First, we’ll make a new column that stores a unique ID for each child in the sample by combining the ID for each woman and the index for each of her births. This will make it easier to ensure that we join data independently for each child in the sample:</p>
+<div class="cell">
+<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># str_squish() removes excess whitespace in the ID strings</span></span>
+<span><span class="va">ml_dhs</span> <span class="op">&lt;-</span> <span class="va">ml_dhs</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>KIDID <span class="op">=</span> <span class="fu">stringr</span><span class="fu">::</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_trim.html">str_squish</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span><span class="op">(</span><span class="va">IDHSPID</span>, <span class="va">BIDX</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>We’ll also want to make sure to recode several of our variables that include missing values. We can check the missing value codes for a variable using <code><a href="http://tech.popdata.org/ipumsr/reference/ipums_var_info.html">ipums_val_labels()</a></code>. For instance, for our key outcome variable, <code>BIRTHWT</code>, we see that all values over <code>9996</code> are missing in some way:</p>
+<div class="cell">
+<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="http://tech.popdata.org/ipumsr/reference/ipums_var_info.html">ipums_val_labels</a></span><span class="op">(</span><span class="va">ml_dhs</span><span class="op">$</span><span class="va">BIRTHWT</span><span class="op">)</span></span>
+<span><span class="co">#&gt; # A tibble: 5 × 2</span></span>
+<span><span class="co">#&gt;     val lbl                  </span></span>
+<span><span class="co">#&gt;   &lt;int&gt; &lt;chr&gt;                </span></span>
+<span><span class="co">#&gt; 1  9995 9995+                </span></span>
+<span><span class="co">#&gt; 2  9996 Not weighed at birth </span></span>
+<span><span class="co">#&gt; 3  9997 Don't know           </span></span>
+<span><span class="co">#&gt; 4  9998 Missing              </span></span>
+<span><span class="co">#&gt; 5  9999 NIU (not in universe)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Looking at these values, you may be surprised to see 4-digit weights. To investigate further, we can display detailed variable information with <code><a href="http://tech.popdata.org/ipumsr/reference/ipums_var_info.html">ipums_var_desc()</a></code>:</p>
+<div class="cell">
+<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="http://tech.popdata.org/ipumsr/reference/ipums_var_info.html">ipums_var_desc</a></span><span class="op">(</span><span class="va">ml_dhs</span><span class="op">$</span><span class="va">BIRTHWT</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "For children born in the three to five years before the survey, BIRTHWT (M19) reports the child's birthweight in kilos with three implied decimal places (or, alternatively stated, in grams with no decimal places). Children who were not weighed are coded 9996."</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Note that the description mentions that there are 3 implied decimal places. So, we’ll recode <code>BIRTHWT</code> to be <code>NA</code> in the cases where the value is more than <code>9996</code>, and we’ll divide by 1000 otherwise. We’ll do a similar process with a few other variables as well:</p>
+<div class="cell">
+<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">ml_dhs</span> <span class="op">&lt;-</span> <span class="va">ml_dhs</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span></span>
+<span>    BIRTHWT <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/if_else.html">if_else</a></span><span class="op">(</span><span class="va">BIRTHWT</span> <span class="op">&gt;=</span> <span class="fl">9996</span>, <span class="cn">NA</span>, <span class="va">BIRTHWT</span> <span class="op">/</span> <span class="fl">1000</span><span class="op">)</span>,</span>
+<span>    HEIGHTFEM <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/if_else.html">if_else</a></span><span class="op">(</span><span class="va">HEIGHTFEM</span> <span class="op">&gt;=</span> <span class="fl">9994</span>, <span class="cn">NA</span>, <span class="va">HEIGHTFEM</span> <span class="op">/</span> <span class="fl">10</span><span class="op">)</span>,</span>
+<span>    EDUCLVL <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/if_else.html">if_else</a></span><span class="op">(</span><span class="va">EDUCLVL</span> <span class="op">==</span> <span class="fl">8</span>, <span class="cn">NA</span>, <span class="va">EDUCLVL</span><span class="op">)</span>,</span>
+<span>    BIRTHWTREF <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/if_else.html">if_else</a></span><span class="op">(</span><span class="va">BIRTHWTREF</span> <span class="op">&gt;=</span> <span class="fl">7</span>, <span class="cn">NA</span>, <span class="va">BIRTHWTREF</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="callout callout-style-default callout-caution callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Censoring
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>In practice, we would likely want to deal with <code>BIRTHWT</code> values of <code>9995+</code>, which represent all weights above the 9.995 kg threshold. It’s not fully correct to treat these values as <em>equal</em> to 9.995, since their values are actually unknown. This problem is known as <strong>censoring</strong>, but we won’t address it in this post to keep this demonstration focused on our core goal of integrating climate data with DHS surveys.</p>
+</div>
+</div>
+<section id="residency" class="level4"><h4 class="anchored" data-anchor-id="residency">Residency</h4>
+<p>When working with climate data, we want to be attentive to the members of the sample who may have recently moved to a location, as recent arrivals likely didn’t experience the previous climate effects recorded for the area they currently live!</p>
+<p>IPUMS DHS includes the <code>RESIDEINTYR</code> variable to indicate how long survey respondents have lived at their current location.</p>
+<p>Unfortunately, this variable wasn’t collected for the Mali 2012 sample. However, we do have a record of whether a respondent is a visitor to the location or not. At a minimum, we’ll remove records for those who are listed as visitors, since we can’t be confident that they experienced the climate data for the cluster their response was recorded in.</p>
+<div class="cell">
+<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">ml_dhs</span> <span class="op">&lt;-</span> <span class="va">ml_dhs</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">RESIDENT</span> <span class="op">==</span> <span class="fl">1</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section><section id="data-types" class="level4"><h4 class="anchored" data-anchor-id="data-types">Data types</h4>
+<p>Finally, we want to recode our variables to the appropriate data type. In our case, we just need to convert all labeled variables to factors. <code>BIDX</code> is unlabeled, but represents a factor, so we’ll explicitly convert that variable as well:</p>
+<div class="cell">
+<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">ml_dhs</span> <span class="op">&lt;-</span> <span class="va">ml_dhs</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>BIDX <span class="op">=</span> <span class="fu"><a href="https://forcats.tidyverse.org/reference/as_factor.html">as_factor</a></span><span class="op">(</span><span class="va">BIDX</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://forcats.tidyverse.org/reference/as_factor.html">as_factor</a></span><span class="op">(</span><span class="op">)</span> <span class="co"># Convert all remaining labeled columns to factors</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section></section><section id="attaching-data-sources" class="level3"><h3 class="anchored" data-anchor-id="attaching-data-sources">Attaching data sources</h3>
+<p>At its simplest, we could join our prepared DHS survey data with our extracted heatwave data by matching records based on their cluster and birth month. We can use <code><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">left_join()</a></code> from <a href="https://dplyr.tidyverse.org">dplyr</a> to do so. This will retain all records in our DHS survey sample and attach temperature values where the birth date (<code>KIDDOBCMC</code>) is equal to the month of temperature data in <code>chirts_clust</code>:</p>
+<div class="cell">
+<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Join temperature exposure for each child during the month of their birth</span></span>
+<span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">left_join</a></span><span class="op">(</span></span>
+<span>  <span class="va">ml_dhs</span>,</span>
+<span>  <span class="va">chirts_clust</span>,</span>
+<span>  by <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"DHSID"</span>, <span class="st">"KIDDOBCMC"</span> <span class="op">=</span> <span class="st">"CHIRTSCMC"</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>However, this only attaches a single month of temperature data for each child. What we’d rather have is a time series of values covering the time between conception and birth.</p>
+<p>To accomplish this, we can define a new variable, <code>KIDCONCEPTCMC</code>, which contains the CMC of the month 9 months before the birth date.</p>
+<div class="cell">
+<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Make unique ID for each kid using woman's ID and Birth index</span></span>
+<span><span class="va">ml_dhs</span> <span class="op">&lt;-</span> <span class="va">ml_dhs</span> <span class="op">|&gt;</span>  </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>KIDCONCEPTCMC <span class="op">=</span> <span class="va">KIDDOBCMC</span> <span class="op">-</span> <span class="fl">9</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Now, we want to join <em>all 9</em> of the relevant monthly temperature records to each child’s DHS survey record. That is, we want to match records that have the same <code>DHSID</code>, a <strong>birthdate</strong> that is <em>after</em> the CHIRTS data that will be joined, and a <strong>conception date</strong> that is <em>before</em> the CHIRTS data that will be joined. We can use <code><a href="https://dplyr.tidyverse.org/reference/join_by.html">join_by()</a></code> from <a href="https://dplyr.tidyverse.org">dplyr</a> to specify these more complex criteria:</p>
+<div class="cell">
+<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Join 9 months of CHIRTS data to each child record</span></span>
+<span><span class="va">ml_dhs_chirts</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">left_join</a></span><span class="op">(</span></span>
+<span>  <span class="va">ml_dhs</span>,</span>
+<span>  <span class="va">chirts_clust</span>,</span>
+<span>  by <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/join_by.html">join_by</a></span><span class="op">(</span></span>
+<span>    <span class="va">DHSID</span> <span class="op">==</span> <span class="va">DHSID</span>, <span class="co"># Cluster ID needs to match</span></span>
+<span>    <span class="va">KIDDOBCMC</span> <span class="op">&gt;</span> <span class="va">CHIRTSCMC</span>, <span class="co"># DOB needs to be after all joined temp. data</span></span>
+<span>    <span class="va">KIDCONCEPTCMC</span> <span class="op">&lt;=</span> <span class="va">CHIRTSCMC</span> <span class="co"># Conception date needs to be before all joined temp. data</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>We should end up with a dataset that contains 9 records for each child: one for each month between their conception and birth. We can confirm by counting the records for each <code>KIDID</code>:</p>
+<div class="cell">
+<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Each kid should have 9 rows now</span></span>
+<span><span class="va">ml_dhs_chirts</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html">count</a></span><span class="op">(</span><span class="va">KIDID</span><span class="op">)</span></span>
+<span><span class="co">#&gt; # A tibble: 10,300 × 2</span></span>
+<span><span class="co">#&gt;    KIDID               n</span></span>
+<span><span class="co">#&gt;    &lt;chr&gt;           &lt;int&gt;</span></span>
+<span><span class="co">#&gt;  1 46605 1 14 2 1      9</span></span>
+<span><span class="co">#&gt;  2 46605 1 16 2 1      9</span></span>
+<span><span class="co">#&gt;  3 46605 1 16 5 1      9</span></span>
+<span><span class="co">#&gt;  4 46605 1 16 5 2      9</span></span>
+<span><span class="co">#&gt;  5 46605 1 4 2 1       9</span></span>
+<span><span class="co">#&gt;  6 46605 1 42 2 1      9</span></span>
+<span><span class="co">#&gt;  7 46605 1 42 2 2      9</span></span>
+<span><span class="co">#&gt;  8 46605 1 50 2 1      9</span></span>
+<span><span class="co">#&gt;  9 46605 1 75 12 1     9</span></span>
+<span><span class="co">#&gt; 10 46605 1 75 12 2     9</span></span>
+<span><span class="co">#&gt; # ℹ 10,290 more rows</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>We can pull out a few columns for an individual child to make it more clear how things are being joined:</p>
+<div class="cell">
+<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Example of what our data look like for one kid:</span></span>
+<span><span class="va">ml_dhs_chirts</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">KIDID</span> <span class="op">==</span> <span class="st">"46605 1 4 2 1"</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">KIDID</span>, <span class="va">DHSID</span>, <span class="va">KIDDOBCMC</span>, <span class="va">CHIRTSCMC</span>, <span class="va">PROPHEATWAVE</span><span class="op">)</span></span>
+<span><span class="co">#&gt; # A tibble: 9 × 5</span></span>
+<span><span class="co">#&gt;   KIDID         DHSID          KIDDOBCMC CHIRTSCMC PROPHEATWAVE</span></span>
+<span><span class="co">#&gt;   &lt;chr&gt;         &lt;chr&gt;              &lt;dbl&gt;     &lt;dbl&gt;        &lt;dbl&gt;</span></span>
+<span><span class="co">#&gt; 1 46605 1 4 2 1 ML201200000001      1311      1302       0.822 </span></span>
+<span><span class="co">#&gt; 2 46605 1 4 2 1 ML201200000001      1311      1303       0.103 </span></span>
+<span><span class="co">#&gt; 3 46605 1 4 2 1 ML201200000001      1311      1304       0     </span></span>
+<span><span class="co">#&gt; 4 46605 1 4 2 1 ML201200000001      1311      1305       0.244 </span></span>
+<span><span class="co">#&gt; 5 46605 1 4 2 1 ML201200000001      1311      1306       0.787 </span></span>
+<span><span class="co">#&gt; 6 46605 1 4 2 1 ML201200000001      1311      1307       0.624 </span></span>
+<span><span class="co">#&gt; 7 46605 1 4 2 1 ML201200000001      1311      1308       0     </span></span>
+<span><span class="co">#&gt; 8 46605 1 4 2 1 ML201200000001      1311      1309       0.0968</span></span>
+<span><span class="co">#&gt; 9 46605 1 4 2 1 ML201200000001      1311      1310       0.741</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>As we can see, an individual child (<code>KIDID</code>) is associated with heatwave data (<code>PROPHEATWAVE</code>) for each of the 9 CHIRTS months (<code>CHIRTSCMC</code>) prior to their birth date (<code>KIDDOBCMC</code>).</p>
+<p>For a different child we’ll get a similar output, but because this child has a different birth date, the specific <code>PROPHEATWAVE</code> values will be different, even if the cluster ID is the same:</p>
+<div class="cell">
+<div class="sourceCode" id="cb32"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">ml_dhs_chirts</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">KIDID</span> <span class="op">==</span> <span class="st">"46605 1255 2 2"</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">KIDID</span>, <span class="va">DHSID</span>, <span class="va">KIDDOBCMC</span>, <span class="va">CHIRTSCMC</span>, <span class="va">PROPHEATWAVE</span><span class="op">)</span></span>
+<span><span class="co">#&gt; # A tibble: 9 × 5</span></span>
+<span><span class="co">#&gt;   KIDID          DHSID          KIDDOBCMC CHIRTSCMC PROPHEATWAVE</span></span>
+<span><span class="co">#&gt;   &lt;chr&gt;          &lt;chr&gt;              &lt;dbl&gt;     &lt;dbl&gt;        &lt;dbl&gt;</span></span>
+<span><span class="co">#&gt; 1 46605 1255 2 2 ML201200000001      1305      1296        0    </span></span>
+<span><span class="co">#&gt; 2 46605 1255 2 2 ML201200000001      1305      1297        0    </span></span>
+<span><span class="co">#&gt; 3 46605 1255 2 2 ML201200000001      1305      1298        0.345</span></span>
+<span><span class="co">#&gt; 4 46605 1255 2 2 ML201200000001      1305      1299        1    </span></span>
+<span><span class="co">#&gt; 5 46605 1255 2 2 ML201200000001      1305      1300        0.999</span></span>
+<span><span class="co">#&gt; 6 46605 1255 2 2 ML201200000001      1305      1301        1    </span></span>
+<span><span class="co">#&gt; 7 46605 1255 2 2 ML201200000001      1305      1302        0.822</span></span>
+<span><span class="co">#&gt; 8 46605 1255 2 2 ML201200000001      1305      1303        0.103</span></span>
+<span><span class="co">#&gt; 9 46605 1255 2 2 ML201200000001      1305      1304        0</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Similarly, for a child from a different cluster, we’ll have different <code>PROPHEATWAVE</code> values regardless of which month is under consideration:</p>
+<div class="cell">
+<div class="sourceCode" id="cb33"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">ml_dhs_chirts</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">KIDID</span> <span class="op">==</span> <span class="st">"46605 518171 3 1"</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">KIDID</span>, <span class="va">DHSID</span>, <span class="va">KIDDOBCMC</span>, <span class="va">CHIRTSCMC</span>, <span class="va">PROPHEATWAVE</span><span class="op">)</span></span>
+<span><span class="co">#&gt; # A tibble: 9 × 5</span></span>
+<span><span class="co">#&gt;   KIDID            DHSID          KIDDOBCMC CHIRTSCMC PROPHEATWAVE</span></span>
+<span><span class="co">#&gt;   &lt;chr&gt;            &lt;chr&gt;              &lt;dbl&gt;     &lt;dbl&gt;        &lt;dbl&gt;</span></span>
+<span><span class="co">#&gt; 1 46605 518171 3 1 ML201200000518      1314      1305       0.379 </span></span>
+<span><span class="co">#&gt; 2 46605 518171 3 1 ML201200000518      1314      1306       0.877 </span></span>
+<span><span class="co">#&gt; 3 46605 518171 3 1 ML201200000518      1314      1307       0.456 </span></span>
+<span><span class="co">#&gt; 4 46605 518171 3 1 ML201200000518      1314      1308       0     </span></span>
+<span><span class="co">#&gt; 5 46605 518171 3 1 ML201200000518      1314      1309       0.0213</span></span>
+<span><span class="co">#&gt; 6 46605 518171 3 1 ML201200000518      1314      1310       0.505 </span></span>
+<span><span class="co">#&gt; 7 46605 518171 3 1 ML201200000518      1314      1311       0.923 </span></span>
+<span><span class="co">#&gt; 8 46605 518171 3 1 ML201200000518      1314      1312       1     </span></span>
+<span><span class="co">#&gt; 9 46605 518171 3 1 ML201200000518      1314      1313       1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Now that we have the correct 9-month time series for each child, we can further aggregate to get a trimester-specific exposure metric for each child.</p>
+<p>First, we’ll create a <code>TRIMESTER</code> variable, which encodes the trimester that each month belongs to for each child:</p>
+<div class="cell">
+<div class="sourceCode" id="cb34"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">ml_dhs_chirts</span> <span class="op">&lt;-</span> <span class="va">ml_dhs_chirts</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span><span class="op">(</span><span class="va">DHSID</span>, <span class="va">KIDID</span>, <span class="va">CHIRTSCMC</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="co"># order by CMC to ensure trimesters are in correct order</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>TRIMESTER <span class="op">=</span> <span class="fu"><a href="https://forcats.tidyverse.org/reference/as_factor.html">as_factor</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">3</span><span class="op">)</span>, each <span class="op">=</span> <span class="fl">3</span><span class="op">)</span><span class="op">)</span>, .by <span class="op">=</span> <span class="va">KIDID</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Then, we’ll average the heatwave proportions across trimesters for each child:</p>
+<div class="cell">
+<div class="sourceCode" id="cb35"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Average proportion of heatwave days within each child and trimester</span></span>
+<span><span class="va">ml_dhs_tri</span> <span class="op">&lt;-</span> <span class="va">ml_dhs_chirts</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarize</a></span><span class="op">(</span></span>
+<span>    MEANPROPHEATWAVE <span class="op">=</span> <span class="fu"><a href="https://rspatial.github.io/terra/reference/summarize-generics.html">mean</a></span><span class="op">(</span><span class="va">PROPHEATWAVE</span><span class="op">)</span>, </span>
+<span>    .by <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">KIDID</span>, <span class="va">TRIMESTER</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span></span>
+<span><span class="va">ml_dhs_tri</span></span>
+<span><span class="co">#&gt; # A tibble: 30,900 × 3</span></span>
+<span><span class="co">#&gt;    KIDID          TRIMESTER MEANPROPHEATWAVE</span></span>
+<span><span class="co">#&gt;    &lt;chr&gt;          &lt;fct&gt;                &lt;dbl&gt;</span></span>
+<span><span class="co">#&gt;  1 46605 1 14 2 1 1                    0.439</span></span>
+<span><span class="co">#&gt;  2 46605 1 14 2 1 2                    0.218</span></span>
+<span><span class="co">#&gt;  3 46605 1 14 2 1 3                    0.781</span></span>
+<span><span class="co">#&gt;  4 46605 1 16 2 1 1                    0.240</span></span>
+<span><span class="co">#&gt;  5 46605 1 16 2 1 2                    0.903</span></span>
+<span><span class="co">#&gt;  6 46605 1 16 2 1 3                    0.731</span></span>
+<span><span class="co">#&gt;  7 46605 1 16 5 1 1                    0.944</span></span>
+<span><span class="co">#&gt;  8 46605 1 16 5 1 2                    0.322</span></span>
+<span><span class="co">#&gt;  9 46605 1 16 5 1 3                    0.578</span></span>
+<span><span class="co">#&gt; 10 46605 1 16 5 2 1                    0.115</span></span>
+<span><span class="co">#&gt; # ℹ 30,890 more rows</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>We now have 3 records for each child—one for each trimester. Our temperature metric now represents the average monthly proportion of days spent in a heatwave across the three months of each trimester <em>as well as</em> across the spatial region of each buffered cluster region.</p>
+<p>Recall that in this case we define a heatwave day as any day belonging to a sequence of at least 3 days over 35°C.</p>
+</section></section></section><section id="a-basic-model" class="level1 page-columns page-full"><h1>A basic model</h1>
+<p>To complete this post, we’ll use our prepared data to generate a model predicting birth weight outcomes from heatwave exposure. We’ll interact heatwave exposure with the trimester of exposure to determine whether the effects of heatwave exposure may differ across trimesters.</p>
+<p>We’ll also include several covariates and control variables, including child’s sex, mother’s age and height, birth order, education level, and the source of birth weight data.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>We’re building this model primarily to demonstrate how you might use aggregated survey and climate data. It’s not intended to be be a comprehensive modeling approach, and there are likely other variables that should be considered and included.</p>
+</div>
+</div>
+<p>First, we need to reattach our covariates to our trimester-aggregated data from the previous step. We’ll do so by selecting our variables of interest and joining them back on our heatwave exposure metrics calculated for each trimester and child ID.</p>
+<div class="cell">
+<div class="sourceCode" id="cb36"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Select covariates of interest. We want a single row of covariates for each</span></span>
+<span><span class="co"># KIDID</span></span>
+<span><span class="va">ml_dhs_chirts_sub</span> <span class="op">&lt;-</span> <span class="va">ml_dhs_chirts</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span></span>
+<span>    <span class="va">DHSID</span>, <span class="va">IDHSPID</span>, <span class="va">KIDID</span>, <span class="va">KIDSEX</span>, <span class="va">BIDX</span>, <span class="va">EDUCLVL</span>, </span>
+<span>    <span class="va">BIRTHWTREF</span>, <span class="va">BIRTHWT</span>, <span class="va">AGE</span>, <span class="va">TRIMESTER</span>, <span class="va">HEIGHTFEM</span></span>
+<span>  <span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/distinct.html">distinct</a></span><span class="op">(</span><span class="op">)</span> <span class="co"># Remove extra month-level records for each trimester</span></span>
+<span></span>
+<span><span class="co"># Join trimester-aggregated data to covariates</span></span>
+<span><span class="va">ml_dhs_tri</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">full_join</a></span><span class="op">(</span></span>
+<span>  <span class="va">ml_dhs_tri</span>,</span>
+<span>  <span class="va">ml_dhs_chirts_sub</span>,</span>
+<span>  by <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"KIDID"</span>, <span class="st">"TRIMESTER"</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Now, we can build a random effects model using <code>lmer</code> from the <a href="https://github.com/lme4/lme4/">lme4</a> package. We won’t get into all the details of random effects models in this post; for now, it’s enough to know that these models allow you to model a separate intercept for observations that belong to different groups. In this case, we fit separate intercepts for each enumeration area <code>(1 | DHSID)</code>. This allows us to account for some of the correlation between child observations from the same spatial area.</p>
+<div class="cell">
+<div class="sourceCode" id="cb37"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">heatwave_mod</span> <span class="op">&lt;-</span> <span class="fu">lme4</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/lme4/man/lmer.html">lmer</a></span><span class="op">(</span></span>
+<span>  <span class="va">BIRTHWT</span> <span class="op">~</span> <span class="va">MEANPROPHEATWAVE</span> <span class="op">*</span> <span class="va">TRIMESTER</span> <span class="op">+</span> <span class="va">KIDSEX</span> <span class="op">+</span> <span class="va">AGE</span> <span class="op">+</span> <span class="va">BIDX</span> <span class="op">+</span> </span>
+<span>    <span class="va">EDUCLVL</span> <span class="op">+</span> <span class="va">BIRTHWTREF</span> <span class="op">+</span> <span class="va">HEIGHTFEM</span> <span class="op">+</span> <span class="op">(</span><span class="fl">1</span> <span class="op">|</span> <span class="va">DHSID</span><span class="op">)</span>,</span>
+<span>  data <span class="op">=</span> <span class="va">ml_dhs_tri</span></span>
+<span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+
+<div class="no-row-height column-margin column-container"><div class="">
+<p></p>
+<div class="hex"> <a href="https://www.danieldsjoberg.com/gtsummary/index.html" class="hex"> <img src="../../images/hex/gtsummary.png" class="hex-img"></a> <p class="hex-cap">© Daniel D. Sjoberg et al. (MIT)</p> </div>
+</div></div><p>We can summarize our results with the <a href="https://github.com/ddsjoberg/gtsummary">gtsummary</a> package. Based on the confidence intervals reported in this output, it appears that there may be a slight negative relationship between the proportion of heatwave days and birth weight, but the results are not definitive.</p>
+<p>The interaction terms suggest that heatwave suggest that the effect of heatwave days on birth weight is slightly more positive in trimester 2 as compared to the effect during trimester 1.</p>
+<div class="cell">
+<details class="code-fold"><summary>Show table code</summary><div class="sourceCode" id="cb38"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/ddsjoberg/gtsummary">gtsummary</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://www.danieldsjoberg.com/gtsummary/reference/tbl_regression.html">tbl_regression</a></span><span class="op">(</span></span>
+<span>  <span class="va">heatwave_mod</span>, </span>
+<span>  conf.int <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  tidy_fun <span class="op">=</span> <span class="fu">broom.mixed</span><span class="fu">::</span><span class="va"><a href="https://generics.r-lib.org/reference/tidy.html">tidy</a></span>,</span>
+<span>  label <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span></span>
+<span>    MEANPROPHEATWAVE <span class="op">=</span> <span class="st">"Mean proportion of days in heatwave"</span>,</span>
+<span>    TRIMESTER <span class="op">=</span> <span class="st">"Trimester"</span>,</span>
+<span>    BIDX <span class="op">=</span> <span class="st">"Birth order"</span>,</span>
+<span>    EDUCLVL <span class="op">=</span> <span class="st">"Education level"</span>,</span>
+<span>    BIRTHWTREF <span class="op">=</span> <span class="st">"Birth weight source"</span>,</span>
+<span>    HEIGHTFEM <span class="op">=</span> <span class="st">"Mother's height (cm)"</span>,</span>
+<span>    `DHSID.sd__(Intercept)` <span class="op">=</span> <span class="st">"Random effects: Enumeration cluster (SD)"</span>,</span>
+<span>    `Residual.sd__Observation` <span class="op">=</span> <span class="st">"Random effects: Residual (SD)"</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://www.danieldsjoberg.com/gtsummary/reference/bold_italicize_labels_levels.html">italicize_labels</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://www.danieldsjoberg.com/gtsummary/reference/modify.html">modify_header</a></span><span class="op">(</span>update <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>label <span class="op">=</span> <span class="st">""</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://www.danieldsjoberg.com/gtsummary/reference/as_gt.html">as_gt</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">gt</span><span class="fu">::</span><span class="fu"><a href="https://gt.rstudio.com/reference/tab_header.html">tab_header</a></span><span class="op">(</span></span>
+<span>    <span class="fu">gt</span><span class="fu">::</span><span class="fu"><a href="https://gt.rstudio.com/reference/md.html">md</a></span><span class="op">(</span><span class="st">"# Effects of Heatwave Days on Birthweight"</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details><div class="cell-output-display">
+<div>
+<div id="hlosqowfmn" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#hlosqowfmn table {
+  font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#hlosqowfmn thead, #hlosqowfmn tbody, #hlosqowfmn tfoot, #hlosqowfmn tr, #hlosqowfmn td, #hlosqowfmn th {
+  border-style: none;
+}
+
+#hlosqowfmn p {
+  margin: 0;
+  padding: 0;
+}
+
+#hlosqowfmn .gt_table {
+  display: table;
+  border-collapse: collapse;
+  line-height: normal;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#hlosqowfmn .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+#hlosqowfmn .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#hlosqowfmn .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 3px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#hlosqowfmn .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#hlosqowfmn .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#hlosqowfmn .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#hlosqowfmn .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#hlosqowfmn .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#hlosqowfmn .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#hlosqowfmn .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#hlosqowfmn .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#hlosqowfmn .gt_spanner_row {
+  border-bottom-style: hidden;
+}
+
+#hlosqowfmn .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  text-align: left;
+}
+
+#hlosqowfmn .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#hlosqowfmn .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#hlosqowfmn .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#hlosqowfmn .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#hlosqowfmn .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#hlosqowfmn .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#hlosqowfmn .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#hlosqowfmn .gt_row_group_first th {
+  border-top-width: 2px;
+}
+
+#hlosqowfmn .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#hlosqowfmn .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#hlosqowfmn .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#hlosqowfmn .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#hlosqowfmn .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#hlosqowfmn .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#hlosqowfmn .gt_last_grand_summary_row_top {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: double;
+  border-bottom-width: 6px;
+  border-bottom-color: #D3D3D3;
+}
+
+#hlosqowfmn .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#hlosqowfmn .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#hlosqowfmn .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#hlosqowfmn .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#hlosqowfmn .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#hlosqowfmn .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#hlosqowfmn .gt_left {
+  text-align: left;
+}
+
+#hlosqowfmn .gt_center {
+  text-align: center;
+}
+
+#hlosqowfmn .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#hlosqowfmn .gt_font_normal {
+  font-weight: normal;
+}
+
+#hlosqowfmn .gt_font_bold {
+  font-weight: bold;
+}
+
+#hlosqowfmn .gt_font_italic {
+  font-style: italic;
+}
+
+#hlosqowfmn .gt_super {
+  font-size: 65%;
+}
+
+#hlosqowfmn .gt_footnote_marks {
+  font-size: 75%;
+  vertical-align: 0.4em;
+  position: initial;
+}
+
+#hlosqowfmn .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#hlosqowfmn .gt_indent_1 {
+  text-indent: 5px;
+}
+
+#hlosqowfmn .gt_indent_2 {
+  text-indent: 10px;
+}
+
+#hlosqowfmn .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#hlosqowfmn .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#hlosqowfmn .gt_indent_5 {
+  text-indent: 25px;
+}
+</style>
+<table class="gt_table table table-sm table-striped small" data-quarto-postprocess="true" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header gt_heading">
+<th colspan="3" class="gt_heading gt_title gt_font_normal gt_bottom_border"><h1 id="effects-of-heatwave-days-on-birthweight">Effects of Heatwave Days on Birthweight</h1></th>
+</tr>
+<tr class="odd gt_col_headings">
+<th class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col"></th>
+<th id="<strong>Beta</strong>" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col"><strong>Beta</strong></th>
+<th id="<strong>95% CI</strong><span class=&quot;gt_footnote_marks&quot; style=&quot;white-space:nowrap;font-style:italic;font-weight:normal;&quot;><sup>1</sup></span>" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col">
+<strong>95% CI</strong><span class="gt_footnote_marks" style="white-space:nowrap;font-style:italic;font-weight:normal;"><sup>1</sup></span>
+</th>
+</tr>
+</thead>
+<tbody class="gt_table_body">
+<tr class="odd">
+<td class="gt_row gt_left" headers="label" style="font-style: italic">Mean proportion of days in heatwave</td>
+<td class="gt_row gt_center" headers="estimate">-0.08</td>
+<td class="gt_row gt_center" headers="ci">-0.22, 0.05</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="label" style="font-style: italic">Trimester</td>
+<td class="gt_row gt_center" headers="estimate"><br></td>
+<td class="gt_row gt_center" headers="ci"><br></td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="label">&nbsp;&nbsp;&nbsp;&nbsp;1</td>
+<td class="gt_row gt_center" headers="estimate">—</td>
+<td class="gt_row gt_center" headers="ci">—</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="label">&nbsp;&nbsp;&nbsp;&nbsp;2</td>
+<td class="gt_row gt_center" headers="estimate">-0.10</td>
+<td class="gt_row gt_center" headers="ci">-0.20, 0.00</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="label">&nbsp;&nbsp;&nbsp;&nbsp;3</td>
+<td class="gt_row gt_center" headers="estimate">-0.01</td>
+<td class="gt_row gt_center" headers="ci">-0.11, 0.09</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="label" style="font-style: italic">Sex of child</td>
+<td class="gt_row gt_center" headers="estimate"><br></td>
+<td class="gt_row gt_center" headers="ci"><br></td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="label">&nbsp;&nbsp;&nbsp;&nbsp;Male</td>
+<td class="gt_row gt_center" headers="estimate">—</td>
+<td class="gt_row gt_center" headers="ci">—</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="label">&nbsp;&nbsp;&nbsp;&nbsp;Female</td>
+<td class="gt_row gt_center" headers="estimate">-0.15</td>
+<td class="gt_row gt_center" headers="ci">-0.20, -0.10</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="label" style="font-style: italic">Age</td>
+<td class="gt_row gt_center" headers="estimate">0.01</td>
+<td class="gt_row gt_center" headers="ci">0.01, 0.01</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="label" style="font-style: italic">Birth order</td>
+<td class="gt_row gt_center" headers="estimate"><br></td>
+<td class="gt_row gt_center" headers="ci"><br></td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="label">&nbsp;&nbsp;&nbsp;&nbsp;1</td>
+<td class="gt_row gt_center" headers="estimate">—</td>
+<td class="gt_row gt_center" headers="ci">—</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="label">&nbsp;&nbsp;&nbsp;&nbsp;2</td>
+<td class="gt_row gt_center" headers="estimate">0.06</td>
+<td class="gt_row gt_center" headers="ci">0.01, 0.12</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="label">&nbsp;&nbsp;&nbsp;&nbsp;3</td>
+<td class="gt_row gt_center" headers="estimate">0.12</td>
+<td class="gt_row gt_center" headers="ci">-0.02, 0.26</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="label">&nbsp;&nbsp;&nbsp;&nbsp;4</td>
+<td class="gt_row gt_center" headers="estimate">-0.55</td>
+<td class="gt_row gt_center" headers="ci">-1.1, 0.01</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="label" style="font-style: italic">Education level</td>
+<td class="gt_row gt_center" headers="estimate"><br></td>
+<td class="gt_row gt_center" headers="ci"><br></td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="label">&nbsp;&nbsp;&nbsp;&nbsp;No education</td>
+<td class="gt_row gt_center" headers="estimate">—</td>
+<td class="gt_row gt_center" headers="ci">—</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="label">&nbsp;&nbsp;&nbsp;&nbsp;Primary</td>
+<td class="gt_row gt_center" headers="estimate">0.07</td>
+<td class="gt_row gt_center" headers="ci">-0.01, 0.14</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="label">&nbsp;&nbsp;&nbsp;&nbsp;Secondary</td>
+<td class="gt_row gt_center" headers="estimate">0.08</td>
+<td class="gt_row gt_center" headers="ci">0.01, 0.16</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="label">&nbsp;&nbsp;&nbsp;&nbsp;Higher</td>
+<td class="gt_row gt_center" headers="estimate">0.04</td>
+<td class="gt_row gt_center" headers="ci">-0.14, 0.22</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="label" style="font-style: italic">Birth weight source</td>
+<td class="gt_row gt_center" headers="estimate"><br></td>
+<td class="gt_row gt_center" headers="ci"><br></td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="label">&nbsp;&nbsp;&nbsp;&nbsp;From written card</td>
+<td class="gt_row gt_center" headers="estimate">—</td>
+<td class="gt_row gt_center" headers="ci">—</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="label">&nbsp;&nbsp;&nbsp;&nbsp;From mother's recall</td>
+<td class="gt_row gt_center" headers="estimate">0.12</td>
+<td class="gt_row gt_center" headers="ci">0.06, 0.18</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="label" style="font-style: italic">Mother's height (cm)</td>
+<td class="gt_row gt_center" headers="estimate">0.00</td>
+<td class="gt_row gt_center" headers="ci">0.00, 0.00</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="label" style="font-style: italic">Mean proportion of days in heatwave * Trimester</td>
+<td class="gt_row gt_center" headers="estimate"><br></td>
+<td class="gt_row gt_center" headers="ci"><br></td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="label">&nbsp;&nbsp;&nbsp;&nbsp;Mean proportion of days in heatwave * 2</td>
+<td class="gt_row gt_center" headers="estimate">0.22</td>
+<td class="gt_row gt_center" headers="ci">0.03, 0.41</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="label">&nbsp;&nbsp;&nbsp;&nbsp;Mean proportion of days in heatwave * 3</td>
+<td class="gt_row gt_center" headers="estimate">0.03</td>
+<td class="gt_row gt_center" headers="ci">-0.16, 0.21</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="label" style="font-style: italic">Random effects: Enumeration cluster (SD)</td>
+<td class="gt_row gt_center" headers="estimate">0.58</td>
+<td class="gt_row gt_center" headers="ci"><br></td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="label" style="font-style: italic">Random effects: Residual (SD)</td>
+<td class="gt_row gt_center" headers="estimate">0.82</td>
+<td class="gt_row gt_center" headers="ci"><br></td>
+</tr>
+</tbody>
+<tfoot class="gt_footnotes"><tr class="even">
+<td colspan="3" class="gt_footnote">
+<span class="gt_footnote_marks" style="white-space:nowrap;font-style:italic;font-weight:normal;"><sup>1</sup></span> CI = Confidence Interval</td>
+</tr></tfoot>
+</table>
+</div>
+</div>
+</div>
+</div>
+<div class="cell page-columns page-full">
+<details class="code-fold"><summary>Show plot code</summary><div class="sourceCode" id="cb39"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">sjPlot</span><span class="fu">::</span><span class="fu"><a href="https://strengejacke.github.io/sjPlot/reference/plot_model.html">plot_model</a></span><span class="op">(</span></span>
+<span>  <span class="va">heatwave_mod</span>, </span>
+<span>  title <span class="op">=</span> <span class="st">"Heatwave Model Coefficients"</span>, </span>
+<span>  vline.color <span class="op">=</span> <span class="st">"#00263A"</span>,</span>
+<span>  colors <span class="op">=</span> <span class="st">"#98579B"</span>,</span>
+<span>  axis.labels <span class="op">=</span> <span class="fu"><a href="https://rspatial.github.io/terra/reference/flip.html">rev</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span></span>
+<span>    <span class="st">"Mean monthly proportion of days in heatwave"</span>,</span>
+<span>    <span class="st">"Trimester: 2"</span>,</span>
+<span>    <span class="st">"Trimester: 3"</span>,</span>
+<span>    <span class="st">"Sex: Female"</span>,</span>
+<span>    <span class="st">"Mother's age"</span>,</span>
+<span>    <span class="st">"Birth index: 2"</span>,</span>
+<span>    <span class="st">"Birth index: 3"</span>,</span>
+<span>    <span class="st">"Birth index: 4"</span>,</span>
+<span>    <span class="st">"Highest education: Primary"</span>,</span>
+<span>    <span class="st">"Highest education: Secondary"</span>,</span>
+<span>    <span class="st">"Highest education: Higher"</span>,</span>
+<span>    <span class="st">"Source of weight: Mother's recall"</span>,</span>
+<span>    <span class="st">"Mother's height"</span>,</span>
+<span>    <span class="st">"Heatwave x Trimester: 2"</span>,</span>
+<span>    <span class="st">"Heatwave x Trimester: 3"</span></span>
+<span>  <span class="op">)</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details><div class="cell-output-display page-columns page-full">
+<div class="page-columns page-full">
+<figure class="figure page-columns page-full"><p class="page-columns page-full"><img src="index_files/figure-html/listing-img-1.png" class="img-fluid figure-img column-page" style="width:100.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>We’ve now demonstrated a full workflow to obtain raw CHIRTS raster data, calculate monthly heat exposure metrics, join them on survey records based on the timing of those records, and finally producing a model to understand the impacts of our heatwave definition.</p>
+<p>Obviously, for your specific research questions many of these steps will need to change, but we’ve introduced many of the core tools you need when integrating climate data with DHS surveys. Even if you modify the sources and metrics you use, you should have an understanding of some of the technical considerations that go into this kind of research.</p>
+</section><div id="quarto-appendix" class="default"><section id="getting-help" class="level2 appendix"><h2 class="anchored quarto-appendix-heading">Getting Help</h2><div class="quarto-appendix-contents">
+<p>Questions or comments? Check out the <a href="https://forum.ipums.org">IPUMS User Forum</a> or reach out to IPUMS User Support at ipums@umn.edu.</p>
+
+
+</div></section></div></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp("https:\/\/ipums\.github\.io\/dhs-research-hub");
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+<footer class="footer"><div class="nav-footer">
+    <div class="nav-footer-left">
+      &nbsp;
+    </div>   
+    <div class="nav-footer-center">
+<p>Developed by <a href="https://www.ipums.org">IPUMS</a> at the University of Minnesota<br>Licensed under the <a href="https://www.mozilla.org/en-US/MPL/2.0/">Mozilla Public License Version 2.0</a></p>
+</div>
+    <div class="nav-footer-right">
+      &nbsp;
+    </div>
+  </div>
+</footer>
+
+
+</body></html>

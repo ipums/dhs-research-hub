@@ -1,0 +1,890 @@
+---
+title: "Time-specific temperature exposures for DHS survey respondents"
+description: |
+  Fine-tune an analysis by incorporating temporal information from a DHS survey
+  with longitudinal climate data
+author: 
+  - name: "Finn Roberts"
+    affiliation: Senior Data Analyst, IPUMS
+date: 05-31-2024
+categories:
+  - CHIRTS
+  - Temperature
+  - Heat
+  - Longitudinal Analysis
+  - Time series
+  - Multilevel Modeling
+  - Climate
+  - terra
+  - lme4
+  - tidyr
+  - R
+fig-width: 10
+fig-height: 8
+image: index_files/figure-html/listing-img-1.png
+# bibliography: references.bib
+open-graph:
+  title: "Untitled"
+  # description:
+  image: index_files/figure-html/listing-img-1.png
+twitter-card:
+  title: "Untitled"
+  # description:
+  image: index_files/figure-html/listing-img-1.png
+---
+
+```{r}
+#| results: hide
+#| echo: false
+# save the built-in output hook
+hook_output <- knitr::knit_hooks$get("output")
+
+# set a new output hook to truncate text output
+knitr::knit_hooks$set(output = function(x, options) {
+  if (!is.null(n <- options$out.lines)) {
+    x <- xfun::split_lines(x)
+    if (length(x) > n) {
+      # truncate the output
+      x <- c(head(x, n), "....\n")
+    }
+    x <- paste(x, collapse = "\n")
+  }
+  hook_output(x, options)
+})
+
+source("../../R/utils.R")
+
+# Set plot theme
+ggplot2::theme_set(theme_dhs_base())
+
+# Load fonts
+sysfonts::font_add(
+  family = "cabrito", 
+  regular = "../../fonts/cabritosansnormregular-webfont.ttf"
+)
+
+showtext::showtext_auto()
+```
+
+In our [last technical post](../2024-04-15-chirts-metrics/), we
+demonstrated how to calculate several different monthly temperature
+metrics with the ultimate goal of linking these values to individual
+child records in the 2012 Mali DHS survey.
+
+However, in contrast to the technique we used in our [CHIRPS
+post](../2024-02-04-dhs-chirps), we can't simply join our temperature
+data onto our DHS sample by enumeration cluster alone because each child
+in our sample has a different birth date, and therefore different
+temperature exposure prior to birth.
+
+To account for this, we need to join our temperature data to each child
+survey record both by **enumeration cluster** (which contains the
+spatial information) *as well as* the child's **birth date** (which
+contains the temporal information).
+
+First, we'll identify the monthly CHIRTS data corresponding to each of
+our enumeration cluster areas, producing a time series of temperature
+values for each cluster. Next, we'll identify the time series of
+temperature values for the 9 months prior to each child's birth and use
+it to calculate trimester-specific temperature exposure values for each
+child. Finally, we'll use the joined data to build a simple model
+predicting birth weight outcomes from temperature exposure.
+
+This post will build on our [previous
+post](../2024-04-15-chirts-metrics/) where we built several monthly
+temperature metrics. If you haven't had the chance to read through that
+post yet, we encourage you to start there.
+
+Before getting started, we'll load the necessary packages for this post:
+
+```{r}
+#| message: false
+library(ipumsr)
+library(sf)
+library(tidyr)
+library(dplyr)
+library(terra)
+```
+
+# Data
+
+## DHS survey data
+
+We will obtain 2012 Mali data from IPUMS DHS. In this extract, we've
+selected the following variables:
+
+-   `HEIGHTFEM`: Height of woman in centimeters
+-   `KIDSEX`: Sex of child
+-   `KIDDOBCMC`: Child's date of birth (CMC)
+-   `BIRTHWT`: Birth weight in kilos
+-   `BIRTHWTREF`: Source of weight at birth (health card or recall)
+
+<!-- - `HWHAZWHO`: Height for age standard deviations from median (WHO)  -->
+
+<!--      *TODO* Should this be removed?  -->
+
+Check out our [walkthrough](../2024-02-02-download-dhs-data/) for
+downloading IPUMS DHS data if you need help producing a similar extract.
+
+We'll load our data using `{ipumsr}`:
+
+```{r}
+ml_dhs <- read_ipums_micro("data/idhs_00021.xml")
+
+ml_dhs
+```
+
+## DHS boundaries
+
+We'll use the Mali borders that we prepared in our previous [CHIRTS
+post](../2024-04-15-chirts-metrics/). We describe the process there, but
+we've reproduced the code in the following collapsed block if you need
+to refresh your memory. As a reminder, you can obtain IPUMS integrated
+geography files from [this
+table](https://www.idhsdata.org/idhs/gis.shtml).
+
+```{r}
+#| echo: false
+ml_borders <- read_ipums_sf("../2024-04-15-chirts-metrics/data/gps/geo_ml1995_2018.zip")
+
+# Validate internal borders
+ml_borders_neat <- st_make_valid(ml_borders)
+
+# Collapse internal borders to get single country border
+ml_borders_out <- ml_borders_neat |> 
+  st_union() |> 
+  st_simplify(dTolerance = 1000) |> 
+  st_as_sf()
+
+# Transform to UTM 29N coordinates, buffer, and convert back to WGS84
+ml_borders_buffer <- ml_borders_out |> 
+  st_transform(crs = 32629) |> 
+  st_buffer(dist = 10000) |>
+  st_transform(crs = 4326)
+```
+
+```{r}
+#| eval: false
+#| code-fold: true
+#| code-summary: "Border preparation"
+ml_borders <- read_ipums_sf("data/gps/geo_ml1995_2018.zip")
+
+# Validate internal borders
+ml_borders_neat <- st_make_valid(ml_borders)
+
+# Collapse internal borders to get single country border
+ml_borders_out <- ml_borders_neat |> 
+  st_union() |> 
+  st_simplify(dTolerance = 1000) |> 
+  st_as_sf()
+
+# Transform to UTM 29N coordinates, buffer, and convert back to WGS84
+ml_borders_buffer <- ml_borders_out |> 
+  st_transform(crs = 32629) |> 
+  st_buffer(dist = 10000) |>
+  st_transform(crs = 4326)
+```
+
+## DHS enumeration clusters
+
+We can download the enumeration cluster coordinates from the [DHS
+Program](https://www.dhsprogram.com/). We first described this process
+in our [CHIRPS post](../2024-02-04-dhs-chirps/#dhs-cluster-coordinates).
+Simply follow the same instructions, substituting Mali where we
+previously used Burkina Faso.
+
+You should obtain a file called `MLGE6BFL.zip`, which can be loaded with
+`read_ipums_sf()`:
+
+```{r}
+ml_clust <- read_ipums_sf("data/MLGE6BFL.zip")
+```
+
+As we've done [in the past](../2024-02-04-dhs-chirps/#cluster-buffers),
+we'll buffer our cluster coordinates so we capture the climate effects
+of the general region around each survey location
+
+```{r}
+ml_clust_buffer <- ml_clust |> 
+  st_transform(crs = 32629) |> 
+  st_buffer(dist = 10000) |>
+  st_transform(crs = 4326)
+```
+
+## CHIRTS
+
+For this post, we'll use the monthly heatwave proportions that we
+calculated at the end of our [previous CHIRTS
+post](../2024-04-15-chirts-metrics/#heatwaves-consecutive-days-above-a-temperature-threshold).
+
+However for the purposes of demonstration, in that post we used a single
+year of CHIRTS data. Now that we're planning to attach temperature data
+to our DHS survey data, we need to consider the full range of birth
+dates represented in our sample.
+
+### Extending CHIRTS time series
+
+The DHS contains records for children born **within 5 years** of the
+survey date to women between 15 and 49 years of age. Thus, for the 2012
+Mali sample, we will have records for children ranging from 2008-2012.
+Further, since we want to identify monthly climate records for the time
+**preceding** each birth, we will also need to have data for the year
+prior to the earliest birth in the sample.
+
+That means that for our 2012 Mali sample, we'll actually need CHIRTS
+data for 2007-2012.
+
+Fortunately, the pipeline we set up in our previous post can be easily
+scaled to accommodate additional years of data. Recall that we built a
+dedicated function to calculate monthly heatwave proportions:
+
+```{r}
+prop_heatwave <- function(temps, thresh, n_seq) {
+  # Convert to RLE of days above threshold
+  bin_rle <- rle(temps >= thresh)
+  
+  # Identify heatwave events based on sequence length
+  is_heatwave <- bin_rle$values & (bin_rle$lengths >= n_seq)
+  
+  # Count heatwave days and divide by total number of days
+  sum(bin_rle$lengths[is_heatwave]) / length(temps)
+}
+```
+
+All we need to do, then, is apply this function to input CHIRTS data for
+2007 to 2012, rather than just for 2012. To do so, we've downloaded all
+6 years of data manually as [described
+previously](../2024-04-15-chirts-metrics/#manual-download) and placed
+each file in a `data/chirts` directory.
+
+We can load them by first obtaining the file path to each file with
+`list.files()`. Then, we use the familiar `rast()` to load all 6 files
+into a single `SpatRaster`.
+
+```{r}
+#| eval: false
+chirts_files <- list.files("data/chirts", full.names = TRUE)
+
+ml_chirts <- rast(chirts_files)
+```
+
+As we did last time, we'll crop the CHIRTS raster to the region directly
+around Mali:
+
+```{r}
+#| eval: false
+ml_chirts <- crop(ml_chirts, ml_borders_buffer, snap = "out")
+```
+
+Now we can use the `tapp()` function introduced in our previous post to
+calculate monthly heatwave proportions for each month/year combination.
+The only difference here is that we use `index = "yearmonths"` instead
+of `index = "months"` since we have multiple years of data. This
+ensures that we don't aggregate months together across years.
+
+```{r}
+#| eval: false
+# Calculate monthly proportion of heatwave days
+ml_chirts_heatwave <- tapp(
+  ml_chirts,
+  function(x) prop_heatwave(x, thresh = 35, n_seq = 3),
+  index = "yearmonths" # New index to account for multiple years
+)
+```
+
+```{r}
+#| echo: false
+ml_chirts_heatwave <- rast("data/ml_chirts_heatwave.nc")
+```
+
+As expected, we now have a `SpatRaster` with 72 layers: one for each
+month/year combination from 2007-2012. Each layer contains the
+proportion of days that met our heatwave threshold of 3+ consecutive
+days exceeding 35°C.
+
+```{r}
+ml_chirts_heatwave
+```
+
+::: callout-caution
+This post was built using terra 1.7-78. Older versions of terra contain
+a [bug](https://github.com/rspatial/terra/issues/1483) that may produce
+incorrect time units when `index = "yearmonths"`.
+
+If you're running an older version of terra, we suggest updating the
+package with `install.packages("terra")`. Otherwise, you may be able to
+temporarily avoid the issue by manually setting the correct time values:
+
+```{r}
+#| eval: false
+# Manual update of offset date values
+year_months <- seq(
+  lubridate::ym("2007-01"), 
+  lubridate::ym("2012-12"), 
+  by = "months"
+)
+
+time(ml_chirts_heatwave) <- year_months
+```
+:::
+
+```{r}
+#| echo: false
+#| eval: false
+# Not used in actual post, but if you need to regenerate the 
+# ml_chirts_heatwave.nc file that's used, you can do so here. 
+# You will need to redownload the yearly CHIRTS data from CHC first
+# and run the eval: false chunks above.
+writeCDF(ml_chirts_heatwave, "data/ml_chirts_heatwave.nc")
+```
+
+# Attach heatwave metrics to DHS survey data
+
+Now that we have our heatwave proportions for the full time range of the
+children in our DHS sample, we can shift our focus to joining these two
+data sources.
+
+## Reconcile date representations
+
+To deal with the temporal component of the join, we'll need to identify
+the relevant months of data for each child in our DHS sample. Each
+child's birth date recorded in the `KIDDOBCMC` variable:
+
+```{r, out.lines = 3}
+ml_dhs$KIDDOBCMC
+```
+
+You might have expected that these would be dates, but we actually have
+a series of 4-digit numbers. This is because dates are encoded as
+**century month codes** in the DHS. A century month code (CMC) encodes
+time as the number of months that have elapsed since 1900. CMCs are
+useful for calculating intervals of time, because they can be easily
+added and subtracted.
+
+However, the time encoded in our CHIRTS heatwave data aren't encoded in
+CMC format, so we'll need to reconcile these two time representations.
+
+#### Working with CMCs
+
+Since converting between CMCs and traditional dates is a common and
+well-defined task, we'll build some helper functions to handle the
+conversion. That way, we can easily convert back and forth without
+having to remember the CMC conversion formula each time.
+
+Fortunately, the description of the `KIDDOBCMC` variable describes the
+arithmetic required to convert. We've translated that text into the
+following function, which takes an input CMC and converts it to
+year-month format:
+
+::: column-margin
+You can view the description for any variable in your extract using the
+`ipums_var_desc()` function from ipumsr.
+:::
+
+```{r}
+cmc_to_ym <- function(cmc) {
+  year <- floor((cmc - 1) / 12) + 1900
+  month <- cmc - ((year - 1900) * 12)
+  
+  year_month <- paste(year, month, sep = "-")
+  
+  lubridate::ym(year_month)
+}
+```
+
+Similarly, we'll create a function that goes in the reverse direction:
+
+```{r}
+ym_to_cmc <- function(date) {
+  year <- lubridate::year(date)
+  month <- lubridate::month(date)
+  
+  (year - 1900) * 12 + month
+}
+```
+
+For instance, a CMC of 1307 turns out to be the same as November, 2008:
+
+```{r}
+cmc_to_ym(1307)
+```
+
+And vice versa:
+
+```{r}
+ym_to_cmc("2008-11-01")
+```
+
+Now we have an easy way to reconcile the temporal information in our two
+data sources.
+
+## Attaching heatwaves to DHS clusters
+
+To extract the average heatwave proportions for each DHS enumeration
+cluster, we'll use terra's `extract()`, which we've introduced
+[previously](../2024-02-04-dhs-chirps/#aggregating-rainfall-within-cluster-regions).
+
+```{r}
+# Extract mean heatwave proportions for each DHS cluster region
+chirts_clust <- extract(
+  ml_chirts_heatwave, 
+  ml_clust_buffer, 
+  fun = mean,
+  weights = TRUE
+) |> 
+  as_tibble()
+
+chirts_clust
+```
+
+### Wide vs. long format
+
+`extract()` provides data in *wide* format, where each column represents
+our temperature values (in this case, **mean proportion of heatwave days
+in a given month**) and each row represents a DHS enumeration cluster.
+
+To join on our DHS survey data, we'll want our data to be in *long*
+format, where each row represents a single month of temperature data for
+a single DHS cluster. We can accomplish this conversion with the
+`pivot_longer()` function from the `{tidyr}` package.
+
+::: column-margin
+`r hex("tidyr")`
+:::
+
+First, we'll rename the columns in our extracted data. Currently,
+they're listed in incremental order, which isn't very intuitive.
+Instead, we'll rename them using the CMC code of the month that each
+column represents. We can use our helper function to convert these dates
+to CMC format.
+
+We'll also update the `"ID"` column to be named `"DHSID"` for
+consistency with the name used in the DHS survey to represent the
+enumeration cluster ID:
+
+```{r}
+# Sequence of months for the time range in our data
+year_months <- seq(
+  lubridate::ym("2007-01"), 
+  lubridate::ym("2012-12"), 
+  by = "months"
+)
+
+# Change layer names
+names(chirts_clust) <- c("DHSID", ym_to_cmc(year_months))
+```
+
+Next, we need to convert the incremental ID numbers for each cluster to
+their corresponding DHSID code. The ID values in `chirts_clust`
+represent the clusters extracted from `ml_clust` in index order. Thus,
+we simply need to reassign the incremental ID codes in `chirts_clust`
+with the IDs in `ml_clust`.
+
+```{r}
+# Convert index numbers to corresponding DHSID codes
+chirts_clust$DHSID <- ml_clust$DHSID
+
+chirts_clust
+```
+
+Now we're ready to convert to long format data. `pivot_longer()` will
+convert a set of columns in our wide data to two columns in our long
+data. The names of these columns will be stored in one of the output
+columns, and their associated values will be stored in the other.
+
+Below, we indicate that we want to pivot all columns *except* the DHSID
+column (the data are already long on `DHSID`). We also indicate that we
+want the new column of *names* to be called `"CHIRTSCMC"` and the new
+column of *values* to be called `"PROPHEATWAVE"`. Finally, we use the
+`names_transform` argument to convert all the names to numeric format,
+so they will be interpretable as CMCs.
+
+```{r}
+# Convert to long format for each cluster/month combination
+chirts_clust <- pivot_longer(
+  chirts_clust,
+  cols = -DHSID,
+  names_to = "CHIRTSCMC",
+  values_to = "PROPHEATWAVE",
+  names_transform = as.numeric
+)
+
+chirts_clust
+```
+
+As you can see, each row now corresponds to a cluster/month combination,
+and the corresponding heatwave value is stored in the `PROPHEATWAVE`
+column.
+
+## Joining on DHS survey data
+
+Before we join our heatwave data on our DHS survey data, we need to do
+some housekeeping. Some of the variables we want to include in our model
+include missing values or implied decimals, which we'll want to clean up
+before we try to join the DHS survey with our CHIRTS data.
+
+### DHS survey data preparation
+
+First, we'll make a new column that stores a unique ID for each child in
+the sample by combining the ID for each woman and the index for each of
+her births. This will make it easier to ensure that we join data
+independently for each child in the sample:
+
+```{r}
+# str_squish() removes excess whitespace in the ID strings
+ml_dhs <- ml_dhs |> 
+  mutate(KIDID = stringr::str_squish(paste(IDHSPID, BIDX)))
+```
+
+We'll also want to make sure to recode several of our variables that
+include missing values. We can check the missing value codes for a
+variable using `ipums_val_labels()`. For instance, for our key outcome
+variable, `BIRTHWT`, we see that all values over `9996` are missing in
+some way:
+
+```{r}
+ipums_val_labels(ml_dhs$BIRTHWT)
+```
+
+Looking at these values, you may be surprised to see 4-digit weights. To
+investigate further, we can display detailed variable information with
+`ipums_var_desc()`:
+
+```{r}
+ipums_var_desc(ml_dhs$BIRTHWT)
+```
+
+Note that the description mentions that there are 3 implied decimal
+places. So, we'll recode `BIRTHWT` to be `NA` in the cases where the
+value is more than `9996`, and we'll divide by 1000 otherwise. We'll do
+a similar process with a few other variables as well:
+
+```{r}
+ml_dhs <- ml_dhs |> 
+  mutate(
+    BIRTHWT = if_else(BIRTHWT >= 9996, NA, BIRTHWT / 1000),
+    HEIGHTFEM = if_else(HEIGHTFEM >= 9994, NA, HEIGHTFEM / 10),
+    EDUCLVL = if_else(EDUCLVL == 8, NA, EDUCLVL),
+    BIRTHWTREF = if_else(BIRTHWTREF >= 7, NA, BIRTHWTREF)
+  )
+```
+
+::: callout-caution
+## Censoring
+
+In practice, we would likely want to deal with `BIRTHWT` values of
+`9995+`, which represent all weights above the 9.995 kg threshold. It's
+not fully correct to treat these values as *equal* to 9.995, since their
+values are actually unknown. This problem is known as **censoring**, but
+we won't address it in this post to keep this demonstration focused on
+our core goal of integrating climate data with DHS surveys.
+:::
+
+#### Residency
+
+When working with climate data, we want to be attentive to the members
+of the sample who may have recently moved to a location, as recent
+arrivals likely didn't experience the previous climate effects recorded
+for the area they currently live!
+
+IPUMS DHS includes the `RESIDEINTYR` variable to indicate how long
+survey respondents have lived at their current location.
+
+Unfortunately, this variable wasn't collected for the Mali 2012 sample.
+However, we do have a record of whether a respondent is a visitor to the
+location or not. At a minimum, we'll remove records for those who are
+listed as visitors, since we can't be confident that they experienced
+the climate data for the cluster their response was recorded in.
+
+```{r}
+ml_dhs <- ml_dhs |> 
+  filter(RESIDENT == 1)
+```
+
+#### Data types
+
+Finally, we want to recode our variables to the appropriate data type.
+In our case, we just need to convert all labeled variables to factors.
+`BIDX` is unlabeled, but represents a factor, so we'll explicitly
+convert that variable as well:
+
+```{r}
+ml_dhs <- ml_dhs |> 
+  mutate(BIDX = as_factor(BIDX)) |> 
+  as_factor() # Convert all remaining labeled columns to factors
+```
+
+### Attaching data sources
+
+At its simplest, we could join our prepared DHS survey data with our
+extracted heatwave data by matching records based on their cluster and
+birth month. We can use `left_join()` from `{dplyr}` to do so. This will
+retain all records in our DHS survey sample and attach temperature
+values where the birth date (`KIDDOBCMC`) is equal to the month of
+temperature data in `chirts_clust`:
+
+```{r}
+#| eval: false
+# Join temperature exposure for each child during the month of their birth
+left_join(
+  ml_dhs,
+  chirts_clust,
+  by = c("DHSID", "KIDDOBCMC" = "CHIRTSCMC")
+)
+```
+
+However, this only attaches a single month of temperature data for each
+child. What we'd rather have is a time series of values covering the
+time between conception and birth.
+
+To accomplish this, we can define a new variable, `KIDCONCEPTCMC`, which
+contains the CMC of the month 9 months before the birth date.
+
+```{r}
+# Make unique ID for each kid using woman's ID and Birth index
+ml_dhs <- ml_dhs |>  
+  mutate(KIDCONCEPTCMC = KIDDOBCMC - 9)
+```
+
+Now, we want to join *all 9* of the relevant monthly temperature records
+to each child's DHS survey record. That is, we want to match records
+that have the same `DHSID`, a **birthdate** that is *after* the CHIRTS
+data that will be joined, and a **conception date** that is *before* the
+CHIRTS data that will be joined. We can use `join_by()` from `{dplyr}`
+to specify these more complex criteria:
+
+```{r}
+# Join 9 months of CHIRTS data to each child record
+ml_dhs_chirts <- left_join(
+  ml_dhs,
+  chirts_clust,
+  by = join_by(
+    DHSID == DHSID, # Cluster ID needs to match
+    KIDDOBCMC > CHIRTSCMC, # DOB needs to be after all joined temp. data
+    KIDCONCEPTCMC <= CHIRTSCMC # Conception date needs to be before all joined temp. data
+  )
+)
+```
+
+We should end up with a dataset that contains 9 records for each child:
+one for each month between their conception and birth. We can confirm by
+counting the records for each `KIDID`:
+
+```{r}
+# Each kid should have 9 rows now
+ml_dhs_chirts |> 
+  count(KIDID)
+```
+
+We can pull out a few columns for an individual child to make it more
+clear how things are being joined:
+
+```{r}
+# Example of what our data look like for one kid:
+ml_dhs_chirts |> 
+  filter(KIDID == "46605 1 4 2 1") |> 
+  select(KIDID, DHSID, KIDDOBCMC, CHIRTSCMC, PROPHEATWAVE)
+```
+
+As we can see, an individual child (`KIDID`) is associated with heatwave
+data (`PROPHEATWAVE`) for each of the 9 CHIRTS months (`CHIRTSCMC`)
+prior to their birth date (`KIDDOBCMC`).
+
+For a different child we'll get a similar output, but because this child
+has a different birth date, the specific `PROPHEATWAVE` values will be
+different, even if the cluster ID is the same:
+
+```{r}
+ml_dhs_chirts |> 
+  filter(KIDID == "46605 1255 2 2") |> 
+  select(KIDID, DHSID, KIDDOBCMC, CHIRTSCMC, PROPHEATWAVE)
+```
+
+Similarly, for a child from a different cluster, we'll have different
+`PROPHEATWAVE` values regardless of which month is under consideration:
+
+```{r}
+ml_dhs_chirts |> 
+  filter(KIDID == "46605 518171 3 1") |> 
+  select(KIDID, DHSID, KIDDOBCMC, CHIRTSCMC, PROPHEATWAVE)
+```
+
+Now that we have the correct 9-month time series for each child, we can
+further aggregate to get a trimester-specific exposure metric for each
+child.
+
+First, we'll create a `TRIMESTER` variable, which encodes the trimester
+that each month belongs to for each child:
+
+```{r}
+ml_dhs_chirts <- ml_dhs_chirts |> 
+  arrange(DHSID, KIDID, CHIRTSCMC) |> # order by CMC to ensure trimesters are in correct order
+  mutate(TRIMESTER = as_factor(rep(c(1, 2, 3), each = 3)), .by = KIDID)
+```
+
+Then, we'll average the heatwave proportions across trimesters for each
+child:
+
+```{r}
+# Average proportion of heatwave days within each child and trimester
+ml_dhs_tri <- ml_dhs_chirts |> 
+  summarize(
+    MEANPROPHEATWAVE = mean(PROPHEATWAVE), 
+    .by = c(KIDID, TRIMESTER)
+  )
+
+ml_dhs_tri
+```
+
+We now have 3 records for each child—one for each trimester. Our
+temperature metric now represents the average monthly proportion of days
+spent in a heatwave across the three months of each trimester *as well
+as* across the spatial region of each buffered cluster region.
+
+Recall that in this case we define a heatwave day as any day belonging
+to a sequence of at least 3 days over 35°C.
+
+# A basic model
+
+To complete this post, we'll use our prepared data to generate a model
+predicting birth weight outcomes from heatwave exposure. We'll interact
+heatwave exposure with the trimester of exposure to determine whether
+the effects of heatwave exposure may differ across trimesters.
+
+We'll also include several covariates and control variables, including
+child's sex, mother's age and height, birth order, education level, and
+the source of birth weight data.
+
+::: callout-note
+We're building this model primarily to demonstrate how you
+might use aggregated survey and climate data. It's not intended to be be
+a comprehensive modeling approach, and there are likely other variables
+that should be considered and included.
+:::
+
+First, we need to reattach our covariates to our trimester-aggregated
+data from the previous step. We'll do so by selecting our variables of
+interest and joining them back on our heatwave exposure metrics
+calculated for each trimester and child ID.
+
+```{r}
+# Select covariates of interest. We want a single row of covariates for each
+# KIDID
+ml_dhs_chirts_sub <- ml_dhs_chirts |> 
+  select(
+    DHSID, IDHSPID, KIDID, KIDSEX, BIDX, EDUCLVL, 
+    BIRTHWTREF, BIRTHWT, AGE, TRIMESTER, HEIGHTFEM
+  ) |> 
+  distinct() # Remove extra month-level records for each trimester
+
+# Join trimester-aggregated data to covariates
+ml_dhs_tri <- full_join(
+  ml_dhs_tri,
+  ml_dhs_chirts_sub,
+  by = c("KIDID", "TRIMESTER")
+)
+```
+
+Now, we can build a random effects model using `lmer` from the `{lme4}`
+package. We won't get into all the details of random effects models in
+this post; for now, it's enough to know that these models allow you to
+model a separate intercept for observations that belong to different
+groups. In this case, we fit separate intercepts for each enumeration
+area `(1 | DHSID)`. This allows us to account for some of the
+correlation between child observations from the same spatial area.
+
+```{r}
+heatwave_mod <- lme4::lmer(
+  BIRTHWT ~ MEANPROPHEATWAVE * TRIMESTER + KIDSEX + AGE + BIDX + 
+    EDUCLVL + BIRTHWTREF + HEIGHTFEM + (1 | DHSID),
+  data = ml_dhs_tri
+)
+```
+
+::: column-margin
+`r hex("gtsummary")`
+:::
+
+We can summarize our results with the `{gtsummary}` package. Based on
+the confidence intervals reported in this output, it appears that there
+may be a slight negative relationship between the proportion of heatwave
+days and birth weight, but the results are not definitive.
+
+The interaction terms suggest that heatwave suggest that the effect of
+heatwave days on birth weight is slightly more positive in trimester 2
+as compared to the effect during trimester 1.
+
+```{r}
+#| code-fold: true
+#| code-summary: "Show table code"
+library(gtsummary)
+
+tbl_regression(
+  heatwave_mod, 
+  conf.int = TRUE,
+  tidy_fun = broom.mixed::tidy,
+  label = list(
+    MEANPROPHEATWAVE = "Mean proportion of days in heatwave",
+    TRIMESTER = "Trimester",
+    BIDX = "Birth order",
+    EDUCLVL = "Education level",
+    BIRTHWTREF = "Birth weight source",
+    HEIGHTFEM = "Mother's height (cm)",
+    `DHSID.sd__(Intercept)` = "Random effects: Enumeration cluster (SD)",
+    `Residual.sd__Observation` = "Random effects: Residual (SD)"
+  )
+) |> 
+  italicize_labels() |> 
+  modify_header(update = list(label = "")) |> 
+  as_gt() |>
+  gt::tab_header(
+    gt::md("# Effects of Heatwave Days on Birthweight")
+  )
+```
+
+```{r listing-img}
+#| column: page
+#| out-width: "100%"
+#| code-fold: true
+#| code-summary: "Show plot code"
+sjPlot::plot_model(
+  heatwave_mod, 
+  title = "Heatwave Model Coefficients", 
+  vline.color = "#00263A",
+  colors = "#98579B",
+  axis.labels = rev(c(
+    "Mean monthly proportion of days in heatwave",
+    "Trimester: 2",
+    "Trimester: 3",
+    "Sex: Female",
+    "Mother's age",
+    "Birth index: 2",
+    "Birth index: 3",
+    "Birth index: 4",
+    "Highest education: Primary",
+    "Highest education: Secondary",
+    "Highest education: Higher",
+    "Source of weight: Mother's recall",
+    "Mother's height",
+    "Heatwave x Trimester: 2",
+    "Heatwave x Trimester: 3"
+  ))
+)
+```
+
+We've now demonstrated a full workflow to obtain raw CHIRTS raster data,
+calculate monthly heat exposure metrics, join them on survey records
+based on the timing of those records, and finally producing a model to
+understand the impacts of our heatwave definition.
+
+Obviously, for your specific research questions many of these steps will
+need to change, but we've introduced many of the core tools you need
+when integrating climate data with DHS surveys. Even if you modify the
+sources and metrics you use, you should have an understanding of some of
+the technical considerations that go into this kind of research.
+
+## Getting Help {.appendix}
+
+Questions or comments? Check out the [IPUMS User
+Forum](https://forum.ipums.org) or reach out to IPUMS User Support at
+ipums\@umn.edu.

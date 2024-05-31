@@ -45,6 +45,7 @@ $table-border-color: rgba($primary, 0.2) !default;
 }
 
 .quarto-title-banner .quarto-title .title {
+  color: $primary;
   text-transform: uppercase;
   font-weight: 500;
   font-size: 40px;
@@ -69,7 +70,7 @@ $table-border-color: rgba($primary, 0.2) !default;
   color: #98579B;
 }
 
-.figure-caption {
+figcaption {
   color: rgba(black, 0.6);
 }
 
@@ -189,12 +190,12 @@ b, strong {
   }
 }
 
-.navbar-dark .navbar-nav .nav-link.active {
+.navbar .navbar-nav .nav-link.active {
   color: rgba(255, 255, 255, 0.8);
 }
 
-.navbar-dark .navbar-nav .nav-link:hover,
-.navbar-dark .navbar-nav .nav-link:focus
+.navbar .navbar-nav .nav-link:hover,
+.navbar .navbar-nav .nav-link:focus
 {
   color: white;
 }

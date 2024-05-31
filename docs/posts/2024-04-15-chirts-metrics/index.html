@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.3.450">
+<meta name="generator" content="quarto-1.4.553">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 <meta name="author" content="Finn Roberts">
 <meta name="dcterms.date" content="2024-04-15">
@@ -22,7 +22,7 @@ ul.task-list li input[type="checkbox"] {
 }
 /* CSS for syntax highlighting */
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span { line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -58,6 +58,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 div.csl-bib-body { }
 div.csl-entry {
   clear: both;
+  margin-bottom: 0em;
 }
 .hanging-indent div.csl-entry {
   margin-left:2em;
@@ -99,7 +100,12 @@ div.csl-indent {
   "collapse-after": 3,
   "panel-placement": "end",
   "type": "textbox",
-  "limit": 20,
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
   "language": {
     "search-no-results-text": "No results",
     "search-matching-documents-text": "matching documents",
@@ -108,6 +114,7 @@ div.csl-indent {
     "search-more-match-text": "more match in this document",
     "search-more-matches-text": "more matches in this document",
     "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
     "search-detached-cancel-button-title": "Cancel",
     "search-submit-button-title": "Submit",
     "search-label": "Search"
@@ -122,7 +129,7 @@ gtag('config', 'G-0WLH5S9VD5', { 'anonymize_ip': true});
 <meta property="og:title" content="IPUMS DHS Research Hub — Reproducible Workflows with CHIRTS Temperature Data">
 <meta property="og:description" content="Build flexibile workflows to more easily aggregate time-varying climate data">
 <meta property="og:image" content="https://ipums.github.io/dhs-research-hub/posts/2024-04-15-chirts-metrics/index_files/figure-html/listing-img-1.png">
-<meta property="og:site-name" content="IPUMS DHS Climate Change and Health Research Hub">
+<meta property="og:site_name" content="IPUMS DHS Climate Change and Health Research Hub">
 <meta property="og:image:height" content="1536">
 <meta property="og:image:width" content="1920">
 <meta name="twitter:title" content="IPUMS DHS Research Hub — Reproducible Workflows with CHIRTS Temperature Data">
@@ -135,8 +142,8 @@ gtag('config', 'G-0WLH5S9VD5', { 'anonymize_ip': true});
 <body class="floating nav-fixed slimcontent">
 
 <div id="quarto-search-results"></div>
-  <header id="quarto-header" class="headroom fixed-top"><nav class="navbar navbar-expand-lg navbar-dark "><div class="navbar-container container-fluid">
-      <div class="navbar-brand-container">
+  <header id="quarto-header" class="headroom fixed-top quarto-banner"><nav class="navbar navbar-expand-lg " data-bs-theme="dark"><div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
     <a href="https://www.idhsdata.org/idhs/" class="navbar-brand navbar-brand-logo">
     <img src="../../images/dhs_logo_white.png" alt="" class="navbar-logo"></a>
   </div>
@@ -147,77 +154,77 @@ gtag('config', 'G-0WLH5S9VD5', { 'anonymize_ip': true});
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
 <li class="nav-item">
-    <a class="nav-link" href="../../index.html" rel="" target="">
- <span class="menu-text">Climate Change and Health Research Hub</span></a>
+    <a class="nav-link" href="../../index.html"> 
+<span class="menu-text">Climate Change and Health Research Hub</span></a>
   </li>  
 </ul>
 <ul class="navbar-nav navbar-nav-scroll ms-auto">
 <li class="nav-item">
-    <a class="nav-link" href="../../index.html" rel="" target="">
- <span class="menu-text">Posts</span></a>
+    <a class="nav-link" href="../../index.html"> 
+<span class="menu-text">Posts</span></a>
   </li>  
   <li class="nav-item dropdown ">
-    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-getting-started" role="button" data-bs-toggle="dropdown" aria-expanded="false" rel="" target="">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-getting-started" role="button" data-bs-toggle="dropdown" aria-expanded="false">
  <span class="menu-text">Getting Started</span>
     </a>
     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="nav-menu-getting-started">
 <li>
-    <a class="dropdown-item" href="../../posts/2024-02-01-getting-started-with-r/index.html" rel="" target="">
+    <a class="dropdown-item" href="../../posts/2024-02-01-getting-started-with-r/index.html">
  <span class="dropdown-text">An Introduction to R</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../posts/2024-02-02-download-dhs-data/index.html" rel="" target="">
+    <a class="dropdown-item" href="../../posts/2024-02-02-download-dhs-data/index.html">
  <span class="dropdown-text">Obtaining IPUMS DHS Data</span></a>
   </li>  
     </ul>
 </li>
   <li class="nav-item dropdown ">
-    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-community" role="button" data-bs-toggle="dropdown" aria-expanded="false" rel="" target="">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-community" role="button" data-bs-toggle="dropdown" aria-expanded="false">
  <span class="menu-text">Community</span>
     </a>
     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="nav-menu-community">
 <li>
-    <a class="dropdown-item" href="https://forum.ipums.org" rel="" target="">
+    <a class="dropdown-item" href="https://forum.ipums.org">
  <span class="dropdown-text">IPUMS Forum</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../CODE_OF_CONDUCT.html" rel="" target="">
+    <a class="dropdown-item" href="../../CODE_OF_CONDUCT.html">
  <span class="dropdown-text">Code of Conduct</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../LICENSE.html" rel="" target="">
+    <a class="dropdown-item" href="../../LICENSE.html">
  <span class="dropdown-text">License</span></a>
   </li>  
     </ul>
 </li>
   <li class="nav-item">
-    <a class="nav-link" href="../../about.html" rel="" target="">
- <span class="menu-text">About</span></a>
+    <a class="nav-link" href="../../about.html"> 
+<span class="menu-text">About</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="https://github.com/ipums/dhs-research-hub" rel="" target="">
- <span class="menu-text"><i class="fa-brands fa-github" aria-label="github"></i></span></a>
+    <a class="nav-link" href="https://github.com/ipums/dhs-research-hub"> 
+<span class="menu-text"><i class="fa-brands fa-github" aria-label="github"></i></span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../../index.xml" rel="" target="">
- <span class="menu-text"><i class="fa-solid fa-rss" aria-label="rss"></i></span></a>
+    <a class="nav-link" href="../../index.xml"> 
+<span class="menu-text"><i class="fa-solid fa-rss" aria-label="rss"></i></span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="https://twitter.com/ipumsGH" rel="" target="">
- <span class="menu-text"><i class="fa-brands fa-x-twitter" aria-label="x-twitter"></i></span></a>
+    <a class="nav-link" href="https://twitter.com/ipumsGH"> 
+<span class="menu-text"><i class="fa-brands fa-x-twitter" aria-label="x-twitter"></i></span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="https://forum.ipums.org" rel="" target="">
- <span class="menu-text"><i class="fa-solid fa-users" aria-label="users"></i></span></a>
+    <a class="nav-link" href="https://forum.ipums.org"> 
+<span class="menu-text"><i class="fa-solid fa-users" aria-label="users"></i></span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="https://www.ipums.org/" rel="" target="">
- <span class="menu-text"><i class="fa-solid fa-globe" aria-label="globe"></i></span></a>
+    <a class="nav-link" href="https://www.ipums.org/"> 
+<span class="menu-text"><i class="fa-solid fa-globe" aria-label="globe"></i></span></a>
   </li>  
 </ul>
-<div class="quarto-navbar-tools">
+</div> <!-- /navcollapse -->
+          <div class="quarto-navbar-tools">
 </div>
-          </div> <!-- /navcollapse -->
       </div> <!-- /container-fluid -->
     </nav></header><!-- content --><header id="title-block-header" class="quarto-title-block default toc-left page-columns page-full"><div class="quarto-title-banner page-columns page-full">
     <div class="quarto-title column-body">
@@ -250,12 +257,12 @@ gtag('config', 'G-0WLH5S9VD5', { 'anonymize_ip': true});
       <div class="quarto-title-meta-contents">
       <p class="author">Finn Roberts </p>
     </div>
-      <div class="quarto-title-meta-contents">
+    <div class="quarto-title-meta-contents">
           <p class="affiliation">
               Senior Data Analyst, IPUMS
             </p>
         </div>
-      </div>
+    </div>
 
   <div class="quarto-title-meta">
 
@@ -273,7 +280,7 @@ gtag('config', 'G-0WLH5S9VD5', { 'anonymize_ip': true});
   
   </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto"><nav id="TOC" role="doc-toc" class="toc-active" data-toc-expanded="1"><h2 id="toc-title">Contents</h2>
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto"><nav id="TOC" role="doc-toc" class="toc-active" data-toc-expanded="1"><h2 id="toc-title">Contents</h2>
    
   <ul>
 <li><a href="#a-new-approach" id="toc-a-new-approach" class="nav-link active" data-scroll-target="#a-new-approach">A new approach</a></li>
@@ -316,7 +323,7 @@ gtag('config', 'G-0WLH5S9VD5', { 'anonymize_ip': true});
   </ul>
 </li>
   </ul></nav>
-</nav><div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+</nav><div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
     </div>
@@ -425,13 +432,13 @@ Climatological Normals
 </div>
 </div>
 <p>We’re working with the 2012 Mali sample from IPUMS DHS for this example, so we’ll download the <code>Tmax.2012.nc</code> file from the <a href="http://data.chc.ucsb.edu/products/CHIRTSdaily/v1.0/africa_netcdf_p05/">CHC listing</a>. We’ve placed this file in the <code>data</code> directory.</p>
-<p>Fortunately, we don’t need to learn any new tools to handle this file, as support for NetCDF is already built into <a href="https://rspatial.org/">terra</a>. We can easily load the raster with <code><a href="https://rdrr.io/pkg/terra/man/rast.html">rast()</a></code>:</p>
+<p>Fortunately, we don’t need to learn any new tools to handle this file, as support for NetCDF is already built into <a href="https://rspatial.org/">terra</a>. We can easily load the raster with <code><a href="https://rspatial.github.io/terra/reference/rast.html">rast()</a></code>:</p>
 <div class="cell">
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">ml_chirts</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/terra/man/rast.html">rast</a></span><span class="op">(</span><span class="st">"data/Tmax.2012.nc"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">ml_chirts</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rspatial.github.io/terra/reference/rast.html">rast</a></span><span class="op">(</span><span class="st">"data/Tmax.2012.nc"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>In this post we’ll be particularly interested in the temporal dimension of our raster data. Typically, a raster stack will represent time in layers, where each layer represents the recorded values at a particular point in time. terra’s <code>SpatRaster</code> objects have a built-in representation of time, which can be accessed with the <code><a href="https://rdrr.io/pkg/terra/man/time.html">time()</a></code> function:</p>
+<p>In this post we’ll be particularly interested in the temporal dimension of our raster data. Typically, a raster stack will represent time in layers, where each layer represents the recorded values at a particular point in time. terra’s <code>SpatRaster</code> objects have a built-in representation of time, which can be accessed with the <code><a href="https://rspatial.github.io/terra/reference/time.html">time()</a></code> function:</p>
 <div class="cell" data-out.lines="3">
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/terra/man/time.html">time</a></span><span class="op">(</span><span class="va">ml_chirts</span><span class="op">)</span></span>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rspatial.github.io/terra/reference/time.html">time</a></span><span class="op">(</span><span class="va">ml_chirts</span><span class="op">)</span></span>
 <span><span class="co">#&gt;   [1] "2012-01-01" "2012-01-02" "2012-01-03" "2012-01-04" "2012-01-05"</span></span>
 <span><span class="co">#&gt;   [6] "2012-01-06" "2012-01-07" "2012-01-08" "2012-01-09" "2012-01-10"</span></span>
 <span><span class="co">#&gt;  [11] "2012-01-11" "2012-01-12" "2012-01-13" "2012-01-14" "2012-01-15"</span></span>
@@ -449,9 +456,9 @@ Climatological Normals
 <span>  <span class="fu"><a href="https://r-spatial.github.io/sf/reference/geos_unary.html">st_buffer</a></span><span class="op">(</span>dist <span class="op">=</span> <span class="fl">10000</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_transform.html">st_transform</a></span><span class="op">(</span>crs <span class="op">=</span> <span class="fl">4326</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Finally, we can crop the CHIRTS raster to our buffered border region with terra’s <code><a href="https://rdrr.io/pkg/terra/man/crop.html">crop()</a></code>:</p>
+<p>Finally, we can crop the CHIRTS raster to our buffered border region with terra’s <code><a href="https://rspatial.github.io/terra/reference/crop.html">crop()</a></code>:</p>
 <div class="cell">
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">ml_chirts</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/terra/man/crop.html">crop</a></span><span class="op">(</span><span class="va">ml_chirts</span>, <span class="va">ml_borders_buffer</span>, snap <span class="op">=</span> <span class="st">"out"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">ml_chirts</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rspatial.github.io/terra/reference/crop.html">crop</a></span><span class="op">(</span><span class="va">ml_chirts</span>, <span class="va">ml_borders_buffer</span>, snap <span class="op">=</span> <span class="st">"out"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section></section><section id="access-via-the-chirps-package" class="level3 page-columns page-full"><h3 class="anchored" data-anchor-id="access-via-the-chirps-package">Access via the chirps package</h3>
 <p>You may recall from our <a href="../2024-02-04-dhs-chirps/#option-2-the-chirps-package">previous technical post</a> that CHC data can be obtained via the <a href="https://docs.ropensci.org/chirps/">chirps</a> package in R. This package provides access to CHIRTS data as well.</p>
@@ -459,17 +466,17 @@ Climatological Normals
 <p>In this case, we’ll use the buffered administrative borders for Mali that we downloaded earlier, specify the 2012 time range, and select the <code>"Tmax"</code> variable:</p>
 <div class="cell">
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">ml_chirts2</span> <span class="op">&lt;-</span> <span class="fu">chirps</span><span class="fu">::</span><span class="fu"><a href="https://docs.ropensci.org/chirps/reference/get_chirts.html">get_chirts</a></span><span class="op">(</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/pkg/terra/man/vect.html">vect</a></span><span class="op">(</span><span class="va">ml_borders_buffer</span><span class="op">)</span>, </span>
+<span>  <span class="fu"><a href="https://rspatial.github.io/terra/reference/vect.html">vect</a></span><span class="op">(</span><span class="va">ml_borders_buffer</span><span class="op">)</span>, </span>
 <span>  dates <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"2012-01-01"</span>, <span class="st">"2012-12-31"</span><span class="op">)</span>,</span>
 <span>  var <span class="op">=</span> <span class="st">"Tmax"</span></span>
 <span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 
 <div class="no-row-height column-margin column-container"><div class="">
-<p>We convert our administrative borders to a terra <code>SpatVector</code> object with <code><a href="https://rdrr.io/pkg/terra/man/vect.html">vect()</a></code> because this is the spatial structure expected by <code>get_chirts()</code>.</p>
+<p>We convert our administrative borders to a terra <code>SpatVector</code> object with <code><a href="https://rspatial.github.io/terra/reference/vect.html">vect()</a></code> because this is the spatial structure expected by <code>get_chirts()</code>.</p>
 </div></div><p>In contrast to the NetCDF files provided when downloading CHIRTS data directly, obtaining data via the chirps package does not provide any temporal metadata:</p>
 <div class="cell" data-out.lines="3">
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/terra/man/time.html">time</a></span><span class="op">(</span><span class="va">ml_chirts2</span><span class="op">)</span></span>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rspatial.github.io/terra/reference/time.html">time</a></span><span class="op">(</span><span class="va">ml_chirts2</span><span class="op">)</span></span>
 <span><span class="co">#&gt;   [1] NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA</span></span>
 <span><span class="co">#&gt;  [26] NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA</span></span>
 <span><span class="co">#&gt;  [51] NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA</span></span>
@@ -482,9 +489,9 @@ Climatological Normals
 <span><span class="va">end</span> <span class="op">&lt;-</span> <span class="fu">lubridate</span><span class="fu">::</span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/ymd.html">ymd</a></span><span class="op">(</span><span class="st">"2012-12-31"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Set time as a daily sequence of dates for all of 2012</span></span>
-<span><span class="fu"><a href="https://rdrr.io/pkg/terra/man/time.html">time</a></span><span class="op">(</span><span class="va">ml_chirts2</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="va">start</span>, <span class="va">end</span>, by <span class="op">=</span> <span class="st">"days"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rspatial.github.io/terra/reference/time.html">time</a></span><span class="op">(</span><span class="va">ml_chirts2</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="va">start</span>, <span class="va">end</span>, by <span class="op">=</span> <span class="st">"days"</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu"><a href="https://rdrr.io/pkg/terra/man/time.html">time</a></span><span class="op">(</span><span class="va">ml_chirts2</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rspatial.github.io/terra/reference/time.html">time</a></span><span class="op">(</span><span class="va">ml_chirts2</span><span class="op">)</span></span>
 <span><span class="co">#&gt;   [1] "2012-01-01" "2012-01-02" "2012-01-03" "2012-01-04" "2012-01-05"</span></span>
 <span><span class="co">#&gt;   [6] "2012-01-06" "2012-01-07" "2012-01-08" "2012-01-09" "2012-01-10"</span></span>
 <span><span class="co">#&gt;  [11] "2012-01-11" "2012-01-12" "2012-01-13" "2012-01-14" "2012-01-15"</span></span>
@@ -508,7 +515,7 @@ Caution
 <div class="no-row-height column-margin column-container"><div class="">
 <p>We’re not going to explicitly demonstrate how we produce our maps in this post since some are fairly complicated to set up. If you’re curious, you can peek at the collapsed code blocks to see how each of our maps are produced.</p>
 </div></div><div class="cell">
-<details><summary>Show plot functions</summary><div class="sourceCode" id="cb11"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Add map scale bar and update guides</span></span>
+<details class="code-fold"><summary>Show plot functions</summary><div class="sourceCode" id="cb11"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Add map scale bar and update guides</span></span>
 <span><span class="va">theme_dhs_map</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">show_scale</span> <span class="op">=</span> <span class="cn">TRUE</span>, <span class="va">continuous</span> <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="kw">if</span> <span class="op">(</span><span class="va">show_scale</span><span class="op">)</span> <span class="op">{</span></span>
 <span>    <span class="va">scale</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://paleolimbot.github.io/ggspatial/reference/annotation_scale.html">annotation_scale</a></span><span class="op">(</span></span>
@@ -563,10 +570,10 @@ Caution
 </details>
 </div>
 <div class="cell page-columns page-full" data-layout-align="center">
-<details><summary>Show plot code</summary><div class="sourceCode" id="cb12"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Split raster into two at the country border to allow for differential </span></span>
+<details class="code-fold"><summary>Show plot code</summary><div class="sourceCode" id="cb12"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Split raster into two at the country border to allow for differential </span></span>
 <span><span class="co"># highlighting</span></span>
-<span><span class="va">r_in</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/terra/man/mask.html">mask</a></span><span class="op">(</span><span class="va">ml_chirts</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span>, <span class="va">ml_borders_out</span>, inverse <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
-<span><span class="va">r_out</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/terra/man/mask.html">mask</a></span><span class="op">(</span><span class="va">ml_chirts</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span>, <span class="va">ml_borders_out</span>, inverse <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="va">r_in</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rspatial.github.io/terra/reference/mask.html">mask</a></span><span class="op">(</span><span class="va">ml_chirts</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span>, <span class="va">ml_borders_out</span>, inverse <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span><span class="va">r_out</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rspatial.github.io/terra/reference/mask.html">mask</a></span><span class="op">(</span><span class="va">ml_chirts</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span>, <span class="va">ml_borders_out</span>, inverse <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Plot</span></span>
 <span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
@@ -582,9 +589,9 @@ Caution
 <span>  <span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">scale_fill_chirts_c</span><span class="op">(</span>limits <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">18</span>, <span class="fl">50</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">theme_dhs_map</span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details><div class="cell-output-display column-page">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><img src="index_files/figure-html/unnamed-chunk-14-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
+</details><div class="cell-output-display page-columns page-full">
+<div class="quarto-figure quarto-figure-center page-columns page-full">
+<figure class="figure page-columns page-full"><p class="page-columns page-full"><img src="index_files/figure-html/unnamed-chunk-14-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img column-page" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
@@ -607,10 +614,10 @@ Defining Heat Exposure
 </div>
 <section id="average-monthly-temperature" class="level2 page-columns page-full"><h2 class="anchored" data-anchor-id="average-monthly-temperature">1. Average monthly temperature</h2>
 <p>For our first metric, we’ll take a simple approach and calculate an average monthly temperature.</p>
-<p><a href="../2024-02-04-dhs-chirps/#summarize-precipitation-values">Previously</a>, we introduced terra’s <code><a href="https://rdrr.io/pkg/terra/man/summarize-generics.html">mean()</a></code> method, which allows you to calculate a single mean across all layers of a <code>SpatRaster</code> object. In this case, we also want to calculate a mean, but we need to adapt our approach so we can do so for each month independently.</p>
-<p>Enter terra’s <code><a href="https://rdrr.io/pkg/terra/man/tapp.html">tapp()</a></code> function. <code><a href="https://rdrr.io/pkg/terra/man/tapp.html">tapp()</a></code> allows you to apply a function to <strong>groups of raster layers</strong>. You can indicate which layers should be grouped together with the <code>index</code> argument. For instance, to independently calculate the mean of the first three layers and the second three layers, we could use the following <code>index</code>:</p>
+<p><a href="../2024-02-04-dhs-chirps/#summarize-precipitation-values">Previously</a>, we introduced terra’s <code><a href="https://rspatial.github.io/terra/reference/summarize-generics.html">mean()</a></code> method, which allows you to calculate a single mean across all layers of a <code>SpatRaster</code> object. In this case, we also want to calculate a mean, but we need to adapt our approach so we can do so for each month independently.</p>
+<p>Enter terra’s <code><a href="https://rspatial.github.io/terra/reference/tapp.html">tapp()</a></code> function. <code><a href="https://rspatial.github.io/terra/reference/tapp.html">tapp()</a></code> allows you to apply a function to <strong>groups of raster layers</strong>. You can indicate which layers should be grouped together with the <code>index</code> argument. For instance, to independently calculate the mean of the first three layers and the second three layers, we could use the following <code>index</code>:</p>
 <div class="cell" data-hash="index_cache/html/unnamed-chunk-15_887a27ab707e7cc41676ba8c9851cead">
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/terra/man/tapp.html">tapp</a></span><span class="op">(</span></span>
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rspatial.github.io/terra/reference/tapp.html">tapp</a></span><span class="op">(</span></span>
 <span>  <span class="va">ml_chirts</span><span class="op">[[</span><span class="fl">1</span><span class="op">:</span><span class="fl">6</span><span class="op">]</span><span class="op">]</span>, <span class="co"># Select the first 6 layers to demo</span></span>
 <span>  fun <span class="op">=</span> <span class="va">mean</span>, </span>
 <span>  index <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">2</span>, <span class="fl">2</span><span class="op">)</span></span>
@@ -629,7 +636,7 @@ Defining Heat Exposure
 <p>However, manually identifying the index layers for each month of the year would be tedious and error-prone. Not only would we have to type out code to handle 366 days of data, but we would also have to contend with the fact that months vary in length. And depending on your time frame and region of interest, you may also need to account for leap years or entirely different calendars!</p>
 <p>Fortunately, terra provides us with an easier way. Because we have a <code>time</code> component to our data, we can use the temporal metadata already attached to our raster as the index. For instance, to aggregate by month, simply use <code>index = "months"</code>:</p>
 <div class="cell">
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">ml_chirts_mean</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/terra/man/tapp.html">tapp</a></span><span class="op">(</span><span class="va">ml_chirts</span>, fun <span class="op">=</span> <span class="va">mean</span>, index <span class="op">=</span> <span class="st">"months"</span><span class="op">)</span></span>
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">ml_chirts_mean</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rspatial.github.io/terra/reference/tapp.html">tapp</a></span><span class="op">(</span><span class="va">ml_chirts</span>, fun <span class="op">=</span> <span class="va">mean</span>, index <span class="op">=</span> <span class="st">"months"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">ml_chirts_mean</span></span>
 <span><span class="co">#&gt; class       : SpatRaster </span></span>
@@ -645,11 +652,11 @@ Defining Heat Exposure
 </div>
 <p>As expected, we now have 12 layers in our output <code>SpatRaster</code> (see the <code>dimensions</code> component of the output above). Each layer contains the average daily maximum temperature (in degrees Celsius) for the given month, as shown below.</p>
 <div class="cell page-columns page-full" data-layout-align="center">
-<details><summary>Show plot code</summary><div class="sourceCode" id="cb15"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://patchwork.data-imaginist.com">patchwork</a></span><span class="op">)</span></span>
+<details class="code-fold"><summary>Show plot code</summary><div class="sourceCode" id="cb15"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://patchwork.data-imaginist.com">patchwork</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Helper to split raster layers into a list for small-multiple panel mapping</span></span>
 <span><span class="va">split_raster</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">r</span><span class="op">)</span> <span class="op">{</span></span>
-<span>  <span class="fu">purrr</span><span class="fu">::</span><span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq_len</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/terra/man/dimensions.html">nlyr</a></span><span class="op">(</span><span class="va">r</span><span class="op">)</span><span class="op">)</span>, <span class="kw">function</span><span class="op">(</span><span class="va">i</span><span class="op">)</span> <span class="va">r</span><span class="op">[[</span><span class="va">i</span><span class="op">]</span><span class="op">]</span><span class="op">)</span></span>
+<span>  <span class="fu">purrr</span><span class="fu">::</span><span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq_len</a></span><span class="op">(</span><span class="fu"><a href="https://rspatial.github.io/terra/reference/dimensions.html">nlyr</a></span><span class="op">(</span><span class="va">r</span><span class="op">)</span><span class="op">)</span>, <span class="kw">function</span><span class="op">(</span><span class="va">i</span><span class="op">)</span> <span class="va">r</span><span class="op">[[</span><span class="va">i</span><span class="op">]</span><span class="op">]</span><span class="op">)</span></span>
 <span><span class="op">}</span></span>
 <span></span>
 <span><span class="co"># Function to build individual panels for a small-multiple map using </span></span>
@@ -658,7 +665,7 @@ Defining Heat Exposure
 <span>                                    <span class="va">panel_title</span> <span class="op">=</span> <span class="st">""</span>,</span>
 <span>                                    <span class="va">show_scale</span> <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>                                    <span class="va">...</span><span class="op">)</span> <span class="op">{</span></span>
-<span>  <span class="va">r_in</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/terra/man/mask.html">mask</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">ml_borders_out</span>, inverse <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span>  <span class="va">r_in</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rspatial.github.io/terra/reference/mask.html">mask</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">ml_borders_out</span>, inverse <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
 <span>  </span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>    <span class="fu"><a href="https://paleolimbot.github.io/ggspatial/reference/layer_spatial.html">layer_spatial</a></span><span class="op">(</span><span class="va">r_in</span>, alpha <span class="op">=</span> <span class="fl">0.9</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">+</span></span>
@@ -699,9 +706,9 @@ Defining Heat Exposure
 <span>    title <span class="op">=</span> <span class="st">"Average Monthly Temperature: Mali 2012"</span>,</span>
 <span>    caption <span class="op">=</span> <span class="st">"Source: Climate Hazards Center Infrared Temperature with Stations"</span></span>
 <span>  <span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details><div class="cell-output-display column-page">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><img src="index_files/figure-html/unnamed-chunk-17-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
+</details><div class="cell-output-display page-columns page-full">
+<div class="quarto-figure quarto-figure-center page-columns page-full">
+<figure class="figure page-columns page-full"><p class="page-columns page-full"><img src="index_files/figure-html/unnamed-chunk-17-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img column-page" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
@@ -738,20 +745,20 @@ Defining Heat Exposure
 <div class="no-row-height column-margin column-container"><div class="">
 <p>When treating logical values as numeric, <code>TRUE</code> is treated as a <code>1</code> and <code>FALSE</code> is treated as a <code>0</code>.</p>
 </div></div><p>However, we also need to account for the fact that not all months contain the same number of days. We therefore produce a <em>proportion</em> of each month’s days that meet our temperature threshold by dividing by the number of days in each month.</p>
-<p>For binary data, this turns out to be the same as calculating a mean, so we can use a similar approach as we did when calculating average monthly temperature. The difference is that we now provide our binary raster (<code>ml_bin</code>) to the <code><a href="https://rdrr.io/pkg/terra/man/tapp.html">tapp()</a></code> function:</p>
+<p>For binary data, this turns out to be the same as calculating a mean, so we can use a similar approach as we did when calculating average monthly temperature. The difference is that we now provide our binary raster (<code>ml_bin</code>) to the <code><a href="https://rspatial.github.io/terra/reference/tapp.html">tapp()</a></code> function:</p>
 <div class="cell">
-<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">ml_prop</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/terra/man/tapp.html">tapp</a></span><span class="op">(</span><span class="va">ml_bin</span>, fun <span class="op">=</span> <span class="va">mean</span>, index <span class="op">=</span> <span class="st">"months"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">ml_prop</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rspatial.github.io/terra/reference/tapp.html">tapp</a></span><span class="op">(</span><span class="va">ml_bin</span>, fun <span class="op">=</span> <span class="va">mean</span>, index <span class="op">=</span> <span class="st">"months"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Once again, we end up with a <code>SpatRaster</code> with 12 layers. However, in this case, each raster pixel reflects the proportion of days above 35° in that month.</p>
 <div class="cell page-columns page-full" data-layout-align="center">
-<details><summary>Show plot code</summary><div class="sourceCode" id="cb19"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Function to build individual panels for a small-multiple map using </span></span>
+<details class="code-fold"><summary>Show plot code</summary><div class="sourceCode" id="cb19"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Function to build individual panels for a small-multiple map using </span></span>
 <span><span class="co"># binned color scheme</span></span>
 <span><span class="va">chirts_panel_binned</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span>, </span>
 <span>                                <span class="va">panel_title</span> <span class="op">=</span> <span class="st">""</span>,</span>
 <span>                                <span class="va">fill_label</span> <span class="op">=</span> <span class="st">""</span>,</span>
 <span>                                <span class="va">show_scale</span> <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>                                <span class="va">...</span><span class="op">)</span> <span class="op">{</span></span>
-<span>  <span class="va">r_in</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/terra/man/mask.html">mask</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">ml_borders_out</span>, inverse <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span>  <span class="va">r_in</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rspatial.github.io/terra/reference/mask.html">mask</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">ml_borders_out</span>, inverse <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
 <span>  </span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>    <span class="fu"><a href="https://paleolimbot.github.io/ggspatial/reference/layer_spatial.html">layer_spatial</a></span><span class="op">(</span><span class="va">r_in</span>, alpha <span class="op">=</span> <span class="fl">0.9</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">+</span></span>
@@ -792,9 +799,9 @@ Defining Heat Exposure
 <span>    title <span class="op">=</span> <span class="st">"Proportion of Days Above Threshold"</span>,</span>
 <span>    caption <span class="op">=</span> <span class="st">"Source: Climate Hazards Center Infrared Temperature with Stations"</span></span>
 <span>  <span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details><div class="cell-output-display column-page">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><img src="index_files/figure-html/listing-img-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
+</details><div class="cell-output-display page-columns page-full">
+<div class="quarto-figure quarto-figure-center page-columns page-full">
+<figure class="figure page-columns page-full"><p class="page-columns page-full"><img src="index_files/figure-html/listing-img-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img column-page" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
@@ -862,8 +869,8 @@ Defining Heat Exposure
 <span><span class="co">#&gt; [1] 0.3852459</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <section id="custom-functions" class="level3"><h3 class="anchored" data-anchor-id="custom-functions">Custom functions</h3>
-<p>If we want to calculate the proportion of heatwave days across our entire raster, we can again return to <code><a href="https://rdrr.io/pkg/terra/man/tapp.html">tapp()</a></code>. However, there’s no built-in function (like <code>mean</code>) that we can use to do the processing we walked through above.</p>
-<p>Instead, we must provide our own <strong>custom function</strong> to indicate the processing that <code><a href="https://rdrr.io/pkg/terra/man/tapp.html">tapp()</a></code> should perform on each set of layers. To define a function, we use the <code>function()</code> keyword along with several <em>arguments</em>.</p>
+<p>If we want to calculate the proportion of heatwave days across our entire raster, we can again return to <code><a href="https://rspatial.github.io/terra/reference/tapp.html">tapp()</a></code>. However, there’s no built-in function (like <code>mean</code>) that we can use to do the processing we walked through above.</p>
+<p>Instead, we must provide our own <strong>custom function</strong> to indicate the processing that <code><a href="https://rspatial.github.io/terra/reference/tapp.html">tapp()</a></code> should perform on each set of layers. To define a function, we use the <code>function()</code> keyword along with several <em>arguments</em>.</p>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -931,10 +938,10 @@ Note
 </div>
 <p>This example demonstrates how function arguments can be used to produce a more <em>flexible</em> function that can be easily applied across a range of input parameters. Building functions in this way has a bit of an up-front cost, but it often pays for itself by making your future analysis much more robust and scalable.</p>
 </section></section><section id="scaling-up" class="level3 page-columns page-full"><h3 class="anchored" data-anchor-id="scaling-up">Scaling up</h3>
-<p>Now that we have a function to calculate our heatwave definition, we can provide it to <code><a href="https://rdrr.io/pkg/terra/man/tapp.html">tapp()</a></code> with our desired temperature threshold and sequence parameters.</p>
+<p>Now that we have a function to calculate our heatwave definition, we can provide it to <code><a href="https://rspatial.github.io/terra/reference/tapp.html">tapp()</a></code> with our desired temperature threshold and sequence parameters.</p>
 <div class="cell">
 <div class="sourceCode" id="cb31"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Apply our custom heatwave counter to each month</span></span>
-<span><span class="va">ml_heatwave_prop</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/terra/man/tapp.html">tapp</a></span><span class="op">(</span></span>
+<span><span class="va">ml_heatwave_prop</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rspatial.github.io/terra/reference/tapp.html">tapp</a></span><span class="op">(</span></span>
 <span>  <span class="va">ml_chirts</span>, </span>
 <span>  fun <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu">prop_heatwave</span><span class="op">(</span><span class="va">x</span>, thresh <span class="op">=</span> <span class="fl">35</span>, n_seq <span class="op">=</span> <span class="fl">3</span><span class="op">)</span>, </span>
 <span>  index <span class="op">=</span> <span class="st">"months"</span></span>
@@ -950,14 +957,14 @@ Anonymous Function Syntax
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Our <code>fun</code> argument above is written in <em>anonymous function syntax</em>. It may look a little complex, but remember that <code><a href="https://rdrr.io/pkg/terra/man/tapp.html">tapp()</a></code> expects you to provide a <em>function</em> to its <code>fun</code> argument. Whichever function you provide should be a function of the vector of values for each pixel in the input raster.</p>
+<p>Our <code>fun</code> argument above is written in <em>anonymous function syntax</em>. It may look a little complex, but remember that <code><a href="https://rspatial.github.io/terra/reference/tapp.html">tapp()</a></code> expects you to provide a <em>function</em> to its <code>fun</code> argument. Whichever function you provide should be a function of the vector of values for each pixel in the input raster.</p>
 <p><code>function(x) prop_heatwave(x, ...)</code> indicates that we want to provide each of these vectors <code>x</code> to our <code>prop_heatwave()</code> function (as the <code>temps</code> argument). The <code>thresh</code> and <code>n_seq</code> arguments are fixed across all pixels. (In this case, <code>x</code> is just a placeholder to reference the vector inputs to our function. We could just as easily use another name, but <code>x</code> is traditional and concise.)</p>
 <p>Why didn’t we use this syntax in previous sections? Well, it turns out that <code>fun = mean</code> was simply a shorthand. Writing <code>fun = function(x) mean(x)</code> would have also worked!</p>
 </div>
 </div>
 <p>Let’s see what the distribution of heatwave days looks like under our latest definition:</p>
 <div class="cell page-columns page-full" data-layout-align="center">
-<details><summary>Show plot code</summary><div class="sourceCode" id="cb32"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Split raster by layer</span></span>
+<details class="code-fold"><summary>Show plot code</summary><div class="sourceCode" id="cb32"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Split raster by layer</span></span>
 <span><span class="va">r</span> <span class="op">&lt;-</span> <span class="fu">split_raster</span><span class="op">(</span><span class="va">ml_heatwave_prop</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Create map panels</span></span>
@@ -981,23 +988,23 @@ Anonymous Function Syntax
 <span>    subtitle <span class="op">=</span> <span class="st">"Heatwaves as sequences of 3+ days of 35°C"</span>,</span>
 <span>    caption <span class="op">=</span> <span class="st">"Source: Climate Hazards Center Infrared Temperature with Stations"</span></span>
 <span>  <span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details><div class="cell-output-display column-page">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><img src="index_files/figure-html/unnamed-chunk-33-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
+</details><div class="cell-output-display page-columns page-full">
+<div class="quarto-figure quarto-figure-center page-columns page-full">
+<figure class="figure page-columns page-full"><p class="page-columns page-full"><img src="index_files/figure-html/unnamed-chunk-33-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img column-page" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
 </div>
 <p>Because we’ve built a flexible <code>prop_heatwave()</code> function, we can easily calculate a different heatwave definition. For heatwaves of 4+ days of 37°C+, for instance:</p>
 <div class="cell">
-<div class="sourceCode" id="cb33"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">ml_heatwave_prop2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/terra/man/tapp.html">tapp</a></span><span class="op">(</span></span>
+<div class="sourceCode" id="cb33"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">ml_heatwave_prop2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rspatial.github.io/terra/reference/tapp.html">tapp</a></span><span class="op">(</span></span>
 <span>  <span class="va">ml_chirts</span>, </span>
 <span>  fun <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu">prop_heatwave</span><span class="op">(</span><span class="va">x</span>, thresh <span class="op">=</span> <span class="fl">37</span>, n_seq <span class="op">=</span> <span class="fl">4</span><span class="op">)</span>, </span>
 <span>  index <span class="op">=</span> <span class="st">"months"</span></span>
 <span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell page-columns page-full" data-layout-align="center">
-<details><summary>Show plot code</summary><div class="sourceCode" id="cb34"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Split raster by layer</span></span>
+<details class="code-fold"><summary>Show plot code</summary><div class="sourceCode" id="cb34"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Split raster by layer</span></span>
 <span><span class="va">r</span> <span class="op">&lt;-</span> <span class="fu">split_raster</span><span class="op">(</span><span class="va">ml_heatwave_prop2</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Create map panels</span></span>
@@ -1021,9 +1028,9 @@ Anonymous Function Syntax
 <span>    subtitle <span class="op">=</span> <span class="st">"Heatwaves as sequences of 4+ days of 37°C"</span>,</span>
 <span>    caption <span class="op">=</span> <span class="st">"Source: Climate Hazards Center Infrared Temperature with Stations"</span></span>
 <span>  <span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details><div class="cell-output-display column-page">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><img src="index_files/figure-html/unnamed-chunk-35-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
+</details><div class="cell-output-display page-columns page-full">
+<div class="quarto-figure quarto-figure-center page-columns page-full">
+<figure class="figure page-columns page-full"><p class="page-columns page-full"><img src="index_files/figure-html/unnamed-chunk-35-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img column-page" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
@@ -1033,8 +1040,8 @@ Anonymous Function Syntax
 <div class="sourceCode" id="cb35"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">ml_heatwave_diff</span> <span class="op">&lt;-</span> <span class="va">ml_heatwave_prop2</span> <span class="op">-</span> <span class="va">ml_heatwave_prop</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell page-columns page-full" data-layout-align="center">
-<details><summary>Show plot code</summary><div class="sourceCode" id="cb36"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Convert 0 values to NA for transparency</span></span>
-<span><span class="fu"><a href="https://rdrr.io/pkg/terra/man/NAflag.html">NAflag</a></span><span class="op">(</span><span class="va">ml_heatwave_diff</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fl">0</span></span>
+<details class="code-fold"><summary>Show plot code</summary><div class="sourceCode" id="cb36"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Convert 0 values to NA for transparency</span></span>
+<span><span class="fu"><a href="https://rspatial.github.io/terra/reference/NAflag.html">NAflag</a></span><span class="op">(</span><span class="va">ml_heatwave_diff</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fl">0</span></span>
 <span></span>
 <span><span class="co"># Split raster into layers</span></span>
 <span><span class="va">r</span> <span class="op">&lt;-</span> <span class="fu">split_raster</span><span class="op">(</span><span class="va">ml_heatwave_diff</span><span class="op">)</span></span>
@@ -1061,9 +1068,9 @@ Anonymous Function Syntax
 <span>    subtitle <span class="op">=</span> <span class="st">"37°C 4+ days vs. 35°C 3+ days heatwave definitions"</span>,</span>
 <span>    caption <span class="op">=</span> <span class="st">"Source: Climate Hazards Center Infrared Temperature with Stations"</span></span>
 <span>  <span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details><div class="cell-output-display column-page">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><img src="index_files/figure-html/unnamed-chunk-37-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
+</details><div class="cell-output-display page-columns page-full">
+<div class="quarto-figure quarto-figure-center page-columns page-full">
+<figure class="figure page-columns page-full"><p class="page-columns page-full"><img src="index_files/figure-html/unnamed-chunk-37-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img column-page" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
@@ -1078,7 +1085,7 @@ Anonymous Function Syntax
 
 
 
-</div></section><section class="quarto-appendix-contents" role="doc-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-line-spacing="2" role="list">
+</div></section><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" data-line-spacing="2" role="list">
 <div id="ref-Grace2021" class="csl-entry" role="listitem">
 1. Grace, K., Verdin, A., Dorélien, A., Davenport, F., Funk, C., &amp; Husak, G. (2021). Exploring strategies for investigating the mechanisms linking climate and individual-level child health outcomes: An analysis of birth weight in <span>M</span>ali. <em>Demography</em>, <em>58</em>, 499–526. <a href="https://doi.org/10.1215/00703370-8977484">https://doi.org/10.1215/00703370-8977484</a>
 </div>
@@ -1170,10 +1177,27 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     // clear code selection
     e.clearSelection();
   });
-  function tippyHover(el, contentFn) {
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp("https:\/\/ipums\.github\.io\/dhs-research-hub");
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
     const config = {
       allowHTML: true,
-      content: contentFn,
       maxWidth: 500,
       delay: 100,
       arrow: false,
@@ -1183,8 +1207,17 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       interactive: true,
       interactiveBorder: 10,
       theme: 'quarto',
-      placement: 'bottom-start'
+      placement: 'bottom-start',
     };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
     window.tippy(el, config); 
   }
   const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
@@ -1196,7 +1229,130 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       try { href = new URL(href).hash; } catch {}
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
-      return note.innerHTML;
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
     });
   }
       let selectedAnnoteEl;
@@ -1240,6 +1396,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
             }
             div.style.top = top - 2 + "px";
             div.style.height = height + 4 + "px";
+            div.style.left = 0;
             let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
             if (gutterDiv === null) {
               gutterDiv = window.document.createElement("div");
@@ -1265,6 +1422,32 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
         });
         selectedAnnoteEl = undefined;
       };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
       // Attach click handler to the DT
       const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
       for (const annoteDlNode of annoteDls) {
@@ -1329,7 +1512,9 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     <div class="nav-footer-left">
       &nbsp;
     </div>   
-    <div class="nav-footer-center">Developed by <a href="https://www.ipums.org">IPUMS</a> at the University of Minnesota<br>Licensed under the <a href="https://www.mozilla.org/en-US/MPL/2.0/">Mozilla Public License Version 2.0</a></div>
+    <div class="nav-footer-center">
+<p>Developed by <a href="https://www.ipums.org">IPUMS</a> at the University of Minnesota<br>Licensed under the <a href="https://www.mozilla.org/en-US/MPL/2.0/">Mozilla Public License Version 2.0</a></p>
+</div>
     <div class="nav-footer-right">
       &nbsp;
     </div>

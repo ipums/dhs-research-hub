@@ -6,16 +6,36 @@
       version="2.0">
 <channel>
 <title>IPUMS DHS Climate Change and Health Research Hub</title>
-<link>https://ipums.github.io/dhs-research-hub/index.html</link>
+<link>https://ipums.github.io/dhs-research-hub/</link>
 <atom:link href="https://ipums.github.io/dhs-research-hub/index.xml" rel="self" type="application/rss+xml"/>
 <description>Understand population health in its environmental context</description>
-<generator>quarto-1.3.450</generator>
-<lastBuildDate>Mon, 15 Apr 2024 04:00:00 GMT</lastBuildDate>
+<generator>quarto-1.4.553</generator>
+<lastBuildDate>Fri, 31 May 2024 04:00:00 GMT</lastBuildDate>
+<item>
+  <title>Time-specific temperature exposures for DHS survey respondents</title>
+  <dc:creator>Finn Roberts</dc:creator>
+  <link>https://ipums.github.io/dhs-research-hub/posts/2024-05-31-ts-join/</link>
+  <description><![CDATA[ Fine-tune an analysis by incorporating temporal information from a DHS survey with longitudinal climate data ]]></description>
+  <category>CHIRTS</category>
+  <category>Temperature</category>
+  <category>Heat</category>
+  <category>Longitudinal Analysis</category>
+  <category>Time series</category>
+  <category>Multilevel Modeling</category>
+  <category>Climate</category>
+  <category>terra</category>
+  <category>lme4</category>
+  <category>tidyr</category>
+  <category>R</category>
+  <guid>https://ipums.github.io/dhs-research-hub/posts/2024-05-31-ts-join/</guid>
+  <pubDate>Fri, 31 May 2024 04:00:00 GMT</pubDate>
+  <media:content url="https://ipums.github.io/dhs-research-hub/posts/2024-05-31-ts-join/index_files/figure-html/listing-img-1.png" medium="image" type="image/png" height="115" width="144"/>
+</item>
 <item>
   <title>Flexible Workflows with CHIRTS Temperature Data</title>
   <dc:creator>Finn Roberts</dc:creator>
-  <link>https://ipums.github.io/dhs-research-hub/posts/2024-04-15-chirts-metrics/index.html</link>
-  <description><![CDATA[ In our <a href="../2024-02-04-dhs-chirps/index.html">previous technical post</a>, we showed how to reduce a daily time series of climate data for an entire country into a single digestible metric that can be attached to <a href="https://www.dhsprogram.com/">DHS survey</a> data for use in an analysis. ]]></description>
+  <link>https://ipums.github.io/dhs-research-hub/posts/2024-04-15-chirts-metrics/</link>
+  <description><![CDATA[ Generalize your code to more easily aggregate time-varying climate data ]]></description>
   <category>CHIRTS</category>
   <category>Temperature</category>
   <category>Heat</category>
@@ -27,7 +47,7 @@
   <category>sf</category>
   <category>ggspatial</category>
   <category>R</category>
-  <guid>https://ipums.github.io/dhs-research-hub/posts/2024-04-15-chirts-metrics/index.html</guid>
+  <guid>https://ipums.github.io/dhs-research-hub/posts/2024-04-15-chirts-metrics/</guid>
   <pubDate>Mon, 15 Apr 2024 04:00:00 GMT</pubDate>
   <media:content url="https://ipums.github.io/dhs-research-hub/posts/2024-04-15-chirts-metrics/index_files/figure-html/listing-img-1.png" medium="image" type="image/png" height="115" width="144"/>
 </item>
@@ -36,29 +56,29 @@
   <dc:creator>Sula Sarkar</dc:creator>
   <dc:creator>Devon Kristiansen</dc:creator>
   <dc:creator>Miriam King</dc:creator>
-  <link>https://ipums.github.io/dhs-research-hub/posts/2024-04-09-spatial-harmonization/index.html</link>
-  <description><![CDATA[ The <a href="https://dhsprogram.com/">Demographic and Health Surveys</a> (DHS) are the leading source of population and health data for low and middle-income countries. The data from the nationally representative DHS samples can be disaggregated by regions and, in some cases, by sub-regions, such as districts. However, changes in the boundaries of reported regions are common, due to either shifts in the survey sampling strategy or due to political changes within countries. Researchers using DHS data to study change over time need to hold space constant by using regions with a consistent geographic footprint to get meaningful results. ]]></description>
+  <link>https://ipums.github.io/dhs-research-hub/posts/2024-04-09-spatial-harmonization/</link>
+  <description><![CDATA[ A demonstration of data and techniques to handle shifting geographic boundaries in longitudinal research ]]></description>
   <category>Integrated geography</category>
   <category>Spatial harmonization</category>
   <category>Longitudinal analysis</category>
   <category>Methodology</category>
   <category>Research concepts</category>
   <category>Cartography</category>
-  <guid>https://ipums.github.io/dhs-research-hub/posts/2024-04-09-spatial-harmonization/index.html</guid>
+  <guid>https://ipums.github.io/dhs-research-hub/posts/2024-04-09-spatial-harmonization/</guid>
   <pubDate>Tue, 09 Apr 2024 04:00:00 GMT</pubDate>
 </item>
 <item>
   <title>Droplets of Insights for Integrating DHS and Rainfall Data</title>
   <dc:creator>Audrey Dorélien</dc:creator>
   <dc:creator>Molly Brown</dc:creator>
-  <link>https://ipums.github.io/dhs-research-hub/posts/2024-02-23-rainfall-insights/index.html</link>
-  <description><![CDATA[ One barrier to climate change and health research is that many surveys—including the <a href="https://dhsprogram.com/">The Demographic and Health Surveys Program (DHS)</a>—do not collect detailed information on local environmental conditions in survey areas. Fortunately, organizations like <a href="https://www.idhsdata.org/idhs/">IPUMS DHS</a> are now taking steps to use DHS enumeration cluster coordinates to link a limited set of climate variables—including monthly and long-term average precipitation—to individual and household records within the DHS.<span class="citation" data-cites="boyle_contextual_2020"><sup>1</sup></span> ]]></description>
+  <link>https://ipums.github.io/dhs-research-hub/posts/2024-02-23-rainfall-insights/</link>
+  <description><![CDATA[ Some factors to consider when obtaining and preparing precipitation data for use with DHS surveys ]]></description>
   <category>Climate</category>
   <category>Precipitation</category>
   <category>CHIRPS</category>
   <category>Methodology</category>
   <category>Research concepts</category>
-  <guid>https://ipums.github.io/dhs-research-hub/posts/2024-02-23-rainfall-insights/index.html</guid>
+  <guid>https://ipums.github.io/dhs-research-hub/posts/2024-02-23-rainfall-insights/</guid>
   <pubDate>Thu, 07 Mar 2024 05:00:00 GMT</pubDate>
   <media:content url="https://ipums.github.io/dhs-research-hub/posts/2024-02-23-rainfall-insights/images/storm-clouds-over-wheat-field-danger-weather-with-dark-sky-over-fields-SBI-300870591.jpg" medium="image" type="image/jpeg"/>
 </item>
@@ -66,8 +86,8 @@
   <title>Attaching CHIRPS Precipitation Data to DHS Surveys</title>
   <dc:creator>Finn Roberts</dc:creator>
   <dc:creator>Matt Gunther</dc:creator>
-  <link>https://ipums.github.io/dhs-research-hub/posts/2024-02-04-dhs-chirps/index.html</link>
-  <description><![CDATA[ We know that health outcomes are significantly impacted by individuals’ environmental context: excessive rainfall can flood local infrastructure<span class="citation" data-cites="Mirza2011"><sup>1</sup></span>; warmer temperatures can expand the range of common disease vectors<span class="citation" data-cites="Martens1997"><sup>2</sup></span>; and drought can decimate crop-growing regions.<span class="citation" data-cites="Lesk2016"><sup>3</sup></span> However, survey data like those from <a href="https://www.dhsprogram.com/">The DHS Program</a> often provide only a limited view of the environmental trends in which individuals are embedded. ]]></description>
+  <link>https://ipums.github.io/dhs-research-hub/posts/2024-02-04-dhs-chirps/</link>
+  <description><![CDATA[ Remotely sensed precipitation data can provide important context for understanding the health outcomes reported in the DHS ]]></description>
   <category>CHIRPS</category>
   <category>Precipitation</category>
   <category>Climate</category>
@@ -76,7 +96,7 @@
   <category>sf</category>
   <category>ggspatial</category>
   <category>R</category>
-  <guid>https://ipums.github.io/dhs-research-hub/posts/2024-02-04-dhs-chirps/index.html</guid>
+  <guid>https://ipums.github.io/dhs-research-hub/posts/2024-02-04-dhs-chirps/</guid>
   <pubDate>Sun, 04 Feb 2024 05:00:00 GMT</pubDate>
   <media:content url="https://ipums.github.io/dhs-research-hub/posts/2024-02-04-dhs-chirps/index_files/figure-html/listing-img-1.png" medium="image" type="image/png" height="115" width="144"/>
 </item>
@@ -86,24 +106,24 @@
   <dc:creator>Kathryn Grace</dc:creator>
   <dc:creator>Audrey Dorélien</dc:creator>
   <dc:creator>Devon Kristiansen</dc:creator>
-  <link>https://ipums.github.io/dhs-research-hub/posts/2024-02-03-climate-theory/index.html</link>
-  <description><![CDATA[ Unpacking the relationship between climate change and health requires not only technical skills, but also a strong theoretical foundation. Climate change, health, and their relationships are all complex. Researchers begin by conceptualizing—for their specific questions—1) the nature of the climate event, 2) the details of the health outcome, and 3) the temporal and spatial relationships between the climate and health phenomena of interest. ]]></description>
+  <link>https://ipums.github.io/dhs-research-hub/posts/2024-02-03-climate-theory/</link>
+  <description><![CDATA[ Introducing the theoretical foundations for effective research on climate change and health ]]></description>
   <category>Climate</category>
   <category>Methodology</category>
   <category>Research concepts</category>
-  <guid>https://ipums.github.io/dhs-research-hub/posts/2024-02-03-climate-theory/index.html</guid>
+  <guid>https://ipums.github.io/dhs-research-hub/posts/2024-02-03-climate-theory/</guid>
   <pubDate>Sat, 03 Feb 2024 05:00:00 GMT</pubDate>
 </item>
 <item>
   <title>Obtaining Data from IPUMS DHS</title>
   <dc:creator>Finn Roberts</dc:creator>
   <dc:creator>Matt Gunther</dc:creator>
-  <link>https://ipums.github.io/dhs-research-hub/posts/2024-02-02-download-dhs-data/index.html</link>
-  <description><![CDATA[ <a href="https://dhsprogram.com/">The Demographic and Health Surveys Program</a> (DHS) is the leading source of population health data for low- and middle-income countries around the world. <a href="https://www.idhsdata.org/idhs/">IPUMS DHS</a> disseminates a harmonized version of the DHS survey results in which variables are integrated across time and space, facilitating comparative and longitudinal analysis. Furthermore, IPUMS DHS provides a web interface and streamlined documentation to make the data discovery and download process easier. ]]></description>
+  <link>https://ipums.github.io/dhs-research-hub/posts/2024-02-02-download-dhs-data/</link>
+  <description><![CDATA[ Identify and download data from the IPUMS DHS website and load it into R ]]></description>
   <category>Tips</category>
   <category>Importing data</category>
   <category>R</category>
-  <guid>https://ipums.github.io/dhs-research-hub/posts/2024-02-02-download-dhs-data/index.html</guid>
+  <guid>https://ipums.github.io/dhs-research-hub/posts/2024-02-02-download-dhs-data/</guid>
   <pubDate>Fri, 02 Feb 2024 05:00:00 GMT</pubDate>
   <media:content url="https://ipums.github.io/dhs-research-hub/images/dhs_logo_navy.png" medium="image" type="image/png" height="41" width="144"/>
 </item>
@@ -111,11 +131,11 @@
   <title>An Introduction to R</title>
   <dc:creator>Finn Roberts</dc:creator>
   <dc:creator>Matt Gunther</dc:creator>
-  <link>https://ipums.github.io/dhs-research-hub/posts/2024-02-01-getting-started-with-r/index.html</link>
-  <description><![CDATA[ The IPUMS DHS Climate Change and Health Research Hub is designed to introduce spatial data concepts for researchers who work with population health survey data. ]]></description>
+  <link>https://ipums.github.io/dhs-research-hub/posts/2024-02-01-getting-started-with-r/</link>
+  <description><![CDATA[ Getting started with R and RStudio ]]></description>
   <category>Tips</category>
   <category>R</category>
-  <guid>https://ipums.github.io/dhs-research-hub/posts/2024-02-01-getting-started-with-r/index.html</guid>
+  <guid>https://ipums.github.io/dhs-research-hub/posts/2024-02-01-getting-started-with-r/</guid>
   <pubDate>Thu, 01 Feb 2024 05:00:00 GMT</pubDate>
 </item>
 </channel>

@@ -227,11 +227,11 @@ geometric shapes like points, lines, and polygons.
 
 ![Basic features of the vector data model [@Minn]](images/plp1.png)
 
-In R, the `{sf}` package provides an intuitive tabular
-framework for working with vector data. sf objects look much like a
-familiar `{tibble}` or `data.frame`,
-but also include an additional `geometry` column, which stores the
-spatial features that correspond to each set of observations.
+In R, the `{sf}` package provides an intuitive tabular framework for
+working with vector data. sf objects look much like a familiar
+`{tibble}` or `data.frame`, but also include an additional `geometry`
+column, which stores the spatial features that correspond to each set of
+observations.
 
 ::: column-margin
 `r hex("sf")`
@@ -315,9 +315,8 @@ bf_gps <- bf_gps |>
 
 It's always worth double-checking that spatial data are being processed
 as expected, and this is often most easily done visually. We'll use the
-`{ggspatial}` package to visualize our spatial data. This
-package is a convenient extension of the popular `{ggplot2}`
-package.
+`{ggspatial}` package to visualize our spatial data. This package is a
+convenient extension of the popular `{ggplot2}` package.
 
 ::: column-margin
 `r hex("ggplot2")`
@@ -362,8 +361,8 @@ Now, we can plot the cluster locations (stored in `bf_gps`) along with
 the Burkina Faso administrative boundaries (stored in `bf_borders`):
 
 ```{r}
-#| column: screen-inset
-#| fig-align: center
+#| column: page
+#| out-width: "100%"
 library(ggplot2)
 library(ggspatial)
 
@@ -490,7 +489,8 @@ different browser.
 
 ```{r}
 #| echo: false
-#| column: screen-inset
+#| column: page
+#| out-width: "100%"
 #| fig-align: center
 knitr::include_graphics("images/climateserv2.png")
 ```
@@ -554,10 +554,10 @@ bf_precip <- rast(chirps_files)
 
 #### Option 2: The chirps package
 
-We can use the `get_chirps()` function from the `{chirps}`
-package to access CHIRPS data via the CHIRPS API. Since we don't have a
-map where we can select our region of interest, we'll have to provide a
-pre-loaded region representing the area for which we'd like data.
+We can use the `get_chirps()` function from the `{chirps}` package to
+access CHIRPS data via the CHIRPS API. Since we don't have a map where
+we can select our region of interest, we'll have to provide a pre-loaded
+region representing the area for which we'd like data.
 
 We can use the `bf_borders` object we created earlier to get data for
 the Burkina Faso region. We'll use `vect()` to convert it to a
@@ -644,8 +644,8 @@ Once we've selected a layer, we can use `layer_spatial()` to plot it,
 just as we did for vector objects.
 
 ```{r}
-#| column: screen-inset
-#| fig-align: center
+#| column: page
+#| out-width: "100%"
 #| code-fold: true
 #| code-summary: Show plot code
 
@@ -704,8 +704,8 @@ worth of precipitation data:
 ```{r}
 #| code-fold: true
 #| code-summary: Show plot code
-#| column: screen-inset
-#| fig-align: center
+#| column: page
+#| out-width: "100%"
 
 ggplot() +
   layer_spatial(bf_precip_mean, alpha = 0.8, na.rm = TRUE) +
@@ -813,8 +813,8 @@ bf_gps <- st_transform(bf_gps, crs = 4326)
 ```
 
 ```{r}
-#| column: screen-inset
-#| fig-align: center
+#| column: page
+#| out-width: "100%"
 #| code-fold: true
 #| code-summary: Show plot code
 
@@ -878,8 +878,8 @@ precip_clust <- crop(bf_precip_mean, clust, snap = "out")
 ```
 
 ```{r}
-#| column: screen-inset
-#| fig-align: center
+#| column: page
+#| out-width: "100%"
 #| code-fold: true
 #| code-summary: Show plot code
 
@@ -929,8 +929,8 @@ whose *center point* lies within the overlaid polygon:
 ```{r}
 #| code-fold: true
 #| code-summary: Show plot code
-#| column: screen-inset
-#| fig-align: center
+#| column: page
+#| out-width: "100%"
 
 # New SpatRaster with same extent as bf_precip_mean, but with empty values
 ext_cells <- rast(bf_precip_mean, vals = NA)
@@ -1064,8 +1064,8 @@ regions. Each cluster region is associated with a single 10-year average
 rainfall value.
 
 ```{r listing-img}
-#| column: screen-inset
-#| fig-align: center
+#| column: page
+#| out-width: "100%"
 #| code-fold: true
 #| code-summary: Show plot code
 
@@ -1126,8 +1126,8 @@ data.
 :::
 
 ```{r}
-#| column: screen-inset
-#| fig-align: center
+#| column: page
+#| out-width: "100%"
 #| fig-height: 6
 
 # Clean up HWHAZWHO for plotting

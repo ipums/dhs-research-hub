@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.3.450">
+<meta name="generator" content="quarto-1.4.553">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -50,7 +50,12 @@ ul.task-list li input[type="checkbox"] {
   "collapse-after": 3,
   "panel-placement": "end",
   "type": "textbox",
-  "limit": 20,
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
   "language": {
     "search-no-results-text": "No results",
     "search-matching-documents-text": "matching documents",
@@ -59,6 +64,7 @@ ul.task-list li input[type="checkbox"] {
     "search-more-match-text": "more match in this document",
     "search-more-matches-text": "more matches in this document",
     "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
     "search-detached-cancel-button-title": "Cancel",
     "search-submit-button-title": "Submit",
     "search-label": "Search"
@@ -106,10 +112,37 @@ gtag('config', 'G-0WLH5S9VD5', { 'anonymize_ip': true});
   <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
-<link rel="alternate" type="application/rss+xml" title="IPUMS DHS Climate Change and Health Research Hub" href="index.xml"><meta property="og:title" content="IPUMS DHS Climate Change and Health Research Hub">
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="alternate" type="application/rss+xml" title="IPUMS DHS Climate Change and Health Research Hub" href="index.xml" data-external="1"><meta property="og:title" content="IPUMS DHS Climate Change and Health Research Hub">
 <meta property="og:description" content="Understand population health in its environmental context">
 <meta property="og:image" content="https://ipums.github.io/dhs-research-hub/images/dhs_logo_navy_pad.png">
-<meta property="og:site-name" content="IPUMS DHS Climate Change and Health Research Hub">
+<meta property="og:site_name" content="IPUMS DHS Climate Change and Health Research Hub">
 <meta property="og:image:height" content="600">
 <meta property="og:image:width" content="1154">
 <meta name="twitter:title" content="IPUMS DHS Climate Change and Health Research Hub">
@@ -123,10 +156,10 @@ gtag('config', 'G-0WLH5S9VD5', { 'anonymize_ip': true});
 <body class="floating nav-fixed">
 
 <div id="quarto-search-results"></div>
-  <header id="quarto-header" class="headroom fixed-top">
-    <nav class="navbar navbar-expand-lg navbar-dark ">
+  <header id="quarto-header" class="headroom fixed-top quarto-banner">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
-      <div class="navbar-brand-container">
+      <div class="navbar-brand-container mx-auto">
     <a href="https://www.idhsdata.org/idhs/" class="navbar-brand navbar-brand-logo">
     <img src="./images/dhs_logo_white.png" alt="" class="navbar-logo">
     </a>
@@ -138,77 +171,77 @@ gtag('config', 'G-0WLH5S9VD5', { 'anonymize_ip': true});
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link active" href="./index.html" rel="" target="" aria-current="page">
- <span class="menu-text">Climate Change and Health Research Hub</span></a>
+    <a class="nav-link active" href="./index.html" aria-current="page"> 
+<span class="menu-text">Climate Change and Health Research Hub</span></a>
   </li>  
 </ul>
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item">
-    <a class="nav-link" href="./index.html" rel="" target="">
- <span class="menu-text">Posts</span></a>
+    <a class="nav-link" href="./index.html"> 
+<span class="menu-text">Posts</span></a>
   </li>  
   <li class="nav-item dropdown ">
-    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-getting-started" role="button" data-bs-toggle="dropdown" aria-expanded="false" rel="" target="">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-getting-started" role="button" data-bs-toggle="dropdown" aria-expanded="false">
  <span class="menu-text">Getting Started</span>
     </a>
     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="nav-menu-getting-started">    
         <li>
-    <a class="dropdown-item" href="./posts/2024-02-01-getting-started-with-r/index.html" rel="" target="">
+    <a class="dropdown-item" href="./posts/2024-02-01-getting-started-with-r/index.html">
  <span class="dropdown-text">An Introduction to R</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./posts/2024-02-02-download-dhs-data/index.html" rel="" target="">
+    <a class="dropdown-item" href="./posts/2024-02-02-download-dhs-data/index.html">
  <span class="dropdown-text">Obtaining IPUMS DHS Data</span></a>
   </li>  
     </ul>
   </li>
   <li class="nav-item dropdown ">
-    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-community" role="button" data-bs-toggle="dropdown" aria-expanded="false" rel="" target="">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-community" role="button" data-bs-toggle="dropdown" aria-expanded="false">
  <span class="menu-text">Community</span>
     </a>
     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="nav-menu-community">    
         <li>
-    <a class="dropdown-item" href="https://forum.ipums.org" rel="" target="">
+    <a class="dropdown-item" href="https://forum.ipums.org">
  <span class="dropdown-text">IPUMS Forum</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./CODE_OF_CONDUCT.html" rel="" target="">
+    <a class="dropdown-item" href="./CODE_OF_CONDUCT.html">
  <span class="dropdown-text">Code of Conduct</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./LICENSE.html" rel="" target="">
+    <a class="dropdown-item" href="./LICENSE.html">
  <span class="dropdown-text">License</span></a>
   </li>  
     </ul>
   </li>
   <li class="nav-item">
-    <a class="nav-link" href="./about.html" rel="" target="">
- <span class="menu-text">About</span></a>
+    <a class="nav-link" href="./about.html"> 
+<span class="menu-text">About</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="https://github.com/ipums/dhs-research-hub" rel="" target="">
- <span class="menu-text"><i class="fa-brands fa-github" aria-label="github"></i></span></a>
+    <a class="nav-link" href="https://github.com/ipums/dhs-research-hub"> 
+<span class="menu-text"><i class="fa-brands fa-github" aria-label="github"></i></span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./index.xml" rel="" target="">
- <span class="menu-text"><i class="fa-solid fa-rss" aria-label="rss"></i></span></a>
+    <a class="nav-link" href="./index.xml"> 
+<span class="menu-text"><i class="fa-solid fa-rss" aria-label="rss"></i></span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="https://twitter.com/ipumsGH" rel="" target="">
- <span class="menu-text"><i class="fa-brands fa-x-twitter" aria-label="x-twitter"></i></span></a>
+    <a class="nav-link" href="https://twitter.com/ipumsGH"> 
+<span class="menu-text"><i class="fa-brands fa-x-twitter" aria-label="x-twitter"></i></span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="https://forum.ipums.org" rel="" target="">
- <span class="menu-text"><i class="fa-solid fa-users" aria-label="users"></i></span></a>
+    <a class="nav-link" href="https://forum.ipums.org"> 
+<span class="menu-text"><i class="fa-solid fa-users" aria-label="users"></i></span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="https://www.ipums.org/" rel="" target="">
- <span class="menu-text"><i class="fa-solid fa-globe" aria-label="globe"></i></span></a>
+    <a class="nav-link" href="https://www.ipums.org/"> 
+<span class="menu-text"><i class="fa-solid fa-globe" aria-label="globe"></i></span></a>
   </li>  
 </ul>
-            <div class="quarto-navbar-tools">
-</div>
           </div> <!-- /navcollapse -->
+          <div class="quarto-navbar-tools">
+</div>
       </div> <!-- /container-fluid -->
     </nav>
 </header>
@@ -221,7 +254,7 @@ gtag('config', 'G-0WLH5S9VD5', { 'anonymize_ip': true});
   </div>
     
   
-  <div class="quarto-title-meta">
+  <div class="quarto-title-meta column-page-left">
 
       
     
@@ -232,10 +265,10 @@ gtag('config', 'G-0WLH5S9VD5', { 'anonymize_ip': true});
   </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
 <!-- sidebar -->
   
-<div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-    <h5 class="quarto-listing-category-title">Categories</h5><div class="quarto-listing-category category-default"><div class="category" data-category="">All <span class="quarto-category-count">(7)</span></div><div class="category" data-category="Agriculture">Agriculture <span class="quarto-category-count">(1)</span></div><div class="category" data-category="CHIRPS">CHIRPS <span class="quarto-category-count">(2)</span></div><div class="category" data-category="CHIRTS">CHIRTS <span class="quarto-category-count">(1)</span></div><div class="category" data-category="Cartography">Cartography <span class="quarto-category-count">(1)</span></div><div class="category" data-category="Climate">Climate <span class="quarto-category-count">(4)</span></div><div class="category" data-category="Functional programming">Functional programming <span class="quarto-category-count">(1)</span></div><div class="category" data-category="Heat">Heat <span class="quarto-category-count">(1)</span></div><div class="category" data-category="Importing data">Importing data <span class="quarto-category-count">(1)</span></div><div class="category" data-category="Integrated geography">Integrated geography <span class="quarto-category-count">(1)</span></div><div class="category" data-category="Longitudinal analysis">Longitudinal analysis <span class="quarto-category-count">(1)</span></div><div class="category" data-category="Methodology">Methodology <span class="quarto-category-count">(3)</span></div><div class="category" data-category="Precipitation">Precipitation <span class="quarto-category-count">(2)</span></div><div class="category" data-category="R">R <span class="quarto-category-count">(4)</span></div><div class="category" data-category="Reproducible workflows">Reproducible workflows <span class="quarto-category-count">(1)</span></div><div class="category" data-category="Research concepts">Research concepts <span class="quarto-category-count">(3)</span></div><div class="category" data-category="Spatial harmonization">Spatial harmonization <span class="quarto-category-count">(1)</span></div><div class="category" data-category="Temperature">Temperature <span class="quarto-category-count">(1)</span></div><div class="category" data-category="Time series">Time series <span class="quarto-category-count">(1)</span></div><div class="category" data-category="Tips">Tips <span class="quarto-category-count">(2)</span></div><div class="category" data-category="ggspatial">ggspatial <span class="quarto-category-count">(2)</span></div><div class="category" data-category="sf">sf <span class="quarto-category-count">(2)</span></div><div class="category" data-category="terra">terra <span class="quarto-category-count">(2)</span></div></div></div>
+    <h5 class="quarto-listing-category-title">Categories</h5><div class="quarto-listing-category category-default"><div class="category" data-category="">All <span class="quarto-category-count">(8)</span></div><div class="category" data-category="Agriculture">Agriculture <span class="quarto-category-count">(1)</span></div><div class="category" data-category="CHIRPS">CHIRPS <span class="quarto-category-count">(2)</span></div><div class="category" data-category="CHIRTS">CHIRTS <span class="quarto-category-count">(2)</span></div><div class="category" data-category="Cartography">Cartography <span class="quarto-category-count">(1)</span></div><div class="category" data-category="Climate">Climate <span class="quarto-category-count">(5)</span></div><div class="category" data-category="Functional programming">Functional programming <span class="quarto-category-count">(1)</span></div><div class="category" data-category="Heat">Heat <span class="quarto-category-count">(2)</span></div><div class="category" data-category="Importing data">Importing data <span class="quarto-category-count">(1)</span></div><div class="category" data-category="Integrated geography">Integrated geography <span class="quarto-category-count">(1)</span></div><div class="category" data-category="Longitudinal Analysis">Longitudinal Analysis <span class="quarto-category-count">(1)</span></div><div class="category" data-category="Longitudinal analysis">Longitudinal analysis <span class="quarto-category-count">(1)</span></div><div class="category" data-category="Methodology">Methodology <span class="quarto-category-count">(3)</span></div><div class="category" data-category="Multilevel Modeling">Multilevel Modeling <span class="quarto-category-count">(1)</span></div><div class="category" data-category="Precipitation">Precipitation <span class="quarto-category-count">(2)</span></div><div class="category" data-category="R">R <span class="quarto-category-count">(5)</span></div><div class="category" data-category="Reproducible workflows">Reproducible workflows <span class="quarto-category-count">(1)</span></div><div class="category" data-category="Research concepts">Research concepts <span class="quarto-category-count">(3)</span></div><div class="category" data-category="Spatial harmonization">Spatial harmonization <span class="quarto-category-count">(1)</span></div><div class="category" data-category="Temperature">Temperature <span class="quarto-category-count">(2)</span></div><div class="category" data-category="Time series">Time series <span class="quarto-category-count">(2)</span></div><div class="category" data-category="Tips">Tips <span class="quarto-category-count">(2)</span></div><div class="category" data-category="ggspatial">ggspatial <span class="quarto-category-count">(2)</span></div><div class="category" data-category="lme4">lme4 <span class="quarto-category-count">(1)</span></div><div class="category" data-category="sf">sf <span class="quarto-category-count">(2)</span></div><div class="category" data-category="terra">terra <span class="quarto-category-count">(3)</span></div><div class="category" data-category="tidyr">tidyr <span class="quarto-category-count">(1)</span></div></div></div>
 <!-- main -->
 <main class="content quarto-banner-title-block column-page-left" id="quarto-document-content">
 
@@ -246,21 +279,85 @@ gtag('config', 'G-0WLH5S9VD5', { 'anonymize_ip': true});
 
 
 
+
 <div class="quarto-listing quarto-listing-container-default" id="listing-listing">
 <div class="list quarto-listing-default">
-<div class="quarto-post image-right" data-index="0" data-categories="CHIRTS,Temperature,Heat,Climate,Time series,Reproducible workflows,Functional programming,terra,sf,ggspatial,R" data-listing-date-sort="1713153600000" data-listing-file-modified-sort="1712860253210" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="28">
+<div class="quarto-post image-right" data-index="0" data-categories="CHIRTS,Temperature,Heat,Longitudinal Analysis,Time series,Multilevel Modeling,Climate,terra,lme4,tidyr,R" data-listing-date-sort="1717128000000" data-listing-file-modified-sort="1717104992769" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="20" data-listing-word-count-sort="3899">
 <div class="thumbnail">
-<p><a href="./posts/2024-04-15-chirts-metrics/index.html"> <img src="./posts/2024-04-15-chirts-metrics/index_files/figure-html/listing-img-1.png" class="thumbnail-image"> </a></p>
+<p><a href="./posts/2024-05-31-ts-join/index.html" class="no-external"></a></p><a href="./posts/2024-05-31-ts-join/index.html" class="no-external">
+<p><img src="./posts/2024-05-31-ts-join/index_files/figure-html/listing-img-1.png" class="thumbnail-image"></p>
+</a><p><a href="./posts/2024-05-31-ts-join/index.html" class="no-external"></a></p>
 </div>
 <div class="body">
-<a href="./posts/2024-04-15-chirts-metrics/index.html">
 <h3 class="no-anchor listing-title">
-Flexible Workflows with CHIRTS Temperature Data
+<a href="./posts/2024-05-31-ts-join/index.html" class="no-external">Time-specific temperature exposures for DHS survey respondents</a>
 </h3>
 <div class="listing-subtitle">
-
+<a href="./posts/2024-05-31-ts-join/index.html" class="no-external"></a>
+</div>
+<div class="listing-categories">
+<div class="listing-category" onclick="window.quartoListingCategory('CHIRTS'); return false;">
+CHIRTS
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('Temperature'); return false;">
+Temperature
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('Heat'); return false;">
+Heat
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('Longitudinal Analysis'); return false;">
+Longitudinal Analysis
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('Time series'); return false;">
+Time series
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('Multilevel Modeling'); return false;">
+Multilevel Modeling
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('Climate'); return false;">
+Climate
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('terra'); return false;">
+terra
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('lme4'); return false;">
+lme4
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('tidyr'); return false;">
+tidyr
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('R'); return false;">
+R
+</div>
+</div>
+<div class="listing-description">
+<a href="./posts/2024-05-31-ts-join/index.html" class="no-external">Fine-tune an analysis by incorporating temporal information from a DHS survey with longitudinal climate data </a>
+</div>
+</div>
+<div class="metadata">
+<a href="./posts/2024-05-31-ts-join/index.html" class="no-external">
+<div class="listing-date">
+May 31, 2024
+</div>
+<div class="listing-author">
+Finn Roberts
 </div>
 </a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="1" data-categories="CHIRTS,Temperature,Heat,Climate,Time series,Reproducible workflows,Functional programming,terra,sf,ggspatial,R" data-listing-date-sort="1713153600000" data-listing-file-modified-sort="1715279323830" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="28" data-listing-word-count-sort="5530">
+<div class="thumbnail">
+<p><a href="./posts/2024-04-15-chirts-metrics/index.html" class="no-external"></a></p><a href="./posts/2024-04-15-chirts-metrics/index.html" class="no-external">
+<p><img src="./posts/2024-04-15-chirts-metrics/index_files/figure-html/listing-img-1.png" class="thumbnail-image"></p>
+</a><p><a href="./posts/2024-04-15-chirts-metrics/index.html" class="no-external"></a></p>
+</div>
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="./posts/2024-04-15-chirts-metrics/index.html" class="no-external">Flexible Workflows with CHIRTS Temperature Data</a>
+</h3>
+<div class="listing-subtitle">
+<a href="./posts/2024-04-15-chirts-metrics/index.html" class="no-external"></a>
+</div>
 <div class="listing-categories">
 <div class="listing-category" onclick="window.quartoListingCategory('CHIRTS'); return false;">
 CHIRTS
@@ -296,14 +393,12 @@ ggspatial
 R
 </div>
 </div>
-<a href="./posts/2024-04-15-chirts-metrics/index.html">
 <div class="listing-description">
-<p>Generalize your code to more easily aggregate time-varying climate data</p>
+<a href="./posts/2024-04-15-chirts-metrics/index.html" class="no-external">Generalize your code to more easily aggregate time-varying climate data </a>
 </div>
-</a>
 </div>
 <div class="metadata">
-<a href="./posts/2024-04-15-chirts-metrics/index.html">
+<a href="./posts/2024-04-15-chirts-metrics/index.html" class="no-external">
 <div class="listing-date">
 Apr 15, 2024
 </div>
@@ -313,19 +408,19 @@ Finn Roberts
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="1" data-categories="Integrated geography,Spatial harmonization,Longitudinal analysis,Methodology,Research concepts,Cartography" data-listing-date-sort="1712635200000" data-listing-file-modified-sort="1712693133858" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="12">
+<div class="quarto-post image-right" data-index="2" data-categories="Integrated geography,Spatial harmonization,Longitudinal analysis,Methodology,Research concepts,Cartography" data-listing-date-sort="1712635200000" data-listing-file-modified-sort="1715266983513" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="12" data-listing-word-count-sort="2226">
 <div class="thumbnail">
-<p><a href="./posts/2024-04-09-spatial-harmonization/index.html"> <p class="card-img-top"><img src="posts/2024-04-09-spatial-harmonization/images/sampleSpecific_all.png"  class="thumbnail-image card-img"/></p> </a></p>
+<p><a href="./posts/2024-04-09-spatial-harmonization/index.html" class="no-external"></a></p><a href="./posts/2024-04-09-spatial-harmonization/index.html" class="no-external">
+<p class="card-img-top"><img src="posts/2024-04-09-spatial-harmonization/images/sampleSpecific_all.png"  class="thumbnail-image card-img"/></p>
+</a><p><a href="./posts/2024-04-09-spatial-harmonization/index.html" class="no-external"></a></p>
 </div>
 <div class="body">
-<a href="./posts/2024-04-09-spatial-harmonization/index.html">
 <h3 class="no-anchor listing-title">
-Demystifying Spatially Harmonized Geography in IPUMS DHS
+<a href="./posts/2024-04-09-spatial-harmonization/index.html" class="no-external">Demystifying Spatially Harmonized Geography in IPUMS DHS</a>
 </h3>
 <div class="listing-subtitle">
-
+<a href="./posts/2024-04-09-spatial-harmonization/index.html" class="no-external"></a>
 </div>
-</a>
 <div class="listing-categories">
 <div class="listing-category" onclick="window.quartoListingCategory('Integrated geography'); return false;">
 Integrated geography
@@ -346,14 +441,12 @@ Research concepts
 Cartography
 </div>
 </div>
-<a href="./posts/2024-04-09-spatial-harmonization/index.html">
 <div class="listing-description">
-<p>A demonstration of data and techniques to handle shifting geographic boundaries in longitudinal research</p>
+<a href="./posts/2024-04-09-spatial-harmonization/index.html" class="no-external">A demonstration of data and techniques to handle shifting geographic boundaries in longitudinal research </a>
 </div>
-</a>
 </div>
 <div class="metadata">
-<a href="./posts/2024-04-09-spatial-harmonization/index.html">
+<a href="./posts/2024-04-09-spatial-harmonization/index.html" class="no-external">
 <div class="listing-date">
 Apr 9, 2024
 </div>
@@ -363,19 +456,19 @@ Sula Sarkar, Devon Kristiansen, Miriam King
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="2" data-categories="Climate,Precipitation,CHIRPS,Methodology,Research concepts" data-listing-date-sort="1709787600000" data-listing-file-modified-sort="1710247469033" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="15">
+<div class="quarto-post image-right" data-index="3" data-categories="Climate,Precipitation,CHIRPS,Methodology,Research concepts" data-listing-date-sort="1709787600000" data-listing-file-modified-sort="1715281428099" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="15" data-listing-word-count-sort="2954">
 <div class="thumbnail">
-<p><a href="./posts/2024-02-23-rainfall-insights/index.html"> <img src="./posts/2024-02-23-rainfall-insights/images/storm-clouds-over-wheat-field-danger-weather-with-dark-sky-over-fields-SBI-300870591.jpg" class="thumbnail-image"> </a></p>
+<p><a href="./posts/2024-02-23-rainfall-insights/index.html" class="no-external"></a></p><a href="./posts/2024-02-23-rainfall-insights/index.html" class="no-external">
+<p><img src="./posts/2024-02-23-rainfall-insights/images/storm-clouds-over-wheat-field-danger-weather-with-dark-sky-over-fields-SBI-300870591.jpg" class="thumbnail-image"></p>
+</a><p><a href="./posts/2024-02-23-rainfall-insights/index.html" class="no-external"></a></p>
 </div>
 <div class="body">
-<a href="./posts/2024-02-23-rainfall-insights/index.html">
 <h3 class="no-anchor listing-title">
-Droplets of Insights for Integrating DHS and Rainfall Data
+<a href="./posts/2024-02-23-rainfall-insights/index.html" class="no-external">Droplets of Insights for Integrating DHS and Rainfall Data</a>
 </h3>
 <div class="listing-subtitle">
-
+<a href="./posts/2024-02-23-rainfall-insights/index.html" class="no-external"></a>
 </div>
-</a>
 <div class="listing-categories">
 <div class="listing-category" onclick="window.quartoListingCategory('Climate'); return false;">
 Climate
@@ -393,14 +486,12 @@ Methodology
 Research concepts
 </div>
 </div>
-<a href="./posts/2024-02-23-rainfall-insights/index.html">
 <div class="listing-description">
-<p>Some factors to consider when obtaining and preparing precipitation data for use with DHS surveys</p>
+<a href="./posts/2024-02-23-rainfall-insights/index.html" class="no-external">Some factors to consider when obtaining and preparing precipitation data for use with DHS surveys </a>
 </div>
-</a>
 </div>
 <div class="metadata">
-<a href="./posts/2024-02-23-rainfall-insights/index.html">
+<a href="./posts/2024-02-23-rainfall-insights/index.html" class="no-external">
 <div class="listing-date">
 Mar 7, 2024
 </div>
@@ -410,19 +501,19 @@ Audrey Dorélien, Molly Brown
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="3" data-categories="CHIRPS,Precipitation,Climate,Agriculture,terra,sf,ggspatial,R" data-listing-date-sort="1707022800000" data-listing-file-modified-sort="1713201661925" data-listing-date-modified-sort="1713153600000" data-listing-reading-time-sort="29">
+<div class="quarto-post image-right" data-index="4" data-categories="CHIRPS,Precipitation,Climate,Agriculture,terra,sf,ggspatial,R" data-listing-date-sort="1707022800000" data-listing-file-modified-sort="1717103237736" data-listing-date-modified-sort="1713153600000" data-listing-reading-time-sort="29" data-listing-word-count-sort="5707">
 <div class="thumbnail">
-<p><a href="./posts/2024-02-04-dhs-chirps/index.html"> <img src="./posts/2024-02-04-dhs-chirps/index_files/figure-html/listing-img-1.png" class="thumbnail-image"> </a></p>
+<p><a href="./posts/2024-02-04-dhs-chirps/index.html" class="no-external"></a></p><a href="./posts/2024-02-04-dhs-chirps/index.html" class="no-external">
+<p><img src="./posts/2024-02-04-dhs-chirps/index_files/figure-html/listing-img-1.png" class="thumbnail-image"></p>
+</a><p><a href="./posts/2024-02-04-dhs-chirps/index.html" class="no-external"></a></p>
 </div>
 <div class="body">
-<a href="./posts/2024-02-04-dhs-chirps/index.html">
 <h3 class="no-anchor listing-title">
-Attaching CHIRPS Precipitation Data to DHS Surveys
+<a href="./posts/2024-02-04-dhs-chirps/index.html" class="no-external">Attaching CHIRPS Precipitation Data to DHS Surveys</a>
 </h3>
 <div class="listing-subtitle">
-
+<a href="./posts/2024-02-04-dhs-chirps/index.html" class="no-external"></a>
 </div>
-</a>
 <div class="listing-categories">
 <div class="listing-category" onclick="window.quartoListingCategory('CHIRPS'); return false;">
 CHIRPS
@@ -449,14 +540,12 @@ ggspatial
 R
 </div>
 </div>
-<a href="./posts/2024-02-04-dhs-chirps/index.html">
 <div class="listing-description">
-<p>Remotely sensed precipitation data can provide important context for understanding the health outcomes reported in the DHS</p>
+<a href="./posts/2024-02-04-dhs-chirps/index.html" class="no-external">Remotely sensed precipitation data can provide important context for understanding the health outcomes reported in the DHS </a>
 </div>
-</a>
 </div>
 <div class="metadata">
-<a href="./posts/2024-02-04-dhs-chirps/index.html">
+<a href="./posts/2024-02-04-dhs-chirps/index.html" class="no-external">
 <div class="listing-date">
 Feb 4, 2024
 </div>
@@ -466,19 +555,19 @@ Finn Roberts, Matt Gunther
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="4" data-categories="Climate,Methodology,Research concepts" data-listing-date-sort="1706936400000" data-listing-file-modified-sort="1709823815483" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="5">
+<div class="quarto-post image-right" data-index="5" data-categories="Climate,Methodology,Research concepts" data-listing-date-sort="1706936400000" data-listing-file-modified-sort="1715281428098" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="5" data-listing-word-count-sort="929">
 <div class="thumbnail">
-<p><a href="./posts/2024-02-03-climate-theory/index.html"> <p class="card-img-top"><img src="posts/2024-02-03-climate-theory/images/pathways.png"  class="thumbnail-image card-img"/></p> </a></p>
+<p><a href="./posts/2024-02-03-climate-theory/index.html" class="no-external"></a></p><a href="./posts/2024-02-03-climate-theory/index.html" class="no-external">
+<p class="card-img-top"><img src="posts/2024-02-03-climate-theory/images/pathways.png"  class="thumbnail-image card-img"/></p>
+</a><p><a href="./posts/2024-02-03-climate-theory/index.html" class="no-external"></a></p>
 </div>
 <div class="body">
-<a href="./posts/2024-02-03-climate-theory/index.html">
 <h3 class="no-anchor listing-title">
-Developing Robust Conceptual Models in Climate Change and Health Research
+<a href="./posts/2024-02-03-climate-theory/index.html" class="no-external">Developing Robust Conceptual Models in Climate Change and Health Research</a>
 </h3>
 <div class="listing-subtitle">
-
+<a href="./posts/2024-02-03-climate-theory/index.html" class="no-external"></a>
 </div>
-</a>
 <div class="listing-categories">
 <div class="listing-category" onclick="window.quartoListingCategory('Climate'); return false;">
 Climate
@@ -490,14 +579,12 @@ Methodology
 Research concepts
 </div>
 </div>
-<a href="./posts/2024-02-03-climate-theory/index.html">
 <div class="listing-description">
-<p>Introducing the theoretical foundations for effective research on climate change and health</p>
+<a href="./posts/2024-02-03-climate-theory/index.html" class="no-external">Introducing the theoretical foundations for effective research on climate change and health </a>
 </div>
-</a>
 </div>
 <div class="metadata">
-<a href="./posts/2024-02-03-climate-theory/index.html">
+<a href="./posts/2024-02-03-climate-theory/index.html" class="no-external">
 <div class="listing-date">
 Feb 3, 2024
 </div>
@@ -507,19 +594,19 @@ Elizabeth Heger Boyle, Kathryn Grace, Audrey Dorélien, Devon Kristiansen
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="5" data-categories="Tips,Importing data,R" data-listing-date-sort="1706850000000" data-listing-file-modified-sort="1713202337696" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="4">
+<div class="quarto-post image-right" data-index="6" data-categories="Tips,Importing data,R" data-listing-date-sort="1706850000000" data-listing-file-modified-sort="1715281428098" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="4" data-listing-word-count-sort="703">
 <div class="thumbnail">
-<p><a href="./posts/2024-02-02-download-dhs-data/index.html"> <img src="./images/dhs_logo_navy.png" class="thumbnail-image"> </a></p>
+<p><a href="./posts/2024-02-02-download-dhs-data/index.html" class="no-external"></a></p><a href="./posts/2024-02-02-download-dhs-data/index.html" class="no-external">
+<p><img src="./images/dhs_logo_navy.png" class="thumbnail-image"></p>
+</a><p><a href="./posts/2024-02-02-download-dhs-data/index.html" class="no-external"></a></p>
 </div>
 <div class="body">
-<a href="./posts/2024-02-02-download-dhs-data/index.html">
 <h3 class="no-anchor listing-title">
-Obtaining Data from IPUMS DHS
+<a href="./posts/2024-02-02-download-dhs-data/index.html" class="no-external">Obtaining Data from IPUMS DHS</a>
 </h3>
 <div class="listing-subtitle">
-
+<a href="./posts/2024-02-02-download-dhs-data/index.html" class="no-external"></a>
 </div>
-</a>
 <div class="listing-categories">
 <div class="listing-category" onclick="window.quartoListingCategory('Tips'); return false;">
 Tips
@@ -531,14 +618,12 @@ Importing data
 R
 </div>
 </div>
-<a href="./posts/2024-02-02-download-dhs-data/index.html">
 <div class="listing-description">
-<p>Identify and download data from the IPUMS DHS website and load it into R</p>
+<a href="./posts/2024-02-02-download-dhs-data/index.html" class="no-external">Identify and download data from the IPUMS DHS website and load it into R </a>
 </div>
-</a>
 </div>
 <div class="metadata">
-<a href="./posts/2024-02-02-download-dhs-data/index.html">
+<a href="./posts/2024-02-02-download-dhs-data/index.html" class="no-external">
 <div class="listing-date">
 Feb 2, 2024
 </div>
@@ -548,19 +633,19 @@ Finn Roberts, Matt Gunther
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="6" data-categories="Tips,R" data-listing-date-sort="1706763600000" data-listing-file-modified-sort="1713202262342" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="9">
+<div class="quarto-post image-right" data-index="7" data-categories="Tips,R" data-listing-date-sort="1706763600000" data-listing-file-modified-sort="1715283375605" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="9" data-listing-word-count-sort="1777">
 <div class="thumbnail">
-<p><a href="./posts/2024-02-01-getting-started-with-r/index.html"> <p class="card-img-top"><img src="images/hex/Rlogo.png"  class="thumbnail-image card-img"/></p> </a></p>
+<p><a href="./posts/2024-02-01-getting-started-with-r/index.html" class="no-external"></a></p><a href="./posts/2024-02-01-getting-started-with-r/index.html" class="no-external">
+<p class="card-img-top"><img src="images/hex/Rlogo.png"  class="thumbnail-image card-img"/></p>
+</a><p><a href="./posts/2024-02-01-getting-started-with-r/index.html" class="no-external"></a></p>
 </div>
 <div class="body">
-<a href="./posts/2024-02-01-getting-started-with-r/index.html">
 <h3 class="no-anchor listing-title">
-An Introduction to R
+<a href="./posts/2024-02-01-getting-started-with-r/index.html" class="no-external">An Introduction to R</a>
 </h3>
 <div class="listing-subtitle">
-
+<a href="./posts/2024-02-01-getting-started-with-r/index.html" class="no-external"></a>
 </div>
-</a>
 <div class="listing-categories">
 <div class="listing-category" onclick="window.quartoListingCategory('Tips'); return false;">
 Tips
@@ -569,14 +654,12 @@ Tips
 R
 </div>
 </div>
-<a href="./posts/2024-02-01-getting-started-with-r/index.html">
 <div class="listing-description">
-<p>Getting started with R and RStudio</p>
+<a href="./posts/2024-02-01-getting-started-with-r/index.html" class="no-external">Getting started with R and RStudio</a>
 </div>
-</a>
 </div>
 <div class="metadata">
-<a href="./posts/2024-02-01-getting-started-with-r/index.html">
+<a href="./posts/2024-02-01-getting-started-with-r/index.html" class="no-external">
 <div class="listing-date">
 Feb 1, 2024
 </div>
@@ -670,10 +753,27 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     // clear code selection
     e.clearSelection();
   });
-  function tippyHover(el, contentFn) {
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp("https:\/\/ipums\.github\.io\/dhs-research-hub");
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
     const config = {
       allowHTML: true,
-      content: contentFn,
       maxWidth: 500,
       delay: 100,
       arrow: false,
@@ -683,8 +783,17 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       interactive: true,
       interactiveBorder: 10,
       theme: 'quarto',
-      placement: 'bottom-start'
+      placement: 'bottom-start',
     };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
     window.tippy(el, config); 
   }
   const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
@@ -696,7 +805,130 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       try { href = new URL(href).hash; } catch {}
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
-      return note.innerHTML;
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
     });
   }
       let selectedAnnoteEl;
@@ -740,6 +972,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
             }
             div.style.top = top - 2 + "px";
             div.style.height = height + 4 + "px";
+            div.style.left = 0;
             let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
             if (gutterDiv === null) {
               gutterDiv = window.document.createElement("div");
@@ -765,6 +998,32 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
         });
         selectedAnnoteEl = undefined;
       };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
       // Attach click handler to the DT
       const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
       for (const annoteDlNode of annoteDls) {
@@ -830,12 +1089,15 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     <div class="nav-footer-left">
       &nbsp;
     </div>   
-    <div class="nav-footer-center">Developed by <a href="https://www.ipums.org">IPUMS</a> at the University of Minnesota<br>Licensed under the <a href="https://www.mozilla.org/en-US/MPL/2.0/">Mozilla Public License Version 2.0</a></div>
+    <div class="nav-footer-center">
+<p>Developed by <a href="https://www.ipums.org">IPUMS</a> at the University of Minnesota<br>Licensed under the <a href="https://www.mozilla.org/en-US/MPL/2.0/">Mozilla Public License Version 2.0</a></p>
+</div>
     <div class="nav-footer-right">
       &nbsp;
     </div>
   </div>
 </footer>
+
 
 
 

@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.3.450">
+<meta name="generator" content="quarto-1.4.553">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 <meta name="author" content="Finn Roberts">
 <meta name="author" content="Matt Gunther">
@@ -23,7 +23,7 @@ ul.task-list li input[type="checkbox"] {
 }
 /* CSS for syntax highlighting */
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span { line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -59,6 +59,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 div.csl-bib-body { }
 div.csl-entry {
   clear: both;
+  margin-bottom: 0em;
 }
 .hanging-indent div.csl-entry {
   margin-left:2em;
@@ -100,7 +101,12 @@ div.csl-indent {
   "collapse-after": 3,
   "panel-placement": "end",
   "type": "textbox",
-  "limit": 20,
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
   "language": {
     "search-no-results-text": "No results",
     "search-matching-documents-text": "matching documents",
@@ -109,6 +115,7 @@ div.csl-indent {
     "search-more-match-text": "more match in this document",
     "search-more-matches-text": "more matches in this document",
     "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
     "search-detached-cancel-button-title": "Cancel",
     "search-submit-button-title": "Submit",
     "search-label": "Search"
@@ -123,7 +130,7 @@ gtag('config', 'G-0WLH5S9VD5', { 'anonymize_ip': true});
 <meta property="og:title" content="IPUMS DHS Research Hub — Attaching CHIRPS Precipitation Data to DHS Surveys">
 <meta property="og:description" content="Remotely sensed precipitation data can provide important context for understanding the health outcomes reported in the DHS">
 <meta property="og:image" content="https://ipums.github.io/dhs-research-hub/posts/2024-02-04-dhs-chirps/index_files/figure-html/listing-img-1.png">
-<meta property="og:site-name" content="IPUMS DHS Climate Change and Health Research Hub">
+<meta property="og:site_name" content="IPUMS DHS Climate Change and Health Research Hub">
 <meta property="og:image:height" content="1536">
 <meta property="og:image:width" content="1920">
 <meta name="twitter:title" content="IPUMS DHS Research Hub — Attaching CHIRPS Precipitation Data to DHS Surveys">
@@ -136,8 +143,8 @@ gtag('config', 'G-0WLH5S9VD5', { 'anonymize_ip': true});
 <body class="floating nav-fixed slimcontent">
 
 <div id="quarto-search-results"></div>
-  <header id="quarto-header" class="headroom fixed-top"><nav class="navbar navbar-expand-lg navbar-dark "><div class="navbar-container container-fluid">
-      <div class="navbar-brand-container">
+  <header id="quarto-header" class="headroom fixed-top quarto-banner"><nav class="navbar navbar-expand-lg " data-bs-theme="dark"><div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
     <a href="https://www.idhsdata.org/idhs/" class="navbar-brand navbar-brand-logo">
     <img src="../../images/dhs_logo_white.png" alt="" class="navbar-logo"></a>
   </div>
@@ -148,77 +155,77 @@ gtag('config', 'G-0WLH5S9VD5', { 'anonymize_ip': true});
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
 <li class="nav-item">
-    <a class="nav-link" href="../../index.html" rel="" target="">
- <span class="menu-text">Climate Change and Health Research Hub</span></a>
+    <a class="nav-link" href="../../index.html"> 
+<span class="menu-text">Climate Change and Health Research Hub</span></a>
   </li>  
 </ul>
 <ul class="navbar-nav navbar-nav-scroll ms-auto">
 <li class="nav-item">
-    <a class="nav-link" href="../../index.html" rel="" target="">
- <span class="menu-text">Posts</span></a>
+    <a class="nav-link" href="../../index.html"> 
+<span class="menu-text">Posts</span></a>
   </li>  
   <li class="nav-item dropdown ">
-    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-getting-started" role="button" data-bs-toggle="dropdown" aria-expanded="false" rel="" target="">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-getting-started" role="button" data-bs-toggle="dropdown" aria-expanded="false">
  <span class="menu-text">Getting Started</span>
     </a>
     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="nav-menu-getting-started">
 <li>
-    <a class="dropdown-item" href="../../posts/2024-02-01-getting-started-with-r/index.html" rel="" target="">
+    <a class="dropdown-item" href="../../posts/2024-02-01-getting-started-with-r/index.html">
  <span class="dropdown-text">An Introduction to R</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../posts/2024-02-02-download-dhs-data/index.html" rel="" target="">
+    <a class="dropdown-item" href="../../posts/2024-02-02-download-dhs-data/index.html">
  <span class="dropdown-text">Obtaining IPUMS DHS Data</span></a>
   </li>  
     </ul>
 </li>
   <li class="nav-item dropdown ">
-    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-community" role="button" data-bs-toggle="dropdown" aria-expanded="false" rel="" target="">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-community" role="button" data-bs-toggle="dropdown" aria-expanded="false">
  <span class="menu-text">Community</span>
     </a>
     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="nav-menu-community">
 <li>
-    <a class="dropdown-item" href="https://forum.ipums.org" rel="" target="">
+    <a class="dropdown-item" href="https://forum.ipums.org">
  <span class="dropdown-text">IPUMS Forum</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../CODE_OF_CONDUCT.html" rel="" target="">
+    <a class="dropdown-item" href="../../CODE_OF_CONDUCT.html">
  <span class="dropdown-text">Code of Conduct</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../LICENSE.html" rel="" target="">
+    <a class="dropdown-item" href="../../LICENSE.html">
  <span class="dropdown-text">License</span></a>
   </li>  
     </ul>
 </li>
   <li class="nav-item">
-    <a class="nav-link" href="../../about.html" rel="" target="">
- <span class="menu-text">About</span></a>
+    <a class="nav-link" href="../../about.html"> 
+<span class="menu-text">About</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="https://github.com/ipums/dhs-research-hub" rel="" target="">
- <span class="menu-text"><i class="fa-brands fa-github" aria-label="github"></i></span></a>
+    <a class="nav-link" href="https://github.com/ipums/dhs-research-hub"> 
+<span class="menu-text"><i class="fa-brands fa-github" aria-label="github"></i></span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../../index.xml" rel="" target="">
- <span class="menu-text"><i class="fa-solid fa-rss" aria-label="rss"></i></span></a>
+    <a class="nav-link" href="../../index.xml"> 
+<span class="menu-text"><i class="fa-solid fa-rss" aria-label="rss"></i></span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="https://twitter.com/ipumsGH" rel="" target="">
- <span class="menu-text"><i class="fa-brands fa-x-twitter" aria-label="x-twitter"></i></span></a>
+    <a class="nav-link" href="https://twitter.com/ipumsGH"> 
+<span class="menu-text"><i class="fa-brands fa-x-twitter" aria-label="x-twitter"></i></span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="https://forum.ipums.org" rel="" target="">
- <span class="menu-text"><i class="fa-solid fa-users" aria-label="users"></i></span></a>
+    <a class="nav-link" href="https://forum.ipums.org"> 
+<span class="menu-text"><i class="fa-solid fa-users" aria-label="users"></i></span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="https://www.ipums.org/" rel="" target="">
- <span class="menu-text"><i class="fa-solid fa-globe" aria-label="globe"></i></span></a>
+    <a class="nav-link" href="https://www.ipums.org/"> 
+<span class="menu-text"><i class="fa-solid fa-globe" aria-label="globe"></i></span></a>
   </li>  
 </ul>
-<div class="quarto-navbar-tools">
+</div> <!-- /navcollapse -->
+          <div class="quarto-navbar-tools">
 </div>
-          </div> <!-- /navcollapse -->
       </div> <!-- /container-fluid -->
     </nav></header><!-- content --><header id="title-block-header" class="quarto-title-block default toc-left page-columns page-full"><div class="quarto-title-banner page-columns page-full">
     <div class="quarto-title column-body">
@@ -248,20 +255,20 @@ gtag('config', 'G-0WLH5S9VD5', { 'anonymize_ip': true});
       <div class="quarto-title-meta-contents">
       <p class="author">Finn Roberts </p>
     </div>
-      <div class="quarto-title-meta-contents">
+    <div class="quarto-title-meta-contents">
           <p class="affiliation">
               Senior Data Analyst, IPUMS
             </p>
         </div>
-        <div class="quarto-title-meta-contents">
+      <div class="quarto-title-meta-contents">
       <p class="author">Matt Gunther </p>
     </div>
-      <div class="quarto-title-meta-contents">
+    <div class="quarto-title-meta-contents">
           <p class="affiliation">
               Research Methodologist, NORC
             </p>
         </div>
-      </div>
+    </div>
 
   <div class="quarto-title-meta">
 
@@ -285,7 +292,7 @@ gtag('config', 'G-0WLH5S9VD5', { 'anonymize_ip': true});
   
   </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto"><nav id="TOC" role="doc-toc" class="toc-active" data-toc-expanded="1"><h2 id="toc-title">Contents</h2>
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto"><nav id="TOC" role="doc-toc" class="toc-active" data-toc-expanded="1"><h2 id="toc-title">Contents</h2>
    
   <ul>
 <li><a href="#outline" id="toc-outline" class="nav-link active" data-scroll-target="#outline">Outline</a></li>
@@ -331,7 +338,7 @@ gtag('config', 'G-0WLH5S9VD5', { 'anonymize_ip': true});
   </ul>
 </li>
   </ul></nav>
-</nav><div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+</nav><div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
     </div>
@@ -431,7 +438,7 @@ DHS Cluster Displacement
 <p>Our DHS cluster coordinates are what’s known as <strong>vector data</strong>. Vector data refer to spatial data that represent geographic features using geometric shapes like points, lines, and polygons.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure"><p><img src="images/plp1.png" class="img-fluid figure-img"></p>
-<figcaption class="figure-caption">Basic features of the vector data model<span class="citation" data-cites="Minn"><sup><a href="#ref-Minn" role="doc-biblioref">4</a></sup></span></figcaption></figure>
+<figcaption>Basic features of the vector data model<span class="citation" data-cites="Minn"><sup><a href="#ref-Minn" role="doc-biblioref">4</a></sup></span></figcaption></figure>
 </div>
 <p>In R, the <a href="https://r-spatial.github.io/sf/">sf</a> package provides an intuitive tabular framework for working with vector data. sf objects look much like a familiar <a href="https://tibble.tidyverse.org/">tibble</a> or <code>data.frame</code>, but also include an additional <code>geometry</code> column, which stores the spatial features that correspond to each set of observations.</p>
 
@@ -553,7 +560,7 @@ ggplot2 and Themes
 <span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Now, we can plot the cluster locations (stored in <code>bf_gps</code>) along with the Burkina Faso administrative boundaries (stored in <code>bf_borders</code>):</p>
-<div class="cell page-columns page-full" data-layout-align="center">
+<div class="cell page-columns page-full">
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org">ggplot2</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://paleolimbot.github.io/ggspatial/">ggspatial</a></span><span class="op">)</span></span>
 <span></span>
@@ -571,9 +578,9 @@ ggplot2 and Themes
 <span>    text_col <span class="op">=</span> <span class="st">"#999999"</span>,</span>
 <span>    line_col <span class="op">=</span> <span class="st">"#999999"</span></span>
 <span>  <span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display column-screen-inset">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><img src="index_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid figure-img" width="960"></p>
+<div class="cell-output-display page-columns page-full">
+<div class="page-columns page-full">
+<figure class="figure page-columns page-full"><p class="page-columns page-full"><img src="index_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid figure-img column-page" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
@@ -584,7 +591,7 @@ ggplot2 and Themes
 <p>Importantly, the CHIRPS data are provided as <strong>raster data</strong>, not vector data. Instead of representing precipitation with a set of polygons or points (as with vector data), raster data represent geographic features in a <em>grid</em>, where each cell in the grid is associated with a particular value. In our case, each cell is associated with a single daily precipitation value (in millimeters).</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure"><p><img src="images/plp2.png" class="img-fluid figure-img"></p>
-<figcaption class="figure-caption">Comparison of vector and raster data models<span class="citation" data-cites="Minn"><sup><a href="#ref-Minn" role="doc-biblioref">4</a></sup></span></figcaption></figure>
+<figcaption>Comparison of vector and raster data models<span class="citation" data-cites="Minn"><sup><a href="#ref-Minn" role="doc-biblioref">4</a></sup></span></figcaption></figure>
 </div>
 <p>sf doesn’t provide support for raster data—instead, we’ll turn to the <a href="https://rspatial.org/">terra</a> package.</p>
 <section id="raster-data" class="level3 page-columns page-full"><h3 class="anchored" data-anchor-id="raster-data">Raster data</h3>
@@ -634,9 +641,9 @@ Warning
 </div>
 </div>
 <div class="cell page-columns page-full" data-layout-align="center">
-<div class="cell-output-display column-screen-inset">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><img src="images/climateserv2.png" class="img-fluid figure-img" width="1002"></p>
+<div class="cell-output-display page-columns page-full">
+<div class="quarto-figure quarto-figure-center page-columns page-full">
+<figure class="figure page-columns page-full"><p class="page-columns page-full"><img src="images/climateserv2.png" class="img-fluid quarto-figure quarto-figure-center figure-img column-page" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
@@ -653,16 +660,16 @@ Warning
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Create list of paths to all individual raster files</span></span>
 <span><span class="va">chirps_files</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.files.html">list.files</a></span><span class="op">(</span><span class="st">"data/chirps"</span>, full.names <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>We can load raster files with the <code><a href="https://rdrr.io/pkg/terra/man/rast.html">rast()</a></code> function from terra. When providing multiple files, terra will stack them so each input file becomes a single layer in a larger <strong>raster stack</strong>:</p>
+<p>We can load raster files with the <code><a href="https://rspatial.github.io/terra/reference/rast.html">rast()</a></code> function from terra. When providing multiple files, terra will stack them so each input file becomes a single layer in a larger <strong>raster stack</strong>:</p>
 <div class="cell">
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://rspatial.org/">terra</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Load set of .tif files into into a single raster stack</span></span>
-<span><span class="va">bf_precip</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/terra/man/rast.html">rast</a></span><span class="op">(</span><span class="va">chirps_files</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="va">bf_precip</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rspatial.github.io/terra/reference/rast.html">rast</a></span><span class="op">(</span><span class="va">chirps_files</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section><section id="option-2-the-chirps-package" class="level4 page-columns page-full"><h4 class="anchored" data-anchor-id="option-2-the-chirps-package">Option 2: The chirps package</h4>
 <p>We can use the <code><a href="https://docs.ropensci.org/chirps/reference/get_chirps.html">get_chirps()</a></code> function from the <a href="https://docs.ropensci.org/chirps/">chirps</a> package to access CHIRPS data via the CHIRPS API. Since we don’t have a map where we can select our region of interest, we’ll have to provide a pre-loaded region representing the area for which we’d like data.</p>
-<p>We can use the <code>bf_borders</code> object we created earlier to get data for the Burkina Faso region. We’ll use <code><a href="https://rdrr.io/pkg/terra/man/vect.html">vect()</a></code> to convert it to a <code>SpatVector</code> from terra (<code><a href="https://docs.ropensci.org/chirps/reference/get_chirps.html">get_chirps()</a></code> currently has more robust support for these objects). We’ll also input our desired date range for which to obtain data:</p>
+<p>We can use the <code>bf_borders</code> object we created earlier to get data for the Burkina Faso region. We’ll use <code><a href="https://rspatial.github.io/terra/reference/vect.html">vect()</a></code> to convert it to a <code>SpatVector</code> from terra (<code><a href="https://docs.ropensci.org/chirps/reference/get_chirps.html">get_chirps()</a></code> currently has more robust support for these objects). We’ll also input our desired date range for which to obtain data:</p>
 
 <div class="no-row-height column-margin column-container"><div class="">
 <p>The <code>SpatVector</code> is the main object terra uses to represent vector data. We’ve already shown how to use sf to handle vector data, but terra also provides support for this data model. In general, we find that sf’s vector objects are a little more intuitive, but there are some cases where using terra may make certain operations easier or faster.</p>
@@ -672,14 +679,14 @@ Warning
 <span></span>
 <span><span class="co"># Get CHIRPS data from 2001-2010 for Burkina Faso </span></span>
 <span><span class="va">bf_precip</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://docs.ropensci.org/chirps/reference/get_chirps.html">get_chirps</a></span><span class="op">(</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/pkg/terra/man/vect.html">vect</a></span><span class="op">(</span><span class="va">bf_borders</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="https://rspatial.github.io/terra/reference/vect.html">vect</a></span><span class="op">(</span><span class="va">bf_borders</span><span class="op">)</span>,</span>
 <span>  dates <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"2001-01-01"</span>,<span class="st">"2010-12-31"</span><span class="op">)</span>,</span>
 <span>  server <span class="op">=</span> <span class="st">"CHC"</span> <span class="co"># Recommended when obtaining data for multiple dates and/or locations</span></span>
 <span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p><code><a href="https://docs.ropensci.org/chirps/reference/get_chirps.html">get_chirps()</a></code> obtains data for a rectangular region around the country. For consistency with the results you would get from ClimateSERV (which only downloads data within the country borders), we’ll use terra’s <code><a href="https://rdrr.io/pkg/terra/man/mask.html">mask()</a></code> function to remove data from outside the Burkina Faso borders:</p>
+<p><code><a href="https://docs.ropensci.org/chirps/reference/get_chirps.html">get_chirps()</a></code> obtains data for a rectangular region around the country. For consistency with the results you would get from ClimateSERV (which only downloads data within the country borders), we’ll use terra’s <code><a href="https://rspatial.github.io/terra/reference/mask.html">mask()</a></code> function to remove data from outside the Burkina Faso borders:</p>
 <div class="cell">
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">bf_precip</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/terra/man/mask.html">mask</a></span><span class="op">(</span><span class="va">bf_precip</span>, <span class="va">bf_borders</span>, touches <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">bf_precip</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rspatial.github.io/terra/reference/mask.html">mask</a></span><span class="op">(</span><span class="va">bf_precip</span>, <span class="va">bf_borders</span>, touches <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -720,12 +727,12 @@ ClimateSERV vs.&nbsp;chirps
 <span><span class="va">precip_day</span> <span class="op">&lt;-</span> <span class="va">bf_precip</span><span class="op">[[</span><span class="st">"20010719"</span><span class="op">]</span><span class="op">]</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Once we’ve selected a layer, we can use <code><a href="https://paleolimbot.github.io/ggspatial/reference/layer_spatial.html">layer_spatial()</a></code> to plot it, just as we did for vector objects.</p>
-<div class="cell page-columns page-full" data-layout-align="center">
-<details><summary>Show plot code</summary><div class="sourceCode" id="cb14"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Create map of rainfall for single day</span></span>
+<div class="cell page-columns page-full">
+<details class="code-fold"><summary>Show plot code</summary><div class="sourceCode" id="cb14"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Create map of rainfall for single day</span></span>
 <span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://paleolimbot.github.io/ggspatial/reference/layer_spatial.html">layer_spatial</a></span><span class="op">(</span></span>
 <span>    <span class="va">precip_day</span>, </span>
-<span>    alpha <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/if_else.html">if_else</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/terra/man/values.html">values</a></span><span class="op">(</span><span class="va">precip_day</span><span class="op">)</span> <span class="op">==</span> <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0.8</span><span class="op">)</span>, </span>
+<span>    alpha <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/if_else.html">if_else</a></span><span class="op">(</span><span class="fu"><a href="https://rspatial.github.io/terra/reference/values.html">values</a></span><span class="op">(</span><span class="va">precip_day</span><span class="op">)</span> <span class="op">==</span> <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0.8</span><span class="op">)</span>, </span>
 <span>    na.rm <span class="op">=</span> <span class="cn">TRUE</span></span>
 <span>  <span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://paleolimbot.github.io/ggspatial/reference/layer_spatial.html">layer_spatial</a></span><span class="op">(</span><span class="va">bf_borders</span>, fill <span class="op">=</span> <span class="cn">NA</span>, color <span class="op">=</span> <span class="st">"#888888"</span><span class="op">)</span> <span class="op">+</span></span>
@@ -742,19 +749,19 @@ ClimateSERV vs.&nbsp;chirps
 <span>    line_col <span class="op">=</span> <span class="st">"#999999"</span></span>
 <span>  <span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_gradient.html">scale_fill_gradient</a></span><span class="op">(</span>low <span class="op">=</span> <span class="st">"white"</span>, high <span class="op">=</span> <span class="st">"#00263A"</span>, na.value <span class="op">=</span> <span class="cn">NA</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details><div class="cell-output-display column-screen-inset">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><img src="index_files/figure-html/unnamed-chunk-17-1.png" class="img-fluid figure-img" width="960"></p>
+</details><div class="cell-output-display page-columns page-full">
+<div class="page-columns page-full">
+<figure class="figure page-columns page-full"><p class="page-columns page-full"><img src="index_files/figure-html/unnamed-chunk-17-1.png" class="img-fluid figure-img column-page" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
 </div>
 <p>It can be unwieldy to manage many layers of raster data. In the next section, we’ll introduce methods for simplifying these data across both time and space so they can be more easily attached to our DHS survey.</p>
 </section></section></section><section id="summarize-precipitation-values" class="level1 page-columns page-full" data-link="Summarize precipitation values"><h1 data-link="Summarize precipitation values">Summarize precipitation values</h1>
-<p>The terra package contains several <a href="https://rspatial.github.io/terra/reference/summarize-generics.html">summary methods</a> we can use to quickly explore summary statistics across all of the layers included in our multi-year timespan. For example, <code><a href="https://rdrr.io/pkg/terra/man/summarize-generics.html">mean()</a></code> computes the mean daily precipitation value for each pixel location across all layers (days) of our CHIRPS data:</p>
+<p>The terra package contains several <a href="https://rspatial.github.io/terra/reference/summarize-generics.html">summary methods</a> we can use to quickly explore summary statistics across all of the layers included in our multi-year timespan. For example, <code><a href="https://rspatial.github.io/terra/reference/summarize-generics.html">mean()</a></code> computes the mean daily precipitation value for each pixel location across all layers (days) of our CHIRPS data:</p>
 <div class="cell">
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Calculate mean daily precipitation value for each pixel (mm/day)</span></span>
-<span><span class="va">bf_precip_mean</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/terra/man/summarize-generics.html">mean</a></span><span class="op">(</span><span class="va">bf_precip</span><span class="op">)</span></span>
+<span><span class="va">bf_precip_mean</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rspatial.github.io/terra/reference/summarize-generics.html">mean</a></span><span class="op">(</span><span class="va">bf_precip</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">bf_precip_mean</span></span>
 <span><span class="co">#&gt; class       : SpatRaster </span></span>
@@ -767,10 +774,10 @@ ClimateSERV vs.&nbsp;chirps
 <span><span class="co">#&gt; min value   : 0.8771938 </span></span>
 <span><span class="co">#&gt; max value   : 3.1498873</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Notice that this produces another <code>SpatRaster</code> and that the result only has one layer. This makes sense, because <code><a href="https://rdrr.io/pkg/terra/man/summarize-generics.html">mean()</a></code> uses all of the input raster layers to produce a single average precipitation (in millimeters per day) for each cell.</p>
-<p>Since <code><a href="https://rdrr.io/pkg/terra/man/summarize-generics.html">mean()</a></code> produces another <code>SpatRaster</code>, we can plot the average values for the 10-year time span just as we did with a single day’s worth of precipitation data:</p>
-<div class="cell page-columns page-full" data-layout-align="center">
-<details><summary>Show plot code</summary><div class="sourceCode" id="cb16"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<p>Notice that this produces another <code>SpatRaster</code> and that the result only has one layer. This makes sense, because <code><a href="https://rspatial.github.io/terra/reference/summarize-generics.html">mean()</a></code> uses all of the input raster layers to produce a single average precipitation (in millimeters per day) for each cell.</p>
+<p>Since <code><a href="https://rspatial.github.io/terra/reference/summarize-generics.html">mean()</a></code> produces another <code>SpatRaster</code>, we can plot the average values for the 10-year time span just as we did with a single day’s worth of precipitation data:</p>
+<div class="cell page-columns page-full">
+<details class="code-fold"><summary>Show plot code</summary><div class="sourceCode" id="cb16"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://paleolimbot.github.io/ggspatial/reference/layer_spatial.html">layer_spatial</a></span><span class="op">(</span><span class="va">bf_precip_mean</span>, alpha <span class="op">=</span> <span class="fl">0.8</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://paleolimbot.github.io/ggspatial/reference/layer_spatial.html">layer_spatial</a></span><span class="op">(</span><span class="va">bf_borders</span>, alpha <span class="op">=</span> <span class="fl">0</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span></span>
@@ -785,9 +792,9 @@ ClimateSERV vs.&nbsp;chirps
 <span>    line_col <span class="op">=</span> <span class="st">"#999999"</span></span>
 <span>  <span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_gradient.html">scale_fill_gradient</a></span><span class="op">(</span>low <span class="op">=</span> <span class="st">"#FAEFD1"</span>, high <span class="op">=</span> <span class="st">"#00263A"</span>, na.value <span class="op">=</span> <span class="cn">NA</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details><div class="cell-output-display column-screen-inset">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><img src="index_files/figure-html/unnamed-chunk-19-1.png" class="img-fluid figure-img" width="960"></p>
+</details><div class="cell-output-display page-columns page-full">
+<div class="page-columns page-full">
+<figure class="figure page-columns page-full"><p class="page-columns page-full"><img src="index_files/figure-html/unnamed-chunk-19-1.png" class="img-fluid figure-img column-page" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
@@ -847,8 +854,8 @@ ClimateSERV vs.&nbsp;chirps
 <div class="cell">
 <div class="sourceCode" id="cb21"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">bf_gps</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_transform.html">st_transform</a></span><span class="op">(</span><span class="va">bf_gps</span>, crs <span class="op">=</span> <span class="fl">4326</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell page-columns page-full" data-layout-align="center">
-<details><summary>Show plot code</summary><div class="sourceCode" id="cb22"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> </span>
+<div class="cell page-columns page-full">
+<details class="code-fold"><summary>Show plot code</summary><div class="sourceCode" id="cb22"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu"><a href="https://paleolimbot.github.io/ggspatial/reference/layer_spatial.html">layer_spatial</a></span><span class="op">(</span><span class="va">bf_borders</span>, fill <span class="op">=</span> <span class="cn">NA</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://paleolimbot.github.io/ggspatial/reference/layer_spatial.html">layer_spatial</a></span><span class="op">(</span><span class="va">bf_gps</span>, fill <span class="op">=</span> <span class="st">"black"</span>, alpha <span class="op">=</span> <span class="fl">0.2</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span></span>
@@ -861,9 +868,9 @@ ClimateSERV vs.&nbsp;chirps
 <span>    text_col <span class="op">=</span> <span class="st">"#999999"</span>,</span>
 <span>    line_col <span class="op">=</span> <span class="st">"#999999"</span></span>
 <span>  <span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details><div class="cell-output-display column-screen-inset">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><img src="index_files/figure-html/unnamed-chunk-25-1.png" class="img-fluid figure-img" width="960"></p>
+</details><div class="cell-output-display page-columns page-full">
+<div class="page-columns page-full">
+<figure class="figure page-columns page-full"><p class="page-columns page-full"><img src="index_files/figure-html/unnamed-chunk-25-1.png" class="img-fluid figure-img column-page" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
@@ -894,12 +901,12 @@ Handling cluster displacement
 <div class="sourceCode" id="cb24"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">clust</span> <span class="op">&lt;-</span> <span class="va">bf_gps</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">DHSCLUST</span> <span class="op">==</span> <span class="fl">160</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>To simplify this example, we’ll use terra’s <code><a href="https://rdrr.io/pkg/terra/man/crop.html">crop()</a></code> to restrict our raster to the cells surrounding this cluster:</p>
+<p>To simplify this example, we’ll use terra’s <code><a href="https://rspatial.github.io/terra/reference/crop.html">crop()</a></code> to restrict our raster to the cells surrounding this cluster:</p>
 <div class="cell">
-<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">precip_clust</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/terra/man/crop.html">crop</a></span><span class="op">(</span><span class="va">bf_precip_mean</span>, <span class="va">clust</span>, snap <span class="op">=</span> <span class="st">"out"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">precip_clust</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rspatial.github.io/terra/reference/crop.html">crop</a></span><span class="op">(</span><span class="va">bf_precip_mean</span>, <span class="va">clust</span>, snap <span class="op">=</span> <span class="st">"out"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell page-columns page-full" data-layout-align="center">
-<details><summary>Show plot code</summary><div class="sourceCode" id="cb26"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> </span>
+<div class="cell page-columns page-full">
+<details class="code-fold"><summary>Show plot code</summary><div class="sourceCode" id="cb26"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu"><a href="https://paleolimbot.github.io/ggspatial/reference/layer_spatial.html">layer_spatial</a></span><span class="op">(</span><span class="va">precip_clust</span>, alpha <span class="op">=</span> <span class="fl">0.8</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu"><a href="https://paleolimbot.github.io/ggspatial/reference/layer_spatial.html">layer_spatial</a></span><span class="op">(</span><span class="va">clust</span>, alpha <span class="op">=</span> <span class="fl">0</span>, linewidth <span class="op">=</span> <span class="fl">0.5</span>, color <span class="op">=</span> <span class="st">"black"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span></span>
@@ -914,9 +921,9 @@ Handling cluster displacement
 <span>    na.value <span class="op">=</span> <span class="cn">NA</span>, </span>
 <span>    limits <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2.3</span>, <span class="fl">2.5</span><span class="op">)</span></span>
 <span>  <span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details><div class="cell-output-display column-screen-inset">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><img src="index_files/figure-html/unnamed-chunk-29-1.png" class="img-fluid figure-img" width="960"></p>
+</details><div class="cell-output-display page-columns page-full">
+<div class="page-columns page-full">
+<figure class="figure page-columns page-full"><p class="page-columns page-full"><img src="index_files/figure-html/unnamed-chunk-29-1.png" class="img-fluid figure-img column-page" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
@@ -925,9 +932,9 @@ Handling cluster displacement
 <div class="no-row-height column-margin column-container"><div class="">
 <p>For demonstration purposes, we’ve used different limits for the color scale in this plot and the next. In general, we’d want to ensure that the colors in this plot map to the same values used in other plots with the same color scheme.</p>
 </div></div><p>We see a range of rainfall totals across the 20 pixels in this area. How can we summarize the information contained in these individual pixels into a single estimate of the rainfall for this buffered cluster region?</p>
-<p>The most straightforward approach might be to take the mean of all the pixel values that overlap our buffer region. First, we need to obtain the values of the overlapping raster cells. We can use terra’s <code><a href="https://rdrr.io/pkg/terra/man/extract.html">extract()</a></code> to obtain the raster cell values from the region defined by an overlapping vector data source (in this case, our example cluster, <code>clust</code>):</p>
+<p>The most straightforward approach might be to take the mean of all the pixel values that overlap our buffer region. First, we need to obtain the values of the overlapping raster cells. We can use terra’s <code><a href="https://rspatial.github.io/terra/reference/extract.html">extract()</a></code> to obtain the raster cell values from the region defined by an overlapping vector data source (in this case, our example cluster, <code>clust</code>):</p>
 <div class="cell">
-<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/terra/man/extract.html">extract</a></span><span class="op">(</span><span class="va">bf_precip_mean</span>, <span class="va">clust</span><span class="op">)</span></span>
+<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rspatial.github.io/terra/reference/extract.html">extract</a></span><span class="op">(</span><span class="va">bf_precip_mean</span>, <span class="va">clust</span><span class="op">)</span></span>
 <span><span class="co">#&gt;    ID     mean</span></span>
 <span><span class="co">#&gt; 1   1 2.337887</span></span>
 <span><span class="co">#&gt; 2   1 2.329431</span></span>
@@ -942,19 +949,19 @@ Handling cluster displacement
 <span><span class="co">#&gt; 11  1 2.402505</span></span>
 <span><span class="co">#&gt; 12  1 2.415130</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Note that this provides mean daily precipitation values for 12 different cells. By default, <code><a href="https://rdrr.io/pkg/terra/man/extract.html">extract()</a></code> will only extract values from the cells whose <em>center point</em> lies within the overlaid polygon:</p>
-<div class="cell page-columns page-full" data-layout-align="center">
-<details><summary>Show plot code</summary><div class="sourceCode" id="cb28"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># New SpatRaster with same extent as bf_precip_mean, but with empty values</span></span>
-<span><span class="va">ext_cells</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/terra/man/rast.html">rast</a></span><span class="op">(</span><span class="va">bf_precip_mean</span>, vals <span class="op">=</span> <span class="cn">NA</span><span class="op">)</span></span>
+<p>Note that this provides mean daily precipitation values for 12 different cells. By default, <code><a href="https://rspatial.github.io/terra/reference/extract.html">extract()</a></code> will only extract values from the cells whose <em>center point</em> lies within the overlaid polygon:</p>
+<div class="cell page-columns page-full">
+<details class="code-fold"><summary>Show plot code</summary><div class="sourceCode" id="cb28"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># New SpatRaster with same extent as bf_precip_mean, but with empty values</span></span>
+<span><span class="va">ext_cells</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rspatial.github.io/terra/reference/rast.html">rast</a></span><span class="op">(</span><span class="va">bf_precip_mean</span>, vals <span class="op">=</span> <span class="cn">NA</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># ID cell locations for each cell that is extracted</span></span>
-<span><span class="va">cell_idx</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/terra/man/extract.html">extract</a></span><span class="op">(</span><span class="va">ext_cells</span>, <span class="va">clust</span>, cells <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">$</span><span class="va">cell</span></span>
+<span><span class="va">cell_idx</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rspatial.github.io/terra/reference/extract.html">extract</a></span><span class="op">(</span><span class="va">ext_cells</span>, <span class="va">clust</span>, cells <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">$</span><span class="va">cell</span></span>
 <span></span>
 <span><span class="va">ext_cells</span><span class="op">[</span><span class="va">cell_idx</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="va">bf_precip_mean</span><span class="op">[</span><span class="va">cell_idx</span><span class="op">]</span></span>
 <span></span>
 <span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu"><a href="https://paleolimbot.github.io/ggspatial/reference/layer_spatial.html">layer_spatial</a></span><span class="op">(</span></span>
-<span>    <span class="fu"><a href="https://rdrr.io/pkg/terra/man/crop.html">crop</a></span><span class="op">(</span><span class="va">ext_cells</span>, <span class="va">clust</span>, snap <span class="op">=</span> <span class="st">"out"</span><span class="op">)</span>, </span>
+<span>    <span class="fu"><a href="https://rspatial.github.io/terra/reference/crop.html">crop</a></span><span class="op">(</span><span class="va">ext_cells</span>, <span class="va">clust</span>, snap <span class="op">=</span> <span class="st">"out"</span><span class="op">)</span>, </span>
 <span>    alpha <span class="op">=</span> <span class="fl">0.8</span>, </span>
 <span>    na.rm <span class="op">=</span> <span class="cn">TRUE</span></span>
 <span>  <span class="op">)</span> <span class="op">+</span></span>
@@ -971,16 +978,16 @@ Handling cluster displacement
 <span>    na.value <span class="op">=</span> <span class="cn">NA</span>, </span>
 <span>    limits <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2.3</span>, <span class="fl">2.5</span><span class="op">)</span></span>
 <span>  <span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details><div class="cell-output-display column-screen-inset">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><img src="index_files/figure-html/unnamed-chunk-31-1.png" class="img-fluid figure-img" width="960"></p>
+</details><div class="cell-output-display page-columns page-full">
+<div class="page-columns page-full">
+<figure class="figure page-columns page-full"><p class="page-columns page-full"><img src="index_files/figure-html/unnamed-chunk-31-1.png" class="img-fluid figure-img column-page" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
 </div>
 <p>To instead include <em>all</em> cells that intersect the polygon, set <code>touches = TRUE</code>:</p>
 <div class="cell">
-<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">clust_precip</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/terra/man/extract.html">extract</a></span><span class="op">(</span><span class="va">bf_precip_mean</span>, <span class="va">clust</span>, touches <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">clust_precip</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rspatial.github.io/terra/reference/extract.html">extract</a></span><span class="op">(</span><span class="va">bf_precip_mean</span>, <span class="va">clust</span>, touches <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">clust_precip</span></span>
 <span><span class="co">#&gt;    ID     mean</span></span>
@@ -1008,7 +1015,7 @@ Handling cluster displacement
 <div class="no-row-height column-margin column-container"><div class="">
 <p><code>weights = TRUE</code> automatically includes all intersected cells, but those with negligible weights will be removed.</p>
 </div></div><div class="cell">
-<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">clust_precip</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/terra/man/extract.html">extract</a></span><span class="op">(</span><span class="va">bf_precip_mean</span>, <span class="va">clust</span>, weights <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">clust_precip</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rspatial.github.io/terra/reference/extract.html">extract</a></span><span class="op">(</span><span class="va">bf_precip_mean</span>, <span class="va">clust</span>, weights <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">clust_precip</span></span>
 <span><span class="co">#&gt;    ID     mean weight</span></span>
@@ -1029,15 +1036,15 @@ Handling cluster displacement
 <span><span class="co">#&gt; 15  1 2.415130   0.53</span></span>
 <span><span class="co">#&gt; 16  1 2.395817   0.09</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>We can then provide the weights to the <code><a href="https://rdrr.io/pkg/terra/man/weighted.mean.html">weighted.mean()</a></code> function to calculate a weighted mean that is shifted toward the cell values that form a larger proportion of the polygon area.</p>
+<p>We can then provide the weights to the <code><a href="https://rspatial.github.io/terra/reference/weighted.mean.html">weighted.mean()</a></code> function to calculate a weighted mean that is shifted toward the cell values that form a larger proportion of the polygon area.</p>
 <div class="cell">
-<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/terra/man/weighted.mean.html">weighted.mean</a></span><span class="op">(</span><span class="va">clust_precip</span><span class="op">$</span><span class="va">mean</span>, <span class="va">clust_precip</span><span class="op">$</span><span class="va">weight</span><span class="op">)</span></span>
+<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rspatial.github.io/terra/reference/weighted.mean.html">weighted.mean</a></span><span class="op">(</span><span class="va">clust_precip</span><span class="op">$</span><span class="va">mean</span>, <span class="va">clust_precip</span><span class="op">$</span><span class="va">weight</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] 2.358508</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Because this kind of workflow is so common, terra provides a quicker shorthand in <code><a href="https://rdrr.io/pkg/terra/man/extract.html">extract()</a></code>. You can use the <code>fun</code> argument to specify an aggregation function at the same time that you extract the raster cell values:</p>
+<p>Because this kind of workflow is so common, terra provides a quicker shorthand in <code><a href="https://rspatial.github.io/terra/reference/extract.html">extract()</a></code>. You can use the <code>fun</code> argument to specify an aggregation function at the same time that you extract the raster cell values:</p>
 <div class="cell">
 <div class="sourceCode" id="cb32"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Extract area-weighted average for all cells covered by `clust`</span></span>
-<span><span class="fu"><a href="https://rdrr.io/pkg/terra/man/extract.html">extract</a></span><span class="op">(</span></span>
+<span><span class="fu"><a href="https://rspatial.github.io/terra/reference/extract.html">extract</a></span><span class="op">(</span></span>
 <span>  <span class="va">bf_precip_mean</span>,</span>
 <span>  <span class="va">clust</span>,</span>
 <span>  fun <span class="op">=</span> <span class="st">"mean"</span>, <span class="co"># Average all extracted values</span></span>
@@ -1048,10 +1055,10 @@ Handling cluster displacement
 </div>
 <p>The <code>2.358508</code> value represents the area-weighted mean of the 10-year mean precipitation values (in millimeters per day) within the given cluster region.</p>
 <section id="scaling-up-for-all-clusters" class="level3 page-columns page-full"><h3 class="anchored" data-anchor-id="scaling-up-for-all-clusters">Scaling up for all clusters</h3>
-<p>To aggregate the rainfall data for each DHS cluster in the sample, we simply scale up. We again use <code><a href="https://rdrr.io/pkg/terra/man/extract.html">extract()</a></code>, but we provide our raster of precipitation values for the entire country and the polygons for all of our buffered clusters.</p>
+<p>To aggregate the rainfall data for each DHS cluster in the sample, we simply scale up. We again use <code><a href="https://rspatial.github.io/terra/reference/extract.html">extract()</a></code>, but we provide our raster of precipitation values for the entire country and the polygons for all of our buffered clusters.</p>
 <div class="cell">
 <div class="sourceCode" id="cb33"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Average the mean CHIRPS values within each DHS cluster</span></span>
-<span><span class="va">clust_means</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/terra/man/extract.html">extract</a></span><span class="op">(</span></span>
+<span><span class="va">clust_means</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rspatial.github.io/terra/reference/extract.html">extract</a></span><span class="op">(</span></span>
 <span>  <span class="va">bf_precip_mean</span>,</span>
 <span>  <span class="va">bf_gps</span>, <span class="co"># All clusters included</span></span>
 <span>  fun <span class="op">=</span> <span class="st">"mean"</span>,</span>
@@ -1088,8 +1095,8 @@ Handling cluster displacement
 <span><span class="co">#&gt; 10 BF201000000010 1.722371 POLYGON ((-1.245736 13.2245...</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Now that we have aggregated rainfall across all clusters, we can plot the average rainfall for each of the 10-kilometer buffered cluster regions. Each cluster region is associated with a single 10-year average rainfall value.</p>
-<div class="cell page-columns page-full" data-layout-align="center">
-<details><summary>Show plot code</summary><div class="sourceCode" id="cb35"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> </span>
+<div class="cell page-columns page-full">
+<details class="code-fold"><summary>Show plot code</summary><div class="sourceCode" id="cb35"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu"><a href="https://paleolimbot.github.io/ggspatial/reference/layer_spatial.html">layer_spatial</a></span><span class="op">(</span><span class="va">bf_borders</span>, fill <span class="op">=</span> <span class="cn">NA</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://paleolimbot.github.io/ggspatial/reference/layer_spatial.html">layer_spatial</a></span><span class="op">(</span><span class="va">clust_means</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="va">mean</span><span class="op">)</span>, alpha <span class="op">=</span> <span class="fl">0.8</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span></span>
@@ -1105,9 +1112,9 @@ Handling cluster displacement
 <span>  <span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_steps.html">scale_fill_steps</a></span><span class="op">(</span>low <span class="op">=</span> <span class="st">"#FAEFD1"</span>, high <span class="op">=</span> <span class="st">"#00263A"</span>, n.breaks <span class="op">=</span> <span class="fl">4</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span><span class="op">(</span>legend.ticks <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_blank</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details><div class="cell-output-display column-screen-inset">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><img src="index_files/figure-html/listing-img-1.png" class="img-fluid figure-img" width="960"></p>
+</details><div class="cell-output-display page-columns page-full">
+<div class="page-columns page-full">
+<figure class="figure page-columns page-full"><p class="page-columns page-full"><img src="index_files/figure-html/listing-img-1.png" class="img-fluid figure-img column-page" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
@@ -1129,7 +1136,7 @@ Handling cluster displacement
 
 <div class="no-row-height column-margin column-container"><div class="">
 <p>ipumsr includes helper functions to view the metadata for IPUMS variables. For instance, <code><a href="http://tech.popdata.org/ipumsr/reference/ipums_var_info.html">ipums_val_labels()</a></code> can show us the missing value codes for a given variable, which we can use when cleaning our data.</p>
-</div></div><div class="cell page-columns page-full" data-layout-align="center">
+</div></div><div class="cell page-columns page-full">
 <div class="sourceCode" id="cb37"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Clean up HWHAZWHO for plotting</span></span>
 <span><span class="va">dhs_chirps_recode</span> <span class="op">&lt;-</span> <span class="va">dhs_chirps</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">HWHAZWHO</span> <span class="op">&lt;</span> <span class="fl">9995</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="co"># Remove missing HWHAZWHO values</span></span>
@@ -1155,9 +1162,9 @@ Handling cluster displacement
 <span>  <span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_gradient.html">scale_fill_gradient</a></span><span class="op">(</span>low <span class="op">=</span> <span class="st">"#FAEFD1"</span>, high <span class="op">=</span> <span class="st">"#00263A"</span>, na.value <span class="op">=</span> <span class="cn">NA</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span><span class="op">(</span>legend.position <span class="op">=</span> <span class="st">"none"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display column-screen-inset">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><img src="index_files/figure-html/unnamed-chunk-39-1.png" class="img-fluid figure-img" width="960"></p>
+<div class="cell-output-display page-columns page-full">
+<div class="page-columns page-full">
+<figure class="figure page-columns page-full"><p class="page-columns page-full"><img src="index_files/figure-html/unnamed-chunk-39-1.png" class="img-fluid figure-img column-page" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
@@ -1181,7 +1188,7 @@ Handling cluster displacement
 
 
 
-</div></section><section class="quarto-appendix-contents" role="doc-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-line-spacing="2" role="list">
+</div></section><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" data-line-spacing="2" role="list">
 <div id="ref-Mirza2011" class="csl-entry" role="listitem">
 1. Mirza, M. M. Q. (2011). Climate change, flooding in <span>S</span>outh <span>A</span>sia and implications. <em>Regional Environmental Change</em>, <em>11</em>, 95–107. <a href="https://doi.org/10.1007/S10113-010-0184-7">https://doi.org/10.1007/S10113-010-0184-7</a>
 </div>
@@ -1282,10 +1289,27 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     // clear code selection
     e.clearSelection();
   });
-  function tippyHover(el, contentFn) {
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp("https:\/\/ipums\.github\.io\/dhs-research-hub");
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
     const config = {
       allowHTML: true,
-      content: contentFn,
       maxWidth: 500,
       delay: 100,
       arrow: false,
@@ -1295,8 +1319,17 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       interactive: true,
       interactiveBorder: 10,
       theme: 'quarto',
-      placement: 'bottom-start'
+      placement: 'bottom-start',
     };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
     window.tippy(el, config); 
   }
   const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
@@ -1308,7 +1341,130 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       try { href = new URL(href).hash; } catch {}
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
-      return note.innerHTML;
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
     });
   }
       let selectedAnnoteEl;
@@ -1352,6 +1508,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
             }
             div.style.top = top - 2 + "px";
             div.style.height = height + 4 + "px";
+            div.style.left = 0;
             let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
             if (gutterDiv === null) {
               gutterDiv = window.document.createElement("div");
@@ -1377,6 +1534,32 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
         });
         selectedAnnoteEl = undefined;
       };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
       // Attach click handler to the DT
       const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
       for (const annoteDlNode of annoteDls) {
@@ -1441,7 +1624,9 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     <div class="nav-footer-left">
       &nbsp;
     </div>   
-    <div class="nav-footer-center">Developed by <a href="https://www.ipums.org">IPUMS</a> at the University of Minnesota<br>Licensed under the <a href="https://www.mozilla.org/en-US/MPL/2.0/">Mozilla Public License Version 2.0</a></div>
+    <div class="nav-footer-center">
+<p>Developed by <a href="https://www.ipums.org">IPUMS</a> at the University of Minnesota<br>Licensed under the <a href="https://www.mozilla.org/en-US/MPL/2.0/">Mozilla Public License Version 2.0</a></p>
+</div>
     <div class="nav-footer-right">
       &nbsp;
     </div>
