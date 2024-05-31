@@ -22,14 +22,17 @@ categories:
 fig-width: 10
 fig-height: 8
 image: index_files/figure-html/listing-img-1.png
-# bibliography: references.bib
 open-graph:
-  title: "Untitled"
-  # description:
+  title: "Time-specific temperature exposures for DHS survey respondents"
+  description: |
+    Fine-tune an analysis by incorporating temporal information from a DHS 
+    survey
   image: index_files/figure-html/listing-img-1.png
 twitter-card:
-  title: "Untitled"
-  # description:
+  title: "Time-specific temperature exposures for DHS survey respondents"
+  description: |
+    Fine-tune an analysis by incorporating temporal information from a DHS 
+    survey
   image: index_files/figure-html/listing-img-1.png
 ---
 
@@ -279,8 +282,8 @@ ml_chirts <- crop(ml_chirts, ml_borders_buffer, snap = "out")
 Now we can use the `tapp()` function introduced in our previous post to
 calculate monthly heatwave proportions for each month/year combination.
 The only difference here is that we use `index = "yearmonths"` instead
-of `index = "months"` since we have multiple years of data. This
-ensures that we don't aggregate months together across years.
+of `index = "months"` since we have multiple years of data. This ensures
+that we don't aggregate months together across years.
 
 ```{r}
 #| eval: false
@@ -756,9 +759,9 @@ child's sex, mother's age and height, birth order, education level, and
 the source of birth weight data.
 
 ::: callout-note
-We're building this model primarily to demonstrate how you
-might use aggregated survey and climate data. It's not intended to be be
-a comprehensive modeling approach, and there are likely other variables
+We're building this model primarily to demonstrate how you might use
+aggregated survey and climate data. It's not intended to be be a
+comprehensive modeling approach, and there are likely other variables
 that should be considered and included.
 :::
 
