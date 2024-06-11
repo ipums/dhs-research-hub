@@ -1,0 +1,399 @@
+---
+title: "Incorporating Climate and Reproductive History Data"
+description: |
+  Understanding the challenges when using longitudinal data with DHS surveys
+author: 
+  - name: "Sunnee Billingsley"
+    affiliation: "Professor of Sociology, Stockholm University"
+date: 06-11-2024
+categories:
+  - Climate
+  - Reproductive history
+  - Longitudinal data
+  - Time series
+  - Methodology
+  - Research concepts
+fig-width: 10
+fig-height: 8
+image: images/ptest.jpg
+bibliography: references.bib
+open-graph:
+  title: |
+    IPUMS DHS Research Hub — Incorporating Climate and Reproductive History Data
+  description: |
+    Understanding the challenges when using longitudinal data with DHS surveys
+  image: images/ptest.jpg
+twitter-card:
+  title: |
+    IPUMS DHS Research Hub — Incorporating Climate and Reproductive History Data
+  description: |
+    Understanding the challenges when using longitudinal data with DHS surveys
+  image: images/ptest.jpg
+---
+
+There have been heroic efforts to produce thorough, high-quality,
+publicly available climate data, which has provided new opportunities
+for researchers interested in climate demography. The wealth of climate
+resources we now have provide solid, well-organized, and fine-grained
+data on temperatures and rainfall and how these conditions vary over
+time. What is more challenging is getting the personal histories from
+surveys to line up with those data.
+
+If researchers are interested in the relationship between climate and
+reproductive issues such as contraceptive use, sexual activity, and
+fertility preferences, data analysis can be relatively straightforward.
+Questions answered at the time of the survey give us this current
+information. We know where respondents live at the time of the survey
+and when the survey took place, so space and time are easily addressed.
+
+If we want to unravel how climate might influence reproductive events,
+such as pregnancies, we need to look back across time at what happened,
+when, and where. This post addresses some common limitations and issues
+that can be tricky to work with when aligning climate and reproductive
+health data longitudinally.
+
+Some of our focus below is on analyzing pregnancy history data collected
+prior to DHS Phase 8. For surveys from DHS Phase 8 forward (released
+after 2023), when pregnancy histories were routinely collected,
+analyzing reproductive events over time may be more straightforward. But
+any analysis of reproductive events using longitudinal data must grapple
+with issues related to migration, defining the period at risk of fetal
+loss, and making sound choices about covariates, all topics discussed in
+this post.
+
+# Why look at reproductive histories and climate?
+
+Research at the intersection of climate and reproductive health has
+already demonstrated important and concerning issues. In general, we
+know that rainfall and temperature conditions influence birth
+rates.[@bdg18; @s17; @sg19] Underlying this finding, however, are many
+distinct processes we are only beginning to understand. Weather can
+influence whether pregnancies are carried to term[@bs20] and increase
+the risk of miscarriage.[@ddg20; @sackfl21] Weather may also affect
+whether pregnancies happen, as we know thermal stress from heat can
+reduce fecundity.[@bdg18; @mfy17]
+
+Beyond these direct, immediate effects, climate and weather events may
+have longer-term, indirect influences on reproductive health and
+outcomes. Food insecurity and infectious disease prevalence are both
+influenced by heat and rainfall and can impact women’s reproductive
+health.[@ddg20; @d15; @d19] Birth spacing can shift depending on how
+breastfeeding is impacted by weather.[@rgb21]
+
+If we consider individual agency, climate and weather may change
+childbearing preferences, including ideal family size.[@ets19] When
+agricultural production or labor needs shift in response to weather and
+climate, resources and income are affected, which can shape the demand
+for children.[@c06; @mgbp00] Libido may decline in response to hotter
+temperatures.[@lm96; @waj17] Adaptation strategies to weather may also
+increase physical labor, which can reduce short-term
+fecundity.[@ecbbdhj21; @ha97; @p96; @vshr94]
+
+In sum, the pathways through which reproductive histories are affected
+by weather and climate are remarkably varied, and we have only begun to
+map these pathways.
+
+# What we need
+
+When looking at factors that influence events over a reproductive life
+course, we can think in terms of time to an event, where we need to fill
+in the blanks before the event. The event of interest could be menarche,
+conception, a pregnancy outcome, or menopause. Along with having
+information about past pregnancies and births, for example, we need to
+know where women lived and, consequently, what they were exposed to,
+during the time preceding these events.
+
+Getting the exposure correct is key to systematic and rigorous
+longitudinal analysis. We must ensure we are aligning individual and
+climate/weather data at the exact right moment in time and space. This
+alignment is generally facilitated through GPS location information
+provided at the level of the community at the time of the survey. But
+what happens if someone has not been living in that community long?
+Because we cannot correctly assign climate data before an individual
+moved to their location at the survey date, we must know something about
+the person’s residential history and adjust our sample
+accordingly.[@gb20]
+
+::: column-margin
+Note that "exact" is relative. We do not need exact home addresses;
+rather, we need an idea of the environmental conditions around where
+people lived and worked. The spatial detail around this information
+varies according to the population-environment process we are
+investigating, just as the detail in the health survey data varies.
+:::
+
+Besides having GPS location and knowing length of time at that location,
+we need full reproductive histories. Ideally, we want information about
+pregnancies as well as about the timing of live births. Knowing when a
+pregnancy began and ended (even if not in a live birth), as well as the
+nature of the ending, is essential for sorting out the different factors
+that link climate change and reproductive health.
+
+# What is available in DHS
+
+The [Demographic and Health Surveys](https://www.dhsprogram.com/data/)
+(DHS) remain the best source of individual- and household-level health
+data for poor and middle-income countries. The scope of the DHS program
+and the consistency of this survey enables standardization of results,
+which is key for comparing and generalizing findings.
+
+In addition, The DHS Program has made some key decisions that increased
+the surveys’ usefulness to climate and health researchers. First, DHS
+began providing GPS coordinates that allow researchers to match climate
+measures to low-level locations (e.g., the approximate site of a village
+where the sample was drawn). Second, the survey began to collect
+information on how long individuals have resided at their current
+location. Many of us dream of full migration histories being collected
+by DHS, which would help us deal with bias caused by climate migration.
+At the moment, we have to assume that those who stayed were least
+affected by past weather events and climate shifts. Nevertheless, with
+information about the person’s length of time at their current
+residence, we can at least be sure we are correctly assigning the
+contextual measures to a location for the right amount of time.
+
+These two pieces of information—GPS coordinates for the primary sampling
+unit and respondents’ length of time at their current residence—are not
+available in all DHS datasets. Although most recent data sets have this
+information, researchers must check whether older samples have variables
+such as `V104` (`RESIDEINTYR` in IPUMS DHS), which reports how many
+years a woman has lived in her place of residence.
+
+The narrowest time intervals available in DHS data are generally months
+and years. For example, we have the month and year of birth for all
+women of childbearing age and for their offspring. We also have
+information on time of moving to the current location and on the date of
+the woman’s first cohabiting union. For data on reproductive events, DHS
+surveys conform to one of two types:
+
+1.  **Live birth histories:** The year and month of each live birth to a
+    woman is collected.
+
+    This information is recorded regardless of whether the child is
+    still alive and whether the child lives with the mother. Although
+    the birth history collection strategy misses pregnancies that do not
+    lead to a live birth, it is superior to the common strategy in
+    surveys and census sources of only documenting the ages of children
+    in the household. Most DHS surveys from Phases 1 through 7 only
+    collected birth histories from women of childbearing age.
+
+2.  **Pregnancy histories:** The year and month of every pregnancy
+    outcome is collected.
+
+    Pregnancy histories are more complete than live birth histories
+    because they also capture any known conception that ends in a
+    miscarriage, abortion, or stillbirth. Whether the specific outcomes
+    of miscarriage, abortion or stillbirth are distinguished varies
+    across these samples, with abortions and miscarriages commonly
+    combined into one category.
+
+These two types of histories relate to the entire life of the woman.
+Until recently, fewer than 25 DHS surveys collected pregnancy histories.
+For DHS Phase 8 (with data distributed around 2023 or later), a
+pregnancy history rather than just a birth history was included the
+standard questionnaire that serves as the starting point for each
+country’s survey.
+
+Besides the birth history or pregnancy history data, the DHS often
+collects monthly reproductive history data for women for the five years
+preceding a survey. The simplest 5-year reproductive calendars only
+report whether a woman experienced a birth, pregnancy, or pregnancy
+termination in each month. Most reproductive calendars also collect
+monthly information on family planning, including the type of
+contraception used and, often, the reason for its discontinuation.
+Combined with other information that situates the last five years in a
+woman’s reproductive history, the calendar data can be a rich resource.
+IPUMS DHS has made it easier to analyse calendar data, through providing
+integrated variables accessed by choosing "Woman month" as the unit of
+analysis.
+
+But for maximum statistical power, which quickly becomes important when
+working with covariates and splitting the data into comparison groups,
+and to avoid left truncation of data (not knowing when contraceptive use
+or a pregnancy began), full birth or pregnancy histories are often
+preferable. The rest of this post focuses on strategies for working with
+full reproductive histories.
+
+# Making it work
+
+## Defining the window of observation
+
+The first step is establishing the window of observation, that is, the
+time period when we know a woman is living at her current location. In
+the absence of detailed migration histories, we can begin this
+observation period with the exact month and year she moved to her
+current place of residence (when such detail is available).
+Alternatively, we can choose a standard reference period, such as the
+first January following the year she moved to her location. Since the
+most commonly available DHS migration variable covers "Years lived in
+place of residence" (`V104`/`RESIDEINTYR`), this last approach is often
+the most practical. Although we do not analyse births or pregnancies
+before that starting point, these unobserved events are used when
+creating information about the woman, such as parity or years since last
+birth/pregnancy outcome. For women who reported "always" living in their
+current location, the full reproductive history can be analyzed (i.e.,
+events from age 15 until the time of interview).
+
+Once the window of observation is constructed for each individual, and
+the sample selected to include only those observations, then climate
+data can be merged on to the unit of analysis (i.e., woman or woman
+month).
+
+## Defining the timing of a pregnancy
+
+A particularly salient period during which climate and environment can
+affect reproduction is the time between conception and the end of a
+pregnancy. When working with live births, including data from the widely
+available DHS birth histories, the conception month is usually
+calculated by subtracting 9 months from the date of birth.
+
+When working with pregnancy history data, the situation is sometimes
+more complicated. DHS samples with pregnancy histories always report the
+year and month a pregnancy ended. For this blog post, we focus on the 22
+standard DHS surveys that collected pregnancy history data before (the
+current) Phase 8 survey. The Phase 8 approach is very different than the
+pre-Phase 8 approach and as a result data analysis approaches will need
+to be different. Strategies to use both the pre-phase 8 and the phase 8
+data are useful to allow for longer-term investigations of climate
+impacts on pregnancy.
+
+For the pre-Phase 8 data, the variable names relating to pregnancy
+history are sample-specific. In general, country- and year-specific
+variable names in DHS women’s surveys begin with the letter `s` followed
+by the number of the relevant question on the questionnaire. Thus, for
+example, on the women’s questionnaire for the 2012-2013 Pakistan sample,
+question number 226 records the month and year that each pregnancy
+ended. Accordingly, variables `s226m_XX` and `s226y_XX` respectively
+report "Month of pregnancy lost" and "Year of pregnancy lost," with `XX`
+referencing the number of the pregnancy, from the most recent (`01`) to
+the twentieth most recent.
+
+Figuring out the date of conception for pregnancies in pre-Phase 8
+pregnancy histories can be difficult. Some of these surveys, such as the
+Pakistan 2012-13 sample, directly asked how long the pregnancy lasted.
+For many of the samples with early pregnancy histories, particularly
+from Eastern Europe and East Asia, this direct information about
+pregnancy duration (and thus conception date) is lacking.
+
+In such cases, establishing the month of conception based on the month
+of miscarriage, abortion or stillbirth requires imputation. Knowing the
+month of conception is required for investigating climate impacts on
+pregnancy outcomes. One approach uses information derived from the
+five-year calendar data.[@bgb24] In those data one can observe the month
+a woman said she was pregnant and the month when the pregnancy ended. By
+taking the difference, we can get an estimate of how long pregnancies
+lasted on average before the specific outcome in a specific culture. We
+can also calculate the mean and standard deviation for pregnancy
+outcomes for a given calendar sample and use those statistics as a
+structure for imputation. Note that reports from the calendar data may
+be sensitive to context—for example, the extent to which stillbirths are
+called miscarriages and vice versa. In addition, the length of gestation
+before abortion may vary by abortion legislation, which obviously varies
+across time and space. Thus, no clear rules of thumb, like "pregnancies
+ending in a live birth usually last 9 months," can be stated for
+pregnancies ending in miscarriage, stillbirth, or abortion. Such
+estimates for terminated pregnancies should be context-specific (e.g.,
+access to pregnancy tests) and empirically grounded.
+
+Results from calendar-based imputed pregnancy duration data for one
+study are shown in Table 1, which details the pregnancy outcome timing
+from Armenian and Tajik DHS data.[@bgb24] Only 65% of reported
+pregnancies ended in a live birth in Armenia during the five years
+preceding the survey (2015-16) and 84% in Tajikistan (2017). To impute
+the timing of conceptions ending in stillbirth, miscarriage, or
+abortion, the authors applied a normal (Gaussian) distribution using the
+mean and standard deviation observed in the five-year calendar data
+within the specific DHS data set.
+
+|                         | Live Birth | Stillbirth | Miscarriage | Abortion |
+|-------------------------|:----------:|:----------:|:-----------:|:--------:|
+| **Armenia, 2015-2016**  |            |            |             |          |
+| *Mean*                  |    8.56    |    6.77    |    2.57     |   2.24   |
+| *Median*                |     9      |     7      |      2      |    2     |
+| *SD*                    |    1.35    |    1.89    |    0.88     |   0.8    |
+| *Min.*                  |     2      |     2      |      1      |    1     |
+| *Max.*                  |     10     |     9      |      7      |    9     |
+| *Number of pregnancies* |   2,084    |     17     |     305     |   783    |
+| **Tajikistan, 2017**    |            |            |             |          |
+| *Mean*                  |    8.63    |    6.61    |    2.22     |   1.9    |
+| *Median*                |     9      |     7      |      2      |    2     |
+| *SD*                    |    1.28    |    1.93    |    1.18     |   1.02   |
+| *Min.*                  |     1      |     2      |      1      |    1     |
+| *Max.*                  |     10     |     9      |      9      |    9     |
+| *Number of pregnancies* |   6,890    |     70     |     538     |   715    |
+
+: Table 1: Gestation by pregnancy outcome {.hover .bordered
+.column-body-outset}
+
+## Selecting appropriate covariates
+
+A final consideration when working with retrospective longitudinal data
+is which variables can be used as covariates. Unless information comes
+in the form of histories, where we can track changes in a characteristic
+for an individual over time, we should only use information that does
+not change. Examples of non-changing variables are birth cohort and
+ethnicity/nationality.
+
+The DHS provides a wealth of household and individual-level information
+that is unfortunately problematic when analyzing climate effects over
+time. This is generally unsatisfying, since we know socioeconomic
+factors play an important role in health outcomes. But ascribing back
+characteristics—such as household wealth quintile, woman’s employment
+status, her contraceptive knowledge, or her decision-making power at the
+time the survey—to the respondent earlier in time is risking a few
+problems. First, such ascription introduces error into the data, whereby
+a characteristic is assigned at a time for which it may not be true.
+Although it may seem relevant that the person eventually ended up with
+that characteristic, assigning the characteristic before it is true
+introduces estimation inconsistencies due to "anticipatory
+analyses".[@hk06]
+
+While assuming that current characteristics held earlier is never
+completely reliable, error could be minimized by restricting analysis to
+recent pregnancies—for example, those occurring in the three years
+before the survey or focusing on only the most-recent and
+second-most-recent pregnancies (indexed `_01` and `_02`), if they occurred
+recently.
+
+One option for gaining some measure of socioeconomic status that varies
+over time is to construct time-varying covariate variables. For example,
+from the variable that tells us the woman’s completed number of years of
+education (`V133`, or `EDYRTOTAL` in IPUMS DHS), we can produce a
+reasonable estimate of her last year in school. We can code the
+following years according to the highest level of education the
+respondent achieved. Similarly, we do not have partnership histories in
+DHS, but we do know the woman’s age at her first marriage or coresident
+union (`V511`, or `AGEFRSTMAR` in IPUMS DHS). From this information, we
+can construct a time-varying covariate for whether the woman had ever
+entered a co-resident union.
+
+# Conclusion
+
+Some of the pathways by which climate change affects health relate to
+reproductive events such as pregnancies and births. Analyzing such
+events over the life of a woman demands care on the part of researchers.
+One must, for example, "define the window of observation," by excluding
+reproductive events that occurred before a woman migrated to her survey
+location. One must choose the type of longitudinal reproductive data:
+calendar data from the previous five years, birth history data, or
+pregnancy history data from across the woman’s life. Pregnancy history
+data in the IR (women’s) files from before and after DHS Phase 8 differ
+in variable naming conventions and scope. While dates for the end of
+pregnancies are consistently known, determining month of conception may
+need to rely on data imputation for some pre-Phase 8 samples. Covariates
+should reflect time-invariant characteristics, be restricted unless
+analyzing very recent pregnancies, or be constructed to reflect
+variation over time (e.g., in educational attainment).
+
+Climate change and health research yields valid conclusions only when we
+avoid glaring errors—for example, assuming that environmental conditions
+were the same in a woman’s previous location as in her current
+residence, or that current characteristics (e.g., employment, household
+wealth) were static across time. We hope this post helps researchers
+avoid such errors and guides them in solving problems that arise with
+retrospective longitudinal reproductive histories.
+
+## Getting Help {.appendix}
+
+Questions or comments? Check out the [IPUMS User
+Forum](https://forum.ipums.org) or reach out to IPUMS User Support at
+ipums\@umn.edu.

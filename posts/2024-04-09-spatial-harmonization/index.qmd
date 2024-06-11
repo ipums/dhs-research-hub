@@ -24,14 +24,16 @@ fig-height: 8
 bibliography: references.bib
 open-graph:
   title: |
-    Demystifying and Demonstrating Spatially Harmonized Geography in IPUMS DHS
+    IPUMS DHS Research Hub — Demystifying and Demonstrating Spatially 
+    Harmonized Geography in IPUMS DHS
   description: |
     Data and techniques for dealing with shifting boundaries in longitudinal
     research
   image: images/sampleSpecific_all.png
 twitter-card:
   title: |
-    Demystifying and Demonstrating Spatially Harmonized Geography in IPUMS DHS
+    IPUMS DHS Research Hub — Demystifying and Demonstrating Spatially 
+    Harmonized Geography in IPUMS DHS
   description: |
     Data and techniques for dealing with shifting boundaries in longitudinal
     research
@@ -125,7 +127,7 @@ all the sample years available in IPUMS DHS, but rather only selected
 sample years.
 
 | Country    | Survey Year 1 | Survey Year 2 | Boundary changes?                    |
-|------------------|------------------|------------------|-------------------|
+|------------|---------------|---------------|--------------------------------------|
 | Malawi     | 2010          | 2016          | Yes—28 sub-regions to 32 sub-regions |
 | Tanzania   | 2010          | 2015          | Yes—26 regions to 30 regions         |
 | Mozambique | 2011          | --            | No—single year with 11 regions       |

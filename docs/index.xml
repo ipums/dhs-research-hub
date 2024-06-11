@@ -10,7 +10,22 @@
 <atom:link href="https://ipums.github.io/dhs-research-hub/index.xml" rel="self" type="application/rss+xml"/>
 <description>Understand population health in its environmental context</description>
 <generator>quarto-1.4.553</generator>
-<lastBuildDate>Fri, 31 May 2024 04:00:00 GMT</lastBuildDate>
+<lastBuildDate>Tue, 11 Jun 2024 04:00:00 GMT</lastBuildDate>
+<item>
+  <title>Incorporating Climate and Reproductive History Data</title>
+  <dc:creator>Sunnee Billingsley</dc:creator>
+  <link>https://ipums.github.io/dhs-research-hub/posts/2024-06-11-climate-reproduction/</link>
+  <description><![CDATA[ Understanding the challenges when using longitudinal data with DHS surveys ]]></description>
+  <category>Climate</category>
+  <category>Reproductive history</category>
+  <category>Longitudinal data</category>
+  <category>Time series</category>
+  <category>Methodology</category>
+  <category>Research concepts</category>
+  <guid>https://ipums.github.io/dhs-research-hub/posts/2024-06-11-climate-reproduction/</guid>
+  <pubDate>Tue, 11 Jun 2024 04:00:00 GMT</pubDate>
+  <media:content url="https://ipums.github.io/dhs-research-hub/posts/2024-06-11-climate-reproduction/images/ptest.jpg" medium="image" type="image/jpeg"/>
+</item>
 <item>
   <title>Time-specific temperature exposures for DHS survey respondents</title>
   <dc:creator>Finn Roberts</dc:creator>
@@ -98,7 +113,7 @@
   <category>R</category>
   <guid>https://ipums.github.io/dhs-research-hub/posts/2024-02-04-dhs-chirps/</guid>
   <pubDate>Sun, 04 Feb 2024 05:00:00 GMT</pubDate>
-  <media:content url="https://ipums.github.io/dhs-research-hub/posts/2024-02-04-dhs-chirps/index_files/figure-html/listing-img-1.png" medium="image" type="image/png"/>
+  <media:content url="https://ipums.github.io/dhs-research-hub/posts/2024-02-04-dhs-chirps/index_files/figure-html/listing-img-1.png" medium="image" type="image/png" height="115" width="144"/>
 </item>
 <item>
   <title>Developing Robust Conceptual Models in Climate Change and Health Research</title>
