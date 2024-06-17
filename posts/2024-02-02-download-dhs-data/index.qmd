@@ -68,7 +68,8 @@ Extract**.
 
 ```{r}
 #| echo: false
-#| column: screen-inset
+#| column: body-outset
+#| out-width: "100%"
 #| fig-align: center
 
 knitr::include_graphics("images/dhs-download1.png")
@@ -81,7 +82,8 @@ ipumsr.
 
 ```{r}
 #| echo: false
-#| column: screen-inset
+#| column: body-outset
+#| out-width: "100%"
 #| fig-align: center
 
 knitr::include_graphics("images/dhs-download2.png")
@@ -112,7 +114,8 @@ link as...**.
 
 ```{r}
 #| echo: false
-#| column: screen-inset
+#| column: page
+#| out-width: "100%"
 #| fig-align: center
 
 knitr::include_graphics("images/microdata_annotated_screenshot.png")
@@ -129,8 +132,8 @@ format, *not* .html format.
 
 # Load IPUMS DHS data into R
 
-The `{ipumsr}` package
-provides the tools you'll need to easily load your extract into R.
+The `{ipumsr}` package provides the tools you'll need to easily load
+your extract into R.
 
 ::: column-margin
 `r hex("ipumsr")`
