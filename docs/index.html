@@ -109,8 +109,22 @@ gtag('js', new Date());
 gtag('config', 'G-0WLH5S9VD5', { 'anonymize_ip': true});
 </script>
 
-  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+  <script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.css">
 
 <script type="text/javascript">
 const typesetMath = (el) => {
@@ -642,7 +656,7 @@ Elizabeth Heger Boyle, Kathryn Grace, Audrey Dorélien, Devon Kristiansen
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="7" data-categories="Tips,Importing data,R" data-listing-date-sort="1706850000000" data-listing-file-modified-sort="1718638684643" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="4" data-listing-word-count-sort="709">
+<div class="quarto-post image-right" data-index="7" data-categories="Tips,Importing data,R" data-listing-date-sort="1706850000000" data-listing-file-modified-sort="1718641560548" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="4" data-listing-word-count-sort="709">
 <div class="thumbnail">
 <p><a href="./posts/2024-02-02-download-dhs-data/index.html" class="no-external"></a></p><a href="./posts/2024-02-02-download-dhs-data/index.html" class="no-external">
 <p><img src="./images/dhs_logo_navy.png" class="thumbnail-image"></p>

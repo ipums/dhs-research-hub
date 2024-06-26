@@ -75,6 +75,7 @@ format:
     code-line-numbers: false
     code-link: true
     appendix-style: default
+    html-math-method: katex
 
 csl: csl/apa-numeric-superscript.csl
 
