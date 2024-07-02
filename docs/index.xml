@@ -10,7 +10,16 @@
 <atom:link href="https://ipums.github.io/dhs-research-hub/index.xml" rel="self" type="application/rss+xml"/>
 <description>Understand population health in its environmental context</description>
 <generator>quarto-1.4.555</generator>
-<lastBuildDate>Tue, 11 Jun 2024 04:00:00 GMT</lastBuildDate>
+<lastBuildDate>Tue, 02 Jul 2024 04:00:00 GMT</lastBuildDate>
+<item>
+  <title>Introducing NDVI as a Tool for Population Health Research</title>
+  <dc:creator>Jude Mikal</dc:creator>
+  <link>https://ipums.github.io/dhs-research-hub/posts/2024-07-02-ndvi-concepts/</link>
+  <description><![CDATA[ Satellite imagery can be used in conjunction with place-specific research methods to assess food production and its impacts ]]></description>
+  <guid>https://ipums.github.io/dhs-research-hub/posts/2024-07-02-ndvi-concepts/</guid>
+  <pubDate>Tue, 02 Jul 2024 04:00:00 GMT</pubDate>
+  <media:content url="https://ipums.github.io/dhs-research-hub/posts/2024-07-02-ndvi-concepts/images/max_ndvi.png" medium="image" type="image/png" height="65" width="144"/>
+</item>
 <item>
   <title>Incorporating Climate and Reproductive History Data</title>
   <dc:creator>Sunnee Billingsley</dc:creator>
@@ -44,7 +53,7 @@
   <category>R</category>
   <guid>https://ipums.github.io/dhs-research-hub/posts/2024-05-31-ts-join/</guid>
   <pubDate>Fri, 31 May 2024 04:00:00 GMT</pubDate>
-  <media:content url="https://ipums.github.io/dhs-research-hub/posts/2024-05-31-ts-join/index_files/figure-html/listing-img-1.png" medium="image" type="image/png"/>
+  <media:content url="https://ipums.github.io/dhs-research-hub/posts/2024-05-31-ts-join/index_files/figure-html/listing-img-1.png" medium="image" type="image/png" height="115" width="144"/>
 </item>
 <item>
   <title>Flexible Workflows with CHIRTS Temperature Data</title>
@@ -113,7 +122,7 @@
   <category>R</category>
   <guid>https://ipums.github.io/dhs-research-hub/posts/2024-02-04-dhs-chirps/</guid>
   <pubDate>Sun, 04 Feb 2024 05:00:00 GMT</pubDate>
-  <media:content url="https://ipums.github.io/dhs-research-hub/posts/2024-02-04-dhs-chirps/index_files/figure-html/listing-img-1.png" medium="image" type="image/png"/>
+  <media:content url="https://ipums.github.io/dhs-research-hub/posts/2024-02-04-dhs-chirps/index_files/figure-html/listing-img-1.png" medium="image" type="image/png" height="115" width="144"/>
 </item>
 <item>
   <title>Developing Robust Conceptual Models in Climate Change and Health Research</title>

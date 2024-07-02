@@ -1,0 +1,160 @@
+---
+title: "Introducing NDVI as a Tool for Population Health Research"
+description: |
+  Satellite imagery can be used in conjunction with
+  place-specific research methods to assess food production and its impacts
+author: 
+  - name: Jude Mikal
+    affiliation: Senior Research Fellow, University of Minnesota College of Pharmacy
+date: 07-02-2024
+categories:
+fig-width: 10
+fig-height: 8
+image: images/max_ndvi.png
+bibliography: references.bib
+open-graph:
+  title: |
+    IPUMS DHS Research Hub — Introducing NDVI as a Tool for Population Health 
+    Research
+  description: |
+    Satellite imagery can be used to assess food production and its effects on conflict
+    and other health outcomes
+  image: images/max_ndvi.png
+twitter-card:
+  title: |
+    IPUMS DHS Research Hub — Introducing NDVI as a Tool for Population Health 
+    Research
+  description: |
+    Satellite imagery can be used to assess food production and its effects on conflict
+    and other health outcomes
+  image: images/max_ndvi.png
+---
+
+Long term shifts in weather patterns have created both chronic and acute
+changes in growing conditions in many parts of the world. By altering
+food production and access, these shifts can produce long-term impacts
+on the lives, biology, and behavior of the subsistence farmers,
+agriculturalists, and pastoralist residents who rely on specific
+environmental conditions to support their livelihoods.
+
+These effects are especially pronounced in low-income countries on the
+front lines of climate change. Beyond merely the choices of when to
+plant, water, and harvest, research consistently demonstrates that
+growing conditions—and by extension, food access and availability—play a
+key role in migration decisions, livelihood selection and
+diversification, health outcomes, resource related conflict, and the
+choice of whether, when and how often to have children. Because of this,
+data on immediate and longitudinal growing conditions are at the heart
+of social and climate scientists' understanding of the link between
+climate change and health, particularly among the most vulnerable and
+poorest regions and populations.
+
+# Measuring Growing Conditions
+
+Chief among the tools for assessing immediate and longitudinal changes
+in growing conditions is the Normalized Difference Vegetation Index or
+**NDVI**. Developed in 1973, NDVI is based on remotely sensed imagery
+and is calculated using the amount of red light (which vegetation
+largely absorbs) and near-infrared light (which vegetation strongly
+reflects). The NDVI value for a given pixel of an image is the ratio of
+the *difference* between the near-infrared and red bands relative to the
+*sum* of the same two bands. This ratio provides a useful measure of
+vegetation quantity, density, and quality that can serve as a useful
+proxy for local growing conditions that takes into account the synergy
+between temperature and precipitation at a fine-grained spatial
+resolution.
+
+On its own, NDVI provides insights into the amount of food in a location
+of interest—notably over time (when compared to itself) or space (when
+compared to surrounding regions). Figure 1 shows how the NDVI
+distribution varies not only across regions, but also across growing
+seasons within those regions—and that season-to-season differences are
+themselves more variable in certain regions than others. When used in
+conjunction with population-level data, this variability in NDVI can
+help researchers to understand the biological and behavioral responses
+to either lean periods or periods of relative abundance.
+
+::: column-page-inset
+![Figure 1: NDVI maximum values as they vary over space and time for
+selected PMA
+samples[@brooks2023investigating]](images/max_ndvi.png){width="100%"}
+:::
+
+# NDVI in Context
+
+In order for NDVI to be most useful, researchers need to attend to both
+contextual factors and the pathways linking greenness to food
+production.
+
+For example, despite providing a useful proxy for growing conditions,
+NDVI cannot tell us how much of a green space comprises edible crops, as
+opposed to cash crops, weeds and other fallow lands, or forests. As
+such, areas with dense vegetation may show up as having high NDVI values
+despite a relative lack of edible crops.
+
+Moreover, NDVI is spatially and temporally rich, so the ways in which
+NDVI is aggregated and reported can have a significant impact on the
+degree to which NDVI values align with food production and crop yields.
+These decisions are context-dependent, and require knowledge of local
+landscapes and livelihoods. For instance, regions that are characterized
+by abundant natural vegetation that must be cleared to make room for
+cultivated consumable crops may have higher annual averages and peak
+NDVI—but may not yield any more food than regions characterized by lower
+annual or peak NDVI.
+
+Scientists continue to develop different strategies to identify
+agriculture versus non-agriculture when using NDVI and strategies for
+this are somewhat place-dependent. The situation may also be complicated
+by the *types* of naturally occurring vegetation—yet another feature
+unaccounted for by NDVI. Thus, contextual knowledge is paramount to
+understanding the how local communities may use naturally occurring
+vegetation. In an ongoing qualitative study of risk and protective
+factors associated with acute child malnutrition in East Africa,
+researchers from our team interviewed field experts in Africa who
+reported that resilient mothers may forgo use of locally available and
+naturally occurring food sources in times of abundance, but would
+harvest those crops to buffer against hunger in lean periods (please
+reach out to the blog post author for more details of this research).
+
+::: column-margin
+For an example and more detailed discussion of using NDVI for food
+security monitoring in rural communities, see Grace, Nagle, and Husak
+2016.[@grace2016can]
+:::
+
+This research also highlighted the importance of understanding the
+biological and behavioral pathways that link greenness to conflict,
+health, and population outcomes. Often these pathways can work in
+diametrically opposing directions. In their 2023 paper on seasonal
+variability in NDVI and its impacts on women’s childbearing goals in
+three African countries, Brooks and colleagues found that higher NDVI
+values were associated with an *increase* in fertility intentions and a
+*decrease* in modern contraceptive use.[@brooks2023investigating]
+Authors interpreted results to indicate that women changed their
+behaviors in response to early signals of growing season quality.
+
+These findings echo a paper by Grace and colleagues (2017) which showed
+a consistent pattern under different conditions: when faced with
+episodes of food insecurity, women reported less desire to get pregnant,
+increased marital conflict, and less willingness to
+breastfeed.[@grace2017qualitative] Yet, while high greenness may
+positively impact fertility aspirations (or low greenness may suppress
+them), research has shown that periods of abundance may also increase
+labor demands for women and pregnant women, leading to higher incidence
+of miscarriage and thus driving down fertility.[@randell2021climatic;
+@bakhtsiyarava2018climate] Clearly, the pathways that link NDVI to
+various health outcomes are not straightforward, and teasing them out
+often requires qualitative study and stakeholder engagement.
+
+NDVI provides an invaluable tool for understanding how climate change
+impacts food production with implications for health and health-related
+behaviors. Yet in order to make best use of NDVI, it is imperative to
+understand the decisions in measurement and quantification of local
+vegetation, how that relates to food production, and the pathways
+linking food production to biology and behavior change.
+
+## Getting Help {.appendix}
+
+Questions or comments? Check out the [IPUMS User
+Forum](https://forum.ipums.org) or reach out to IPUMS User Support at
+ipums\@umn.edu.
