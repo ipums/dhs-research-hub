@@ -11,9 +11,9 @@ categories:
   - CHIRTS
   - Temperature
   - Heat
-  - Longitudinal Analysis
+  - Longitudinal analysis
   - Time series
-  - Multilevel Modeling
+  - Multilevel modeling
   - Climate
   - terra
   - lme4

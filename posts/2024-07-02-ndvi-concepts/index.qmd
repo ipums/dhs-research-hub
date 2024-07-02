@@ -8,6 +8,12 @@ author:
     affiliation: Senior Research Fellow, University of Minnesota College of Pharmacy
 date: 07-02-2024
 categories:
+  - Climate
+  - NDVI
+  - Food production
+  - Agriculture
+  - Methodology
+  - Research concepts
 fig-width: 10
 fig-height: 8
 image: images/max_ndvi.png

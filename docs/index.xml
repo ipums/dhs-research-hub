@@ -16,6 +16,12 @@
   <dc:creator>Jude Mikal</dc:creator>
   <link>https://ipums.github.io/dhs-research-hub/posts/2024-07-02-ndvi-concepts/</link>
   <description><![CDATA[ Satellite imagery can be used in conjunction with place-specific research methods to assess food production and its impacts ]]></description>
+  <category>Climate</category>
+  <category>NDVI</category>
+  <category>Food production</category>
+  <category>Agriculture</category>
+  <category>Methodology</category>
+  <category>Research concepts</category>
   <guid>https://ipums.github.io/dhs-research-hub/posts/2024-07-02-ndvi-concepts/</guid>
   <pubDate>Tue, 02 Jul 2024 04:00:00 GMT</pubDate>
   <media:content url="https://ipums.github.io/dhs-research-hub/posts/2024-07-02-ndvi-concepts/images/max_ndvi.png" medium="image" type="image/png" height="65" width="144"/>
@@ -43,9 +49,9 @@
   <category>CHIRTS</category>
   <category>Temperature</category>
   <category>Heat</category>
-  <category>Longitudinal Analysis</category>
+  <category>Longitudinal analysis</category>
   <category>Time series</category>
-  <category>Multilevel Modeling</category>
+  <category>Multilevel modeling</category>
   <category>Climate</category>
   <category>terra</category>
   <category>lme4</category>
@@ -122,7 +128,7 @@
   <category>R</category>
   <guid>https://ipums.github.io/dhs-research-hub/posts/2024-02-04-dhs-chirps/</guid>
   <pubDate>Sun, 04 Feb 2024 05:00:00 GMT</pubDate>
-  <media:content url="https://ipums.github.io/dhs-research-hub/posts/2024-02-04-dhs-chirps/index_files/figure-html/listing-img-1.png" medium="image" type="image/png"/>
+  <media:content url="https://ipums.github.io/dhs-research-hub/posts/2024-02-04-dhs-chirps/index_files/figure-html/listing-img-1.png" medium="image" type="image/png" height="115" width="144"/>
 </item>
 <item>
   <title>Developing Robust Conceptual Models in Climate Change and Health Research</title>
