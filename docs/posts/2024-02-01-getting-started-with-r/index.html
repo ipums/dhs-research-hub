@@ -412,21 +412,21 @@ Installing vs.&nbsp;Loading
 <p>Note the difference between <em>installing</em> a package and <em>loading</em> a package. Installing downloads the package files to your system, but does not automatically make those functions available in your R session. Loading a package takes a previously installed package and makes its functions available for use.</p>
 </div>
 </div>
-<p>Once you’ve done so, all the functions provided by ipumsr will be available for use, and you can call them by name. For instance, to use ipumsr’s <code><a href="http://tech.popdata.org/ipumsr/reference/read_ipums_micro.html">read_ipums_micro()</a></code>:</p>
+<p>Once you’ve done so, all the functions provided by ipumsr will be available for use, and you can call them by name. For instance, to use ipumsr’s <code><a href="https://tech.popdata.org/ipumsr/reference/read_ipums_micro.html">read_ipums_micro()</a></code>:</p>
 <div class="cell">
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="http://tech.popdata.org/ipumsr/reference/read_ipums_micro.html">read_ipums_micro</a></span><span class="op">(</span></span>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://tech.popdata.org/ipumsr/reference/read_ipums_micro.html">read_ipums_micro</a></span><span class="op">(</span></span>
 <span>  ddi <span class="op">=</span> <span class="st">"data/dhs/idhs_00015.xml"</span>,</span>
 <span>  data_file <span class="op">=</span> <span class="st">"data/dhs/idhs_00015.dat.gz"</span></span>
 <span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>On occasion, you may see the alternative <code>::</code> notation:</p>
 <div class="cell">
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">ipumsr</span><span class="fu">::</span><span class="fu"><a href="http://tech.popdata.org/ipumsr/reference/read_ipums_micro.html">read_ipums_micro</a></span><span class="op">(</span></span>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">ipumsr</span><span class="fu">::</span><span class="fu"><a href="https://tech.popdata.org/ipumsr/reference/read_ipums_micro.html">read_ipums_micro</a></span><span class="op">(</span></span>
 <span>  ddi <span class="op">=</span> <span class="st">"data/dhs/idhs_00015.xml"</span>,</span>
 <span>  data_file <span class="op">=</span> <span class="st">"data/dhs/idhs_00015.dat.gz"</span></span>
 <span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>This is simply a more explicit way of indicating that we want to use the <code><a href="http://tech.popdata.org/ipumsr/reference/read_ipums_micro.html">read_ipums_micro()</a></code> function <em>from</em> the ipumsr package. If you’ve already loaded the package with <code><a href="https://rdrr.io/r/base/library.html">library()</a></code>, you don’t need to use <code>::</code> notation every time you use a package function. (On the other hand, even if you haven’t loaded an entire package, you can always use <code>::</code> notation to access its functions.)</p>
+<p>This is simply a more explicit way of indicating that we want to use the <code><a href="https://tech.popdata.org/ipumsr/reference/read_ipums_micro.html">read_ipums_micro()</a></code> function <em>from</em> the ipumsr package. If you’ve already loaded the package with <code><a href="https://rdrr.io/r/base/library.html">library()</a></code>, you don’t need to use <code>::</code> notation every time you use a package function. (On the other hand, even if you haven’t loaded an entire package, you can always use <code>::</code> notation to access its functions.)</p>
 <p>Packages also come with help files detailing the purpose and possible inputs, or <em>arguments</em>, of each included function. To access help files, use <code>?</code>:</p>
 <div class="cell">
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="op">?</span><span class="va">read_ipums_micro</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -439,8 +439,8 @@ Installing vs.&nbsp;Loading
 <div class="no-row-height column-margin column-container"><div class="">
 <p></p>
 <div class="hex"> <a href="https://tech.popdata.org/ipumsr/" class="hex"> <img src="../../images/hex/ipumsr.png" class="hex-img"></a> <p class="hex-cap">© IPUMS (MPL-2.0)</p> </div>
-</div></div><p>For IPUMS DHS, the most relevant of these is <code><a href="http://tech.popdata.org/ipumsr/reference/read_ipums_micro.html">read_ipums_micro()</a></code>, which allows you to load a fixed-width data file along with associated metadata.</p>
-<p>ipumsr also contains functions to interact with variable metadata after loading, like <code><a href="http://tech.popdata.org/ipumsr/reference/ipums_var_info.html">ipums_var_info()</a></code>, <code><a href="http://tech.popdata.org/ipumsr/reference/ipums_var_info.html">ipums_val_labels()</a></code>, and so on.</p>
+</div></div><p>For IPUMS DHS, the most relevant of these is <code><a href="https://tech.popdata.org/ipumsr/reference/read_ipums_micro.html">read_ipums_micro()</a></code>, which allows you to load a fixed-width data file along with associated metadata.</p>
+<p>ipumsr also contains functions to interact with variable metadata after loading, like <code><a href="https://tech.popdata.org/ipumsr/reference/ipums_var_info.html">ipums_var_info()</a></code>, <code><a href="https://tech.popdata.org/ipumsr/reference/ipums_var_info.html">ipums_val_labels()</a></code>, and so on.</p>
 <p>As mentioned above, ipumsr also contains client tools for interacting with the IPUMS API. This allows users to request and download IPUMS data entirely within their R environment. While not available for IPUMS DHS, users of supported IPUMS collections can learn more from the API workflows introduced on the ipumsr <a href="https://tech.popdata.org/ipumsr/articles/ipums-api.html">website</a></p>
 </section><section id="tidyverse" class="level3 page-columns page-full"><h3 class="anchored" data-anchor-id="tidyverse">tidyverse</h3>
 <p>The <a href="https://tidyverse.tidyverse.org">tidyverse</a> package actually refers to a family of related packages. Installing tidyverse will actually install each of these component packages:</p>

@@ -41,6 +41,31 @@ theme_dhs_base <- function() {
   )
 }
 
+theme_dhs_map <- function(show_scale = TRUE, continuous = TRUE) {
+  if (show_scale) {
+    scale <- annotation_scale(
+      aes(style = "ticks", location = "br"), 
+      text_col = "#999999",
+      line_col = "#999999",
+      height = unit(0.2, "cm")
+    )
+  } else {
+    scale <- NULL
+  }
+  
+  if (continuous) {
+    guide <- guides(
+      fill = guide_colorbar(draw.llim = FALSE, draw.ulim = FALSE)
+    )
+  } else {
+    guide <- guides(
+      fill = guide_colorsteps(draw.llim = FALSE, draw.ulim = FALSE)
+    )
+  }
+  
+  list(scale, guide)
+}
+
 # renv does not appear to install proj along with sf.
 #
 # Adding either the global sf installation location (which includes a `proj`

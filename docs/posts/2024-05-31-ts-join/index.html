@@ -339,7 +339,7 @@ gtag('config', 'G-0WLH5S9VD5', { 'anonymize_ip': true});
 <!-- - `HWHAZWHO`: Height for age standard deviations from median (WHO)  --><!--      *TODO* Should this be removed?  --><p>Check out our <a href="../2024-02-02-download-dhs-data/">walkthrough</a> for downloading IPUMS DHS data if you need help producing a similar extract.</p>
 <p>We’ll load our data using <a href="https://tech.popdata.org/ipumsr/">ipumsr</a>:</p>
 <div class="cell">
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">ml_dhs</span> <span class="op">&lt;-</span> <span class="fu"><a href="http://tech.popdata.org/ipumsr/reference/read_ipums_micro.html">read_ipums_micro</a></span><span class="op">(</span><span class="st">"data/idhs_00021.xml"</span><span class="op">)</span></span>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">ml_dhs</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tech.popdata.org/ipumsr/reference/read_ipums_micro.html">read_ipums_micro</a></span><span class="op">(</span><span class="st">"data/idhs_00021.xml"</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Use of data from IPUMS DHS is subject to conditions including that users should cite the data appropriately. Use command `ipums_conditions()` for more details.</span></span>
 <span></span>
 <span><span class="va">ml_dhs</span></span>
@@ -367,7 +367,7 @@ gtag('config', 'G-0WLH5S9VD5', { 'anonymize_ip': true});
 </section><section id="dhs-boundaries" class="level2"><h2 class="anchored" data-anchor-id="dhs-boundaries">DHS boundaries</h2>
 <p>We’ll use the Mali borders that we prepared in our previous <a href="../2024-04-15-chirts-metrics/">CHIRTS post</a>. We describe the process there, but we’ve reproduced the code in the following collapsed block if you need to refresh your memory. As a reminder, you can obtain IPUMS integrated geography files from <a href="https://www.idhsdata.org/idhs/gis.shtml">this table</a>.</p>
 <div class="cell">
-<details class="code-fold"><summary>Border preparation</summary><div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">ml_borders</span> <span class="op">&lt;-</span> <span class="fu"><a href="http://tech.popdata.org/ipumsr/reference/read_ipums_sf.html">read_ipums_sf</a></span><span class="op">(</span><span class="st">"data/gps/geo_ml1995_2018.zip"</span><span class="op">)</span></span>
+<details class="code-fold"><summary>Border preparation</summary><div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">ml_borders</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tech.popdata.org/ipumsr/reference/read_ipums_sf.html">read_ipums_sf</a></span><span class="op">(</span><span class="st">"data/gps/geo_ml1995_2018.zip"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Validate internal borders</span></span>
 <span><span class="va">ml_borders_neat</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r-spatial.github.io/sf/reference/valid.html">st_make_valid</a></span><span class="op">(</span><span class="va">ml_borders</span><span class="op">)</span></span>
@@ -387,9 +387,9 @@ gtag('config', 'G-0WLH5S9VD5', { 'anonymize_ip': true});
 </div>
 </section><section id="dhs-enumeration-clusters" class="level2"><h2 class="anchored" data-anchor-id="dhs-enumeration-clusters">DHS enumeration clusters</h2>
 <p>We can download the enumeration cluster coordinates from the <a href="https://www.dhsprogram.com/">DHS Program</a>. We first described this process in our <a href="../2024-02-04-dhs-chirps/#dhs-cluster-coordinates">CHIRPS post</a>. Simply follow the same instructions, substituting Mali where we previously used Burkina Faso.</p>
-<p>You should obtain a file called <code>MLGE6BFL.zip</code>, which can be loaded with <code><a href="http://tech.popdata.org/ipumsr/reference/read_ipums_sf.html">read_ipums_sf()</a></code>:</p>
+<p>You should obtain a file called <code>MLGE6BFL.zip</code>, which can be loaded with <code><a href="https://tech.popdata.org/ipumsr/reference/read_ipums_sf.html">read_ipums_sf()</a></code>:</p>
 <div class="cell">
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">ml_clust</span> <span class="op">&lt;-</span> <span class="fu"><a href="http://tech.popdata.org/ipumsr/reference/read_ipums_sf.html">read_ipums_sf</a></span><span class="op">(</span><span class="st">"data/MLGE6BFL.zip"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">ml_clust</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tech.popdata.org/ipumsr/reference/read_ipums_sf.html">read_ipums_sf</a></span><span class="op">(</span><span class="st">"data/MLGE6BFL.zip"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>As we’ve done <a href="../2024-02-04-dhs-chirps/#cluster-buffers">in the past</a>, we’ll buffer our cluster coordinates so we capture the climate effects of the general region around each survey location</p>
 <div class="cell">
@@ -491,7 +491,7 @@ Caution
 <p>Fortunately, the description of the <code>KIDDOBCMC</code> variable describes the arithmetic required to convert. We’ve translated that text into the following function, which takes an input CMC and converts it to year-month format:</p>
 
 <div class="no-row-height column-margin column-container"><div class="">
-<p>You can view the description for any variable in your extract using the <code><a href="http://tech.popdata.org/ipumsr/reference/ipums_var_info.html">ipums_var_desc()</a></code> function from ipumsr.</p>
+<p>You can view the description for any variable in your extract using the <code><a href="https://tech.popdata.org/ipumsr/reference/ipums_var_info.html">ipums_var_desc()</a></code> function from ipumsr.</p>
 </div></div><div class="cell">
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">cmc_to_ym</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">cmc</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="va">year</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">floor</a></span><span class="op">(</span><span class="op">(</span><span class="va">cmc</span> <span class="op">-</span> <span class="fl">1</span><span class="op">)</span> <span class="op">/</span> <span class="fl">12</span><span class="op">)</span> <span class="op">+</span> <span class="fl">1900</span></span>
@@ -641,9 +641,9 @@ Caution
 <span><span class="va">ml_dhs</span> <span class="op">&lt;-</span> <span class="va">ml_dhs</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>KIDID <span class="op">=</span> <span class="fu">stringr</span><span class="fu">::</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_trim.html">str_squish</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span><span class="op">(</span><span class="va">IDHSPID</span>, <span class="va">BIDX</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>We’ll also want to make sure to recode several of our variables that include missing values. We can check the missing value codes for a variable using <code><a href="http://tech.popdata.org/ipumsr/reference/ipums_var_info.html">ipums_val_labels()</a></code>. For instance, for our key outcome variable, <code>BIRTHWT</code>, we see that all values over <code>9996</code> are missing in some way:</p>
+<p>We’ll also want to make sure to recode several of our variables that include missing values. We can check the missing value codes for a variable using <code><a href="https://tech.popdata.org/ipumsr/reference/ipums_var_info.html">ipums_val_labels()</a></code>. For instance, for our key outcome variable, <code>BIRTHWT</code>, we see that all values over <code>9996</code> are missing in some way:</p>
 <div class="cell">
-<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="http://tech.popdata.org/ipumsr/reference/ipums_var_info.html">ipums_val_labels</a></span><span class="op">(</span><span class="va">ml_dhs</span><span class="op">$</span><span class="va">BIRTHWT</span><span class="op">)</span></span>
+<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://tech.popdata.org/ipumsr/reference/ipums_var_info.html">ipums_val_labels</a></span><span class="op">(</span><span class="va">ml_dhs</span><span class="op">$</span><span class="va">BIRTHWT</span><span class="op">)</span></span>
 <span><span class="co">#&gt; # A tibble: 5 × 2</span></span>
 <span><span class="co">#&gt;     val lbl                  </span></span>
 <span><span class="co">#&gt;   &lt;int&gt; &lt;chr&gt;                </span></span>
@@ -653,9 +653,9 @@ Caution
 <span><span class="co">#&gt; 4  9998 Missing              </span></span>
 <span><span class="co">#&gt; 5  9999 NIU (not in universe)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Looking at these values, you may be surprised to see 4-digit weights. To investigate further, we can display detailed variable information with <code><a href="http://tech.popdata.org/ipumsr/reference/ipums_var_info.html">ipums_var_desc()</a></code>:</p>
+<p>Looking at these values, you may be surprised to see 4-digit weights. To investigate further, we can display detailed variable information with <code><a href="https://tech.popdata.org/ipumsr/reference/ipums_var_info.html">ipums_var_desc()</a></code>:</p>
 <div class="cell">
-<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="http://tech.popdata.org/ipumsr/reference/ipums_var_info.html">ipums_var_desc</a></span><span class="op">(</span><span class="va">ml_dhs</span><span class="op">$</span><span class="va">BIRTHWT</span><span class="op">)</span></span>
+<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://tech.popdata.org/ipumsr/reference/ipums_var_info.html">ipums_var_desc</a></span><span class="op">(</span><span class="va">ml_dhs</span><span class="op">$</span><span class="va">BIRTHWT</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] "For children born in the three to five years before the survey, BIRTHWT (M19) reports the child's birthweight in kilos with three implied decimal places (or, alternatively stated, in grams with no decimal places). Children who were not weighed are coded 9996."</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Note that the description mentions that there are 3 implied decimal places. So, we’ll recode <code>BIRTHWT</code> to be <code>NA</code> in the cases where the value is more than <code>9996</code>, and we’ll divide by 1000 otherwise. We’ll do a similar process with a few other variables as well:</p>

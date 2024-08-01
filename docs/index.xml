@@ -10,7 +10,29 @@
 <atom:link href="https://ipums.github.io/dhs-research-hub/index.xml" rel="self" type="application/rss+xml"/>
 <description>Understand population health in its environmental context</description>
 <generator>quarto-1.4.555</generator>
-<lastBuildDate>Tue, 02 Jul 2024 04:00:00 GMT</lastBuildDate>
+<lastBuildDate>Thu, 01 Aug 2024 04:00:00 GMT</lastBuildDate>
+<item>
+  <title>An Iterative Workflow for Loading NDVI Data in R</title>
+  <dc:creator>Finn Roberts</dc:creator>
+  <link>https://ipums.github.io/dhs-research-hub/posts/2024-08-01-ndvi-data/</link>
+  <description><![CDATA[ Use purrr and terra to efficiently integrate NDVI data across multiple spatial extents ]]></description>
+  <category>NDVI</category>
+  <category>Agriculture</category>
+  <category>Climate</category>
+  <category>Food production</category>
+  <category>Importing Data</category>
+  <category>R</category>
+  <category>Reproducible workflows</category>
+  <category>Time series</category>
+  <category>stringr</category>
+  <category>purrr</category>
+  <category>terra</category>
+  <category>ggspatial</category>
+  <category>sf</category>
+  <guid>https://ipums.github.io/dhs-research-hub/posts/2024-08-01-ndvi-data/</guid>
+  <pubDate>Thu, 01 Aug 2024 04:00:00 GMT</pubDate>
+  <media:content url="https://ipums.github.io/dhs-research-hub/posts/2024-08-01-ndvi-data/index_files/figure-html/listing-img-1.png" medium="image" type="image/png" height="115" width="144"/>
+</item>
 <item>
   <title>Introducing NDVI as a Tool for Population Health Research</title>
   <dc:creator>Jude Mikal</dc:creator>

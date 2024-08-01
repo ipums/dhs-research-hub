@@ -378,7 +378,7 @@ gtag('config', 'G-0WLH5S9VD5', { 'anonymize_ip': true});
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org">dplyr</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Load IPUMS DHS extract</span></span>
-<span><span class="va">dhs</span> <span class="op">&lt;-</span> <span class="fu"><a href="http://tech.popdata.org/ipumsr/reference/read_ipums_micro.html">read_ipums_micro</a></span><span class="op">(</span></span>
+<span><span class="va">dhs</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tech.popdata.org/ipumsr/reference/read_ipums_micro.html">read_ipums_micro</a></span><span class="op">(</span></span>
 <span>  ddi <span class="op">=</span> <span class="st">"data/dhs/idhs_00018.xml"</span>,</span>
 <span>  data_file <span class="op">=</span> <span class="st">"data/dhs/idhs_00018.dat.gz"</span>,</span>
 <span>  verbose <span class="op">=</span> <span class="cn">FALSE</span></span>
@@ -1135,7 +1135,7 @@ Handling cluster displacement
 <p>Now we can finally link the 10-year mean precipitation value to each sample participant’s outcomes. To demonstrate, we clean up the <code>HWHAZWHO</code> variable and visualize the relationship between 10-year average precipitation and childrens’ height-for-age in Z-scores:</p>
 
 <div class="no-row-height column-margin column-container"><div class="">
-<p>ipumsr includes helper functions to view the metadata for IPUMS variables. For instance, <code><a href="http://tech.popdata.org/ipumsr/reference/ipums_var_info.html">ipums_val_labels()</a></code> can show us the missing value codes for a given variable, which we can use when cleaning our data.</p>
+<p>ipumsr includes helper functions to view the metadata for IPUMS variables. For instance, <code><a href="https://tech.popdata.org/ipumsr/reference/ipums_var_info.html">ipums_val_labels()</a></code> can show us the missing value codes for a given variable, which we can use when cleaning our data.</p>
 </div></div><div class="cell page-columns page-full">
 <div class="sourceCode" id="cb37"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Clean up HWHAZWHO for plotting</span></span>
 <span><span class="va">dhs_chirps_recode</span> <span class="op">&lt;-</span> <span class="va">dhs_chirps</span> <span class="op">|&gt;</span> </span>
