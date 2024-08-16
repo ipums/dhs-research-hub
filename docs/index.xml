@@ -10,7 +10,27 @@
 <atom:link href="https://ipums.github.io/dhs-research-hub/index.xml" rel="self" type="application/rss+xml"/>
 <description>Understand population health in its environmental context</description>
 <generator>quarto-1.4.555</generator>
-<lastBuildDate>Thu, 01 Aug 2024 04:00:00 GMT</lastBuildDate>
+<lastBuildDate>Fri, 16 Aug 2024 04:00:00 GMT</lastBuildDate>
+<item>
+  <title>Aggregation Methods for NDVI Data</title>
+  <dc:creator>Finn Roberts</dc:creator>
+  <link>https://ipums.github.io/dhs-research-hub/posts/2024-08-16-ndvi-data-2/</link>
+  <description><![CDATA[ We use data from two climates to illustrate approaches to processing NDVI data ]]></description>
+  <category>NDVI</category>
+  <category>Seasonality</category>
+  <category>Climate normals</category>
+  <category>Agriculture</category>
+  <category>Climate</category>
+  <category>Food production</category>
+  <category>R</category>
+  <category>Time series</category>
+  <category>terra</category>
+  <category>ggspatial</category>
+  <category>sf</category>
+  <guid>https://ipums.github.io/dhs-research-hub/posts/2024-08-16-ndvi-data-2/</guid>
+  <pubDate>Fri, 16 Aug 2024 04:00:00 GMT</pubDate>
+  <media:content url="https://ipums.github.io/dhs-research-hub/posts/2024-08-16-ndvi-data-2/index_files/figure-html/listing-img-1.png" medium="image" type="image/png" height="115" width="144"/>
+</item>
 <item>
   <title>An Iterative Workflow for Loading NDVI Data in R</title>
   <dc:creator>Finn Roberts</dc:creator>
