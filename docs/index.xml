@@ -10,7 +10,39 @@
 <atom:link href="https://ipums.github.io/dhs-research-hub/index.xml" rel="self" type="application/rss+xml"/>
 <description>Understand population health in its environmental context</description>
 <generator>quarto-1.4.555</generator>
-<lastBuildDate>Fri, 16 Aug 2024 04:00:00 GMT</lastBuildDate>
+<lastBuildDate>Fri, 27 Sep 2024 04:00:00 GMT</lastBuildDate>
+<item>
+  <title>Using Leaflet for Exploratory Data Analysis: Part 2</title>
+  <dc:creator>Finn Roberts</dc:creator>
+  <link>https://ipums.github.io/dhs-research-hub/posts/2024-09-27-leaflet-pt2/</link>
+  <description><![CDATA[ Exploring customization options for leaflet maps ]]></description>
+  <category>Cartography</category>
+  <category>Population density</category>
+  <category>Longitudinal data</category>
+  <category>R</category>
+  <category>leaflet</category>
+  <category>terra</category>
+  <category>sf</category>
+  <guid>https://ipums.github.io/dhs-research-hub/posts/2024-09-27-leaflet-pt2/</guid>
+  <pubDate>Fri, 27 Sep 2024 04:00:00 GMT</pubDate>
+  <media:content url="https://ipums.github.io/dhs-research-hub/posts/2024-09-27-leaflet-pt2/images/listing-img.png" medium="image" type="image/png" height="111" width="144"/>
+</item>
+<item>
+  <title>Using Leaflet for Exploratory Data Analysis: Part 1</title>
+  <dc:creator>Finn Roberts</dc:creator>
+  <link>https://ipums.github.io/dhs-research-hub/posts/2024-09-13-leaflet-pt1/</link>
+  <description><![CDATA[ An introduction to interactive mapping using the leaflet package ]]></description>
+  <category>Cartography</category>
+  <category>Population density</category>
+  <category>Longitudinal data</category>
+  <category>R</category>
+  <category>leaflet</category>
+  <category>terra</category>
+  <category>sf</category>
+  <guid>https://ipums.github.io/dhs-research-hub/posts/2024-09-13-leaflet-pt1/</guid>
+  <pubDate>Fri, 13 Sep 2024 04:00:00 GMT</pubDate>
+  <media:content url="https://ipums.github.io/dhs-research-hub/posts/2024-09-13-leaflet-pt1/images/listing-img.png" medium="image" type="image/png" height="87" width="144"/>
+</item>
 <item>
   <title>Aggregation Methods for NDVI Data</title>
   <dc:creator>Finn Roberts</dc:creator>
@@ -29,7 +61,7 @@
   <category>sf</category>
   <guid>https://ipums.github.io/dhs-research-hub/posts/2024-08-16-ndvi-data-2/</guid>
   <pubDate>Fri, 16 Aug 2024 04:00:00 GMT</pubDate>
-  <media:content url="https://ipums.github.io/dhs-research-hub/posts/2024-08-16-ndvi-data-2/index_files/figure-html/listing-img-1.png" medium="image" type="image/png" height="115" width="144"/>
+  <media:content url="https://ipums.github.io/dhs-research-hub/posts/2024-08-16-ndvi-data-2/index_files/figure-html/listing-img-1.png" medium="image" type="image/png"/>
 </item>
 <item>
   <title>An Iterative Workflow for Loading NDVI Data in R</title>
@@ -101,7 +133,7 @@
   <category>R</category>
   <guid>https://ipums.github.io/dhs-research-hub/posts/2024-05-31-ts-join/</guid>
   <pubDate>Fri, 31 May 2024 04:00:00 GMT</pubDate>
-  <media:content url="https://ipums.github.io/dhs-research-hub/posts/2024-05-31-ts-join/index_files/figure-html/listing-img-1.png" medium="image" type="image/png" height="115" width="144"/>
+  <media:content url="https://ipums.github.io/dhs-research-hub/posts/2024-05-31-ts-join/index_files/figure-html/listing-img-1.png" medium="image" type="image/png"/>
 </item>
 <item>
   <title>Flexible Workflows with CHIRTS Temperature Data</title>
@@ -170,7 +202,7 @@
   <category>R</category>
   <guid>https://ipums.github.io/dhs-research-hub/posts/2024-02-04-dhs-chirps/</guid>
   <pubDate>Sun, 04 Feb 2024 05:00:00 GMT</pubDate>
-  <media:content url="https://ipums.github.io/dhs-research-hub/posts/2024-02-04-dhs-chirps/index_files/figure-html/listing-img-1.png" medium="image" type="image/png" height="115" width="144"/>
+  <media:content url="https://ipums.github.io/dhs-research-hub/posts/2024-02-04-dhs-chirps/index_files/figure-html/listing-img-1.png" medium="image" type="image/png"/>
 </item>
 <item>
   <title>Developing Robust Conceptual Models in Climate Change and Health Research</title>

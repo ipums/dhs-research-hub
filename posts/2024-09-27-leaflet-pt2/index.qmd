@@ -1,0 +1,448 @@
+---
+title: "Using Leaflet for Exploratory Data Analysis: Part 2"
+description: "Exploring customization options for leaflet maps"
+author: 
+  - name: "Finn Roberts"
+    affiliation: "IPUMS Senior Data Analyst"
+date: 09-27-2024
+categories:
+  - Cartography
+  - Population density
+  - Longitudinal data
+  - R
+  - leaflet
+  - terra
+  - sf
+fig-width: 10
+fig-height: 12
+image: images/listing-img.png
+open-graph:
+  title: |
+    IPUMS DHS Research Hub — Using Leaflet for Exploratory Data Analysis: Part 2
+  description: |
+    Exploring customization options for leaflet maps
+  image: images/listing-img.png
+twitter-card:
+  title: |
+    IPUMS DHS Research Hub — Using Leaflet for Exploratory Data Analysis: Part 2
+  description: |
+    Exploring customization options for leaflet maps
+  image: images/listing-img.png
+---
+
+```{r}
+#| echo: false
+ghs_smod <- terra::rast("data/ghs_smod.tif")
+
+basemap <- leaflet::leaflet() |> 
+  leaflet::addProviderTiles("CartoDB.DarkMatterNoLabels") |> 
+  leaflet::setView(lng = 40.81, lat = 8.23, zoom = 6)
+```
+
+In our [previous post](../2024-09-13-leaflet-pt1/), we introduced the
+`{leaflet}` package along with the GHS-SMOD data source for measuring
+population density. When we left off, we had loaded the GHS data and
+prepared it for mapping with leaflet.
+
+This post will use the prepared data (`ghs_smod`) and
+the basemap we built in the last post to explore the functionality of
+leaflet in more depth.
+
+Needless to say, if you haven't yet taken a look at our [previous
+post](../2024-09-13-leaflet-pt1/), you'll want to check that out before
+continuing with this one!
+
+```{r}
+#| message: false
+# Load relevant libraries
+library(leaflet)
+library(terra)
+library(dplyr)
+library(sf)
+```
+
+# Building out our leaflet map
+
+Last time, we showed how to plot raster data on a leaflet map, but we
+used the default color scheme, which was a little garish.
+
+Fortunately, Leaflet has built-in functions to help you generate your
+own color palettes for your maps.
+
+## Color palettes
+
+Leaflet's palette functions depend on the type of data your raster
+contains. Because our data are categorical, we'll use `colorFactor()`.
+
+::: column-margin
+For numeric data, you might instead consider `colorNumeric()` or
+`colorBin()`. See the leaflet documentation for the available options.
+:::
+
+To build a palette (which we call `ghs_pal`), we provide the set of
+colors that we want to use along with the domain of values that should
+be matched to each of these colors. This produces a palette *function*
+that takes a raster value as input and produces a corresponding color as
+output.
+
+In our case, we'll use an 8-color Inferno palette from the
+`{colorspace}` package. We then match each of these colors to one of the
+unique values in our raster:
+
+```{r}
+# Get color codes for the Inferno palette from colorspace
+colors <- colorspace::sequential_hcl(palette = "inferno", n = 8)
+
+# Map these colors to each unique raster value
+ghs_pal <- colorFactor(
+  colors,
+  c(10, 11, 12, 13, 21, 22, 23, 30),
+  na.color = "transparent" # Make missing values transparent
+)
+```
+
+Now, we just provide our palette to the `colors` argument of our raster
+image layer:
+
+```{r}
+#| column: page
+basemap |> 
+  addRasterImage(ghs_smod[[1]], colors = ghs_pal)
+```
+
+<br>
+
+This is starting to look more consistent with the style of our basemap,
+but we'll make one more tweak: we can convert water and very-low density
+areas to `NA` to make them transparent. This will make the geographic context
+provided by our basemap more apparent  and will help the data blend into
+the overall map.
+
+::: column-margin
+Note that this conversion is primarily for visualization purposes. For
+an analysis, we may not want to convert these values to `NA`!
+:::
+
+We can use terra's `subst()` to *substitute* these categories with missing
+values:
+
+```{r}
+ghs_smod[[1]] <- subst(ghs_smod[[1]], c("Water", "Very low"), NA)
+ghs_smod[[2]] <- subst(ghs_smod[[2]], c("Water", "Very low"), NA)
+```
+
+Finally, let's mask out the raster data outside of the Ethiopia borders
+to focus on the data we're most interested in. We've downloaded 2016 Ethiopia
+boundary files from the DHS Program's [Spatial Data
+Repository](https://spatialdata.dhsprogram.com/boundaries/#view=table&countryId=ET)
+and stored them in our `data` directory.
+
+First, we'll load our data with `{sf}`:
+
+```{r}
+et_border <- st_read(
+  "data/sdr_subnational_boundaries_2024-08-26/shps/sdr_subnational_boundaries.shp",
+  quiet = TRUE
+) 
+```
+
+Then, we'll dissolve away the internal boundaries to get a single
+country-level border and project to Web Mercator for consistency with
+our raster data.
+
+```{r}
+# Dissolve internal boundaries to get external border only
+et_border <- st_union(et_border)
+
+# Transform to Web Mercator for consistency with basemap and raster
+et_border <- st_transform(et_border, "epsg:3857")
+```
+
+Now, we can mask out the raster values outside the country border with
+terra's `mask()`:
+
+```{r}
+#| column: page
+#| warning: false
+# Mask out raster values outside of border
+ghs_smod <- mask(ghs_smod, vect(et_border))
+
+basemap |> 
+  addRasterImage(ghs_smod[[1]], colors = ghs_pal)
+```
+
+## Legends
+
+Our map looks nice, but it's hard to interpret without a legend. We can add
+one with `addLegend()`.
+
+To produce a legend, we again need to use our color palette to indicate
+the colors and labels we want to include in the legend. Since we've
+excluded water and very-low density areas from the map, we don't want
+these to show in the legend. We'll use our palette (`ghs_pal`) to
+generate the colors for the *other* density categories. 
+(Recall that `ghs_pal` is a *function* that takes raster values in its
+domain and outputs the corresponding colors that we set earlier.)
+
+Then, we'll manually input the desired labels that should
+correspond to these colors.
+
+```{r}
+legend_colors <- ghs_pal(c(12, 13, 21, 22, 23, 30))
+legend_labels <- c("Low", "Rural", "Suburban", "Semi-dense urban", "Dense urban", "Urban center")
+```
+
+Now, we provide this info to `addLegend()`:
+
+```{r}
+#| column: page
+#| warning: false
+basemap |> 
+  addRasterImage(ghs_smod[[1]], colors = ghs_pal) |> 
+  addLegend(
+    title = "GHS-SMOD Population Density",
+    position = "bottomright",
+    colors = legend_colors,
+    labels = legend_labels
+  )
+```
+
+## Controlling layer visibility
+
+So far, our map might as well be a static map. However, the utility of
+the interactive features of our map will be more apparent once we add
+more data to our map.
+
+If we want to compare 2010 and 2020 data on the same map, for instance, we'll
+need to add a toggle that allows us to selectively show and hide particular
+layers. To accomplish this, we'll add **layer
+group names** to each of our map's raster layers. We can then reference these
+names when we indicate which layers we want to be able to toggle on and off.
+
+To add a layer toggle, we can use `addLayersControl()` along with the group
+names we've defined for each of our layers:
+
+```{r}
+#| column: page
+#| warning: false
+et_ghs_pop_map <- basemap |> 
+  addRasterImage(
+    ghs_smod[[1]], 
+    colors = ghs_pal,
+    group = "GHS-SMOD 2010" # Group name to reference 2010 layer
+  ) |> 
+  addRasterImage(
+    ghs_smod[[2]], 
+    colors = ghs_pal,
+    group = "GHS-SMOD 2020" # Group name to reference 2020 layer
+  ) |> 
+  addLayersControl(
+    baseGroups = c("GHS-SMOD 2010", "GHS-SMOD 2020"), # Specify group names here to add layer control toggle
+    options = layersControlOptions(collapsed = FALSE) # We don't want the toggle menu to be collapsed by default
+  ) |> 
+  addLegend(
+    title = "GHSL Population Density",
+    position = "bottomright",
+    colors = legend_colors,
+    labels = legend_labels
+  )
+
+et_ghs_pop_map
+```
+
+<br>
+
+Now we can turn layers on and off to easily see the difference across
+the two epochs! Try it yourself by checking the two buttons in the top
+right of the map pane. You can also zoom in to see how specific areas
+have changed.
+
+# Exploring DHS data interactively
+
+## DHS cluster data
+
+We can also plot other types of data on the same map. Let's load the
+2016 DHS clusters for Ethiopia, which we've saved in our `data`
+directory.
+
+::: column-margin
+If you don't remember, we've demonstrated where you can find cluster GPS
+coordinates from the DHS Program
+[previously](../2024-02-04-dhs-chirps/#dhs-cluster-coordinates).
+:::
+
+```{r}
+# Load 2016 Ethiopia cluster locations
+et_clust <- ipumsr::read_ipums_sf("data/ETGE71FL.zip")
+
+# Remove missing GPS coordinates
+et_clust <- et_clust |> 
+  filter(!(LATNUM == 0 & LONGNUM == 0))
+```
+
+## Comparing DHS and GHS
+
+DHS surveys typically provide an indication of whether a given cluster
+is considered to be urban or rural. However, this definition varies
+across surveys, so it may be beneficial to identify external datasets
+(like GHS-SMOD) that can serve as a consistent proxy for urbanness when
+doing a comparative analysis.
+
+We can see how well the 2016 Ethiopia definition of urbanness compares
+to the population density estimates from GHS-SMOD by plotting the cluster
+locations on top of our population density raster.
+
+All we need to do is to add a new data layer to the map we created above. Since
+the DHS cluster data represent point locations, not raster data, we'll need a
+different layer function. In this case, we'll use `addCircleMarkers()`. 
+
+We just need to provide our `et_clust` data to get markers at their 
+GPS locations. We'll also adjust some of the size, color, and transparency
+specifications to make the map more legible:
+
+```{r}
+#| column: page
+et_ghs_pop_map |> 
+  addCircleMarkers(
+    data = et_clust,
+    fillColor = "black",
+    opacity = 1,
+    fillOpacity = 0.5,
+    radius = 7,
+    weight = 2
+  )
+```
+
+<br>
+
+This shows us the cluster locations, but doesn't show us which clusters
+are defined as urban and which are defined as rural. To accomplish this, we 
+need another color palette.
+
+We'll use `colorFactor()` again to define a mapping between the `"U"`
+and `"R"` values used in the `et_clust` data to indicate urban and rural
+status:
+
+```{r}
+clust_pal <- colorFactor(
+  palette = c("#ffa076", "#54cabe"),
+  levels = c("U", "R")
+)
+```
+
+Now when we provide our data to `addCircleMarkers()`, we can indicate that 
+we want to color by a particular variable in our data—in this case, `URBAN_RURA`.
+We need to pass the values of the variable to our color palette to generate
+a color for each cluster coordinate. In this case, leaflet uses `~` notation 
+to indicate that we're providing a **variable name** from our **data** to the
+color argument (as opposed to a single color name, like `"white"`).
+
+```{r}
+et_ghs_pop_clust_map <- et_ghs_pop_map |> 
+  addCircleMarkers(
+    data = et_clust,
+    fillColor = "black",
+    color = ~ clust_pal(URBAN_RURA), # Adjust color based on values of URBAN_RURA variable
+    opacity = 1,
+    fillOpacity = 0.5,
+    radius = 7,
+    weight = 2
+  )
+```
+
+Of course, we also want to add another legend to communicate what these
+new colors mean:
+
+```{r}
+#| column: page
+et_ghs_pop_clust_map |> 
+  addLegend(
+    title = "DHS Cluster Status",
+    position = "bottomleft",
+    colors = clust_pal(c("U", "R")),
+    values = c("U", "R"),
+    labels = c("Urban", "Rural")
+  )
+```
+
+<br>
+
+Examining the map, we can see that most cluster locations seem to align with the
+population density estimates from GHS-SMOD.
+
+If you look around the map, you might notice some clusters unexpectedly
+labeled as urban or rural, but remember that the GPS point locations
+have been **displaced** from their true positions, so a direct overlay
+on the map may be misleading.
+
+Still, building interactive maps during data exploration can make it
+much easier to check that two data sources are consistent with one
+another, identify unexpected cases worth exploring further, or even
+generate new ideas about how certain variables may be related.
+
+## Popups
+
+If you do identify clusters that seem to have unexpected urban/rural
+classifications, you may want to investigate the data values for that cluster
+more closely. However, it's impossible to identify a specific cluster ID
+simply by looking at the map.
+
+One solution is to add a **popup**, which will produce a text bubble when
+a spatial feature is clicked. We'll use the `popup` argument with the `DHSID`
+variable name to indicate that we want our popups to contain the information
+contained in the `DHSID` variable of our `et_clust` data. Again, we use the `~`
+notation to indicate that `DHSID` is the name of a variable in our data, not a 
+standalone value:
+
+```{r}
+#| column: page
+et_ghs_pop_map |> 
+  addCircleMarkers(
+    data = et_clust,
+    fillColor = "black",
+    color = ~ clust_pal(URBAN_RURA),
+    opacity = 1,
+    fillOpacity = 0.5,
+    radius = 7,
+    weight = 2,
+    popup = ~ DHSID # Add popup that shows the DHSID value for each point
+  ) |> 
+  addLegend(
+    title = "DHS Cluster Status",
+    position = "bottomleft",
+    colors = clust_pal(c("U", "R")),
+    values = c("U", "R"),
+    labels = c("Urban", "Rural")
+  )
+```
+
+<br>
+
+Now, when we click on a cluster point, we can see what the cluster ID
+is, allowing us to easily go back to our `et_clust` data and double check
+that cluster's values. Give it a try by clicking on some of the points in
+the map above!
+
+# Final thoughts
+
+At this point, we've shown the core components of leaflet maps: basemaps,
+data layers, color palettes, and basic interactivity. Many more options exist,
+so feel free to explore the [leaflet documentation](https://rstudio.github.io/leaflet/)
+to learn more about what's
+available!
+
+Interactive maps can be fun to play with, but it's always worth
+considering whether they're truly necessary for your needs.
+Interactivity is often effective for making comparisons or enabling data
+exploration, but it can also be a distraction. If your main goal is
+**communication** rather than **exploration**, you may want to consider
+whether a static map would do a better job.
+
+Still, interactivity can be a powerful way to familiarize yourself with
+new spatial data sources and kickstart your analysis.
+
+## Getting Help {.appendix}
+
+Questions or comments? Check out the [IPUMS User
+Forum](https://forum.ipums.org) or reach out to IPUMS User Support at
+ipums\@umn.edu.
