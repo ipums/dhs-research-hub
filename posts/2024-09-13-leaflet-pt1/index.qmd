@@ -88,9 +88,9 @@ There are several approaches to measuring population density across the
 Earth's surface. Many of them incorporate inputs both from **satellite
 measurements** (e.g. of land surface type) as well as **survey data**
 (e.g. from local censuses) to estimate the density of people in a given
-area. We summarized several of the main population distribution data sources
-in our [previous post](../2024-08-30-pop-density/), so take a look there for an
-overview.
+area. We summarized several of the main population distribution data
+sources in our [previous post](../2024-08-30-pop-density/), so take a
+look there for an overview.
 
 It's important to note that like many remotely-sensed data sources,
 these metrics represent **estimates** of population density in a given
@@ -114,8 +114,8 @@ which estimates the presence of built-up surfaces, and
 which estimates population distribution.
 
 You can find more detailed information about the methodologies used to
-produce the GHSL in our [previous post](../2024-08-30-pop-density/) and on
-the GHSL website.
+produce the GHSL in our [previous post](../2024-08-30-pop-density/) and
+on the GHSL website.
 
 ## Obtaining GHS-SMOD data
 
@@ -142,12 +142,12 @@ the following IDs:
 -   R9_C23
 
 You can see the tile IDs in the bottom left corner of the tile map as
-you hover over individual tiles on the world map (see the red oval in the image
-above).
+you hover over individual tiles on the world map (see the red oval in
+the image above).
 
 We'll download data for 2010 and 2020. You can do so by selecting these
-years in the *Epoch* selection grid on the left side of the screen (see the
-red square in the image above) and clicking on the same tiles again.
+years in the *Epoch* selection grid on the left side of the screen (see
+the red square in the image above) and clicking on the same tiles again.
 
 Clicking the tiles will download a .zip archive containing the GHS-SMOD
 data for the selected tile and epoch. We've extracted the files within
@@ -307,9 +307,10 @@ Then, we can assign these levels to our raster layers with the
 `levels()` function:
 
 ::: column-margin
-Each layer (i.e. epoch) needs to be assigned levels individually. For raster
-stacks containing more epochs, you may want to do this iteratively. Since we
-are only using two epochs, we'll simply assign levels manually for each layer.
+Each layer (i.e. epoch) needs to be assigned levels individually. For
+raster stacks containing more epochs, you may want to do this
+iteratively. Since we are only using two epochs, we'll simply assign
+levels manually for each layer.
 :::
 
 ```{r}
@@ -349,15 +350,15 @@ map.
 
 To make a new Leaflet map, first use the `leaflet()` function. On its
 own, this doesn't add anything to our map, but we can add a basemap with
-the `addProviderTiles()` function. We're going to use the Dark Matter 
+the `addProviderTiles()` function. We're going to use the Dark Matter
 basemap tiles from [CartoDB](https://carto.com/).
 
 ::: column-margin
 To see all the available basemap providers, use `leaflet::providers`.
 :::
 
-The `setView()` function allows us to specify the centerpoint and initial
-zoom level of the map:
+The `setView()` function allows us to specify the centerpoint and
+initial zoom level of the map:
 
 ```{r}
 #| column: page
@@ -379,9 +380,9 @@ map of light sources themselves, though!
 
 As you can see, we already have an interactive map of the world! We'll
 go ahead and save this basemap in an R variable so we don't have to
-rewrite this code. We'll also update our view parameters to set the default map
-view to be centered on Ethiopia, since this will be our area of
-interest:
+rewrite this code. We'll also update our view parameters to set the
+default map view to be centered on Ethiopia, since this will be our area
+of interest:
 
 ```{r}
 basemap <- leaflet() |> 
@@ -433,14 +434,14 @@ mapping applications therefore use Web Mercator by default.
 Accordingly, leaflet will *automatically project* our data to Web
 Mercator. So, even though our GHS data is in a
 [Mollweide](https://desktop.arcgis.com/en/arcmap/latest/map/projections/mollweide.htm)
-projection, leaflet *displays* the raster in Web Mercator. This is why the
-raster boundaries appear distorted from what we may have expected based
-on the GHSL website.
+projection, leaflet *displays* the raster in Web Mercator. This is why
+the raster boundaries appear distorted from what we may have expected
+based on the GHSL website.
 
 If we turn off this default behavior, we'll notice the discrepancy in
-our data and basemap (which is also in Web Mercator). See how the coastlines
-in the Red Sea appear offset between the raster and the basemap if we
-*don't* project our data:
+our data and basemap (which is also in Web Mercator). See how the
+coastlines in the Red Sea appear offset between the raster and the
+basemap if we *don't* project our data:
 
 ```{r}
 #| column: page
@@ -482,13 +483,12 @@ Categorical raster present an additional challenge when projecting
 because each cell must belong to a single category.
 
 Fortunately, because we've made sure that our `ghs_smod` raster is
-represented as a **categorical** raster,
-`project()` will automatically use a raster resampling method that
-preserves this property.
+represented as a **categorical** raster, `project()` will automatically
+use a raster resampling method that preserves this property.
 
 However, if the input raster were still in **numeric** format,
-resampling would likely produce some intermediate cell values that would no
-longer belong to one of the density categories provided by the GHS!
+resampling would likely produce some intermediate cell values that would
+no longer belong to one of the density categories provided by the GHS!
 :::
 
 ## Up next
