@@ -10,7 +10,25 @@
 <atom:link href="https://ipums.github.io/dhs-research-hub/index.xml" rel="self" type="application/rss+xml"/>
 <description>Understand population health in its environmental context</description>
 <generator>quarto-1.4.555</generator>
-<lastBuildDate>Fri, 16 Aug 2024 04:00:00 GMT</lastBuildDate>
+<lastBuildDate>Fri, 30 Aug 2024 04:00:00 GMT</lastBuildDate>
+<item>
+  <title>Measuring Population Density</title>
+  <dc:creator>Grace Cooper</dc:creator>
+  <link>https://ipums.github.io/dhs-research-hub/posts/2024-08-30-pop-density/</link>
+  <description><![CDATA[ An introduction to gridded data sources used to measure human presence across the globe ]]></description>
+  <category>Population</category>
+  <category>Population density</category>
+  <category>Urbanization</category>
+  <category>Data sources</category>
+  <category>GRUMP</category>
+  <category>GHSL</category>
+  <category>LandScan</category>
+  <category>WorldPop</category>
+  <category>Research concepts</category>
+  <guid>https://ipums.github.io/dhs-research-hub/posts/2024-08-30-pop-density/</guid>
+  <pubDate>Fri, 30 Aug 2024 04:00:00 GMT</pubDate>
+  <media:content url="https://ipums.github.io/dhs-research-hub/posts/2024-08-30-pop-density/images/listing-img.png" medium="image" type="image/png" height="140" width="144"/>
+</item>
 <item>
   <title>Aggregation Methods for NDVI Data</title>
   <dc:creator>Finn Roberts</dc:creator>
@@ -29,7 +47,7 @@
   <category>sf</category>
   <guid>https://ipums.github.io/dhs-research-hub/posts/2024-08-16-ndvi-data-2/</guid>
   <pubDate>Fri, 16 Aug 2024 04:00:00 GMT</pubDate>
-  <media:content url="https://ipums.github.io/dhs-research-hub/posts/2024-08-16-ndvi-data-2/index_files/figure-html/listing-img-1.png" medium="image" type="image/png" height="115" width="144"/>
+  <media:content url="https://ipums.github.io/dhs-research-hub/posts/2024-08-16-ndvi-data-2/index_files/figure-html/listing-img-1.png" medium="image" type="image/png"/>
 </item>
 <item>
   <title>An Iterative Workflow for Loading NDVI Data in R</title>
@@ -101,7 +119,7 @@
   <category>R</category>
   <guid>https://ipums.github.io/dhs-research-hub/posts/2024-05-31-ts-join/</guid>
   <pubDate>Fri, 31 May 2024 04:00:00 GMT</pubDate>
-  <media:content url="https://ipums.github.io/dhs-research-hub/posts/2024-05-31-ts-join/index_files/figure-html/listing-img-1.png" medium="image" type="image/png" height="115" width="144"/>
+  <media:content url="https://ipums.github.io/dhs-research-hub/posts/2024-05-31-ts-join/index_files/figure-html/listing-img-1.png" medium="image" type="image/png"/>
 </item>
 <item>
   <title>Flexible Workflows with CHIRTS Temperature Data</title>
@@ -170,7 +188,7 @@
   <category>R</category>
   <guid>https://ipums.github.io/dhs-research-hub/posts/2024-02-04-dhs-chirps/</guid>
   <pubDate>Sun, 04 Feb 2024 05:00:00 GMT</pubDate>
-  <media:content url="https://ipums.github.io/dhs-research-hub/posts/2024-02-04-dhs-chirps/index_files/figure-html/listing-img-1.png" medium="image" type="image/png" height="115" width="144"/>
+  <media:content url="https://ipums.github.io/dhs-research-hub/posts/2024-02-04-dhs-chirps/index_files/figure-html/listing-img-1.png" medium="image" type="image/png"/>
 </item>
 <item>
   <title>Developing Robust Conceptual Models in Climate Change and Health Research</title>
