@@ -10,7 +10,25 @@
 <atom:link href="https://ipums.github.io/dhs-research-hub/index.xml" rel="self" type="application/rss+xml"/>
 <description>Understand population health in its environmental context</description>
 <generator>quarto-1.4.555</generator>
-<lastBuildDate>Fri, 13 Sep 2024 04:00:00 GMT</lastBuildDate>
+<lastBuildDate>Mon, 30 Sep 2024 04:00:00 GMT</lastBuildDate>
+<item>
+  <title>Using Leaflet for Exploratory Data Analysis: Part 2</title>
+  <dc:creator>Finn Roberts</dc:creator>
+  <link>https://ipums.github.io/dhs-research-hub/posts/2024-09-30-leaflet-pt2/</link>
+  <description><![CDATA[ Exploring customization options for leaflet maps ]]></description>
+  <category>Cartography</category>
+  <category>Population density</category>
+  <category>Urbanization</category>
+  <category>Interactivity</category>
+  <category>Longitudinal data</category>
+  <category>R</category>
+  <category>leaflet</category>
+  <category>terra</category>
+  <category>sf</category>
+  <guid>https://ipums.github.io/dhs-research-hub/posts/2024-09-30-leaflet-pt2/</guid>
+  <pubDate>Mon, 30 Sep 2024 04:00:00 GMT</pubDate>
+  <media:content url="https://ipums.github.io/dhs-research-hub/posts/2024-09-30-leaflet-pt2/images/listing-img.png" medium="image" type="image/png" height="111" width="144"/>
+</item>
 <item>
   <title>Using Leaflet for Exploratory Data Analysis: Part 1</title>
   <dc:creator>Finn Roberts</dc:creator>
