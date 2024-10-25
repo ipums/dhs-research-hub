@@ -9,8 +9,22 @@
 <link>https://ipums.github.io/dhs-research-hub/</link>
 <atom:link href="https://ipums.github.io/dhs-research-hub/index.xml" rel="self" type="application/rss+xml"/>
 <description>Understand population health in its environmental context</description>
-<generator>quarto-1.4.555</generator>
-<lastBuildDate>Mon, 30 Sep 2024 04:00:00 GMT</lastBuildDate>
+<generator>quarto-1.5.57</generator>
+<lastBuildDate>Fri, 25 Oct 2024 04:00:00 GMT</lastBuildDate>
+<item>
+  <title>Using QGIS for Spatial Data Analysis</title>
+  <dc:creator>Ankit Sikarwar</dc:creator>
+  <link>https://ipums.github.io/dhs-research-hub/posts/2024-10-25-qgis/</link>
+  <description><![CDATA[ Standalone GIS software can provide an interactive alternative to code-based analysis workflows ]]></description>
+  <category>GIS</category>
+  <category>QGIS</category>
+  <category>Open-source software</category>
+  <category>CHIRTS</category>
+  <category>Geoprocessing</category>
+  <guid>https://ipums.github.io/dhs-research-hub/posts/2024-10-25-qgis/</guid>
+  <pubDate>Fri, 25 Oct 2024 04:00:00 GMT</pubDate>
+  <media:content url="https://ipums.github.io/dhs-research-hub/posts/2024-10-25-qgis/images/Fig4.png" medium="image" type="image/png" height="76" width="144"/>
+</item>
 <item>
   <title>Using Leaflet for Exploratory Data Analysis: Part 2</title>
   <dc:creator>Finn Roberts</dc:creator>

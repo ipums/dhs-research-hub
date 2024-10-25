@@ -1,0 +1,1083 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.5.57">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Ankit Sikarwar">
+<meta name="dcterms.date" content="2024-10-25">
+<meta name="description" content="Standalone GIS software can provide an interactive alternative to code-based analysis workflows">
+
+<title>Using QGIS for Spatial Data Analysis – IPUMS DHS Climate Change and Health Research Hub</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<link href="../../images/favicon/favicon-32x32.ico" rel="icon">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/quarto-contrib/fontawesome6-0.1.0/all.css" rel="stylesheet">
+<link href="../../site_libs/quarto-contrib/fontawesome6-0.1.0/latex-fontsize.css" rel="stylesheet">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-0WLH5S9VD5"></script>
+
+<script type="text/javascript">
+
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-0WLH5S9VD5', { 'anonymize_ip': true});
+</script>
+
+
+<meta property="og:title" content="Using QGIS for Spatial Data Analysis">
+<meta property="og:description" content="Standalone GIS software can provide an interactive alternative to code-based analysis workflows">
+<meta property="og:image" content="https://ipums.github.io/dhs-research-hub/posts/2024-10-25-qgis/images/Fig4.png">
+<meta property="og:site_name" content="IPUMS DHS Climate Change and Health Research Hub">
+<meta property="og:image:height" content="1013">
+<meta property="og:image:width" content="1920">
+<meta name="twitter:title" content="Using QGIS for Spatial Data Analysis">
+<meta name="twitter:description" content="Standalone GIS software can provide an interactive alternative to code-based analysis workflows">
+<meta name="twitter:image" content="https://ipums.github.io/dhs-research-hub/posts/2024-10-25-qgis/images/Fig4.png">
+<meta name="twitter:image-height" content="1013">
+<meta name="twitter:image-width" content="1920">
+<meta name="twitter:card" content="summary_large_image">
+</head>
+
+<body class="floating nav-fixed slimcontent">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top quarto-banner">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a href="https://www.idhsdata.org/idhs/" class="navbar-brand navbar-brand-logo">
+    <img src="../../images/dhs_logo_white.png" alt="" class="navbar-logo">
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../index.html"> 
+<span class="menu-text">Climate Change and Health Research Hub</span></a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../index.html"> 
+<span class="menu-text">Posts</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-getting-started" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Getting Started</span>
+    </a>
+    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="nav-menu-getting-started">    
+        <li>
+    <a class="dropdown-item" href="../../posts/2024-02-01-getting-started-with-r/index.html">
+ <span class="dropdown-text">An Introduction to R</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../posts/2024-02-02-download-dhs-data/index.html">
+ <span class="dropdown-text">Obtaining IPUMS DHS Data</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-community" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Community</span>
+    </a>
+    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="nav-menu-community">    
+        <li>
+    <a class="dropdown-item" href="https://forum.ipums.org">
+ <span class="dropdown-text">IPUMS Forum</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../CODE_OF_CONDUCT.html">
+ <span class="dropdown-text">Code of Conduct</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../LICENSE.html">
+ <span class="dropdown-text">License</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="../../about.html"> 
+<span class="menu-text">About</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="https://github.com/ipums/dhs-research-hub"> 
+<span class="menu-text"><i class="fa-brands fa-github" aria-label="github"></i></span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../index.xml"> 
+<span class="menu-text"><i class="fa-solid fa-rss" aria-label="rss"></i></span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="https://twitter.com/ipumsGH"> 
+<span class="menu-text"><i class="fa-brands fa-x-twitter" aria-label="x-twitter"></i></span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="https://forum.ipums.org"> 
+<span class="menu-text"><i class="fa-solid fa-users" aria-label="users"></i></span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="https://www.ipums.org/"> 
+<span class="menu-text"><i class="fa-solid fa-globe" aria-label="globe"></i></span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<header id="title-block-header" class="quarto-title-block default toc-left page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body">
+      <h1 class="title">Using QGIS for Spatial Data Analysis</h1>
+                  <div>
+        <div class="description">
+          <p>Standalone GIS software can provide an interactive alternative to code-based analysis workflows</p>
+        </div>
+      </div>
+                          <div class="quarto-categories">
+                <div class="quarto-category">GIS</div>
+                <div class="quarto-category">QGIS</div>
+                <div class="quarto-category">Open-source software</div>
+                <div class="quarto-category">CHIRTS</div>
+                <div class="quarto-category">Geoprocessing</div>
+              </div>
+                  </div>
+  </div>
+    
+  <div class="quarto-title-meta-author">
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-heading">Affiliation</div>
+    
+      <div class="quarto-title-meta-contents">
+      <p class="author">Ankit Sikarwar </p>
+    </div>
+    <div class="quarto-title-meta-contents">
+          <p class="affiliation">
+              Research Scientist (Consultant), University of Minnesota
+            </p>
+        </div>
+    </div>
+
+  <div class="quarto-title-meta">
+
+        
+      <div>
+      <div class="quarto-title-meta-heading">Published</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">October 25, 2024</p>
+      </div>
+    </div>
+    
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <nav id="TOC" role="doc-toc" class="toc-active" data-toc-expanded="1">
+    <h2 id="toc-title">Contents</h2>
+   
+  <ul>
+  <li><a href="#getting-started-with-qgis" id="toc-getting-started-with-qgis" class="nav-link active" data-scroll-target="#getting-started-with-qgis">Getting started with QGIS</a>
+  <ul class="collapse">
+  <li><a href="#download-and-install-qgis" id="toc-download-and-install-qgis" class="nav-link" data-scroll-target="#download-and-install-qgis">Download and install QGIS</a></li>
+  <li><a href="#the-qgis-interface" id="toc-the-qgis-interface" class="nav-link" data-scroll-target="#the-qgis-interface">The QGIS interface</a></li>
+  <li><a href="#spatial-data-sources" id="toc-spatial-data-sources" class="nav-link" data-scroll-target="#spatial-data-sources">Spatial data sources</a>
+  <ul class="collapse">
+  <li><a href="#kenya-boundary-data" id="toc-kenya-boundary-data" class="nav-link" data-scroll-target="#kenya-boundary-data">Kenya boundary data</a></li>
+  <li><a href="#temperature-raster-data" id="toc-temperature-raster-data" class="nav-link" data-scroll-target="#temperature-raster-data">Temperature raster data</a></li>
+  <li><a href="#dhs-cluster-data" id="toc-dhs-cluster-data" class="nav-link" data-scroll-target="#dhs-cluster-data">DHS cluster data</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#importing-and-organizing-spatial-data-in-qgis" id="toc-importing-and-organizing-spatial-data-in-qgis" class="nav-link" data-scroll-target="#importing-and-organizing-spatial-data-in-qgis">Importing and organizing spatial data in QGIS</a>
+  <ul class="collapse">
+  <li><a href="#preparing-our-project" id="toc-preparing-our-project" class="nav-link" data-scroll-target="#preparing-our-project">Preparing our project</a></li>
+  <li><a href="#organizing-and-visualizing-layers-in-qgis" id="toc-organizing-and-visualizing-layers-in-qgis" class="nav-link" data-scroll-target="#organizing-and-visualizing-layers-in-qgis">Organizing and visualizing layers in QGIS</a></li>
+  </ul></li>
+  <li><a href="#geoprocessing-in-qgis" id="toc-geoprocessing-in-qgis" class="nav-link" data-scroll-target="#geoprocessing-in-qgis">Geoprocessing in QGIS</a>
+  <ul class="collapse">
+  <li><a href="#temporal-aggregation-using-raster-calculator" id="toc-temporal-aggregation-using-raster-calculator" class="nav-link" data-scroll-target="#temporal-aggregation-using-raster-calculator">Temporal aggregation using raster calculator</a></li>
+  <li><a href="#clipping-raster-to-the-area-of-interest" id="toc-clipping-raster-to-the-area-of-interest" class="nav-link" data-scroll-target="#clipping-raster-to-the-area-of-interest">Clipping raster to the area of interest</a></li>
+  <li><a href="#buffering-dhs-cluster-points" id="toc-buffering-dhs-cluster-points" class="nav-link" data-scroll-target="#buffering-dhs-cluster-points">Buffering DHS cluster points</a></li>
+  <li><a href="#aggregating-raster-values" id="toc-aggregating-raster-values" class="nav-link" data-scroll-target="#aggregating-raster-values">Aggregating raster values</a></li>
+  </ul></li>
+  <li><a href="#conclusion-and-next-steps" id="toc-conclusion-and-next-steps" class="nav-link" data-scroll-target="#conclusion-and-next-steps">Conclusion and next steps</a>
+  <ul class="collapse">
+  
+  
+  
+  </ul></li>
+  </ul>
+</nav>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
+    </div>
+<!-- main -->
+<main class="content quarto-banner-title-block page-columns page-full" id="quarto-document-content">
+
+
+
+
+
+<p>Up to this point, this blog has used R to demonstrate spatial processing and analysis techniques. We’ve <a href="../2024-02-01-getting-started-with-r">emphasized</a> some of the benefits of using R, but it’s far from the only software available for spatial processing. Many spatial analysts instead rely on dedicated GIS (Geographic Information Systems) software, which provide a point-and-click interface for performing spatial analysis workflows.</p>
+<p>In this post, we will use the open-source GIS software <a href="https://www.qgis.org/">QGIS (Quantum GIS)</a> to integrate environmental data with health survey data. Using a case study from Kenya, we will combine monthly temperature data from <a href="https://www.chc.ucsb.edu/data/chirtsmonthly">CHIRTS</a> with geolocated sample clusters from the <a href="https://dhsprogram.com/">Demographic and Health Surveys Program</a> (DHS). If you’ve been following along with this blog, you’ll recognize some similarities between this post and <a href="../2024-02-04-dhs-chirps/">previous posts</a>. But while the spatial analysis techniques will be familiar, the tools we use to implement them will be new.</p>
+
+<div class="no-row-height column-margin column-container"><div class="">
+<p><a href="https://www.qgis.org/"><img src="images/qgis.png" class="img-fluid"></a></p>
+</div></div><p>This step-by-step guide will provide an overview of QGIS and show you how to import data, process raster data, create spatial buffers, and extract aggregated data for analysis.</p>
+<section id="getting-started-with-qgis" class="level1 page-columns page-full">
+<h1>Getting started with QGIS</h1>
+<p>QGIS is a powerful GIS software that allows us to visualize, analyze, and edit spatial data. QGIS is an ideal choice for beginners and advanced users alike because it combines a user-friendly interface with powerful spatial processing capabilities. As is the case with R, QGIS is open-source, meaning countless community resources, plugins, and tutorials are available for new learners. This makes it a particularly accessible and versatile tool for spatial analysis.</p>
+<section id="download-and-install-qgis" class="level2">
+<h2 class="anchored" data-anchor-id="download-and-install-qgis">Download and install QGIS</h2>
+<p>Follow the instructions on the <a href="https://qgis.org/download/">QGIS download page</a> to download the appropriate QGIS version for your operating system. You have the option to select the <em>Long Term Version</em> for stability or the <em>Latest Version</em> to gain access to the newest features and updates.</p>
+</section>
+<section id="the-qgis-interface" class="level2 page-columns page-full">
+<h2 class="anchored" data-anchor-id="the-qgis-interface">The QGIS interface</h2>
+<p>Once QGIS is installed, you’re ready to explore its interface and tools. <a href="#fig-2" class="quarto-xref">Figure&nbsp;1</a> shows a screenshot of the main QGIS interface with some of the main components highlighted.</p>
+<ol type="1">
+<li><p><strong>Menu Bar:</strong> Located at the top of the interface, the Menu Bar provides access to all functions and tools within QGIS, organized into categories like Project, Edit, View, Layer, Raster, Vector, Settings, etc. This is where we can access more advanced features, adjust settings, and manage our workspace.</p></li>
+<li><p><strong>Toolbar:</strong> Directly below the Menu Bar, the Toolbar contains icons for many of the most frequently used tools in QGIS. Here, we’ll find quick access to functions like adding layers, zooming in and out, saving our project, and using geoprocessing tools. Each icon corresponds to a specific function, making it easy to perform actions without needing to navigate through menus.</p></li>
+<li><p><strong>Browser:</strong> The Browser panel on the left helps us quickly access files and databases on our computer or connected servers. It’s similar to a file manager, allowing us to drag and drop data directly into the Map Window. If it’s not visible, you can enable it by selecting <span class="menu-instr">View ‣ Panels ‣ Browser</span> in the toolbar.</p></li>
+<li><p><strong>Layers Panel:</strong> The Layers Panel displays all the spatial layers that we’ve added to our current QGIS project. Each layer represents a different data source (e.g., country boundaries, temperature data, or health survey points). We can control the visibility of each layer, reorder them (by directly dragging them up or down), and change their styles directly from this panel. Right-clicking on a layer gives us additional options like opening the attribute table or adjusting the symbology. The visibility of layers on the Map Window depends on their position in this panel—make sure to keep the layer you want to visualize on top.</p></li>
+<li><p><strong>Map Window:</strong> The Map Window is the central area where our spatial data is visually displayed. As we add, modify, and analyze data, the results are shown here. We can zoom in, zoom out, and pan across different parts of our map using tools from the toolbar or our mouse.</p></li>
+<li><p><strong>Information Bar:</strong> At the bottom of the QGIS window, the Information Bar displays details about our current map view, including coordinates, scale, magnification level, and active CRS (Coordinate Reference System). It’s helpful for ensuring accurate spatial alignment and for referencing the precise location of our map elements.</p></li>
+<li><p><strong>Search Bar:</strong> The Search Bar (or Locator Bar) allows us to quickly find tools, layers, and functions within QGIS. We can type in keywords like “Buffer” or “Raster Calculator” to access specific tools or commands without having to navigate through multiple menus. This feature speeds up our workflow and is especially useful for beginners still familiarizing themselves with the software.</p></li>
+</ol>
+<div class="page-columns page-full">
+<div id="fig-2" class="quarto-float quarto-figure quarto-figure-center anchored page-columns page-full">
+<figure class="quarto-float quarto-float-fig figure page-columns page-full">
+<div aria-describedby="fig-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca" class="page-columns page-full">
+<img src="images/Fig2.png" class="img-fluid figure-img column-page">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1: An overview of the QGIS interface
+</figcaption>
+</figure>
+</div>
+</div>
+</section>
+<section id="spatial-data-sources" class="level2 page-columns page-full">
+<h2 class="anchored" data-anchor-id="spatial-data-sources">Spatial data sources</h2>
+<p>For this analysis, we’ll need three spatial datasets. We’ve created a project folder called <code>Kenya_Temperature_Analysis</code> to store these files. To follow along, we suggest you create a similar directory to store all the spatial data files used in this demo.</p>
+<section id="kenya-boundary-data" class="level3">
+<h3 class="anchored" data-anchor-id="kenya-boundary-data">Kenya boundary data</h3>
+<p>This vector shapefile contains the administrative boundaries of Kenya. This will be useful as a reference layer for clipping and other spatial operations. We’ll need boundaries for the <strong>level-0</strong> administrative boundary—that is, the country’s border.</p>
+<p>There are a variety of resources available to obtain administrative boundary data. In the past, we’ve download data from the DHS <a href="https://spatialdata.dhsprogram.com/boundaries/#countryId=KE&amp;view=table">Spatial Data Repository</a>. For this post, we’ve decided to download our data from the Database of Global Administrative Areas (GADM) <a href="https://gadm.org/download_country.html">website</a> because it provides level-0 data directly.</p>
+<p>From the GADM website, select “Kenya” in the country drop-down and download the border data in <strong>shapefile</strong> format. This will provide a compressed folder containing multiple files (e.g., <code>.shp</code>, <code>.dbf</code>, <code>.shx</code>, <code>.prj</code>) that are essential for the shapefile to function correctly in GIS software. The file may be compressed, so be sure to <strong>extract all files into the same directory</strong>, as QGIS requires them to be together for proper rendering. Save this extracted folder under your overall project folder.</p>
+</section>
+<section id="temperature-raster-data" class="level3">
+<h3 class="anchored" data-anchor-id="temperature-raster-data">Temperature raster data</h3>
+<p>We’ve introduced CHIRTS in <a href="../2024-04-15-chirts-metrics/">previous posts</a>, but so far we’ve always used daily data. To simplify things for this post, we’ll use the CHIRTS monthly data product instead.</p>
+<p>We’ll use monthly maximum temperature (Tmax) data for 2016, which you can download from the <a href="https://data.chc.ucsb.edu/products/CHIRTSmonthly/CHIRTSmax.CDR/">CHIRTS website</a>. Each file represents the maximum temperature for a specific month from January 2016 (<code>CHIRTSmax.2016.01.tif</code>) to December 2016 (<code>CHIRTSmax.2016.12.tif</code>) These files will allow us to calculate the 2016 annual average maximum temperature.</p>
+<p>Once you’ve downloaded these files, you’ll want to put them in their own sub-directory within your project. In our case, we’ve called this directory <code>CHIRTS</code>.</p>
+</section>
+<section id="dhs-cluster-data" class="level3 page-columns page-full">
+<h3 class="anchored" data-anchor-id="dhs-cluster-data">DHS cluster data</h3>
+<p>As we’ve done in many posts, we’ll use geolocated DHS cluster coordinates to identify the <a href="https://www.dhsprogram.com/Methodology/GPS-Data.cfm">displaced</a> locations of DHS sample clusters for Kenya.</p>
+<p>As we’ve described before, to obtain the GPS coordinates for a specific sample, you’ll have to <a href="https://dhsprogram.com/data/dataset_admin/login_main.cfm?CFID=383700816&amp;CFTOKEN=16c528fbeaf1728c-A7BFFD55-B0EE-D4A3-72A7D8F12D8ACE66">log into</a> your DHS Program account. Specify the country of interest (Kenya, in this case), and, on the line for the appropriate sample year (we’re using the 2022 sample for this demo), click the link to download the GPS coordinate data under the <strong>GPS Datasets</strong> heading.</p>
+
+<div class="no-row-height column-margin column-container"><div class="">
+<p>As always, you’ll need to have a registered DHS project to download data for these cluster coordinates. If needed, you can always use the workflow from this demonstration with data from another DHS sample and area if you haven’t requested permission for Kenya samples specifically.</p>
+</div></div><p>You’ll be presented with a new page containing a list of download links. Scroll down to the <strong>Geographic Datasets</strong> section. Download the file listed as a shapefile (.shp).</p>
+<p>Once downloaded, save the shapefile into a sub-folder under your project folder to keep everything organized. For the 2022 sample, the downloaded file name should be <code>KEGE8AFL.shp</code>.</p>
+</section>
+</section>
+</section>
+<section id="importing-and-organizing-spatial-data-in-qgis" class="level1 page-columns page-full">
+<h1>Importing and organizing spatial data in QGIS</h1>
+<section id="preparing-our-project" class="level2 page-columns page-full">
+<h2 class="anchored" data-anchor-id="preparing-our-project">Preparing our project</h2>
+<p>Before we can begin, we need to initiate a QGIS project to store our work and add the data sources identified above to our project.</p>
+<section id="create-a-new-qgis-project" class="level4">
+<h4 class="anchored" data-anchor-id="create-a-new-qgis-project">1. Create a new QGIS project</h4>
+<p>Open QGIS and create a new project by navigating to <span class="menu-instr">Project ‣ New</span>.</p>
+<p>Save the project by navigating to <span class="menu-instr">Project ‣ Save</span>. Provide a project name (in our case, we’ve used <code>Spatial_Analysis_Kenya.qgz</code>) and select the designated project folder we created previously (<code>Kenya_Temperature_Analysis</code>). Saving the project file ensures we can pause and resume our work without losing progress.</p>
+</section>
+<section id="add-the-temperature-raster-data" class="level4">
+<h4 class="anchored" data-anchor-id="add-the-temperature-raster-data">2. Add the temperature raster data</h4>
+<p>Select <span class="menu-instr">Layer ‣ Add Raster Layer</span>. Navigate to the <code>CHIRTS</code> sub-folder within our project folder and select all the monthly raster files (<code>CHIRTSmax.2016.01.tif</code> to <code>CHIRTSmax.2016.12.tif</code>). Click <span class="menu-instr">Add</span> to load the rasters into QGIS.</p>
+</section>
+<section id="add-the-kenya-shapefile" class="level4">
+<h4 class="anchored" data-anchor-id="add-the-kenya-shapefile">3. Add the Kenya shapefile</h4>
+<p>Go to <span class="menu-instr">Layer ‣ Add Layer ‣ Add Vector Layer</span>. Browse to the Shapefiles sub-folder and select the Kenya boundary shapefile (If you downloaded from GADM, the file should be named <code>gadm41_KEN_0.shp</code>). Again, click <span class="menu-instr">Add</span> to add the shapefile to our QGIS project.</p>
+</section>
+<section id="load-the-dhs-cluster-data" class="level4 page-columns page-full">
+<h4 class="anchored" data-anchor-id="load-the-dhs-cluster-data">4. Load the DHS cluster data</h4>
+<p>Go to <span class="menu-instr">Layer ‣ Add Layer ‣ Add Vector Layer</span> to import the DHS cluster shapefile (‘KEGE8AFL.shp’). Click <span class="menu-instr">Add</span>.</p>
+<p>At this point, your interface should look something like <a href="#fig-3" class="quarto-xref">Figure&nbsp;2</a>:</p>
+<div class="page-columns page-full">
+<div id="fig-3" class="quarto-float quarto-figure quarto-figure-center anchored page-columns page-full">
+<figure class="quarto-float quarto-float-fig figure page-columns page-full">
+<div aria-describedby="fig-3-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca" class="page-columns page-full">
+<img src="images/Fig3.png" class="img-fluid figure-img column-page">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-3-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;2: QGIS interface with initial data layers loaded
+</figcaption>
+</figure>
+</div>
+</div>
+</section>
+</section>
+<section id="organizing-and-visualizing-layers-in-qgis" class="level2 page-columns page-full">
+<h2 class="anchored" data-anchor-id="organizing-and-visualizing-layers-in-qgis">Organizing and visualizing layers in QGIS</h2>
+<p>When we import data into QGIS, it is represented in its raw form and at its full spatial extent (as in <a href="#fig-3" class="quarto-xref">Figure&nbsp;2</a>). To make sense of this data and facilitate analysis, it’s crucial to understand some basic organizing and visualizing tools within QGIS. These tools help us manage the appearance and arrangement of layers, ensuring that the data is clear and easy to interpret.</p>
+<section id="layer-visibility-and-order" class="level4">
+<h4 class="anchored" data-anchor-id="layer-visibility-and-order">Layer visibility and order</h4>
+<p>Layers in QGIS are displayed based on their order in the Layers Panel. Make sure that the DHS cluster shapefile is on top, followed by the Kenya boundary shapefile, and then the raster layers. This will help maintain a clean and visible map. You can reorder layers by dragging them up or down within the Layers Panel.</p>
+</section>
+<section id="zoom-to-layer" class="level4">
+<h4 class="anchored" data-anchor-id="zoom-to-layer">Zoom to layer</h4>
+<p>After adding layers, it’s useful to zoom in on specific layers for better visualization:</p>
+<ul>
+<li>Right-click on a layer in the Layers Panel and select <span class="menu-instr">Zoom to Layer(s)</span>.</li>
+<li>This adjusts the map view to focus on the full extent of the selected layer, making it easier to work with your data.</li>
+</ul>
+<p>If you lose track of your map (which happens often in QGIS!), using <span class="menu-instr">Zoom to Layer(s)</span> can quickly help re-center the view on any specific dataset.</p>
+</section>
+<section id="project-crs" class="level4 page-columns page-full">
+<h4 class="anchored" data-anchor-id="project-crs">Working with coordinate reference systems</h4>
+<p>We’ve mentioned coordinate reference systems in <a href="../2024-09-13-leaflet-pt1/#coordinate-reference-systems">previous posts</a>. As was the case there, it’s worth confirming the CRS of the layers in QGIS to ensure that we’re conducting the expected spatial operations. To check the CRS of a layer:</p>
+<ul>
+<li>Right-click on any layer (e.g., the Kenya shapefile or DHS clusters) and select <span class="menu-instr">Properties</span>.</li>
+<li>In the <span class="menu-instr">Information</span> tab, check the CRS of the layer, shown as an EPSG code (e.g., EPSG:4326 for WGS 84).</li>
+</ul>
+<p>QGIS also sets a project-wide CRS, which is used for on the fly projection. To check or change the CRS of the project, click on the CRS displayed in the bottom-right corner of the QGIS window. Make sure that the project CRS matches the CRS of your layers for consistent spatial alignment.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>While you’re working, QGIS projects layers “on the fly”. That is, if you have layers in different reference systems, QGIS will visualize them in the single project CRS so that the layers align visually. However, this doesn’t actually project any layer’s <em>data</em> to a new CRS. Thus, for spatial analysis, you’ll want to double check to ensure each layer is in an appropriate CRS for the operations you’re conducting.</p>
+</div>
+</div>
+<section id="change-the-crs-of-the-dhs-cluster-point-shapefile" class="level5 page-columns page-full">
+<h5 class="anchored" data-anchor-id="change-the-crs-of-the-dhs-cluster-point-shapefile">Change the CRS of the DHS cluster point shapefile</h5>
+<p>As we’ve discussed <a href="../2024-02-04-dhs-chirps/#cluster-buffers">before</a>, we need to project our cluster points before we can buffer them, as we want to buffer in units of meters, not degrees. For Kenya, an appropriate projection is UTM zone 37S (EPSG:32737).</p>
+
+<div class="no-row-height column-margin column-container"><div class="">
+<p>Refer to <a href="https://epsg.io/">EPSG.io</a> to identify the EPSG code for a given projection and for help identifying projection properties.</p>
+</div></div><p>There are two ways to reproject the vector layer in QGIS:</p>
+<ul>
+<li><p>Method 1: Export the layer</p>
+<ul>
+<li>Right-click the DHS cluster layer (<code>KEGE8AFL</code>)</li>
+<li>Select <span class="menu-instr">Export ‣ Save Features As</span></li>
+<li>In the <span class="menu-instr">CRS</span> section, choose the appropriate UTM projection. In our case, we will use zone 37S. Provide a simple name to the reprojected shapefile (e.g., <code>Clusters.shp</code>) and save.</li>
+</ul></li>
+<li><p>Method 2: Reproject via Data Management</p>
+<ul>
+<li>Navigate to <span class="menu-instr">Vector ‣ Data Management Tools ‣ Reproject Layer</span></li>
+<li>In the window that opens, select the DHS cluster layer as the <span class="menu-instr">Input Layer</span></li>
+<li>Choose the appropriate UTM projection (again, UTM 37S in our case) in the <span class="menu-instr">Target CRS</span> section.</li>
+<li>Click <span class="menu-instr">Run</span> to complete the reprojection. By default this creates a temporary layer, but you also have the option to specify an output file.</li>
+</ul></li>
+</ul>
+</section>
+</section>
+<section id="symbology-and-visualization" class="level4 page-columns page-full">
+<h4 class="anchored" data-anchor-id="symbology-and-visualization">Symbology and visualization</h4>
+<p>Symbology refers to the visual representation of our data on the map. We can adjust symbology to make for a more interpretable and visually appealing map.</p>
+<ol type="1">
+<li><p>Right-click on the Kenya shapefile and select <span class="menu-instr">Properties ‣ Symbology</span>.</p></li>
+<li><p>Choose <em>Outline: Simple Line</em> in the <span class="menu-instr">Symbol layer type</span> field to help distinguish the boundary from the background raster layers. Feel free to explore other symbology options to familiarize yourself with the interface. Click <span class="menu-instr">Apply</span> to periodically apply changes to the map, and <span class="menu-instr">OK</span> when you’re satisfied.</p></li>
+<li><p>For the DHS clusters, use a <em>Simple Marker</em> layer type to mark each point clearly on the map. Play around with colors, strokes, and line weights until you’re satisfied and click <span class="menu-instr">OK</span>.</p></li>
+<li><p>For our CHIRTS data, change the <span class="menu-instr">Render Type</span> to <em>singleband pseudocolor</em>. You can select from several pre-made color ramps or design your own by clicking the <span class="menu-instr">Color Ramp</span> drop-down arrow. In our case, we’re using the Spectral color ramp.</p>
+<p>You’ll also want to change the <span class="menu-instr">Min</span> option to something much greater than -9999 (we’re using -10 for now). By default, the raster color scheme will use the full range of the data and expand to accommodate extreme values like -9999, which represent “no data” areas. This distorts the color scale. Adjusting the minimum and maximum values allows for better visual representation and more accurate analysis of the data.</p></li>
+</ol>
+<p><a href="#fig-4" class="quarto-xref">Figure&nbsp;3</a> presents an example QGIS interface after applying the organization and visualization techniques discussed. It’s okay if your symbology looks a little different from ours. We recommend that you take the time to explore the available <a href="https://docs.qgis.org/3.34/en/docs/training_manual/basic_map/symbology.html">symbology options</a>, as they offer interesting ways to enhance your data presentation and analysis.</p>
+<div class="page-columns page-full">
+<div id="fig-4" class="quarto-float quarto-figure quarto-figure-center anchored page-columns page-full">
+<figure class="quarto-float quarto-float-fig figure page-columns page-full">
+<div aria-describedby="fig-4-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca" class="page-columns page-full">
+<img src="images/Fig4.png" class="img-fluid figure-img column-page-inset">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-4-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;3: Data layers after symbology adjustments
+</figcaption>
+</figure>
+</div>
+</div>
+</section>
+</section>
+</section>
+<section id="geoprocessing-in-qgis" class="level1 page-columns page-full">
+<h1>Geoprocessing in QGIS</h1>
+<section id="temporal-aggregation-using-raster-calculator" class="level2 page-columns page-full">
+<h2 class="anchored" data-anchor-id="temporal-aggregation-using-raster-calculator">Temporal aggregation using raster calculator</h2>
+<p>Since we have 12 raster layers representing monthly maximum temperatures (Tmax) for the year 2016, we can perform temporal aggregation by averaging these layers.</p>
+<p>In this example, we will calculate the annual average Tmax for 2016. Navigate to <span class="menu-instr">Raster ‣ Raster Calculator</span>. In the calculator window, we need to enter the formula to calculate the average from each of the 12 raster bands. To do so, you can double click on each raster band in the <span class="menu-instr">Raster Bands</span> selection pane to bring it in the expression bar. To add addition and division operators, you can type them directly into the expression bar or add them from the drop-down <span class="menu-instr">Operators</span> panel.</p>
+<p>You should end up with an expression in the expression bar that looks like the one shown in the <span class="menu-instr">Raster Calculator Expression</span> box shown in <a href="#fig-5" class="quarto-xref">Figure&nbsp;4</a>. This formula sums the values from all 12 months and divides by 12 to obtain the average temperature for the year. Name the output file as <code>Annual_Average_Tmax_2016.tif</code> and save it in an appropriate folder within your project directory (<a href="#fig-5" class="quarto-xref">Figure&nbsp;4</a>). We can keep the defaults for the other options.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>After selecting a file location, the raster calculator window may disappear behind the main QGIS window. Be sure to find this window and officially run the process, or it will appear as if nothing has happened!</p>
+<p>This may occur with other geoprocessing tools as well.</p>
+</div>
+</div>
+<p>The new raster will appear as a new layer in our Layers Panel, and you can apply the same singleband pseudocolor scheme for visualization to better interpret the temperature data. We can remove the single-month files from QGIS to keep things tidy (right click on the single-year layers and select <span class="menu-instr">Remove layer</span>).</p>
+<div class="page-columns page-full">
+<div id="fig-5" class="quarto-float quarto-figure quarto-figure-center anchored page-columns page-full">
+<figure class="quarto-float quarto-float-fig figure page-columns page-full">
+<div aria-describedby="fig-5-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca" class="page-columns page-full">
+<img src="images/Fig5.png" class="img-fluid figure-img column-page-inset">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-5-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;4: Raster Calculator window
+</figcaption>
+</figure>
+</div>
+</div>
+</section>
+<section id="clipping-raster-to-the-area-of-interest" class="level2 page-columns page-full">
+<h2 class="anchored" data-anchor-id="clipping-raster-to-the-area-of-interest">Clipping raster to the area of interest</h2>
+<p>Clipping the raster to the Kenya boundary is important because it ensures that our analysis is focused only on the area of interest, eliminating unnecessary data from outside the country’s borders and reducing file size for better processing.</p>
+<p>To perform this task, we will follow a simple process in QGIS. First, we will navigate to <span class="menu-instr">Raster ‣ Extraction ‣ Clip Raster by Mask Layer</span>.</p>
+<p>In the window that appears, we will set the <span class="menu-instr">Input Layer</span> to the newly generated annual average raster (<code>Annual_Average_Tmax_2016.tif</code>). Then, for the <span class="menu-instr">Mask Layer</span>, we will select the Kenya boundary shapefile (<code>gadm41_KEN_0.shp</code>). This ensures that the raster is clipped to the boundaries of Kenya. Finally, we will name the output file as <code>Kenya_Clipped_Tmax_2016.tif</code> and save it in the <code>CHIRTS</code> folder (<a href="#fig-7" class="quarto-xref">Figure&nbsp;5</a>).</p>
+<div class="page-columns page-full">
+<div id="fig-7" class="quarto-float quarto-figure quarto-figure-center anchored page-columns page-full">
+<figure class="quarto-float quarto-float-fig figure page-columns page-full">
+<div aria-describedby="fig-7-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca" class="page-columns page-full">
+<img src="images/Fig7.png" class="img-fluid figure-img column-page-inset">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-7-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;5: Clip Raster window
+</figcaption>
+</figure>
+</div>
+</div>
+<p>After the process is complete, we will have a new raster that only covers the extent of Kenya, ready for further analysis. We can remove the full extent raster file from the layer panel and use the singleband pseudocolor scheme for better visualization. Notice that the minimum value in this case is already accurate as we do not have missing data within this clipped raster (<a href="#fig-8" class="quarto-xref">Figure&nbsp;6</a>).</p>
+<div class="page-columns page-full">
+<div id="fig-8" class="quarto-float quarto-figure quarto-figure-center anchored page-columns page-full">
+<figure class="quarto-float quarto-float-fig figure page-columns page-full">
+<div aria-describedby="fig-8-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca" class="page-columns page-full">
+<img src="images/Fig8.png" class="img-fluid figure-img column-page-inset">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-8-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;6: Results of raster clip, with updated symbology
+</figcaption>
+</figure>
+</div>
+</div>
+</section>
+<section id="buffering-dhs-cluster-points" class="level2 page-columns page-full">
+<h2 class="anchored" data-anchor-id="buffering-dhs-cluster-points">Buffering DHS cluster points</h2>
+<p>Creating buffers around point locations is crucial for spatial analysis because it allows us to define areas of influence or impact around each point, enabling more focused environmental or demographic analysis. In this post as in <a href="../2024-02-04-dhs-chirps/#cluster-buffers">previous ones</a>, we are interested in creating buffers around the point locations of the geolocated DHS clusters.</p>
+<p>To create buffers, we will go to <span class="menu-instr">Vector ‣ Geoprocessing Tools ‣ Buffer</span>. In the window that opens, we will set the <span class="menu-instr">Input Layer</span> to be the <em>reprojected</em> DHS cluster file. Next, we will specify a buffer distance of 10,000 meters, which creates a 10 km zone around each cluster point. Finally, we will save the output as <code>DHS_10km_Buffers.shp</code> in the <code>Shapefiles</code> folder (<a href="#fig-9" class="quarto-xref">Figure&nbsp;7</a>). Once this process is complete, we will have buffer zones around the DHS clusters, ready for further spatial analysis and extraction of environmental data.</p>
+<div class="page-columns page-full">
+<div id="fig-9" class="quarto-float quarto-figure quarto-figure-center anchored page-columns page-full">
+<figure class="quarto-float quarto-float-fig figure page-columns page-full">
+<div aria-describedby="fig-9-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca" class="page-columns page-full">
+<img src="images/Fig9.png" class="img-fluid figure-img column-page-inset">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-9-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;7: Spatial buffer window
+</figcaption>
+</figure>
+</div>
+</div>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Warning
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>If you haven’t successfully <a href="#project-crs">reprojected</a> the cluster location shapefile, you won’t be able to buffer in meters. Double check the CRS of the layer as described previously and ensure that the layer has been projected to UTM coordinates.</p>
+</div>
+</div>
+<p>As with other layers, we can adjust the symbology of the buffer regions (e.g., to decrease opacity) by right clicking the layer in the <span class="menu-instr">Layers</span> pane and selecting <span class="menu-instr">Properties ‣ Symbology</span>.</p>
+<p>Using the <span class="menu-instr">Magnifier</span> tool in the bottom right, we can zoom into specific areas to inspect parts of the map without changing the overall map scale, which helps in closely examining details (<a href="#fig-10" class="quarto-xref">Figure&nbsp;8</a>).</p>
+<div id="fig-10" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-10-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="images/Fig10.png" class="img-fluid quarto-figure quarto-figure-center figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-10-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;8: Use the Magnifier tool to inspect geoprocessing output
+</figcaption>
+</figure>
+</div>
+</section>
+<section id="aggregating-raster-values" class="level2 page-columns page-full">
+<h2 class="anchored" data-anchor-id="aggregating-raster-values">Aggregating raster values</h2>
+<p>Extracting environmental data at aggregated levels, such as within buffer zones, allows us to quantify environmental conditions (in this case, temperature) in specific areas. This process helps in identifying patterns and relationships between environmental factors and outcomes in defined regions and their populations.</p>
+<p>We are interested in aggregating buffer-level Tmax statistics. To aggregate the data, go to <span class="menu-instr">Processing ‣ Toolbox ‣ Raster analysis ‣ Zonal Statistics</span>.</p>
+
+<div class="no-row-height column-margin column-container"><div class="">
+<p>If you can’t find a tool, you can always search for it in the search bar. For instance, a search for “Zonal statistics” would reveal where the tool is located.</p>
+</div></div><p>In the window that opens, set the <span class="menu-instr">Input Layer</span> to <code>DHS_10km_Buffers.shp</code> and the <span class="menu-instr">Raster Layer</span> to <code>Kenya_Clipped_Tmax_2016.tif</code>. Set the <span class="menu-instr">output column prefix</span> to <code>"Tmax_"</code>. Under <span class="menu-instr">Statistics to calculate</span>, choose <em>Mean</em> to compute the average temperature for each buffer based on the raster pixels within that buffer. Save the file in the Shapefile sub-folder with the name <code>Mean_Tmax_buffer.shp</code> (<a href="#fig-11" class="quarto-xref">Figure&nbsp;9</a>).</p>
+<div id="fig-11" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-11-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="images/Fig11.png" class="img-fluid quarto-figure quarto-figure-center figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-11-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;9: Zonal Statistics window
+</figcaption>
+</figure>
+</div>
+<p>With this, we now have a new shapefile that includes a new column (<code>Tmax_mean</code>) in the buffer layer’s attribute table, representing the mean temperature for each buffer zone (<a href="#fig-12" class="quarto-xref">Figure&nbsp;10</a>). You can verify this by opening the attribute table (right-click on the new layer and select <span class="menu-instr">Open Attribute Table</span>). To export the attribute table as a CSV file, right-click on the layer, go to <span class="menu-instr">Export ‣ Save Feature As</span>, or save it in another tabular format. It is crucial to keep the unique cluster ID (<code>DHSID</code>) linked to the extracted data for easy reference and further analysis.</p>
+<div class="page-columns page-full">
+<div id="fig-12" class="quarto-float quarto-figure quarto-figure-center anchored page-columns page-full">
+<figure class="quarto-float quarto-float-fig figure page-columns page-full">
+<div aria-describedby="fig-12-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca" class="page-columns page-full">
+<img src="images/Fig12.png" id="fig-12" class="img-fluid figure-img column-page-inset">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig quarto-uncaptioned" id="fig-12-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;10
+</figcaption>
+</figure>
+</div>
+</div>
+</section>
+</section>
+<section id="conclusion-and-next-steps" class="level1">
+<h1>Conclusion and next steps</h1>
+<p>With the extracted environmental data for each DHS cluster, you now have a powerful dataset that can be linked to a wide range of health and demographic variables available in DHS surveys. This integration can reveal patterns that might not be visible through traditional analysis, providing a more nuanced understanding of how environmental factors interact with population health and social variables.</p>
+<p>By incorporating other spatial data sources—such as additional environmental variables or socioeconomic indicators—you can build a more comprehensive picture of the contextual factors influencing health outcomes. This type of spatial analysis opens up opportunities for advanced research, allowing you to explore environmental determinants and inform targeted strategies for improving population health and well-being.</p>
+<p>While this post just barely scratches the surface of the functionality available with QGIS, it can serve as a starting point for you to keep exploring and learning about the other features the software has to offer.</p>
+
+
+
+</section>
+
+<div id="quarto-appendix" class="default"><section id="additional-resources" class="level2 appendix"><h2 class="anchored quarto-appendix-heading">Additional Resources</h2><div class="quarto-appendix-contents">
+
+<ul>
+<li><a href="https://docs.qgis.org/3.34/en/docs/index.html">QGIS Documentation</a></li>
+<li><a href="https://blog.dhsprogram.com/linking-climate-change-and-womens-health-using-dhs-program-data/">DHS Blog</a> - Linking Climate Change and Women’s Health using DHS Program Data</li>
+<li><a href="https://www.youtube.com/watch?v=rs2N3pT1Xvo&amp;t=3207s">Detailed Tutorial Video</a> on IUSSP’s YouTube Channel</li>
+<li><a href="https://dhsprogram.com/Methodology/GPS-Data.cfm#:~:text=The%20displacement%20is%20randomly%20carried,a%20maximum%20of%2010%20kilometers.">GPS data collection</a> and random displacement in DHS</li>
+</ul>
+</div></section><section id="getting-help" class="level2 appendix"><h2 class="anchored quarto-appendix-heading">Getting Help</h2><div class="quarto-appendix-contents">
+
+<p>Questions or comments? Check out the <a href="https://forum.ipums.org">IPUMS User Forum</a> or reach out to IPUMS User Support at ipums@umn.edu.</p>
+</div></section><section id="acknowledgments" class="level2 appendix"><h2 class="anchored quarto-appendix-heading">Acknowledgments</h2><div class="quarto-appendix-contents">
+
+<p>Special thanks to Finn Roberts, Senior Data Analyst at IPUMS, for assistance in editing and reviewing this post.</p>
+
+
+</div></section></div></main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp("https:\/\/ipums\.github\.io\/dhs-research-hub");
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+      &nbsp;
+    </div>   
+    <div class="nav-footer-center">
+<p>Developed by <a href="https://www.ipums.org">IPUMS</a> at the University of Minnesota<br>Licensed under the <a href="https://www.mozilla.org/en-US/MPL/2.0/">Mozilla Public License Version 2.0</a></p>
+</div>
+    <div class="nav-footer-right">
+      &nbsp;
+    </div>
+  </div>
+</footer>
+
+
+
+
+</body></html>

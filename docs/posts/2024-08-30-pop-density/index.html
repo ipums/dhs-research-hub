@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.4.555">
+<meta name="generator" content="quarto-1.5.57">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -10,7 +10,7 @@
 <meta name="dcterms.date" content="2024-08-30">
 <meta name="description" content="An introduction to gridded data sources used to measure human presence across the globe">
 
-<title>IPUMS DHS Climate Change and Health Research Hub - Measuring Population Density</title>
+<title>Measuring Population Density – IPUMS DHS Climate Change and Health Research Hub</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -128,7 +128,7 @@ gtag('config', 'G-0WLH5S9VD5', { 'anonymize_ip': true});
     </a>
   </div>
             <div id="quarto-search" class="" title="Search"></div>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
   <span class="navbar-toggler-icon"></span>
 </button>
           <div class="collapse navbar-collapse" id="navbarCollapse">
@@ -144,7 +144,7 @@ gtag('config', 'G-0WLH5S9VD5', { 'anonymize_ip': true});
 <span class="menu-text">Posts</span></a>
   </li>  
   <li class="nav-item dropdown ">
-    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-getting-started" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-getting-started" role="link" data-bs-toggle="dropdown" aria-expanded="false">
  <span class="menu-text">Getting Started</span>
     </a>
     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="nav-menu-getting-started">    
@@ -159,7 +159,7 @@ gtag('config', 'G-0WLH5S9VD5', { 'anonymize_ip': true});
     </ul>
   </li>
   <li class="nav-item dropdown ">
-    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-community" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-community" role="link" data-bs-toggle="dropdown" aria-expanded="false">
  <span class="menu-text">Community</span>
     </a>
     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="nav-menu-community">    
@@ -203,7 +203,7 @@ gtag('config', 'G-0WLH5S9VD5', { 'anonymize_ip': true});
   </li>  
 </ul>
           </div> <!-- /navcollapse -->
-          <div class="quarto-navbar-tools">
+            <div class="quarto-navbar-tools">
 </div>
       </div> <!-- /container-fluid -->
     </nav>
@@ -284,7 +284,7 @@ gtag('config', 'G-0WLH5S9VD5', { 'anonymize_ip': true});
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
     </div>
 <!-- main -->
 <main class="content quarto-banner-title-block page-columns page-full" id="quarto-document-content">
@@ -309,7 +309,7 @@ gtag('config', 'G-0WLH5S9VD5', { 'anonymize_ip': true});
 <p>As fields of study related to climate, health, and population grew in the 1970s and 80s, researchers began to recognize that a deeper understanding of population distribution was needed. Censuses are costly and populations are dynamic; it became apparent that datasets estimating where people live needed to be combined with census data.</p>
 <p>The need to fill the gap in population data availability led to the development of the first global gridded population dataset in the 1990s (see <a href="#fig-1" class="quarto-xref">Figure&nbsp;1</a>): the Gridded Population of the World (GPW).<span class="citation" data-cites="Tobler1995 Deichmann1996 CIESIN"><sup><a href="#ref-Tobler1995" role="doc-biblioref">1</a>–<a href="#ref-CIESIN" role="doc-biblioref">3</a></sup></span> By combining population counts from censuses at second-administrative levels (i.e.&nbsp;counties and districts) with spatially-explicit administrative boundary data, researchers created a raster dataset that depicts population counts at 5-minute grid resolution (roughly 10km at the equator) on a continuous surface of the earth.<span class="citation" data-cites="Balk2006"><sup><a href="#ref-Balk2006" role="doc-biblioref">4</a></sup></span> This data enabled researchers studying climate (data that are commonly reported as a gridded surface) to incorporate population into their analyses without aggregating climate data to subnational administrative units.</p>
 <div class="page-columns page-full">
-<div id="fig-1" class="quarto-figure quarto-figure-center quarto-float anchored page-columns page-full">
+<div id="fig-1" class="quarto-float quarto-figure quarto-figure-center anchored page-columns page-full">
 <figure class="quarto-float quarto-float-fig figure page-columns page-full">
 <div aria-describedby="fig-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca" class="page-columns page-full">
 <img src="images/image3.png" class="img-fluid figure-img column-page">
@@ -356,7 +356,7 @@ Figure&nbsp;1: Data publication timeline
 <li>AmeriPop (developed in 2013)</li>
 </ul>
 <p>WorldPop’s population estimates are fractional (not integer), which can produce difficulties in interpretation since individual persons obviously cannot be divided up over an area. Its prediction model is good at estimating activity space with the caveat that it can overestimate population density in peri-urban areas while under-estimating population densities in urban centers.</p>
-<div id="tbl-1" class="hover bordered column-page quarto-float anchored">
+<div id="tbl-1" class="hover bordered column-page quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-tbl figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Table&nbsp;1: Comparison of Gridded Population Datasets
@@ -457,7 +457,7 @@ Table&nbsp;1: Comparison of Gridded Population Datasets
 <section id="comparing-sources" class="level1">
 <h1>Comparing sources</h1>
 <p>Representation of global population distribution is an increasingly important topic for researchers interested in human-environment interactions. It is vital that studies consider the advantages and limitations of the dataset they choose, as it has implications for statistical model outputs which can influence the conclusions drawn from their results. Researchers may benefit from downloading multiple datasets and comparing population density estimates based on each dataset for their study area. An example comparison is shown in <a href="#fig-2" class="quarto-xref">Figure&nbsp;2</a>, a population density map of Nairobi, Kenya, depicting the spatial extent of the Nairobi urban center based on the GHS settlement model (GHS-SMOD) in an overlay with WorldPop population density. As the map shows, the spatial extent of the urban area is not in complete agreement between the two datasets.</p>
-<div id="fig-2" class="quarto-figure quarto-figure-center quarto-float anchored">
+<div id="fig-2" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="images/image2.png" class="img-fluid figure-img">
@@ -565,18 +565,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
     return false;
   }
-  const clipboard = new window.ClipboardJS('.code-copy-button', {
-    text: function(trigger) {
-      const codeEl = trigger.previousElementSibling.cloneNode(true);
-      for (const childEl of codeEl.children) {
-        if (isCodeAnnotation(childEl)) {
-          childEl.remove();
-        }
-      }
-      return codeEl.innerText;
-    }
-  });
-  clipboard.on('success', function(e) {
+  const onCopySuccess = function(e) {
     // button target
     const button = e.trigger;
     // don't keep focus
@@ -608,7 +597,29 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }, 1000);
     // clear code selection
     e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
   });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
     var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
     var mailtoRegex = new RegExp(/^mailto:/);
       var filterRegex = new RegExp("https:\/\/ipums\.github\.io\/dhs-research-hub");
@@ -616,7 +627,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
         return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
     }
     // Inspect non-navigation links and adorn them if external
- 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
     for (var i=0; i<links.length; i++) {
       const link = links[i];
       if (!isInternal(link.href)) {
