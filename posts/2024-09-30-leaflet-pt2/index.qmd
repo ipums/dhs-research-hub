@@ -20,13 +20,13 @@ fig-height: 12
 image: images/listing-img.png
 open-graph:
   title: |
-    IPUMS DHS Research Hub — Using Leaflet for Exploratory Data Analysis: Part 2
+    Using Leaflet for Exploratory Data Analysis: Part 2
   description: |
     Exploring customization options for leaflet maps
   image: images/listing-img.png
 twitter-card:
   title: |
-    IPUMS DHS Research Hub — Using Leaflet for Exploratory Data Analysis: Part 2
+    Using Leaflet for Exploratory Data Analysis: Part 2
   description: |
     Exploring customization options for leaflet maps
   image: images/listing-img.png
@@ -356,7 +356,7 @@ Our colors here are represented as **hexadecimal codes**, which is a
 common format for representing colors digitally. Hex codes contain 6
 digits prefixed with a `#` sign. The first two digits indicate the
 amount of red in the color, the second two the amount of green, and the
-last two the amount of blue. Optionally, you can include an additional 
+last two the amount of blue. Optionally, you can include an additional
 pair of codes which adjust the transparency of the color.
 
 There are countless resources online to help you interactively pick

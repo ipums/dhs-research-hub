@@ -19,13 +19,13 @@ image: images/ptest.jpg
 bibliography: references.bib
 open-graph:
   title: |
-    IPUMS DHS Research Hub — Incorporating Climate and Reproductive History Data
+    Incorporating Climate and Reproductive History Data
   description: |
     Understanding the challenges when using longitudinal data with DHS surveys
   image: images/ptest.jpg
 twitter-card:
   title: |
-    IPUMS DHS Research Hub — Incorporating Climate and Reproductive History Data
+    Incorporating Climate and Reproductive History Data
   description: |
     Understanding the challenges when using longitudinal data with DHS surveys
   image: images/ptest.jpg
@@ -351,8 +351,8 @@ While assuming that current characteristics held earlier is never
 completely reliable, error could be minimized by restricting analysis to
 recent pregnancies—for example, those occurring in the three years
 before the survey or focusing on only the most-recent and
-second-most-recent pregnancies (indexed `_01` and `_02`), if they occurred
-recently.
+second-most-recent pregnancies (indexed `_01` and `_02`), if they
+occurred recently.
 
 One option for gaining some measure of socioeconomic status that varies
 over time is to construct time-varying covariate variables. For example,

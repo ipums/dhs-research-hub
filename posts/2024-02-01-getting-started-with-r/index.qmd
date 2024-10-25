@@ -11,11 +11,11 @@ categories:
   - R
 date: 02-01-2024
 open-graph:
-  title: "IPUMS DHS Research Hub — An Introduction to R"
+  title: "An Introduction to R"
   description: "Getting started with R and RStudio"
   image: ../../images/hex/Rlogo.png
 twitter-card:
-  title: "IPUMS DHS Research Hub — An Introduction to R"
+  title: "An Introduction to R"
   description: "Getting started with R and RStudio"
   image: ../../images/hex/Rlogo.png
 ---
@@ -263,8 +263,8 @@ Several packages will come into frequent use on this blog.
 
 ### ipumsr
 
-The `{ipumsr}` package contains
-functions that make it easier to load IPUMS data into R.
+The `{ipumsr}` package contains functions that make it easier to load
+IPUMS data into R.
 
 ::: column-margin
 `r hex("ipumsr")`
@@ -286,9 +286,9 @@ workflows introduced on the ipumsr
 
 ### tidyverse
 
-The `{tidyverse}` package actually
-refers to a family of related packages. Installing tidyverse will
-actually install each of these component packages:
+The `{tidyverse}` package actually refers to a family of related
+packages. Installing tidyverse will actually install each of these
+component packages:
 
 ::: column-margin
 `r hex("tidyverse")`
@@ -299,10 +299,8 @@ actually install each of these component packages:
 -   `{tidyr}` for data tidying
 -   `{readr}` for data import
 -   `{purrr}` for functional programming
--   `{tibble}` for tibbles (a modern
-    re-imagining of data frames)
--   `{stringr}` for string
-    manipulation
+-   `{tibble}` for tibbles (a modern re-imagining of data frames)
+-   `{stringr}` for string manipulation
 -   `{forcats}` for factor handling
 
 It's possible to call `library(tidyverse)` to load *all* the packages in
@@ -321,8 +319,8 @@ console output more human readable.
 ::: callout-tip
 Sometimes, human readability imposes a performance cost: in our
 experience, IPUMS DHS datasets are small enough that this is not an
-issue. For larger datasets, we recommend exploring the
-`{data.table}` package instead.
+issue. For larger datasets, we recommend exploring the `{data.table}`
+package instead.
 :::
 
 ### sf
@@ -331,8 +329,8 @@ issue. For larger datasets, we recommend exploring the
 `r hex("sf")`
 :::
 
-`{sf}`, which stands for *simple features*, is the main R
-package for working with spatial vector data.
+`{sf}`, which stands for *simple features*, is the main R package for
+working with spatial vector data.
 
 sf represents spatial data in a "tidy" format that resembles those used
 by tidyverse packages mentioned above. sf objects contain tabular data
@@ -349,8 +347,8 @@ maps.
 `r hex("terra")`
 :::
 
-`{terra}` provides a general framework for working with spatial
-data in both raster and vector format.
+`{terra}` provides a general framework for working with spatial data in
+both raster and vector format.
 
 While sf provides an alternative approach to working with vector data,
 terra's raster handling stands alone and provides robust methods to
@@ -363,6 +361,6 @@ on terra.
 
 ## Getting Help {.appendix}
 
-Questions or comments? Check out the 
-[IPUMS User Forum](https://forum.ipums.org) or reach out to IPUMS User Support 
-at ipums@umn.edu.
+Questions or comments? Check out the [IPUMS User
+Forum](https://forum.ipums.org) or reach out to IPUMS User Support at
+ipums\@umn.edu.

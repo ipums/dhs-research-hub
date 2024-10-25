@@ -24,7 +24,7 @@ fig-height: 8
 bibliography: references.bib
 open-graph:
   title: |
-    IPUMS DHS Research Hub — Demystifying and Demonstrating Spatially 
+    Demystifying and Demonstrating Spatially 
     Harmonized Geography in IPUMS DHS
   description: |
     Data and techniques for dealing with shifting boundaries in longitudinal
@@ -32,7 +32,7 @@ open-graph:
   image: images/sampleSpecific_all.png
 twitter-card:
   title: |
-    IPUMS DHS Research Hub — Demystifying and Demonstrating Spatially 
+    Demystifying and Demonstrating Spatially 
     Harmonized Geography in IPUMS DHS
   description: |
     Data and techniques for dealing with shifting boundaries in longitudinal

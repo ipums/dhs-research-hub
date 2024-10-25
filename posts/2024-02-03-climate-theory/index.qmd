@@ -24,13 +24,13 @@ fig-height: 8
 bibliography: references.bib
 open-graph:
   title: |
-    IPUMS DHS Research Hub — Developing Robust Conceptual Models in Climate Change and Health Research
+    Developing Robust Conceptual Models in Climate Change and Health Research
   description: |
     Introducing the theoretical foundations for effective research on climate change and health
   image: images/pathways.png
 twitter-card:
   title: |
-    IPUMS DHS Research Hub — Developing Robust Conceptual Models in Climate Change and Health Research
+    Developing Robust Conceptual Models in Climate Change and Health Research
   description: |
     Introducing the theoretical foundations for effective research on climate change and health
   image: images/pathways.png
@@ -171,6 +171,6 @@ models (in the U.S. context), see Balbus et al. (2016).[@Balbus2016]
 
 ## Getting Help {.appendix}
 
-Questions or comments? Check out the 
-[IPUMS User Forum](https://forum.ipums.org) or reach out to IPUMS User Support 
-at ipums@umn.edu.
+Questions or comments? Check out the [IPUMS User
+Forum](https://forum.ipums.org) or reach out to IPUMS User Support at
+ipums\@umn.edu.

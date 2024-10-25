@@ -22,13 +22,13 @@ fig-height: 8
 image: images/listing-img.png
 bibliography: references.bib
 open-graph:
-  title: "IPUMS DHS Research Hub — Measuring Population Density"
+  title: "Measuring Population Density"
   description: |
     An introduction to gridded data sources used to measure human presence
     across the globe
   image: images/listing-img.png
 twitter-card:
-  title: "IPUMS DHS Research Hub — Measuring Population Density"
+  title: "Measuring Population Density"
   description: |
     An introduction to gridded data sources used to measure human presence
     across the globe

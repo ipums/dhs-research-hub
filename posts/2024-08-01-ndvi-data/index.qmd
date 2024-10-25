@@ -24,14 +24,14 @@ fig-height: 8
 image: index_files/figure-html/listing-img-1.png
 open-graph:
   title: |
-    IPUMS DHS Research Hub — An Iterative Workflow for Loading NDVI Data in R
+    An Iterative Workflow for Loading NDVI Data in R
   description: |
     Use purrr and terra to efficiently integrate NDVI data across multiple
     spatial extents
   image: index_files/figure-html/listing-img-1.png
 twitter-card:
   title: |
-    IPUMS DHS Research Hub — An Iterative Workflow for Loading NDVI Data in R
+    An Iterative Workflow for Loading NDVI Data in R
   description: |
     Use purrr and terra to efficiently integrate NDVI data across multiple
     spatial extents
@@ -100,9 +100,10 @@ For this post, we'll use data from NASA's
 which provides data at a 250 meter resolution.
 
 ::: column-margin
-While this resolution exceeds our typical needs, we use 250 meter data for
-this post and the next to help demonstrate some of the relevant considerations
-for working with NDVI data in a population health context.
+While this resolution exceeds our typical needs, we use 250 meter data
+for this post and the next to help demonstrate some of the relevant
+considerations for working with NDVI data in a population health
+context.
 :::
 
 ::: callout-note

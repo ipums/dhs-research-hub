@@ -23,13 +23,13 @@ fig-width: 10
 fig-height: 8
 image: index_files/figure-html/listing-img-1.png
 open-graph:
-  title: "IPUMS DHS Research Hub — Aggregation Methods for NDVI Data"
+  title: "Aggregation Methods for NDVI Data"
   description: |
     We use data from two distinct climates to illustrate approaches to 
     processing NDVI data
   image: index_files/figure-html/listing-img-1.png
 twitter-card:
-  title: "IPUMS DHS Research Hub — Aggregation Methods for NDVI Data"
+  title: "Aggregation Methods for NDVI Data"
   description: |
     We use data from two distinct climates to illustrate approaches to 
     processing NDVI data

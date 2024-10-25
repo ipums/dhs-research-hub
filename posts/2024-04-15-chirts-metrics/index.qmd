@@ -23,12 +23,12 @@ fig-height: 8
 image: index_files/figure-html/listing-img-1.png
 bibliography: references.bib
 open-graph:
-  title: "IPUMS DHS Research Hub — Reproducible Workflows with CHIRTS Temperature Data"
+  title: "Reproducible Workflows with CHIRTS Temperature Data"
   description: |
     Build flexibile workflows to more easily aggregate time-varying climate data
   image: index_files/figure-html/listing-img-1.png
 twitter-card:
-  title: "IPUMS DHS Research Hub — Reproducible Workflows with CHIRTS Temperature Data"
+  title: "Reproducible Workflows with CHIRTS Temperature Data"
   description: |
     Build flexibile workflows to more easily aggregate time-varying climate data
   image: index_files/figure-html/listing-img-1.png

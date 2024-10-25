@@ -24,7 +24,7 @@ fig-height: 8
 image: index_files/figure-html/listing-img-1.png
 open-graph:
   title: |
-    IPUMS DHS Research Hub — Time-specific temperature exposures for DHS 
+    Time-specific temperature exposures for DHS 
     survey respondents
   description: |
     Fine-tune an analysis by incorporating temporal information from a DHS 
@@ -32,7 +32,7 @@ open-graph:
   image: index_files/figure-html/listing-img-1.png
 twitter-card:
   title: |
-    IPUMS DHS Research Hub — Time-specific temperature exposures for DHS 
+    Time-specific temperature exposures for DHS 
     survey respondents
   description: |
     Fine-tune an analysis by incorporating temporal information from a DHS 

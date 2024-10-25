@@ -24,13 +24,13 @@ fig-height: 8
 image: index_files/figure-html/listing-img-1.png
 bibliography: references.bib
 open-graph:
-  title: "IPUMS DHS Research Hub — Attaching CHIRPS Precipitation Data to DHS Surveys"
+  title: "Attaching CHIRPS Precipitation Data to DHS Surveys"
   description: |
     Remotely sensed precipitation data can provide important context for
     understanding the health outcomes reported in the DHS
   image: index_files/figure-html/listing-img-1.png
 twitter-card:
-  title: "IPUMS DHS Research Hub — Attaching CHIRPS Precipitation Data to DHS Surveys"
+  title: "Attaching CHIRPS Precipitation Data to DHS Surveys"
   description: |
     Remotely sensed precipitation data can provide important context for
     understanding the health outcomes reported in the DHS

@@ -20,14 +20,14 @@ image: images/max_ndvi.png
 bibliography: references.bib
 open-graph:
   title: |
-    IPUMS DHS Research Hub — Introducing NDVI as a Tool for Population Health Research
+    Introducing NDVI as a Tool for Population Health Research
   description: |
     Satellite imagery can be used in conjunction with
     place-specific research methods to assess food production and its impacts
   image: images/max_ndvi.png
 twitter-card:
   title: |
-    IPUMS DHS Research Hub — Introducing NDVI as a Tool for Population Health Research
+    Introducing NDVI as a Tool for Population Health Research
   description: |
     Satellite imagery can be used in conjunction with
     place-specific research methods to assess food production and its impacts

@@ -21,13 +21,11 @@ bibliography: references.bib
 image: images/storm-clouds-over-wheat-field-danger-weather-with-dark-sky-over-fields-SBI-300870591.jpg
 open-graph:
   title: |
-    IPUMS DHS Research Hub — Droplets of Insights for Integrating 
-    DHS and Rainfall Data
+    Droplets of Insights for Integrating DHS and Rainfall Data
   image: images/storm-clouds-over-wheat-field-danger-weather-with-dark-sky-over-fields-SBI-300870591.jpg
 twitter-card:
   title: |
-    IPUMS DHS Research Hub — Droplets of Insights for Integrating 
-    DHS and Rainfall Data
+    Droplets of Insights for Integrating DHS and Rainfall Data
   image: images/storm-clouds-over-wheat-field-danger-weather-with-dark-sky-over-fields-SBI-300870591.jpg
 ---
 

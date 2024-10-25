@@ -19,13 +19,13 @@ fig-height: 12
 image: images/listing-img.png
 open-graph:
   title: |
-    IPUMS DHS Research Hub — Using Leaflet for Exploratory Data Analysis: Part 1
+    Using Leaflet for Exploratory Data Analysis: Part 1
   description: |
     An introduction to interactive mapping using the leaflet package
   image: images/listing-img.png
 twitter-card:
   title: |
-    IPUMS DHS Research Hub — Using Leaflet for Exploratory Data Analysis: Part 1
+    Using Leaflet for Exploratory Data Analysis: Part 1
   description: |
     An introduction to interactive mapping using the leaflet package
   image: images/listing-img.png
