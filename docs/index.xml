@@ -10,7 +10,20 @@
 <atom:link href="https://ipums.github.io/dhs-research-hub/index.xml" rel="self" type="application/rss+xml"/>
 <description>Understand population health in its environmental context</description>
 <generator>quarto-1.5.57</generator>
-<lastBuildDate>Fri, 25 Oct 2024 04:00:00 GMT</lastBuildDate>
+<lastBuildDate>Fri, 06 Dec 2024 05:00:00 GMT</lastBuildDate>
+<item>
+  <title>Incorporating Qualitative Methods into Spatial Health Research</title>
+  <dc:creator>Kathryn Grace</dc:creator>
+  <link>https://ipums.github.io/dhs-research-hub/posts/2024-12-06-qualitative-methods/</link>
+  <description><![CDATA[ Spatiotemporal research is enhanced when guided by local knowledge, perspective, and expertise. ]]></description>
+  <category>Qualitative methods</category>
+  <category>Climate</category>
+  <category>Methodology</category>
+  <category>Research concepts</category>
+  <guid>https://ipums.github.io/dhs-research-hub/posts/2024-12-06-qualitative-methods/</guid>
+  <pubDate>Fri, 06 Dec 2024 05:00:00 GMT</pubDate>
+  <media:content url="https://ipums.github.io/dhs-research-hub/posts/2024-12-06-qualitative-methods/images/flowchart.png" medium="image" type="image/png" height="121" width="144"/>
+</item>
 <item>
   <title>Using QGIS for Spatial Data Analysis</title>
   <dc:creator>Ankit Sikarwar</dc:creator>
@@ -96,7 +109,7 @@
   <category>sf</category>
   <guid>https://ipums.github.io/dhs-research-hub/posts/2024-08-16-ndvi-data-2/</guid>
   <pubDate>Fri, 16 Aug 2024 04:00:00 GMT</pubDate>
-  <media:content url="https://ipums.github.io/dhs-research-hub/posts/2024-08-16-ndvi-data-2/index_files/figure-html/listing-img-1.png" medium="image" type="image/png" height="115" width="144"/>
+  <media:content url="https://ipums.github.io/dhs-research-hub/posts/2024-08-16-ndvi-data-2/index_files/figure-html/listing-img-1.png" medium="image" type="image/png"/>
 </item>
 <item>
   <title>An Iterative Workflow for Loading NDVI Data in R</title>
@@ -168,7 +181,7 @@
   <category>R</category>
   <guid>https://ipums.github.io/dhs-research-hub/posts/2024-05-31-ts-join/</guid>
   <pubDate>Fri, 31 May 2024 04:00:00 GMT</pubDate>
-  <media:content url="https://ipums.github.io/dhs-research-hub/posts/2024-05-31-ts-join/index_files/figure-html/listing-img-1.png" medium="image" type="image/png" height="115" width="144"/>
+  <media:content url="https://ipums.github.io/dhs-research-hub/posts/2024-05-31-ts-join/index_files/figure-html/listing-img-1.png" medium="image" type="image/png"/>
 </item>
 <item>
   <title>Flexible Workflows with CHIRTS Temperature Data</title>
@@ -237,7 +250,7 @@
   <category>R</category>
   <guid>https://ipums.github.io/dhs-research-hub/posts/2024-02-04-dhs-chirps/</guid>
   <pubDate>Sun, 04 Feb 2024 05:00:00 GMT</pubDate>
-  <media:content url="https://ipums.github.io/dhs-research-hub/posts/2024-02-04-dhs-chirps/index_files/figure-html/listing-img-1.png" medium="image" type="image/png" height="115" width="144"/>
+  <media:content url="https://ipums.github.io/dhs-research-hub/posts/2024-02-04-dhs-chirps/index_files/figure-html/listing-img-1.png" medium="image" type="image/png"/>
 </item>
 <item>
   <title>Developing Robust Conceptual Models in Climate Change and Health Research</title>
