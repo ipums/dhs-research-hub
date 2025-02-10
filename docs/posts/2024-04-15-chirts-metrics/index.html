@@ -6,8 +6,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 <meta name="author" content="Finn Roberts">
 <meta name="dcterms.date" content="2024-04-15">
-<meta name="description" content="Generalize your code to more easily aggregate time-varying climate data">
-<title>Flexible Workflows with CHIRTS Temperature Data – IPUMS DHS Climate Change and Health Research Hub</title>
+<meta name="description" content="Generalize your code to more easily aggregate time-varying environmental data">
+<title>Flexible Workflows with CHIRTS Temperature Data – IPUMS DHS Spatial Analysis and Health Research Hub</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -127,13 +127,13 @@ gtag('js', new Date());
 gtag('config', 'G-0WLH5S9VD5', { 'anonymize_ip': true});
 </script>
 <meta property="og:title" content="Reproducible Workflows with CHIRTS Temperature Data">
-<meta property="og:description" content="Build flexibile workflows to more easily aggregate time-varying climate data">
+<meta property="og:description" content="Build flexibile workflows to more easily aggregate time-varying environmental data">
 <meta property="og:image" content="https://ipums.github.io/dhs-research-hub/posts/2024-04-15-chirts-metrics/index_files/figure-html/listing-img-1.png">
-<meta property="og:site_name" content="IPUMS DHS Climate Change and Health Research Hub">
+<meta property="og:site_name" content="IPUMS DHS Spatial Analysis and Health Research Hub">
 <meta property="og:image:height" content="1536">
 <meta property="og:image:width" content="1920">
 <meta name="twitter:title" content="Reproducible Workflows with CHIRTS Temperature Data">
-<meta name="twitter:description" content="Build flexibile workflows to more easily aggregate time-varying climate data">
+<meta name="twitter:description" content="Build flexibile workflows to more easily aggregate time-varying environmental data">
 <meta name="twitter:image" content="https://ipums.github.io/dhs-research-hub/posts/2024-04-15-chirts-metrics/index_files/figure-html/listing-img-1.png">
 <meta name="twitter:image-height" content="1536">
 <meta name="twitter:image-width" content="1920">
@@ -155,7 +155,7 @@ gtag('config', 'G-0WLH5S9VD5', { 'anonymize_ip': true});
             <ul class="navbar-nav navbar-nav-scroll me-auto">
 <li class="nav-item">
     <a class="nav-link" href="../../index.html"> 
-<span class="menu-text">Climate Change and Health Research Hub</span></a>
+<span class="menu-text">Spatial Analysis and Health Research Hub</span></a>
   </li>  
 </ul>
 <ul class="navbar-nav navbar-nav-scroll ms-auto">
@@ -231,14 +231,14 @@ gtag('config', 'G-0WLH5S9VD5', { 'anonymize_ip': true});
       <h1 class="title">Flexible Workflows with CHIRTS Temperature Data</h1>
                   <div>
         <div class="description">
-          <p>Generalize your code to more easily aggregate time-varying climate data</p>
+          <p>Generalize your code to more easily aggregate time-varying environmental data</p>
         </div>
       </div>
                           <div class="quarto-categories">
                 <div class="quarto-category">CHIRTS</div>
                 <div class="quarto-category">Temperature</div>
                 <div class="quarto-category">Heat</div>
-                <div class="quarto-category">Climate</div>
+                <div class="quarto-category">Extreme weather</div>
                 <div class="quarto-category">Time series</div>
                 <div class="quarto-category">Reproducible workflows</div>
                 <div class="quarto-category">Functional programming</div>
@@ -328,7 +328,7 @@ gtag('config', 'G-0WLH5S9VD5', { 'anonymize_ip': true});
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
     </div>
 <!-- main -->
-<main class="content quarto-banner-title-block page-columns page-full" id="quarto-document-content"><p>In our <a href="../2024-02-04-dhs-chirps/index.html">previous technical post</a>, we showed how to reduce a daily time series of climate data for an entire country into a single digestible metric that can be attached to <a href="https://www.dhsprogram.com/">DHS survey</a> data for use in an analysis.</p>
+<main class="content quarto-banner-title-block page-columns page-full" id="quarto-document-content"><p>In our <a href="../2024-02-04-dhs-chirps/index.html">previous technical post</a>, we showed how to reduce a daily time series of environmental data for an entire country into a single digestible metric that can be attached to <a href="https://www.dhsprogram.com/">DHS survey</a> data for use in an analysis.</p>
 <p>However, as we mentioned then, a long-run average isn’t always the most appropriate way to aggregate raster values across time. As an example, imagine we were interested in the impacts of <strong>extreme heat</strong> on child <strong>birth weight</strong>. The proximate conditions in the several months preceding each child’s birth are likely to be more consequential for that child’s health than the average conditions over many years.<span class="citation" data-cites="Grace2021"><sup><a href="#ref-Grace2021" role="doc-biblioref">1</a></sup></span></p>
 <section id="a-new-approach" class="level1"><h1>A new approach</h1>
 <p>To explore this idea, we could instead aggregate temperature data to the a more fine-grained temporal level and selectively consider the temperature in a specified time range before each child’s birth.</p>
@@ -427,7 +427,7 @@ Climatological Normals
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>When dealing with climate data, it’s often necessary to have a long time series of data to establish a stable <em>climatological normal</em>, or baseline, to which to compare current observations. 30-year normals are commonly used, but their use has recently been questioned due to the rapidly changing conditions associated with climate change.<span class="citation" data-cites="Livezey2007"><sup><a href="#ref-Livezey2007" role="doc-biblioref">4</a></sup></span></p>
+<p>When dealing with environmental data, it’s often necessary to have a long time series of data to establish a stable <em>climatological normal</em>, or baseline, to which to compare current observations. 30-year normals are commonly used, but their use has recently been questioned due to the acceleration of extreme weather frequency.<span class="citation" data-cites="Livezey2007"><sup><a href="#ref-Livezey2007" role="doc-biblioref">4</a></sup></span></p>
 <p>Because of the space and time required to obtain data to calculate normals at a high resolution, we won’t be creating normals from CHIRTS in this post, but you may see them in the literature.</p>
 </div>
 </div>
@@ -616,7 +616,7 @@ Defining Heat Exposure
 <p>For our first metric, we’ll take a simple approach and calculate an average monthly temperature.</p>
 <p><a href="../2024-02-04-dhs-chirps/#summarize-precipitation-values">Previously</a>, we introduced terra’s <code><a href="https://rspatial.github.io/terra/reference/summarize-generics.html">mean()</a></code> method, which allows you to calculate a single mean across all layers of a <code>SpatRaster</code> object. In this case, we also want to calculate a mean, but we need to adapt our approach so we can do so for each month independently.</p>
 <p>Enter terra’s <code><a href="https://rspatial.github.io/terra/reference/tapp.html">tapp()</a></code> function. <code><a href="https://rspatial.github.io/terra/reference/tapp.html">tapp()</a></code> allows you to apply a function to <strong>groups of raster layers</strong>. You can indicate which layers should be grouped together with the <code>index</code> argument. For instance, to independently calculate the mean of the first three layers and the second three layers, we could use the following <code>index</code>:</p>
-<div class="cell" data-hash="index_cache/html/unnamed-chunk-15_887a27ab707e7cc41676ba8c9851cead">
+<div class="cell">
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rspatial.github.io/terra/reference/tapp.html">tapp</a></span><span class="op">(</span></span>
 <span>  <span class="va">ml_chirts</span><span class="op">[[</span><span class="fl">1</span><span class="op">:</span><span class="fl">6</span><span class="op">]</span><span class="op">]</span>, <span class="co"># Select the first 6 layers to demo</span></span>
 <span>  fun <span class="op">=</span> <span class="va">mean</span>, </span>
@@ -734,7 +734,8 @@ Defining Heat Exposure
 <span><span class="co">#&gt; resolution  : 0.05, 0.05  (x, y)</span></span>
 <span><span class="co">#&gt; extent      : -12.35, 4.399999, 10.05, 25.1  (xmin, xmax, ymin, ymax)</span></span>
 <span><span class="co">#&gt; coord. ref. : lon/lat WGS 84 </span></span>
-<span><span class="co">#&gt; source      : spat_pIE8f2XA3mxHxoA_77362.tif </span></span>
+<span><span class="co">#&gt; source      : spat_1054bb3e6fb1_66891.tif </span></span>
+<span><span class="co">#&gt; varname     : Tmax (Climate Hazards Center Tmax) </span></span>
 <span><span class="co">#&gt; names       : Tmax_1, Tmax_2, Tmax_3, Tmax_4, Tmax_5, Tmax_6, ... </span></span>
 <span><span class="co">#&gt; min values  :  FALSE,  FALSE,  FALSE,  FALSE,  FALSE,  FALSE, ... </span></span>
 <span><span class="co">#&gt; max values  :   TRUE,   TRUE,   TRUE,   TRUE,   TRUE,   TRUE, ... </span></span>
@@ -1077,8 +1078,8 @@ Anonymous Function Syntax
 </div>
 <p>As we can see, modifying our definition does indeed produce meaningful differences in the prevalence of heatwave days in various parts of the country. Which definition is appropriate will depend on your particular research questions and aims. However, building custom functions into your workflow will make it much easier to quickly compare different definitions, facilitating sensitivity analyses and robustness checks.</p>
 </section></section></section><section id="up-next" class="level1"><h1>Up next</h1>
-<p>There are many temperature exposure concepts that we didn’t address in this post, like climate normals, seasonality, humidity, and more. However, the techniques we introduced should give you a solid foundation for building flexible workflows to compute climate metrics that you use commonly in your research.</p>
-<p>This post is the first in a short series. In our next technical post, we’ll build on the metrics we produced here to demonstrate how we can use the monthly climate data in conjunction with the dates recorded in DHS surveys.</p>
+<p>There are many temperature exposure concepts that we didn’t address in this post, like climatological normals, seasonality, humidity, and more. However, the techniques we introduced should give you a solid foundation for building flexible workflows to compute environmental metrics that you use commonly in your research.</p>
+<p>This post is the first in a short series. In our next technical post, we’ll build on the metrics we produced here to demonstrate how we can use the monthly environmental data in conjunction with the dates recorded in DHS surveys.</p>
 <p>We’ll extract values for our temperature metrics at the locations of the survey responses and attach these values to our DHS records on a month-by-month basis. This will allow us to finally link time-specific temperature values to individual births in the DHS!</p>
 </section><div id="quarto-appendix" class="default"><section id="getting-help" class="level2 appendix"><h2 class="anchored quarto-appendix-heading">Getting Help</h2><div class="quarto-appendix-contents">
 <p>Questions or comments? Check out the <a href="https://forum.ipums.org">IPUMS User Forum</a> or reach out to IPUMS User Support at ipums@umn.edu.</p>

@@ -2,7 +2,7 @@
 title: "Time-specific temperature exposures for DHS survey respondents"
 description: |
   Fine-tune an analysis by incorporating temporal information from a DHS survey
-  with longitudinal climate data
+  with longitudinal environmental data
 author: 
   - name: "Finn Roberts"
     affiliation: Senior Data Analyst, IPUMS
@@ -14,7 +14,7 @@ categories:
   - Longitudinal analysis
   - Time series
   - Multilevel modeling
-  - Climate
+  - Extreme weather
   - terra
   - lme4
   - tidyr
@@ -28,7 +28,7 @@ open-graph:
     survey respondents
   description: |
     Fine-tune an analysis by incorporating temporal information from a DHS 
-    survey
+    survey with longitudinal environmental data
   image: index_files/figure-html/listing-img-1.png
 twitter-card:
   title: |
@@ -36,7 +36,7 @@ twitter-card:
     survey respondents
   description: |
     Fine-tune an analysis by incorporating temporal information from a DHS 
-    survey
+    survey with longitudinal environmental data
   image: index_files/figure-html/listing-img-1.png
 ---
 
@@ -208,8 +208,8 @@ ml_clust <- read_ipums_sf("data/MLGE6BFL.zip")
 ```
 
 As we've done [in the past](../2024-02-04-dhs-chirps/#cluster-buffers),
-we'll buffer our cluster coordinates so we capture the climate effects
-of the general region around each survey location
+we'll buffer our cluster coordinates so we capture the environmental
+effects of the general region around each survey location
 
 ```{r}
 ml_clust_buffer <- ml_clust |> 
@@ -234,7 +234,7 @@ dates represented in our sample.
 The DHS contains records for children born **within 5 years** of the
 survey date to women between 15 and 49 years of age. Thus, for the 2012
 Mali sample, we will have records for children ranging from 2008-2012.
-Further, since we want to identify monthly climate records for the time
+Further, since we want to identify monthly weather records for the time
 **preceding** each birth, we will also need to have data for the year
 prior to the earliest birth in the sample.
 
@@ -584,15 +584,15 @@ In practice, we would likely want to deal with `BIRTHWT` values of
 not fully correct to treat these values as *equal* to 9.995, since their
 values are actually unknown. This problem is known as **censoring**, but
 we won't address it in this post to keep this demonstration focused on
-our core goal of integrating climate data with DHS surveys.
+our core goal of integrating environmental data with DHS surveys.
 :::
 
 #### Residency
 
-When working with climate data, we want to be attentive to the members
-of the sample who may have recently moved to a location, as recent
-arrivals likely didn't experience the previous climate effects recorded
-for the area they currently live!
+When working with environmental data, we want to be attentive to the
+members of the sample who may have recently moved to a location, as
+recent arrivals likely didn't experience the previous environmental
+effects recorded for the area they currently live!
 
 IPUMS DHS includes the `RESIDEINTYR` variable to indicate how long
 survey respondents have lived at their current location.
@@ -601,7 +601,7 @@ Unfortunately, this variable wasn't collected for the Mali 2012 sample.
 However, we do have a record of whether a respondent is a visitor to the
 location or not. At a minimum, we'll remove records for those who are
 listed as visitors, since we can't be confident that they experienced
-the climate data for the cluster their response was recorded in.
+the environmental data for the cluster their response was recorded in.
 
 ```{r}
 ml_dhs <- ml_dhs |> 
@@ -764,7 +764,7 @@ the source of birth weight data.
 
 ::: callout-note
 We're building this model primarily to demonstrate how you might use
-aggregated survey and climate data. It's not intended to be be a
+aggregated survey and environmental data. It's not intended to be be a
 comprehensive modeling approach, and there are likely other variables
 that should be considered and included.
 :::
@@ -886,9 +886,9 @@ understand the impacts of our heatwave definition.
 
 Obviously, for your specific research questions many of these steps will
 need to change, but we've introduced many of the core tools you need
-when integrating climate data with DHS surveys. Even if you modify the
-sources and metrics you use, you should have an understanding of some of
-the technical considerations that go into this kind of research.
+when integrating environmental data with DHS surveys. Even if you modify
+the sources and metrics you use, you should have an understanding of
+some of the technical considerations that go into this kind of research.
 
 ## Getting Help {.appendix}
 

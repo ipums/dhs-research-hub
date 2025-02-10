@@ -1,7 +1,7 @@
 ---
 title: "Flexible Workflows with CHIRTS Temperature Data"
 description: |
-  Generalize your code to more easily aggregate time-varying climate data
+  Generalize your code to more easily aggregate time-varying environmental data
 author: 
   - name: "Finn Roberts"
     affiliation: Senior Data Analyst, IPUMS
@@ -10,7 +10,7 @@ categories:
   - CHIRTS
   - Temperature
   - Heat
-  - Climate
+  - Extreme weather
   - Time series
   - Reproducible workflows
   - Functional programming
@@ -25,12 +25,14 @@ bibliography: references.bib
 open-graph:
   title: "Reproducible Workflows with CHIRTS Temperature Data"
   description: |
-    Build flexibile workflows to more easily aggregate time-varying climate data
+    Build flexibile workflows to more easily aggregate time-varying 
+    environmental data
   image: index_files/figure-html/listing-img-1.png
 twitter-card:
   title: "Reproducible Workflows with CHIRTS Temperature Data"
   description: |
-    Build flexibile workflows to more easily aggregate time-varying climate data
+    Build flexibile workflows to more easily aggregate time-varying 
+    environmental data
   image: index_files/figure-html/listing-img-1.png
 ---
 
@@ -67,7 +69,7 @@ showtext::showtext_auto()
 ```
 
 In our [previous technical post](../2024-02-04-dhs-chirps/index.html),
-we showed how to reduce a daily time series of climate data for an
+we showed how to reduce a daily time series of environmental data for an
 entire country into a single digestible metric that can be attached to
 [DHS survey](https://www.dhsprogram.com/) data for use in an analysis.
 
@@ -233,12 +235,11 @@ single year of data.
 ::: callout-note
 ## Climatological Normals
 
-When dealing with climate data, it's often necessary to have a long time
-series of data to establish a stable *climatological normal*, or
-baseline, to which to compare current observations. 30-year normals are
-commonly used, but their use has recently been questioned due to the
-rapidly changing conditions associated with climate
-change.[@Livezey2007]
+When dealing with environmental data, it's often necessary to have a
+long time series of data to establish a stable *climatological normal*,
+or baseline, to which to compare current observations. 30-year normals
+are commonly used, but their use has recently been questioned due to the
+acceleration of extreme weather frequency.[@Livezey2007]
 
 Because of the space and time required to obtain data to calculate
 normals at a high resolution, we won't be creating normals from CHIRTS
@@ -1133,15 +1134,15 @@ definitions, facilitating sensitivity analyses and robustness checks.
 # Up next
 
 There are many temperature exposure concepts that we didn't address in
-this post, like climate normals, seasonality, humidity, and more.
+this post, like climatological normals, seasonality, humidity, and more.
 However, the techniques we introduced should give you a solid foundation
-for building flexible workflows to compute climate metrics that you use
-commonly in your research.
+for building flexible workflows to compute environmental metrics that
+you use commonly in your research.
 
 This post is the first in a short series. In our next technical post,
 we'll build on the metrics we produced here to demonstrate how we can
-use the monthly climate data in conjunction with the dates recorded in
-DHS surveys.
+use the monthly environmental data in conjunction with the dates
+recorded in DHS surveys.
 
 We'll extract values for our temperature metrics at the locations of the
 survey responses and attach these values to our DHS records on a

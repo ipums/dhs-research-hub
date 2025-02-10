@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>About this Blog – IPUMS DHS Climate Change and Health Research Hub</title>
+<title>About this Blog – IPUMS DHS Spatial Analysis and Health Research Hub</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -79,13 +79,13 @@ gtag('config', 'G-0WLH5S9VD5', { 'anonymize_ip': true});
 </script>
 
 
-<meta property="og:title" content="IPUMS DHS Climate Change and Health Research Hub">
+<meta property="og:title" content="IPUMS DHS Spatial Analysis and Health Research Hub">
 <meta property="og:description" content="Understand population health in its environmental context">
 <meta property="og:image" content="https://ipums.github.io/dhs-research-hub/images/dhs_logo_navy_pad.png">
-<meta property="og:site_name" content="IPUMS DHS Climate Change and Health Research Hub">
+<meta property="og:site_name" content="IPUMS DHS Spatial Analysis and Health Research Hub">
 <meta property="og:image:height" content="600">
 <meta property="og:image:width" content="1154">
-<meta name="twitter:title" content="IPUMS DHS Climate Change and Health Research Hub">
+<meta name="twitter:title" content="IPUMS DHS Spatial Analysis and Health Research Hub">
 <meta name="twitter:description" content="Understand population health in its environmental context">
 <meta name="twitter:image" content="https://ipums.github.io/dhs-research-hub/images/dhs_logo_navy_pad.png">
 <meta name="twitter:image-height" content="600">
@@ -112,7 +112,7 @@ gtag('config', 'G-0WLH5S9VD5', { 'anonymize_ip': true});
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
     <a class="nav-link" href="./index.html"> 
-<span class="menu-text">Climate Change and Health Research Hub</span></a>
+<span class="menu-text">Spatial Analysis and Health Research Hub</span></a>
   </li>  
 </ul>
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
@@ -209,7 +209,7 @@ gtag('config', 'G-0WLH5S9VD5', { 'anonymize_ip': true});
     <h2 id="toc-title">Contents</h2>
    
   <ul>
-  <li><a href="#supporting-climate-and-health-research" id="toc-supporting-climate-and-health-research" class="nav-link active" data-scroll-target="#supporting-climate-and-health-research">Supporting climate and health research</a></li>
+  <li><a href="#supporting-research-on-extreme-weather-and-health" id="toc-supporting-research-on-extreme-weather-and-health" class="nav-link active" data-scroll-target="#supporting-research-on-extreme-weather-and-health">Supporting research on extreme weather and health</a></li>
   <li><a href="#what-is-ipums-dhs" id="toc-what-is-ipums-dhs" class="nav-link" data-scroll-target="#what-is-ipums-dhs">What is IPUMS DHS?</a></li>
   <li><a href="#how-to-cite" id="toc-how-to-cite" class="nav-link" data-scroll-target="#how-to-cite">How to cite</a></li>
   <li><a href="#getting-help" id="toc-getting-help" class="nav-link" data-scroll-target="#getting-help">Getting help</a></li>
@@ -228,16 +228,16 @@ gtag('config', 'G-0WLH5S9VD5', { 'anonymize_ip': true});
 
 
 
-<section id="supporting-climate-and-health-research" class="level2">
-<h2 class="anchored" data-anchor-id="supporting-climate-and-health-research">Supporting climate and health research</h2>
-<p>IPUMS DHS data provide a critical resource to help illuminate the relationship between climate change and population health. To support such research, the IPUMS Global Health team received a 2023 supplemental grant from the Eunice Kennedy Shriver National Institute of Child Health and Human Development, or NICHD (3R01HD069471-12S1).</p>
+<section id="supporting-research-on-extreme-weather-and-health" class="level2">
+<h2 class="anchored" data-anchor-id="supporting-research-on-extreme-weather-and-health">Supporting research on extreme weather and health</h2>
+<p>IPUMS DHS data provide a critical resource to help illuminate the relationship between weather extremes and population health. To support such research, the IPUMS Global Health team received a 2023 supplemental grant from the Eunice Kennedy Shriver National Institute of Child Health and Human Development, or NICHD (3R01HD069471-12S1).</p>
 <p>This blog is designed to be a resource for researchers who are familiar with population health survey data but new to research using spatial data sources. The blog will introduce spatial data concepts and demonstrate basic spatial data processing techniques in R.</p>
 <p>Additionally, the supplemental grant supports:</p>
 <ul>
 <li>the integration and dissemination of DHS malaria monitoring data (MIS surveys) in IPUMS DHS.</li>
 <li>the dissemination of displaced GPS coordinates for DHS primary sampling units and the addition of new contextual variables to the IPUMS data extract system.</li>
 </ul>
-<p>These three elements will make it easier to add environmental context to research using IPUMS DHS surveys and will provide additional data relevant to disease vector transmission. Combined, they will enhance researchers’ ability to use IPUMS DHS data to understand the impacts of climate change on health.</p>
+<p>These three elements will make it easier to add environmental context to research using IPUMS DHS surveys and will provide additional data relevant to disease vector transmission. Combined, they will enhance researchers’ ability to use IPUMS DHS data to understand the impacts of weather extremes on health.</p>
 <section id="additional-support" class="level4">
 <h4 class="anchored" data-anchor-id="additional-support">Additional support</h4>
 <p>This blog is developed in collaboration with the <a href="https://chc.ucsb.edu/">Climate Hazards Center</a> at the University of California, Santa Barbara and is supported by USAID Cooperative Agreement 72DFFP19CA00001.</p>
@@ -257,7 +257,7 @@ gtag('config', 'G-0WLH5S9VD5', { 'anonymize_ip': true});
 <p>For a comprehensive guide to citing IPUMS DHS, see the <a href="https://www.idhsdata.org/idhs/citation.shtml">citation page</a> on the IPUMS DHS website.</p>
 <p>To cite an individual post on this blog, we suggest the following format:</p>
 <blockquote class="blockquote">
-<p>Roberts, F., &amp; Gunther, M. (2024, Februrary 4). <em>Attaching CHIRPS precipitation data to DHS surveys</em>. IPUMS DHS Climate Change and Health Research Hub. https://tech.popdata.org/dhs-research-hub/posts/2024-02-04-dhs-chirps/index.html</p>
+<p>Roberts, F., &amp; Gunther, M. (2024, Februrary 4). <em>Attaching CHIRPS precipitation data to DHS surveys</em>. IPUMS DHS Spatial Analysis and Health Research Hub. https://tech.popdata.org/dhs-research-hub/posts/2024-02-04-dhs-chirps/index.html</p>
 </blockquote>
 </section>
 <section id="getting-help" class="level2">

@@ -3,16 +3,16 @@ project:
   output-dir: docs
 
 website:
-  title: "IPUMS DHS Climate Change and Health Research Hub"
+  title: "IPUMS DHS Spatial Analysis and Health Research Hub"
   description: "Understand population health in its environmental context"
   favicon: images/favicon/favicon-32x32.ico
   site-url: https://ipums.github.io/dhs-research-hub
   open-graph:
-    title: "IPUMS DHS Climate Change and Health Research Hub"
+    title: "IPUMS DHS Spatial Analysis and Health Research Hub"
     description: "Understand population health in its environmental context"
     image: images/dhs_logo_navy_pad.png
   twitter-card:
-    title: "IPUMS DHS Climate Change and Health Research Hub"
+    title: "IPUMS DHS Spatial Analysis and Health Research Hub"
     description: "Understand population health in its environmental context"
     image: images/dhs_logo_navy_pad.png
   page-footer:
@@ -25,7 +25,7 @@ website:
     logo: images/dhs_logo_white.png
     logo-href: https://www.idhsdata.org/idhs/
     left:
-      - text: "Climate Change and Health Research Hub"
+      - text: "Spatial Analysis and Health Research Hub"
         file: index.qmd
     right:
       - text: "Posts"

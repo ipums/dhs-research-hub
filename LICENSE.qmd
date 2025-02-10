@@ -1,7 +1,7 @@
 ---
 title: "License"
 description: |
-  Unless otherwise noted, all DHS Climate Change and Health Research Hub 
+  Unless otherwise noted, all DHS Spatial Analysis and Health Research Hub 
   content is protected by the MPL version 2.0 license displayed below.
 format: 
   html:

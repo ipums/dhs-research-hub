@@ -2,27 +2,27 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://ipums.github.io/dhs-research-hub/LICENSE.html</loc>
-    <lastmod>2024-02-09T18:38:40.010Z</lastmod>
+    <lastmod>2025-02-07T18:48:37.298Z</lastmod>
   </url>
   <url>
     <loc>https://ipums.github.io/dhs-research-hub/CODE_OF_CONDUCT.html</loc>
-    <lastmod>2024-02-09T18:38:40.010Z</lastmod>
+    <lastmod>2025-02-08T13:31:45.797Z</lastmod>
   </url>
   <url>
     <loc>https://ipums.github.io/dhs-research-hub/blog-post-workflow.html</loc>
-    <lastmod>2024-02-12T17:10:14.970Z</lastmod>
+    <lastmod>2025-02-07T20:49:04.632Z</lastmod>
   </url>
   <url>
     <loc>https://ipums.github.io/dhs-research-hub/posts/2024-08-16-ndvi-data-2/index.html</loc>
-    <lastmod>2024-10-25T20:29:57.701Z</lastmod>
+    <lastmod>2025-02-07T20:49:37.955Z</lastmod>
   </url>
   <url>
     <loc>https://ipums.github.io/dhs-research-hub/posts/2024-05-31-ts-join/index.html</loc>
-    <lastmod>2024-10-25T20:29:57.610Z</lastmod>
+    <lastmod>2025-02-07T20:49:23.961Z</lastmod>
   </url>
   <url>
     <loc>https://ipums.github.io/dhs-research-hub/posts/2024-12-06-qualitative-methods/index.html</loc>
-    <lastmod>2024-12-05T21:08:23.446Z</lastmod>
+    <lastmod>2025-02-07T20:48:13.381Z</lastmod>
   </url>
   <url>
     <loc>https://ipums.github.io/dhs-research-hub/posts/2024-09-13-leaflet-pt1/index.html</loc>
@@ -30,7 +30,7 @@
   </url>
   <url>
     <loc>https://ipums.github.io/dhs-research-hub/posts/2024-02-01-getting-started-with-r/index.html</loc>
-    <lastmod>2024-10-25T20:29:57.471Z</lastmod>
+    <lastmod>2025-02-07T19:06:44.897Z</lastmod>
   </url>
   <url>
     <loc>https://ipums.github.io/dhs-research-hub/posts/2024-02-02-download-dhs-data/index.html</loc>
@@ -38,31 +38,31 @@
   </url>
   <url>
     <loc>https://ipums.github.io/dhs-research-hub/posts/2024-06-11-climate-reproduction/index.html</loc>
-    <lastmod>2024-10-25T20:29:57.611Z</lastmod>
+    <lastmod>2025-02-07T20:49:28.324Z</lastmod>
   </url>
   <url>
     <loc>https://ipums.github.io/dhs-research-hub/posts/2024-04-09-spatial-harmonization/index.html</loc>
-    <lastmod>2024-10-25T20:29:57.497Z</lastmod>
+    <lastmod>2025-02-07T20:10:31.727Z</lastmod>
   </url>
   <url>
     <loc>https://ipums.github.io/dhs-research-hub/posts/2024-10-25-qgis/index.html</loc>
-    <lastmod>2024-12-04T19:11:04.346Z</lastmod>
+    <lastmod>2025-02-07T21:10:04.544Z</lastmod>
   </url>
   <url>
     <loc>https://ipums.github.io/dhs-research-hub/posts/2024-08-01-ndvi-data/index.html</loc>
-    <lastmod>2024-10-25T20:29:57.656Z</lastmod>
+    <lastmod>2025-02-07T20:49:34.479Z</lastmod>
   </url>
   <url>
     <loc>https://ipums.github.io/dhs-research-hub/posts/2024-08-30-pop-density/index.html</loc>
-    <lastmod>2024-10-25T20:29:57.702Z</lastmod>
+    <lastmod>2025-02-07T20:44:11.677Z</lastmod>
   </url>
   <url>
     <loc>https://ipums.github.io/dhs-research-hub/posts/2024-07-02-ndvi-concepts/index.html</loc>
-    <lastmod>2024-10-25T20:29:57.611Z</lastmod>
+    <lastmod>2025-02-07T20:49:31.057Z</lastmod>
   </url>
   <url>
     <loc>https://ipums.github.io/dhs-research-hub/posts/2024-02-03-climate-theory/index.html</loc>
-    <lastmod>2024-10-25T20:29:57.480Z</lastmod>
+    <lastmod>2025-02-07T21:04:43.648Z</lastmod>
   </url>
   <url>
     <loc>https://ipums.github.io/dhs-research-hub/posts/2024-09-30-leaflet-pt2/index.html</loc>
@@ -70,15 +70,15 @@
   </url>
   <url>
     <loc>https://ipums.github.io/dhs-research-hub/posts/2024-02-23-rainfall-insights/index.html</loc>
-    <lastmod>2024-10-25T20:29:57.496Z</lastmod>
+    <lastmod>2025-02-07T20:49:17.689Z</lastmod>
   </url>
   <url>
     <loc>https://ipums.github.io/dhs-research-hub/posts/2024-04-15-chirts-metrics/index.html</loc>
-    <lastmod>2024-10-25T20:29:57.500Z</lastmod>
+    <lastmod>2025-02-07T20:49:20.579Z</lastmod>
   </url>
   <url>
     <loc>https://ipums.github.io/dhs-research-hub/posts/2024-02-04-dhs-chirps/index.html</loc>
-    <lastmod>2024-10-25T20:29:57.496Z</lastmod>
+    <lastmod>2025-02-07T20:49:13.835Z</lastmod>
   </url>
   <url>
     <loc>https://ipums.github.io/dhs-research-hub/index.html</loc>
@@ -86,6 +86,6 @@
   </url>
   <url>
     <loc>https://ipums.github.io/dhs-research-hub/about.html</loc>
-    <lastmod>2024-02-09T18:38:40.085Z</lastmod>
+    <lastmod>2025-02-07T20:18:20.696Z</lastmod>
   </url>
 </urlset>

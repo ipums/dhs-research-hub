@@ -5,7 +5,7 @@
       xmlns:dc="http://purl.org/dc/elements/1.1/" 
       version="2.0">
 <channel>
-<title>IPUMS DHS Climate Change and Health Research Hub</title>
+<title>IPUMS DHS Spatial Analysis and Health Research Hub</title>
 <link>https://ipums.github.io/dhs-research-hub/</link>
 <atom:link href="https://ipums.github.io/dhs-research-hub/index.xml" rel="self" type="application/rss+xml"/>
 <description>Understand population health in its environmental context</description>
@@ -17,7 +17,7 @@
   <link>https://ipums.github.io/dhs-research-hub/posts/2024-12-06-qualitative-methods/</link>
   <description><![CDATA[ Spatiotemporal research is enhanced when guided by local knowledge, perspective, and expertise. ]]></description>
   <category>Qualitative methods</category>
-  <category>Climate</category>
+  <category>Extreme weather</category>
   <category>Methodology</category>
   <category>Research concepts</category>
   <guid>https://ipums.github.io/dhs-research-hub/posts/2024-12-06-qualitative-methods/</guid>
@@ -95,12 +95,12 @@
   <title>Aggregation Methods for NDVI Data</title>
   <dc:creator>Finn Roberts</dc:creator>
   <link>https://ipums.github.io/dhs-research-hub/posts/2024-08-16-ndvi-data-2/</link>
-  <description><![CDATA[ We use data from two climates to illustrate approaches to processing NDVI data ]]></description>
+  <description><![CDATA[ We use data from two regions to illustrate approaches to processing NDVI data ]]></description>
   <category>NDVI</category>
   <category>Seasonality</category>
-  <category>Climate normals</category>
+  <category>Climatological normals</category>
   <category>Agriculture</category>
-  <category>Climate</category>
+  <category>Extreme weather</category>
   <category>Food production</category>
   <category>R</category>
   <category>Time series</category>
@@ -118,7 +118,7 @@
   <description><![CDATA[ Use purrr and terra to efficiently integrate NDVI data across multiple spatial extents ]]></description>
   <category>NDVI</category>
   <category>Agriculture</category>
-  <category>Climate</category>
+  <category>Extreme weather</category>
   <category>Food production</category>
   <category>Importing Data</category>
   <category>R</category>
@@ -138,7 +138,7 @@
   <dc:creator>Jude Mikal</dc:creator>
   <link>https://ipums.github.io/dhs-research-hub/posts/2024-07-02-ndvi-concepts/</link>
   <description><![CDATA[ Satellite imagery can be used in conjunction with place-specific research methods to assess food production and its impacts ]]></description>
-  <category>Climate</category>
+  <category>Extreme weather</category>
   <category>NDVI</category>
   <category>Food production</category>
   <category>Agriculture</category>
@@ -149,11 +149,11 @@
   <media:content url="https://ipums.github.io/dhs-research-hub/posts/2024-07-02-ndvi-concepts/images/max_ndvi.png" medium="image" type="image/png" height="65" width="144"/>
 </item>
 <item>
-  <title>Incorporating Climate and Reproductive History Data</title>
+  <title>Incorporating Environmental and Reproductive History Data</title>
   <dc:creator>Sunnee Billingsley</dc:creator>
   <link>https://ipums.github.io/dhs-research-hub/posts/2024-06-11-climate-reproduction/</link>
   <description><![CDATA[ Understanding the challenges when using longitudinal data with DHS surveys ]]></description>
-  <category>Climate</category>
+  <category>Extreme weather</category>
   <category>Reproductive history</category>
   <category>Longitudinal data</category>
   <category>Time series</category>
@@ -167,14 +167,14 @@
   <title>Time-specific temperature exposures for DHS survey respondents</title>
   <dc:creator>Finn Roberts</dc:creator>
   <link>https://ipums.github.io/dhs-research-hub/posts/2024-05-31-ts-join/</link>
-  <description><![CDATA[ Fine-tune an analysis by incorporating temporal information from a DHS survey with longitudinal climate data ]]></description>
+  <description><![CDATA[ Fine-tune an analysis by incorporating temporal information from a DHS survey with longitudinal environmental data ]]></description>
   <category>CHIRTS</category>
   <category>Temperature</category>
   <category>Heat</category>
   <category>Longitudinal analysis</category>
   <category>Time series</category>
   <category>Multilevel modeling</category>
-  <category>Climate</category>
+  <category>Extreme weather</category>
   <category>terra</category>
   <category>lme4</category>
   <category>tidyr</category>
@@ -187,11 +187,11 @@
   <title>Flexible Workflows with CHIRTS Temperature Data</title>
   <dc:creator>Finn Roberts</dc:creator>
   <link>https://ipums.github.io/dhs-research-hub/posts/2024-04-15-chirts-metrics/</link>
-  <description><![CDATA[ Generalize your code to more easily aggregate time-varying climate data ]]></description>
+  <description><![CDATA[ Generalize your code to more easily aggregate time-varying environmental data ]]></description>
   <category>CHIRTS</category>
   <category>Temperature</category>
   <category>Heat</category>
-  <category>Climate</category>
+  <category>Extreme weather</category>
   <category>Time series</category>
   <category>Reproducible workflows</category>
   <category>Functional programming</category>
@@ -225,7 +225,7 @@
   <dc:creator>Molly Brown</dc:creator>
   <link>https://ipums.github.io/dhs-research-hub/posts/2024-02-23-rainfall-insights/</link>
   <description><![CDATA[ Some factors to consider when obtaining and preparing precipitation data for use with DHS surveys ]]></description>
-  <category>Climate</category>
+  <category>Extreme weather</category>
   <category>Precipitation</category>
   <category>CHIRPS</category>
   <category>Methodology</category>
@@ -242,7 +242,7 @@
   <description><![CDATA[ Remotely sensed precipitation data can provide important context for understanding the health outcomes reported in the DHS ]]></description>
   <category>CHIRPS</category>
   <category>Precipitation</category>
-  <category>Climate</category>
+  <category>Extreme weather</category>
   <category>Agriculture</category>
   <category>terra</category>
   <category>sf</category>
@@ -253,14 +253,14 @@
   <media:content url="https://ipums.github.io/dhs-research-hub/posts/2024-02-04-dhs-chirps/index_files/figure-html/listing-img-1.png" medium="image" type="image/png"/>
 </item>
 <item>
-  <title>Developing Robust Conceptual Models in Climate Change and Health Research</title>
+  <title>Developing Robust Conceptual Models in Research on Extreme Weather and Health</title>
   <dc:creator>Elizabeth Heger Boyle</dc:creator>
   <dc:creator>Kathryn Grace</dc:creator>
   <dc:creator>Audrey Dorélien</dc:creator>
   <dc:creator>Devon Kristiansen</dc:creator>
   <link>https://ipums.github.io/dhs-research-hub/posts/2024-02-03-climate-theory/</link>
-  <description><![CDATA[ Introducing the theoretical foundations for effective research on climate change and health ]]></description>
-  <category>Climate</category>
+  <description><![CDATA[ Introducing the theoretical foundations for effective research on weather extremes and health ]]></description>
+  <category>Extreme weather</category>
   <category>Methodology</category>
   <category>Research concepts</category>
   <guid>https://ipums.github.io/dhs-research-hub/posts/2024-02-03-climate-theory/</guid>

@@ -7,7 +7,7 @@
 <meta name="author" content="Finn Roberts">
 <meta name="dcterms.date" content="2024-08-01">
 <meta name="description" content="Use purrr and terra to efficiently integrate NDVI data across multiple spatial extents">
-<title>An Iterative Workflow for Loading NDVI Data in R – IPUMS DHS Climate Change and Health Research Hub</title>
+<title>An Iterative Workflow for Loading NDVI Data in R – IPUMS DHS Spatial Analysis and Health Research Hub</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -109,7 +109,7 @@ gtag('config', 'G-0WLH5S9VD5', { 'anonymize_ip': true});
 <meta property="og:title" content="An Iterative Workflow for Loading NDVI Data in R">
 <meta property="og:description" content="Use purrr and terra to efficiently integrate NDVI data across multiple spatial extents">
 <meta property="og:image" content="https://ipums.github.io/dhs-research-hub/posts/2024-08-01-ndvi-data/index_files/figure-html/listing-img-1.png">
-<meta property="og:site_name" content="IPUMS DHS Climate Change and Health Research Hub">
+<meta property="og:site_name" content="IPUMS DHS Spatial Analysis and Health Research Hub">
 <meta property="og:image:height" content="1536">
 <meta property="og:image:width" content="1920">
 <meta name="twitter:title" content="An Iterative Workflow for Loading NDVI Data in R">
@@ -135,7 +135,7 @@ gtag('config', 'G-0WLH5S9VD5', { 'anonymize_ip': true});
             <ul class="navbar-nav navbar-nav-scroll me-auto">
 <li class="nav-item">
     <a class="nav-link" href="../../index.html"> 
-<span class="menu-text">Climate Change and Health Research Hub</span></a>
+<span class="menu-text">Spatial Analysis and Health Research Hub</span></a>
   </li>  
 </ul>
 <ul class="navbar-nav navbar-nav-scroll ms-auto">
@@ -217,7 +217,7 @@ gtag('config', 'G-0WLH5S9VD5', { 'anonymize_ip': true});
                           <div class="quarto-categories">
                 <div class="quarto-category">NDVI</div>
                 <div class="quarto-category">Agriculture</div>
-                <div class="quarto-category">Climate</div>
+                <div class="quarto-category">Extreme weather</div>
                 <div class="quarto-category">Food production</div>
                 <div class="quarto-category">Importing Data</div>
                 <div class="quarto-category">R</div>
@@ -265,7 +265,7 @@ gtag('config', 'G-0WLH5S9VD5', { 'anonymize_ip': true});
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto"><nav id="TOC" role="doc-toc" class="toc-active" data-toc-expanded="1"><h2 id="toc-title">Contents</h2>
    
   <ul>
-<li><a href="#ndvi-vs.-other-climate-data-sources" id="toc-ndvi-vs.-other-climate-data-sources" class="nav-link active" data-scroll-target="#ndvi-vs.-other-climate-data-sources">NDVI vs.&nbsp;other climate data sources</a></li>
+<li><a href="#ndvi-vs.-other-environmental-data-sources" id="toc-ndvi-vs.-other-environmental-data-sources" class="nav-link active" data-scroll-target="#ndvi-vs.-other-environmental-data-sources">NDVI vs.&nbsp;other environmental data sources</a></li>
   <li>
 <a href="#obtaining-ndvi-data" id="toc-obtaining-ndvi-data" class="nav-link" data-scroll-target="#obtaining-ndvi-data">Obtaining NDVI Data</a>
   <ul class="collapse">
@@ -305,11 +305,11 @@ gtag('config', 'G-0WLH5S9VD5', { 'anonymize_ip': true});
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
     </div>
 <!-- main -->
-<main class="content quarto-banner-title-block page-columns page-full" id="quarto-document-content"><p>In our <a href="../2024-07-02-ndvi-concepts">previous post</a>, we introduced NDVI as a remote sensing tool that can be used to study the effects of climate conditions on malnourishment and other health outcomes. In this post, we’ll show how to access and load NDVI data using R.</p>
-<section id="ndvi-vs.-other-climate-data-sources" class="level1"><h1>NDVI vs.&nbsp;other climate data sources</h1>
-<p>Like the other climate metrics we’ve used on this blog (<a href="../2024-02-04-dhs-chirps">CHIRPS</a> and <a href="../2024-04-15-chirts-metrics">CHIRTS</a>), NDVI data are also provided in raster format. However, there are some key differences.</p>
+<main class="content quarto-banner-title-block page-columns page-full" id="quarto-document-content"><p>In our <a href="../2024-07-02-ndvi-concepts">previous post</a>, we introduced NDVI as a remote sensing tool that can be used to study the effects of environmental conditions on malnourishment and other health outcomes. In this post, we’ll show how to access and load NDVI data using R.</p>
+<section id="ndvi-vs.-other-environmental-data-sources" class="level1"><h1>NDVI vs.&nbsp;other environmental data sources</h1>
+<p>Like the other environmental metrics we’ve used on this blog (<a href="../2024-02-04-dhs-chirps">CHIRPS</a> and <a href="../2024-04-15-chirts-metrics">CHIRTS</a>), NDVI data are also provided in raster format. However, there are some key differences.</p>
 <ol type="1">
-<li><p>First, NDVI is a <em>calculated value</em>, whereas our previous climate metrics were <em>modeled values</em>. That is, NDVI is calculated directly from the reflectance of different light wavelengths as measured via satellite. In contrast, CHIRPS and CHIRTS integrate ground-level station data with satellite observations to create a <strong>model</strong> of rainfall and temperature across the surface.</p></li>
+<li><p>First, NDVI is a <em>calculated value</em>, whereas our previous metrics were <em>modeled values</em>. That is, NDVI is calculated directly from the reflectance of different light wavelengths as measured via satellite. In contrast, CHIRPS and CHIRTS integrate ground-level station data with satellite observations to create a <strong>model</strong> of rainfall and temperature across the surface.</p></li>
 <li><p>NDVI is also provided at higher resolutions than CHIRPS or CHIRTS. For population health research, this resolution typically exceeds what is useful since we will be linking NDVI data to survey data that has far more geographic uncertainty. Still, this difference can introduce new challenges as NDVI raster files can be much larger than the files for the other metrics we have worked with so far.</p></li>
 <li><p>Depending on the data source, NDVI data may be distributed for specific spatial extents and at multi-week time intervals. Whereas daily time series of CHIRPS and CHIRTS could be downloaded for large spatial extents and cropped to an area of interest, NDVI often requires more manual work to integrate data from different spatial extents and time intervals.</p></li>
 </ol>
@@ -904,7 +904,7 @@ Caution
 <span><span class="co">#&gt; resolution  : 231.6564, 231.6564  (x, y)</span></span>
 <span><span class="co">#&gt; extent      : 3769512, 4648648, -520300.2, 559681.8  (xmin, xmax, ymin, ymax)</span></span>
 <span><span class="co">#&gt; coord. ref. : +proj=sinu +lon_0=0 +x_0=0 +y_0=0 +R=6371007.181 +units=m +no_defs </span></span>
-<span><span class="co">#&gt; source      : spat_154cc19f39e4_87244.tif </span></span>
+<span><span class="co">#&gt; source      : spat_100574e7581d4_65623.tif </span></span>
 <span><span class="co">#&gt; names       : "250m 16 days NDVI", "250m 16 days NDVI" </span></span>
 <span><span class="co">#&gt; min values  :             -0.2000,             -0.2000 </span></span>
 <span><span class="co">#&gt; max values  :              0.9995,              0.9995 </span></span>
@@ -968,7 +968,7 @@ Caution
 </div>
 </section></section><section id="up-next" class="level1"><h1>Up next</h1>
 <p>In this post, we’ve introduced some approaches to build generalized workflows when loading more complicated raster data structures. Using tools like regular expressions and iteration help you produce code that is robust when your data or analyses change. The up-front time investment required for learning these tools often pays off in the long run, especially if you frequently use similar data analysis approaches.</p>
-<p>As we can see in our maps above, NDVI differs significantly across the year. In our next technical post, we’ll take a closer look at this idea of seasonality and consider ways we can adapt our previous work with other climate metrics to incorporate seasons more explicitly.</p>
+<p>As we can see in our maps above, NDVI differs significantly across the year. In our next technical post, we’ll take a closer look at this idea of seasonality and consider ways we can adapt our previous work with other environmental metrics to incorporate seasons more explicitly.</p>
 </section><div id="quarto-appendix" class="default"><section id="getting-help" class="level2 appendix"><h2 class="anchored quarto-appendix-heading">Getting Help</h2><div class="quarto-appendix-contents">
 <p>Questions or comments? Check out the <a href="https://forum.ipums.org">IPUMS User Forum</a> or reach out to IPUMS User Support at ipums@umn.edu.</p>
 

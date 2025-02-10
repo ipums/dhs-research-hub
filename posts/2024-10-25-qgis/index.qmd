@@ -592,8 +592,8 @@ offer.
 
 -   [QGIS Documentation](https://docs.qgis.org/3.34/en/docs/index.html)
 -   [DHS
-    Blog](https://blog.dhsprogram.com/linking-climate-change-and-womens-health-using-dhs-program-data/) -
-    Linking Climate Change and Women’s Health using DHS Program Data
+    Blog post](https://blog.dhsprogram.com/linking-climate-change-and-womens-health-using-dhs-program-data/)
+    discussing linking extreme weather data for use in health research.
 -   [Detailed Tutorial
     Video](https://www.youtube.com/watch?v=rs2N3pT1Xvo&t=3207s) on
     IUSSP’s YouTube Channel

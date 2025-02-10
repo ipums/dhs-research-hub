@@ -8,7 +8,7 @@ date: 08-01-2024
 categories:
   - NDVI
   - Agriculture
-  - Climate
+  - Extreme weather
   - Food production
   - Importing Data
   - R
@@ -55,19 +55,19 @@ showtext::showtext_auto()
 
 In our [previous post](../2024-07-02-ndvi-concepts), we introduced NDVI
 as a remote sensing tool that can be used to study the effects of
-climate conditions on malnourishment and other health outcomes. In this
-post, we'll show how to access and load NDVI data using R.
+environmental conditions on malnourishment and other health outcomes. In
+this post, we'll show how to access and load NDVI data using R.
 
-# NDVI vs. other climate data sources
+# NDVI vs. other environmental data sources
 
-Like the other climate metrics we've used on this blog
+Like the other environmental metrics we've used on this blog
 ([CHIRPS](../2024-02-04-dhs-chirps) and
 [CHIRTS](../2024-04-15-chirts-metrics)), NDVI data are also provided in
 raster format. However, there are some key differences.
 
-1.  First, NDVI is a *calculated value*, whereas our previous climate
-    metrics were *modeled values*. That is, NDVI is calculated directly
-    from the reflectance of different light wavelengths as measured via
+1.  First, NDVI is a *calculated value*, whereas our previous metrics
+    were *modeled values*. That is, NDVI is calculated directly from the
+    reflectance of different light wavelengths as measured via
     satellite. In contrast, CHIRPS and CHIRTS integrate ground-level
     station data with satellite observations to create a **model** of
     rainfall and temperature across the surface.
@@ -933,7 +933,7 @@ run, especially if you frequently use similar data analysis approaches.
 As we can see in our maps above, NDVI differs significantly across the
 year. In our next technical post, we'll take a closer look at this idea
 of seasonality and consider ways we can adapt our previous work with
-other climate metrics to incorporate seasons more explicitly.
+other environmental metrics to incorporate seasons more explicitly.
 
 ## Getting Help {.appendix}
 

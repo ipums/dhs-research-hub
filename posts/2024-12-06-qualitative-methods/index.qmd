@@ -11,7 +11,7 @@ author:
 date: 12-06-2024
 categories:
   - Qualitative methods
-  - Climate
+  - Extreme weather
   - Methodology
   - Research concepts
 fig-width: 10
@@ -32,13 +32,13 @@ twitter-card:
   image: images/flowchart.png
 ---
 
-Understanding how climate and weather conditions impact people and
+Understanding how extreme weather conditions impact people and
 communities is complex. Moreover, we're not only interested in the
-climate's *overall* impact on a population (for example, by identifying
-where droughts or heat waves occur), but also in which *groups* of
-people suffer disproportionately under these impacts. That is, when a
-drought occurs in a given community, who within that community
-experiences the most severe adverse outcomes?
+*overall* impact of extreme weather on a population (for example, by
+identifying where droughts or heat waves occur), but also in which
+*groups* of people suffer disproportionately under these impacts. That
+is, when a drought occurs in a given community, who within that
+community experiences the most severe adverse outcomes?
 
 Of course, we are also concerned with *why* these differences emerge. As
 we’ve described in posts throughout this blog (for instance,
@@ -53,14 +53,14 @@ In other words, we must consider who a person is and how they live in
 their space, and we must also design measures that capture variability
 in exposures and conditions that make effective use of the data we have.
 
-# A person-centered understanding of climate impacts
+# A person-centered understanding of extreme weather impacts
 
 Standard individual-level demographic variables (e.g., age, gender,
 marital status, etc.) are commonly used to help identify variability in
-climate impacts and suffering. However, we can refine our understanding
-of vulnerability by also considering factors related to individual-level
-exposure and resources that might shape resilience and recovery from a
-disaster.[@Dorelien2023; @Pinchoff2021]
+extreme weather impacts and suffering. However, we can refine our
+understanding of vulnerability by also considering factors related to
+individual-level exposure and resources that might shape resilience and
+recovery from a disaster.[@Dorelien2023; @Pinchoff2021]
 
 ## Measuring person-level factors in the DHS
 
@@ -68,7 +68,7 @@ In the [DHS](https://dhsprogram.com/), key measures that address an
 individual's exposure are often their **length of time in current
 residence** and **type of employment**. These measures help to provide
 insight into what a person is used to dealing with and how sensitive
-their livelihoods are to any environmental or climate related events.
+their livelihoods are to environmental events.
 
 ::: column-margin
 You can use [IPUMS DHS](https://www.idhsdata.org/idhs/) to browse groups
@@ -97,7 +97,7 @@ of their experience navigating weather conditions in that community.
 Thus, considering an individual's *time spent* living in a place
 alongside *how* that individual lives and works in a place helps to
 provide important information about why individual experiences vary in
-response to climate or weather events.
+response to extreme weather events.
 
 # The importance of qualitative methods
 
@@ -109,9 +109,9 @@ inquiry.[@Grace2019]
 
 Qualitative investigations in the form of interviews, focus groups,
 narrative accounts, and other strategies provide insight into the ways
-people understand and experience climate change and weather events.
-Considering first-hand accounts of flooding in a given community, for
-example, provides insight into how flooding is measured, what resources
+people understand and experience extreme weather events. Considering
+first-hand accounts of flooding in a given community, for example,
+provides insight into how flooding is measured, what resources
 individuals or households use to manage flooding risks, and also
 specific aspects of flooding that trigger behavioral change.
 
@@ -125,40 +125,40 @@ or communities for safety? And at what point are you able to say that
 the flood has reached disaster levels?
 
 The purpose of these focus groups was to help the aid workers explicitly
-identify the key criteria for measuring climate impacts so they could more 
-effectively find relevant survey data—for instance, from IPUMS DHS—that might
-address the risk factors associated with those impacts. This, in turn, would
-allow them to make more informed decisions when implementing climate change and
-health interventions.
+identify the key criteria for measuring extreme weather impacts so they
+could more effectively find relevant survey data—for instance, from
+IPUMS DHS—that might address the risk factors associated with those
+impacts. This, in turn, would allow them to make more informed decisions
+when implementing interventions to improve health in the face of extreme
+weather events.
 
-IPUMS DHS and climate data provide excellent
-sources of data to quantify people’s experiences, but it is also
-important to understand how climate change impacts people on the ground
-based on their lived experiences. This is where qualitative
-investigations can come in to support the development of appropriate and
-place-based quantitative indicators capturing climate risks and
-vulnerabilities.
+IPUMS DHS and environmental data provide excellent sources of data to
+quantify people’s experiences, but it is also important to understand
+how extreme weather impacts people on the ground based on their lived
+experiences. This is where qualitative investigations can come in to
+support the development of appropriate and place-based quantitative
+indicators capturing extreme weather risks and vulnerabilities.
 
 The figure below highlights the importance of considering where a person
 lives, who a person is—their age, their gender, marital status, health
 status and so on—and how they interact with the landscape whenever
-describing climate impact and risk.
+describing extreme weather impact and risk.
 
 ::: column-body-outset
-![Climate risk is a product of individual, community, and macro-level
-factors[@Reich2024]](images/flowchart.png){width="100%"}
+![Extreme weather risk is a product of individual, community, and
+macro-level factors[@Reich2024]](images/flowchart.png){width="100%"}
 :::
 
 This kind of conceptual framework developed through qualitative research
 can then be used to inform quantitative decisions in related analyses.
 
 As we learned in our focus group discussion about floods, there is no
-single definition for a climate disaster or event that is appropriate to
-use across individuals, communities, and times. This blog and the data
-provided through IPUMS provide excellent opportunities to create complex
-linked climate-health data sets, but the development of place-based
-indicators of risk comes from attention to the lived experiences of
-people on the ground.
+single definition for an extreme weather disaster or event that is
+appropriate to use across individuals, communities, and times. This blog
+and the data provided through IPUMS provide excellent opportunities to
+create complex linked environment/health data sets, but the development
+of place-based indicators of risk comes from attention to the lived
+experiences of people on the ground.
 
 ## Getting Help {.appendix}
 

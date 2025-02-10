@@ -26,7 +26,7 @@ twitter-card:
 source("../../R/utils.R")
 ```
 
-The IPUMS DHS Climate Change and Health Research Hub is designed to
+The IPUMS DHS Spatial Analysis and Health Research Hub is designed to
 introduce spatial data concepts for researchers who work with population
 health survey data.
 

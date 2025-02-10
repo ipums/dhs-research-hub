@@ -372,17 +372,18 @@ use are:
     for any citations used in the post. This is used to automatically
     format the reference list that appears at the bottom of each post.
     Most citation managers have an option to export a .bib file.
--   `open-graph` and `twitter-card`: Specifications for the text and images
-    to display when linking to this post (for instance, on Facebook, 
-    Twitter, etc.). In general, the title should be the same as the post title,
-    with a `"IPUMS DHS Research Hub —"` prefix. The description can mirror
-    the post description. The `image` field should be a file path (relative
-    to the post location) to the image to use as a thumbnail that will accompany
-    the link. Usually this will come from the body of the post.
+-   `open-graph` and `twitter-card`: Specifications for the text and
+    images to display when linking to this post (for instance, on
+    Facebook, Twitter, etc.). In general, the title should be the same
+    as the post title, with a `"IPUMS DHS Research Hub —"` prefix. The
+    description can mirror the post description. The `image` field
+    should be a file path (relative to the post location) to the image
+    to use as a thumbnail that will accompany the link. Usually this
+    will come from the body of the post.
 
 As an example, here's the header for one of the posts on the blog:
 
-```{.yaml filename="posts/2024-02-04-dhs-chirps/index.qmd"}         
+``` {.yaml filename="posts/2024-02-04-dhs-chirps/index.qmd"}
 ---
 title: "Attaching CHIRPS Precipitation Data to DHS Surveys"
 description: |
@@ -397,7 +398,7 @@ date: 02-04-2024
 categories:
   - CHIRPS
   - Precipitation
-  - Climate 
+  - Extreme weather 
   - Agriculture
   - terra 
   - sf 
@@ -560,14 +561,14 @@ Before adding a second remote, it's best to rename the UMN GitHub remote
 to disambiguate it from the public repository remote that you will be
 adding. You can check the current name with:
 
-```{.bash filename="Terminal"}
+``` {.bash filename="Terminal"}
 git remote
 ```
 
 By default, the remote will be called `origin`. We suggest renaming it
 to `private`:
 
-```{.bash filename="Terminal"}
+``` {.bash filename="Terminal"}
 git remote rename origin private
 ```
 
@@ -576,13 +577,13 @@ the public repository will also contain a `main` branch.
 
 To see all of the remote branches currently in use:
 
-```{.bash filename="Terminal"}
+``` {.bash filename="Terminal"}
 git remote show private
 ```
 
 Checkout `main` and change its name. We suggest `private-main`:
 
-```{.bash filename="Terminal"}   
+``` {.bash filename="Terminal"}
 git checkout main
 git branch -m "private-main"
 ```
@@ -590,7 +591,7 @@ git branch -m "private-main"
 Now, add the **public remote** and fetch its branches (there should only
 be one, called `main`):
 
-```{.bash filename="Terminal"}
+``` {.bash filename="Terminal"}
 git remote add public https://github.com/ipums/dhs-research-hub
 git fetch public
 ```
@@ -598,7 +599,7 @@ git fetch public
 Create a local branch called `public-main` set to track with `main` on
 the `public` remote:
 
-```{.bash filename="Terminal"}   
+``` {.bash filename="Terminal"}
 git branch public-main public/main
 ```
 
@@ -626,7 +627,7 @@ deleting these files every time a post is merged to the public remote.
 To do so, create a file called `post-merge` containing the following
 code, and put it in the `.git/hooks/` directory:
 
-```{.bash filename=".git/hooks/post-merge"}          
+``` {.bash filename=".git/hooks/post-merge"}
 #! /bin/sh
 green='\033[0;32m'
 nc='\033[0m'
@@ -653,7 +654,7 @@ You also must make this file executable. For MacOS users, you can do
 this by entering the following command into Terminal (assuming you're
 already in the `dhs-research-hub` directory):
 
-```{.bash filename="Terminal"}
+``` {.bash filename="Terminal"}
 chmod +x .git/hooks/post-merge
 ```
 
@@ -683,14 +684,14 @@ this commit history into a single commit on `private/main`.
 
 For example, with a new post on the branch `blog-post-workflow`:
 
-```{.bash filename="Terminal"}
+``` {.bash filename="Terminal"}
 git checkout private-main
 git merge --squash blog-post-workflow
 ```
 
 Now that the post is merged, we can render the full site by running:
 
-```{.bash filename="Terminal"}
+``` {.bash filename="Terminal"}
 quarto render
 ```
 
@@ -711,7 +712,7 @@ helpful.
 When you're ready, add all files and commit your changes with a relevant
 message:
 
-```{.bash filename="Terminal"}
+``` {.bash filename="Terminal"}
 git add .
 git commit -m "new post: blog-post-workflow"
 ```
@@ -720,7 +721,7 @@ Although your local branch has a different name than the branch on the
 remote, you can still push your commit to the remote `main` with the
 following command:
 
-```{.bash filename="Terminal"}
+``` {.bash filename="Terminal"}
 git push private HEAD:main
 ```
 
@@ -730,7 +731,7 @@ git push private HEAD:main
 
 To merge your `private-main` to `public-main`:
 
-```{.bash filename="Terminal"}
+``` {.bash filename="Terminal"}
 git checkout public-main
 git merge --squash --allow-unrelated-histories private-main -X theirs
 ```
@@ -759,7 +760,7 @@ automatically (if not, **delete them now**).
 When you're ready to commit the merge, run the following (with a
 relevant commit message):
 
-```{.bash filename="Terminal"}          
+``` {.bash filename="Terminal"}
 git add .
 git commit -m "new post: blog-post-workflow"
 ```
@@ -767,7 +768,7 @@ git commit -m "new post: blog-post-workflow"
 Finally, push the new post to the `main` branch of the public
 repository:
 
-```{.bash filename="Terminal"}
+``` {.bash filename="Terminal"}
 git push public HEAD:main
 ```
 

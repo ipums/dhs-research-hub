@@ -6,8 +6,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 <meta name="author" content="Finn Roberts">
 <meta name="dcterms.date" content="2024-08-16">
-<meta name="description" content="We use data from two climates to illustrate approaches to processing NDVI data">
-<title>Aggregation Methods for NDVI Data – IPUMS DHS Climate Change and Health Research Hub</title>
+<meta name="description" content="We use data from two regions to illustrate approaches to processing NDVI data">
+<title>Aggregation Methods for NDVI Data – IPUMS DHS Spatial Analysis and Health Research Hub</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -107,13 +107,13 @@ gtag('js', new Date());
 gtag('config', 'G-0WLH5S9VD5', { 'anonymize_ip': true});
 </script>
 <meta property="og:title" content="Aggregation Methods for NDVI Data">
-<meta property="og:description" content="We use data from two distinct climates to illustrate approaches to processing NDVI data">
+<meta property="og:description" content="We use data from two regions to illustrate approaches to processing NDVI data">
 <meta property="og:image" content="https://ipums.github.io/dhs-research-hub/posts/2024-08-16-ndvi-data-2/index_files/figure-html/listing-img-1.png">
-<meta property="og:site_name" content="IPUMS DHS Climate Change and Health Research Hub">
+<meta property="og:site_name" content="IPUMS DHS Spatial Analysis and Health Research Hub">
 <meta property="og:image:height" content="1536">
 <meta property="og:image:width" content="1920">
 <meta name="twitter:title" content="Aggregation Methods for NDVI Data">
-<meta name="twitter:description" content="We use data from two distinct climates to illustrate approaches to processing NDVI data">
+<meta name="twitter:description" content="We use data from two regions to illustrate approaches to processing NDVI data">
 <meta name="twitter:image" content="https://ipums.github.io/dhs-research-hub/posts/2024-08-16-ndvi-data-2/index_files/figure-html/listing-img-1.png">
 <meta name="twitter:image-height" content="1536">
 <meta name="twitter:image-width" content="1920">
@@ -135,7 +135,7 @@ gtag('config', 'G-0WLH5S9VD5', { 'anonymize_ip': true});
             <ul class="navbar-nav navbar-nav-scroll me-auto">
 <li class="nav-item">
     <a class="nav-link" href="../../index.html"> 
-<span class="menu-text">Climate Change and Health Research Hub</span></a>
+<span class="menu-text">Spatial Analysis and Health Research Hub</span></a>
   </li>  
 </ul>
 <ul class="navbar-nav navbar-nav-scroll ms-auto">
@@ -211,15 +211,15 @@ gtag('config', 'G-0WLH5S9VD5', { 'anonymize_ip': true});
       <h1 class="title">Aggregation Methods for NDVI Data</h1>
                   <div>
         <div class="description">
-          <p>We use data from two climates to illustrate approaches to processing NDVI data</p>
+          <p>We use data from two regions to illustrate approaches to processing NDVI data</p>
         </div>
       </div>
                           <div class="quarto-categories">
                 <div class="quarto-category">NDVI</div>
                 <div class="quarto-category">Seasonality</div>
-                <div class="quarto-category">Climate normals</div>
+                <div class="quarto-category">Climatological normals</div>
                 <div class="quarto-category">Agriculture</div>
-                <div class="quarto-category">Climate</div>
+                <div class="quarto-category">Extreme weather</div>
                 <div class="quarto-category">Food production</div>
                 <div class="quarto-category">R</div>
                 <div class="quarto-category">Time series</div>
@@ -300,7 +300,7 @@ gtag('config', 'G-0WLH5S9VD5', { 'anonymize_ip': true});
 <!-- main -->
 <main class="content quarto-banner-title-block page-columns page-full" id="quarto-document-content"><p>Previously, we showed how to load NDVI data for two time points in Kenya using NASA’s Earthdata Search interface. If you’re new to NDVI, we suggest you go ahead and take a look at our <a href="../2024-07-02-ndvi-concepts">introductory post</a> as well as our <a href="../2024-08-01-ndvi-data">NDVI data loading post</a> before continuing.</p>
 <p>In this post, we’ll use two NDVI time series to demonstrate some of the considerations that emerge when aggregating and processing NDVI raster data in the context of population health research. We need to conduct many of the same aggregation steps for our NDVI data as we did for previous data sources, like <a href="../2024-02-04-dhs-chirps">CHIRPS</a> and <a href="../2024-04-15-chirts-metrics">CHIRTS</a>. However, as with any new data source, the decisions we make about how to do so will vary when working with NDVI.</p>
-<p>To highlight some of the features of NDVI data, we’ll load NDVI time series from two capitals with different climates: Nairobi, Kenya and Ouagadougou, Burkina Faso. We’ll use a familiar workflow to build buffers around the DHS cluster points in these regions and will extract NDVI time series for each. Once we have these time series, we’ll use them to explore how climate and seasonality may play a role in the way we aggregate NDVI data.</p>
+<p>To highlight some of the features of NDVI data, we’ll load NDVI time series from two capitals with different climates: Nairobi, Kenya and Ouagadougou, Burkina Faso. We’ll use a familiar workflow to build buffers around the DHS cluster points in these regions and will extract NDVI time series for each. Once we have these time series, we’ll use them to explore how extreme weather and seasonality may play a role in the way we aggregate NDVI data.</p>
 <p>As always, we’ll start by loading some of the packages used in the post:</p>
 <div class="cell">
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://rspatial.org/">terra</a></span><span class="op">)</span></span>
@@ -535,7 +535,7 @@ gtag('config', 'G-0WLH5S9VD5', { 'anonymize_ip': true});
 </div>
 <p>First, we notice that the overall region has a period of higher vegetation in the middle of the year. We also notice that there is a small area in the north of the cluster region that has consistently higher vegetation than its surrounding area throughout the year, even in times with less vegetation overall.</p>
 <p>This could be a result of water proximity (we notice that some missing values appear near the green patch, which could have been removed because they represent a water source), but it could also be because of <strong>human interaction</strong>, like irrigation.</p>
-<p>This human element is an important feature of NDVI that distinguishes it from other climate metrics, like precipitation and temperature. Vegetation is more directly influenced by human behavior than these other sources.</p>
+<p>This human element is an important feature of NDVI that distinguishes it from other environmental metrics, like precipitation and temperature. Vegetation is more directly influenced by human behavior than these other sources.</p>
 <p>Whether this particular pattern is prompted primarily by physical geography (a nearby water source) or human behavior (irrigation), it does serve as an example of why calculating a mean NDVI value may not reflect the lived experience on the ground. If most of an area’s crops are grown in a particular area, the most critical portion of a cluster region may have very high vegetation values, even if the rest of the cluster does not.</p>
 <p>One option to incorporate this into our data processing would be to use the <em>maximum</em> NDVI value as this cluster’s value rather than the mean. This is easily done in R: we just need to change our aggregation function from <code>fun = mean</code> to <code>fun = max</code>:</p>
 <div class="cell">
@@ -671,7 +671,7 @@ Note
 </div>
 <p>Calculating the quantile for a cluster may mitigate the effect of outliers, but because NDVI pixels are correlated with one another (that is, pixels with high NDVI values will disproportionately be located next to other pixels with high values), it’s not unusual to observe several pixels near the maximum value in a cluster. In these cases, a quantile approach may not produce a significant difference from using the maximum.</p>
 </section></section><section id="idea-3-a-relative-measure" class="level2 page-columns page-full"><h2 class="anchored" data-anchor-id="idea-3-a-relative-measure">Idea 3: A relative measure</h2>
-<p>Because NDVI is an index, its values don’t have any intrinsic units (what does it really mean when we see an NDVI value of 0.6, for example?). This means that NDVI is often easier to interpret when considered <em>relative</em> to past NDVI values in a given location. Instead of aggregating NDVI directly, we can compare each pixel to its prior values over the course of many years. In climate science, these long-run comparisons are called <strong>normals</strong>.</p>
+<p>Because NDVI is an index, its values don’t have any intrinsic units (what does it really mean when we see an NDVI value of 0.6, for example?). This means that NDVI is often easier to interpret when considered <em>relative</em> to past NDVI values in a given location. Instead of aggregating NDVI directly, we can compare each pixel to its prior values over the course of many years. These long-run comparisons are called <strong>normals</strong>.</p>
 <p>To demonstrate, imagine we wanted to calculate the deviation from normal NDVI we observed in 2021. First, we’ll split our final year of data (2021) from the rest of the time series:</p>
 <div class="cell">
 <div class="sourceCode" id="cb18"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Split 2021 data from the rest of our data for demonstration</span></span>

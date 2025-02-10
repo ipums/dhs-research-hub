@@ -10,7 +10,7 @@ author:
     affiliation: Research Professor, Department of Geographical Sciences, University of Maryland College Park
 date: 03-07-2024
 categories:
-  - Climate
+  - Extreme weather
   - Precipitation
   - CHIRPS
   - Methodology
@@ -29,21 +29,21 @@ twitter-card:
   image: images/storm-clouds-over-wheat-field-danger-weather-with-dark-sky-over-fields-SBI-300870591.jpg
 ---
 
-One barrier to climate change and health research is that many
+One barrier to research on extreme weather and health is that many
 surveys—including the [The Demographic and Health Surveys Program
 (DHS)](https://dhsprogram.com/)—do not collect detailed information on
 local environmental conditions in survey areas. Fortunately,
 organizations like [IPUMS DHS](https://www.idhsdata.org/idhs/) are now
 taking steps to use DHS enumeration cluster coordinates to link a
-limited set of climate variables—including monthly and long-term average
-precipitation—to individual and household records within the
+limited set of environmental variables—including monthly and long-term
+average precipitation—to individual and household records within the
 DHS.[@boyle_contextual_2020]
 
 However, in many cases, these pre-calculated time series may not meet
 researchers' needs because they reflect only average conditions and not
 the experience of the specific surveyed households. To obtain a more
 nuanced understanding of a survey response's environmental context, some
-researchers may choose to calculate and link climate variables
+researchers may choose to calculate and link environmental variables
 themselves. We introduced some methods for doing so in our [recent
 post](../2024-02-04-dhs-chirps/index.html), where we demonstrated how to
 integrate raw precipitation data from the [Climate Hazards Center
@@ -52,8 +52,8 @@ Dataset](https://www.chc.ucsb.edu/data/chirps) (CHIRPS) with survey data
 from IPUMS DHS.
 
 This post aims to serve as a guide for new researchers wading into
-research on the health impacts of climate events. While we focus on
-rainfall, it is important to note that there are significant
+research on the health impacts of extreme weather events. While we focus
+on rainfall, it is important to note that there are significant
 interactions between rainfall and other variables such as temperature
 and vegetation. Furthermore, rainfall alone may be a crude measure; for
 instance, Grace et al. (2021) highlight multiple and nuanced ways in
@@ -69,9 +69,9 @@ does not constitute an endorsement of the publications themselves.
 Rainfall can impact human health in both direct and indirect ways, with
 important consequences when linking precipitation data to survey
 responses. For instance, researchers interested in indirect mechanisms
-may need to incorporate a time lag between climate events and survey
-response dates, since the impact of rainfall events in one period may
-not appear until later.[@grace_building_2020]
+may need to incorporate a time lag between extreme weather events and
+survey response dates, since the impact of rainfall events in one period
+may not appear until later.[@grace_building_2020]
 
 Below, we outline several of the most common pathways through which
 precipitation impacts health outcomes.
@@ -168,13 +168,13 @@ decisions. Researchers may opt to use data that they or collaborators
 have previously used or have easy access to in order to reduce the
 difficulty of setting up an analysis with a new source.
 
-| **Name**                                                                                                        | **Finest Resolution** | **Geo. Range**                   | **Temp. Range**   | **Time Step**                                               | **Rainfall Data Source**                                         |
+| **Name** | **Finest Resolution** | **Geo. Range** | **Temp. Range** | **Time Step** | **Rainfall Data Source** |
 |------------|------------|------------|------------|------------|------------|
-| [CHIRPS](https://www.chc.ucsb.edu/data/chirps)                                                                  | 0.05°                 | 50°S-50°N (all longitudes)       | 1981-near present | Daily, pentad, dekad, monthly, 2-monthly, 3-monthly, annual | Weather station records and geostationary satellite observations |
-| [CRU TS](https://crudata.uea.ac.uk/cru/data/hrg/)                                                               | 0.5°                  | All land except Antarctica       | 1901-2022         | Monthly                                                     | Weather station records                                          |
-| [UDEL-TS](https://psl.noaa.gov/data/gridded/data.UDel_AirT_Precip.html)                                         | 0.5°                  | 89.75°N-89.75°S, 0.25°E-359.75°E | 1901-2014         | Monthly                                                     | Weather station records                                          |
-| [GPCC](https://psl.noaa.gov/data/gridded/data.gpcc.html)                                                        | 0.25°                 | 90.0°N-90.0°S, 0.0°E-360.0°E     | 1891-2019         | Monthly                                                     | Weather station records                                          |
-| [ERA5](https://cds.climate.copernicus.eu/cdsapp#!/dataset/reanalysis-era5-single-levels-monthly-means?tab=form) | 0.25°                 | Global                           | 1940-present      | Hourly, monthly                                             | Reanalysis (model estimates from satellite data assimilation)    |
+| [CHIRPS](https://www.chc.ucsb.edu/data/chirps) | 0.05° | 50°S-50°N (all longitudes) | 1981-near present | Daily, pentad, dekad, monthly, 2-monthly, 3-monthly, annual | Weather station records and geostationary satellite observations |
+| [CRU TS](https://crudata.uea.ac.uk/cru/data/hrg/) | 0.5° | All land except Antarctica | 1901-2022 | Monthly | Weather station records |
+| [UDEL-TS](https://psl.noaa.gov/data/gridded/data.UDel_AirT_Precip.html) | 0.5° | 89.75°N-89.75°S, 0.25°E-359.75°E | 1901-2014 | Monthly | Weather station records |
+| [GPCC](https://psl.noaa.gov/data/gridded/data.gpcc.html) | 0.25° | 90.0°N-90.0°S, 0.0°E-360.0°E | 1891-2019 | Monthly | Weather station records |
+| [ERA5](https://cds.climate.copernicus.eu/cdsapp#!/dataset/reanalysis-era5-single-levels-monthly-means?tab=form) | 0.25° | Global | 1940-present | Hourly, monthly | Reanalysis (model estimates from satellite data assimilation) |
 
 : Comparison of Selected Precipitation Data Sources {.hover .bordered
 .column-body-outset}
@@ -200,8 +200,9 @@ outcome of interest.[@Mukabutera2016]
 #### Total precipitation during the growing season
 
 Some studies restrict their focus to a region's growing season to better
-assess the impacts of climate conditions on agricultural production
-and—indirectly—nutrition and food security.[@grace_linking_2015]
+assess the impacts of environmental conditions on agricultural
+production and—indirectly—nutrition and food
+security.[@grace_linking_2015]
 
 #### Total rainy season precipitation
 
@@ -262,7 +263,7 @@ instance.[@bandyopadhyay_impact_2012]
     30-year historical average for the same
     locality.[@abiona_adverse_2017]
 
-#### Climate variability during specific windows in the respondent's life course
+#### Extreme weather variability during specific windows in the respondent's life course
 
 Environmental analyses should be tied to survey responses during
 specific exposure windows to determine the impact of
@@ -346,8 +347,8 @@ areas,[@kudamatsu_weather_2012] rural versus urban
 areas,[@marteleto_climate_2023] or on individuals with different
 livelihoods[@davenport_investigating_2020]).
 
-This highlights the most important point when working with climate data:
-no one-size-fits-all approach exists. The manner in which data are
+This highlights the most important point when working with environmental
+data: no one-size-fits-all approach exists. The manner in which data are
 selected, operationalized, and analyzed must be consistently informed by
 the physical and cultural specifics of the geographic region under
 consideration.

@@ -11,7 +11,7 @@
 <meta name="dcterms.date" content="2024-03-07">
 <meta name="description" content="Some factors to consider when obtaining and preparing precipitation data for use with DHS surveys">
 
-<title>Droplets of Insights for Integrating DHS and Rainfall Data – IPUMS DHS Climate Change and Health Research Hub</title>
+<title>Droplets of Insights for Integrating DHS and Rainfall Data – IPUMS DHS Spatial Analysis and Health Research Hub</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -106,7 +106,7 @@ gtag('config', 'G-0WLH5S9VD5', { 'anonymize_ip': true});
 <meta property="og:title" content="Droplets of Insights for Integrating DHS and Rainfall Data">
 <meta property="og:description" content="Understand population health in its environmental context">
 <meta property="og:image" content="https://ipums.github.io/dhs-research-hub/posts/2024-02-23-rainfall-insights/images/storm-clouds-over-wheat-field-danger-weather-with-dark-sky-over-fields-SBI-300870591.jpg">
-<meta property="og:site_name" content="IPUMS DHS Climate Change and Health Research Hub">
+<meta property="og:site_name" content="IPUMS DHS Spatial Analysis and Health Research Hub">
 <meta name="twitter:title" content="Droplets of Insights for Integrating DHS and Rainfall Data">
 <meta name="twitter:description" content="Understand population health in its environmental context">
 <meta name="twitter:image" content="https://ipums.github.io/dhs-research-hub/posts/2024-02-23-rainfall-insights/images/storm-clouds-over-wheat-field-danger-weather-with-dark-sky-over-fields-SBI-300870591.jpg">
@@ -132,7 +132,7 @@ gtag('config', 'G-0WLH5S9VD5', { 'anonymize_ip': true});
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
     <a class="nav-link" href="../../index.html"> 
-<span class="menu-text">Climate Change and Health Research Hub</span></a>
+<span class="menu-text">Spatial Analysis and Health Research Hub</span></a>
   </li>  
 </ul>
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
@@ -216,7 +216,7 @@ gtag('config', 'G-0WLH5S9VD5', { 'anonymize_ip': true});
         </div>
       </div>
                           <div class="quarto-categories">
-                <div class="quarto-category">Climate</div>
+                <div class="quarto-category">Extreme weather</div>
                 <div class="quarto-category">Precipitation</div>
                 <div class="quarto-category">CHIRPS</div>
                 <div class="quarto-category">Methodology</div>
@@ -304,12 +304,12 @@ gtag('config', 'G-0WLH5S9VD5', { 'anonymize_ip': true});
 
 
 
-<p>One barrier to climate change and health research is that many surveys—including the <a href="https://dhsprogram.com/">The Demographic and Health Surveys Program (DHS)</a>—do not collect detailed information on local environmental conditions in survey areas. Fortunately, organizations like <a href="https://www.idhsdata.org/idhs/">IPUMS DHS</a> are now taking steps to use DHS enumeration cluster coordinates to link a limited set of climate variables—including monthly and long-term average precipitation—to individual and household records within the DHS.<span class="citation" data-cites="boyle_contextual_2020"><sup><a href="#ref-boyle_contextual_2020" role="doc-biblioref">1</a></sup></span></p>
-<p>However, in many cases, these pre-calculated time series may not meet researchers’ needs because they reflect only average conditions and not the experience of the specific surveyed households. To obtain a more nuanced understanding of a survey response’s environmental context, some researchers may choose to calculate and link climate variables themselves. We introduced some methods for doing so in our <a href="../2024-02-04-dhs-chirps/index.html">recent post</a>, where we demonstrated how to integrate raw precipitation data from the <a href="https://www.chc.ucsb.edu/data/chirps">Climate Hazards Center InfraRed Precipitation with Station Dataset</a> (CHIRPS) with survey data from IPUMS DHS.</p>
-<p>This post aims to serve as a guide for new researchers wading into research on the health impacts of climate events. While we focus on rainfall, it is important to note that there are significant interactions between rainfall and other variables such as temperature and vegetation. Furthermore, rainfall alone may be a crude measure; for instance, Grace et al.&nbsp;(2021) highlight multiple and nuanced ways in which precipitation can impact health.<span class="citation" data-cites="grace_exploring_2021"><sup><a href="#ref-grace_exploring_2021" role="doc-biblioref">2</a></sup></span> Nevertheless, this blog post outlines key concepts to consider when thinking through the health impacts of precipitation patterns, selecting a data source, and operationalizing precipitation data. We draw examples from recent publications that utilize DHS data; however, their inclusion does not constitute an endorsement of the publications themselves.</p>
+<p>One barrier to research on extreme weather and health is that many surveys—including the <a href="https://dhsprogram.com/">The Demographic and Health Surveys Program (DHS)</a>—do not collect detailed information on local environmental conditions in survey areas. Fortunately, organizations like <a href="https://www.idhsdata.org/idhs/">IPUMS DHS</a> are now taking steps to use DHS enumeration cluster coordinates to link a limited set of environmental variables—including monthly and long-term average precipitation—to individual and household records within the DHS.<span class="citation" data-cites="boyle_contextual_2020"><sup><a href="#ref-boyle_contextual_2020" role="doc-biblioref">1</a></sup></span></p>
+<p>However, in many cases, these pre-calculated time series may not meet researchers’ needs because they reflect only average conditions and not the experience of the specific surveyed households. To obtain a more nuanced understanding of a survey response’s environmental context, some researchers may choose to calculate and link environmental variables themselves. We introduced some methods for doing so in our <a href="../2024-02-04-dhs-chirps/index.html">recent post</a>, where we demonstrated how to integrate raw precipitation data from the <a href="https://www.chc.ucsb.edu/data/chirps">Climate Hazards Center InfraRed Precipitation with Station Dataset</a> (CHIRPS) with survey data from IPUMS DHS.</p>
+<p>This post aims to serve as a guide for new researchers wading into research on the health impacts of extreme weather events. While we focus on rainfall, it is important to note that there are significant interactions between rainfall and other variables such as temperature and vegetation. Furthermore, rainfall alone may be a crude measure; for instance, Grace et al.&nbsp;(2021) highlight multiple and nuanced ways in which precipitation can impact health.<span class="citation" data-cites="grace_exploring_2021"><sup><a href="#ref-grace_exploring_2021" role="doc-biblioref">2</a></sup></span> Nevertheless, this blog post outlines key concepts to consider when thinking through the health impacts of precipitation patterns, selecting a data source, and operationalizing precipitation data. We draw examples from recent publications that utilize DHS data; however, their inclusion does not constitute an endorsement of the publications themselves.</p>
 <section id="impacts-of-rainfall-on-human-health" class="level2">
 <h2 class="anchored" data-anchor-id="impacts-of-rainfall-on-human-health">Impacts of rainfall on human health</h2>
-<p>Rainfall can impact human health in both direct and indirect ways, with important consequences when linking precipitation data to survey responses. For instance, researchers interested in indirect mechanisms may need to incorporate a time lag between climate events and survey response dates, since the impact of rainfall events in one period may not appear until later.<span class="citation" data-cites="grace_building_2020"><sup><a href="#ref-grace_building_2020" role="doc-biblioref">3</a></sup></span></p>
+<p>Rainfall can impact human health in both direct and indirect ways, with important consequences when linking precipitation data to survey responses. For instance, researchers interested in indirect mechanisms may need to incorporate a time lag between extreme weather events and survey response dates, since the impact of rainfall events in one period may not appear until later.<span class="citation" data-cites="grace_building_2020"><sup><a href="#ref-grace_building_2020" role="doc-biblioref">3</a></sup></span></p>
 <p>Below, we outline several of the most common pathways through which precipitation impacts health outcomes.</p>
 <section id="disasters-and-precipitation-extremes" class="level3">
 <h3 class="anchored" data-anchor-id="disasters-and-precipitation-extremes">Disasters and precipitation extremes</h3>
@@ -418,7 +418,7 @@ gtag('config', 'G-0WLH5S9VD5', { 'anonymize_ip': true});
 <p>Studies that simply use raw precipitation totals are able to test whether additional rainfall has a negative or positive impact on the outcome of interest.<span class="citation" data-cites="Mukabutera2016"><sup><a href="#ref-Mukabutera2016" role="doc-biblioref">8</a></sup></span></p>
 <section id="total-precipitation-during-the-growing-season" class="level4">
 <h4 class="anchored" data-anchor-id="total-precipitation-during-the-growing-season">Total precipitation during the growing season</h4>
-<p>Some studies restrict their focus to a region’s growing season to better assess the impacts of climate conditions on agricultural production and—indirectly—nutrition and food security.<span class="citation" data-cites="grace_linking_2015"><sup><a href="#ref-grace_linking_2015" role="doc-biblioref">9</a></sup></span></p>
+<p>Some studies restrict their focus to a region’s growing season to better assess the impacts of environmental conditions on agricultural production and—indirectly—nutrition and food security.<span class="citation" data-cites="grace_linking_2015"><sup><a href="#ref-grace_linking_2015" role="doc-biblioref">9</a></sup></span></p>
 </section>
 <section id="total-rainy-season-precipitation" class="level4">
 <h4 class="anchored" data-anchor-id="total-rainy-season-precipitation">Total rainy season precipitation</h4>
@@ -445,8 +445,8 @@ gtag('config', 'G-0WLH5S9VD5', { 'anonymize_ip': true});
 <li><p>Abiona (2017) calculates the percentage deviation from the mean agricultural season average. Specifically, this was generated using the natural logarithm of the current agricultural season minus the 30-year historical average for the same locality.<span class="citation" data-cites="abiona_adverse_2017"><sup><a href="#ref-abiona_adverse_2017" role="doc-biblioref">4</a></sup></span></p></li>
 </ul>
 </section>
-<section id="climate-variability-during-specific-windows-in-the-respondents-life-course" class="level4">
-<h4 class="anchored" data-anchor-id="climate-variability-during-specific-windows-in-the-respondents-life-course">Climate variability during specific windows in the respondent’s life course</h4>
+<section id="extreme-weather-variability-during-specific-windows-in-the-respondents-life-course" class="level4">
+<h4 class="anchored" data-anchor-id="extreme-weather-variability-during-specific-windows-in-the-respondents-life-course">Extreme weather variability during specific windows in the respondent’s life course</h4>
 <p>Environmental analyses should be tied to survey responses during specific exposure windows to determine the impact of extremes.<span class="citation" data-cites="grace_building_2020"><sup><a href="#ref-grace_building_2020" role="doc-biblioref">3</a></sup></span> For instance, research on the impact of precipitation on weight at birth may want to focus on precipitation anomalies during the months of gestation. Or, if gestational length is unknown, researchers may choose to use anomalies during the 12 months prior to birth. It is often necessary to make approximations like this based on the available data.</p>
 <ul>
 <li>In studying in-utero rainfall variability, Le and Nguyen (2021) use “the deviation of the nine-month in-utero rainfall from the long run average of total rainfall during those nine months”.<span class="citation" data-cites="le-utero_2021"><sup><a href="#ref-le-utero_2021" role="doc-biblioref">6</a></sup></span> In this case, the long-run average was based on data from 1981-2018. The authors further dichotomized their results in order to more easily summarize the impact of wet versus dry shocks.</li>
@@ -479,7 +479,7 @@ gtag('config', 'G-0WLH5S9VD5', { 'anonymize_ip': true});
 <section id="how-might-the-same-shock-have-different-effects-in-different-regions" class="level4">
 <h4 class="anchored" data-anchor-id="how-might-the-same-shock-have-different-effects-in-different-regions">How might the same shock have different effects in different regions?</h4>
 <p>Studies that span geographic areas with heterogeneous climatic zones and other characteristics often stratify or interact rainfall with regional characteristics. This is because the same rainfall event most likely does not have the same impact on outcomes in areas with different geographic features (for instance, in arid versus non arid areas,<span class="citation" data-cites="kudamatsu_weather_2012"><sup><a href="#ref-kudamatsu_weather_2012" role="doc-biblioref">20</a></sup></span> rural versus urban areas,<span class="citation" data-cites="marteleto_climate_2023"><sup><a href="#ref-marteleto_climate_2023" role="doc-biblioref">21</a></sup></span> or on individuals with different livelihoods<span class="citation" data-cites="davenport_investigating_2020"><sup><a href="#ref-davenport_investigating_2020" role="doc-biblioref">22</a></sup></span>).</p>
-<p>This highlights the most important point when working with climate data: no one-size-fits-all approach exists. The manner in which data are selected, operationalized, and analyzed must be consistently informed by the physical and cultural specifics of the geographic region under consideration.</p>
+<p>This highlights the most important point when working with environmental data: no one-size-fits-all approach exists. The manner in which data are selected, operationalized, and analyzed must be consistently informed by the physical and cultural specifics of the geographic region under consideration.</p>
 <p>We hope that these drops of wisdom are a good starting point for your research.</p>
 </section>
 </section>

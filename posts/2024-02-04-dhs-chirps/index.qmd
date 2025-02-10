@@ -13,7 +13,7 @@ date-modified: 04-15-2024
 categories:
   - CHIRPS
   - Precipitation
-  - Climate 
+  - Extreme weather 
   - Agriculture
   - terra 
   - sf 

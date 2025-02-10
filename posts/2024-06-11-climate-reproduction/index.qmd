@@ -1,5 +1,5 @@
 ---
-title: "Incorporating Climate and Reproductive History Data"
+title: "Incorporating Environmental and Reproductive History Data"
 description: |
   Understanding the challenges when using longitudinal data with DHS surveys
 author: 
@@ -7,7 +7,7 @@ author:
     affiliation: "Professor of Sociology, Stockholm University"
 date: 06-11-2024
 categories:
-  - Climate
+  - Extreme weather
   - Reproductive history
   - Longitudinal data
   - Time series
@@ -19,38 +19,39 @@ image: images/ptest.jpg
 bibliography: references.bib
 open-graph:
   title: |
-    Incorporating Climate and Reproductive History Data
+    Incorporating Environmental and Reproductive History Data
   description: |
     Understanding the challenges when using longitudinal data with DHS surveys
   image: images/ptest.jpg
 twitter-card:
   title: |
-    Incorporating Climate and Reproductive History Data
+    Incorporating Environmental and Reproductive History Data
   description: |
     Understanding the challenges when using longitudinal data with DHS surveys
   image: images/ptest.jpg
 ---
 
 There have been heroic efforts to produce thorough, high-quality,
-publicly available climate data, which has provided new opportunities
-for researchers interested in climate demography. The wealth of climate
-resources we now have provide solid, well-organized, and fine-grained
-data on temperatures and rainfall and how these conditions vary over
-time. What is more challenging is getting the personal histories from
-surveys to line up with those data.
+publicly available data on weather extremes, which has provided new
+opportunities for researchers interested in extreme weather demography.
+The wealth of environmental resources we now have provide solid,
+well-organized, and fine-grained data on temperatures and rainfall and
+how these conditions vary over time. What is more challenging is getting
+the personal histories from surveys to line up with those data.
 
-If researchers are interested in the relationship between climate and
-reproductive issues such as contraceptive use, sexual activity, and
-fertility preferences, data analysis can be relatively straightforward.
-Questions answered at the time of the survey give us this current
-information. We know where respondents live at the time of the survey
-and when the survey took place, so space and time are easily addressed.
+If researchers are interested in the relationship between extreme
+weather and reproductive issues such as contraceptive use, sexual
+activity, and fertility preferences, data analysis can be relatively
+straightforward. Questions answered at the time of the survey give us
+this current information. We know where respondents live at the time of
+the survey and when the survey took place, so space and time are easily
+addressed.
 
-If we want to unravel how climate might influence reproductive events,
-such as pregnancies, we need to look back across time at what happened,
-when, and where. This post addresses some common limitations and issues
-that can be tricky to work with when aligning climate and reproductive
-health data longitudinally.
+If we want to unravel how extreme weather might influence reproductive
+events, such as pregnancies, we need to look back across time at what
+happened, when, and where. This post addresses some common limitations
+and issues that can be tricky to work with when aligning extreme weather
+events and reproductive health data longitudinally.
 
 Some of our focus below is on analyzing pregnancy history data collected
 prior to DHS Phase 8. For surveys from DHS Phase 8 forward (released
@@ -61,10 +62,10 @@ with issues related to migration, defining the period at risk of fetal
 loss, and making sound choices about covariates, all topics discussed in
 this post.
 
-# Why look at reproductive histories and climate?
+# Why look at reproductive histories and extreme weather?
 
-Research at the intersection of climate and reproductive health has
-already demonstrated important and concerning issues. In general, we
+Research at the intersection of extreme weather and reproductive health
+has already demonstrated important and concerning issues. In general, we
 know that rainfall and temperature conditions influence birth
 rates.[@bdg18; @s17; @sg19] Underlying this finding, however, are many
 distinct processes we are only beginning to understand. Weather can
@@ -73,25 +74,25 @@ the risk of miscarriage.[@ddg20; @sackfl21] Weather may also affect
 whether pregnancies happen, as we know thermal stress from heat can
 reduce fecundity.[@bdg18; @mfy17]
 
-Beyond these direct, immediate effects, climate and weather events may
-have longer-term, indirect influences on reproductive health and
-outcomes. Food insecurity and infectious disease prevalence are both
-influenced by heat and rainfall and can impact women’s reproductive
-health.[@ddg20; @d15; @d19] Birth spacing can shift depending on how
-breastfeeding is impacted by weather.[@rgb21]
+Beyond these direct, immediate effects, extreme weather may have
+longer-term, indirect influences on reproductive health and outcomes.
+Food insecurity and infectious disease prevalence are both influenced by
+heat and rainfall and can impact women’s reproductive health.[@ddg20;
+@d15; @d19] Birth spacing can shift depending on how breastfeeding is
+impacted by weather.[@rgb21]
 
-If we consider individual agency, climate and weather may change
+If we consider individual agency, extreme weather may change
 childbearing preferences, including ideal family size.[@ets19] When
-agricultural production or labor needs shift in response to weather and
-climate, resources and income are affected, which can shape the demand
+agricultural production or labor needs shift in response to extreme
+weather, resources and income are affected, which can shape the demand
 for children.[@c06; @mgbp00] Libido may decline in response to hotter
 temperatures.[@lm96; @waj17] Adaptation strategies to weather may also
 increase physical labor, which can reduce short-term
 fecundity.[@ecbbdhj21; @ha97; @p96; @vshr94]
 
 In sum, the pathways through which reproductive histories are affected
-by weather and climate are remarkably varied, and we have only begun to
-map these pathways.
+by extreme weather are remarkably varied, and we have only begun to map
+these pathways.
 
 # What we need
 
@@ -105,13 +106,13 @@ during the time preceding these events.
 
 Getting the exposure correct is key to systematic and rigorous
 longitudinal analysis. We must ensure we are aligning individual and
-climate/weather data at the exact right moment in time and space. This
+environmental data at the exact right moment in time and space. This
 alignment is generally facilitated through GPS location information
 provided at the level of the community at the time of the survey. But
 what happens if someone has not been living in that community long?
-Because we cannot correctly assign climate data before an individual
-moved to their location at the survey date, we must know something about
-the person’s residential history and adjust our sample
+Because we cannot correctly assign environmental data before an
+individual moved to their location at the survey date, we must know
+something about the person’s residential history and adjust our sample
 accordingly.[@gb20]
 
 ::: column-margin
@@ -127,7 +128,7 @@ we need full reproductive histories. Ideally, we want information about
 pregnancies as well as about the timing of live births. Knowing when a
 pregnancy began and ended (even if not in a live birth), as well as the
 nature of the ending, is essential for sorting out the different factors
-that link climate change and reproductive health.
+that link weather extremes and reproductive health.
 
 # What is available in DHS
 
@@ -138,18 +139,19 @@ and the consistency of this survey enables standardization of results,
 which is key for comparing and generalizing findings.
 
 In addition, The DHS Program has made some key decisions that increased
-the surveys’ usefulness to climate and health researchers. First, DHS
-began providing GPS coordinates that allow researchers to match climate
-measures to low-level locations (e.g., the approximate site of a village
-where the sample was drawn). Second, the survey began to collect
-information on how long individuals have resided at their current
-location. Many of us dream of full migration histories being collected
-by DHS, which would help us deal with bias caused by climate migration.
-At the moment, we have to assume that those who stayed were least
-affected by past weather events and climate shifts. Nevertheless, with
-information about the person’s length of time at their current
-residence, we can at least be sure we are correctly assigning the
-contextual measures to a location for the right amount of time.
+the surveys’ usefulness for research on extreme weather and health.
+First, DHS began providing GPS coordinates that allow researchers to
+match environmental measures to low-level locations (e.g., the
+approximate site of a village where the sample was drawn). Second, the
+survey began to collect information on how long individuals have resided
+at their current location. Many of us dream of full migration histories
+being collected by DHS, which would help us deal with bias caused by
+migration induced by extreme weather events. At the moment, we have to
+assume that those who stayed were least affected by past weather events.
+Nevertheless, with information about the person’s length of time at
+their current residence, we can at least be sure we are correctly
+assigning the contextual measures to a location for the right amount of
+time.
 
 These two pieces of information—GPS coordinates for the primary sampling
 unit and respondents’ length of time at their current residence—are not
@@ -234,17 +236,17 @@ current location, the full reproductive history can be analyzed (i.e.,
 events from age 15 until the time of interview).
 
 Once the window of observation is constructed for each individual, and
-the sample selected to include only those observations, then climate
-data can be merged on to the unit of analysis (i.e., woman or woman
-month).
+the sample selected to include only those observations, then
+environmental data can be merged on to the unit of analysis (i.e., woman
+or woman month).
 
 ## Defining the timing of a pregnancy
 
-A particularly salient period during which climate and environment can
-affect reproduction is the time between conception and the end of a
-pregnancy. When working with live births, including data from the widely
-available DHS birth histories, the conception month is usually
-calculated by subtracting 9 months from the date of birth.
+A particularly salient period during which extreme weather can affect
+reproduction is the time between conception and the end of a pregnancy.
+When working with live births, including data from the widely available
+DHS birth histories, the conception month is usually calculated by
+subtracting 9 months from the date of birth.
 
 When working with pregnancy history data, the situation is sometimes
 more complicated. DHS samples with pregnancy histories always report the
@@ -253,8 +255,8 @@ standard DHS surveys that collected pregnancy history data before (the
 current) Phase 8 survey. The Phase 8 approach is very different than the
 pre-Phase 8 approach and as a result data analysis approaches will need
 to be different. Strategies to use both the pre-phase 8 and the phase 8
-data are useful to allow for longer-term investigations of climate
-impacts on pregnancy.
+data are useful to allow for longer-term investigations of the impact of
+extreme weather on pregnancy.
 
 For the pre-Phase 8 data, the variable names relating to pregnancy
 history are sample-specific. In general, country- and year-specific
@@ -276,23 +278,23 @@ pregnancy duration (and thus conception date) is lacking.
 
 In such cases, establishing the month of conception based on the month
 of miscarriage, abortion or stillbirth requires imputation. Knowing the
-month of conception is required for investigating climate impacts on
-pregnancy outcomes. One approach uses information derived from the
-five-year calendar data.[@bgb24] In those data one can observe the month
-a woman said she was pregnant and the month when the pregnancy ended. By
-taking the difference, we can get an estimate of how long pregnancies
-lasted on average before the specific outcome in a specific culture. We
-can also calculate the mean and standard deviation for pregnancy
-outcomes for a given calendar sample and use those statistics as a
-structure for imputation. Note that reports from the calendar data may
-be sensitive to context—for example, the extent to which stillbirths are
-called miscarriages and vice versa. In addition, the length of gestation
-before abortion may vary by abortion legislation, which obviously varies
-across time and space. Thus, no clear rules of thumb, like "pregnancies
-ending in a live birth usually last 9 months," can be stated for
-pregnancies ending in miscarriage, stillbirth, or abortion. Such
-estimates for terminated pregnancies should be context-specific (e.g.,
-access to pregnancy tests) and empirically grounded.
+month of conception is required for investigating extreme weather
+impacts on pregnancy outcomes. One approach uses information derived
+from the five-year calendar data.[@bgb24] In those data one can observe
+the month a woman said she was pregnant and the month when the pregnancy
+ended. By taking the difference, we can get an estimate of how long
+pregnancies lasted on average before the specific outcome in a specific
+culture. We can also calculate the mean and standard deviation for
+pregnancy outcomes for a given calendar sample and use those statistics
+as a structure for imputation. Note that reports from the calendar data
+may be sensitive to context—for example, the extent to which stillbirths
+are called miscarriages and vice versa. In addition, the length of
+gestation before abortion may vary by abortion legislation, which
+obviously varies across time and space. Thus, no clear rules of thumb,
+like "pregnancies ending in a live birth usually last 9 months," can be
+stated for pregnancies ending in miscarriage, stillbirth, or abortion.
+Such estimates for terminated pregnancies should be context-specific
+(e.g., access to pregnancy tests) and empirically grounded.
 
 Results from calendar-based imputed pregnancy duration data for one
 study are shown in Table 1, which details the pregnancy outcome timing
@@ -334,18 +336,18 @@ not change. Examples of non-changing variables are birth cohort and
 ethnicity/nationality.
 
 The DHS provides a wealth of household and individual-level information
-that is unfortunately problematic when analyzing climate effects over
-time. This is generally unsatisfying, since we know socioeconomic
-factors play an important role in health outcomes. But ascribing back
-characteristics—such as household wealth quintile, woman’s employment
-status, her contraceptive knowledge, or her decision-making power at the
-time the survey—to the respondent earlier in time is risking a few
-problems. First, such ascription introduces error into the data, whereby
-a characteristic is assigned at a time for which it may not be true.
-Although it may seem relevant that the person eventually ended up with
-that characteristic, assigning the characteristic before it is true
-introduces estimation inconsistencies due to "anticipatory
-analyses".[@hk06]
+that is unfortunately problematic when analyzing the effects of extreme
+weather over time. This is generally unsatisfying, since we know
+socioeconomic factors play an important role in health outcomes. But
+ascribing back characteristics—such as household wealth quintile,
+woman’s employment status, her contraceptive knowledge, or her
+decision-making power at the time the survey—to the respondent earlier
+in time is risking a few problems. First, such ascription introduces
+error into the data, whereby a characteristic is assigned at a time for
+which it may not be true. Although it may seem relevant that the person
+eventually ended up with that characteristic, assigning the
+characteristic before it is true introduces estimation inconsistencies
+due to "anticipatory analyses".[@hk06]
 
 While assuming that current characteristics held earlier is never
 completely reliable, error could be minimized by restricting analysis to
@@ -368,7 +370,7 @@ entered a co-resident union.
 
 # Conclusion
 
-Some of the pathways by which climate change affects health relate to
+Some of the pathways by which extreme weather affects health relate to
 reproductive events such as pregnancies and births. Analyzing such
 events over the life of a woman demands care on the part of researchers.
 One must, for example, "define the window of observation," by excluding
@@ -384,13 +386,13 @@ should reflect time-invariant characteristics, be restricted unless
 analyzing very recent pregnancies, or be constructed to reflect
 variation over time (e.g., in educational attainment).
 
-Climate change and health research yields valid conclusions only when we
-avoid glaring errors—for example, assuming that environmental conditions
-were the same in a woman’s previous location as in her current
-residence, or that current characteristics (e.g., employment, household
-wealth) were static across time. We hope this post helps researchers
-avoid such errors and guides them in solving problems that arise with
-retrospective longitudinal reproductive histories.
+Research on extreme weather and health yields valid conclusions only
+when we avoid glaring errors—for example, assuming that environmental
+conditions were the same in a woman’s previous location as in her
+current residence, or that current characteristics (e.g., employment,
+household wealth) were static across time. We hope this post helps
+researchers avoid such errors and guides them in solving problems that
+arise with retrospective longitudinal reproductive histories.
 
 ## Getting Help {.appendix}
 

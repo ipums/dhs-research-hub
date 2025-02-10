@@ -3,10 +3,10 @@ title: "About this Blog"
 title-block-banner: true
 ---
 
-## Supporting climate and health research
+## Supporting research on extreme weather and health
 
 IPUMS DHS data provide a critical resource to help illuminate the
-relationship between climate change and population health. To support
+relationship between weather extremes and population health. To support
 such research, the IPUMS Global Health team received a 2023 supplemental
 grant from the Eunice Kennedy Shriver National Institute of Child Health
 and Human Development, or NICHD (3R01HD069471-12S1).
@@ -28,7 +28,7 @@ These three elements will make it easier to add environmental context to
 research using IPUMS DHS surveys and will provide additional data
 relevant to disease vector transmission. Combined, they will enhance
 researchers' ability to use IPUMS DHS data to understand the impacts of
-climate change on health.
+weather extremes on health.
 
 #### Additional support
 
@@ -82,7 +82,7 @@ To cite an individual post on this blog, we suggest the following
 format:
 
 > Roberts, F., & Gunther, M. (2024, Februrary 4). *Attaching CHIRPS
-> precipitation data to DHS surveys*. IPUMS DHS Climate Change and
+> precipitation data to DHS surveys*. IPUMS DHS Spatial Analysis and
 > Health Research Hub.
 > https://tech.popdata.org/dhs-research-hub/posts/2024-02-04-dhs-chirps/index.html
 

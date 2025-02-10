@@ -10,7 +10,7 @@
 <meta name="dcterms.date" content="2024-08-30">
 <meta name="description" content="An introduction to gridded data sources used to measure human presence across the globe">
 
-<title>Measuring Population Density – IPUMS DHS Climate Change and Health Research Hub</title>
+<title>Measuring Population Density – IPUMS DHS Spatial Analysis and Health Research Hub</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -105,7 +105,7 @@ gtag('config', 'G-0WLH5S9VD5', { 'anonymize_ip': true});
 <meta property="og:title" content="Measuring Population Density">
 <meta property="og:description" content="An introduction to gridded data sources used to measure human presence across the globe">
 <meta property="og:image" content="https://ipums.github.io/dhs-research-hub/posts/2024-08-30-pop-density/images/listing-img.png">
-<meta property="og:site_name" content="IPUMS DHS Climate Change and Health Research Hub">
+<meta property="og:site_name" content="IPUMS DHS Spatial Analysis and Health Research Hub">
 <meta property="og:image:height" content="600">
 <meta property="og:image:width" content="615">
 <meta name="twitter:title" content="Measuring Population Density">
@@ -135,7 +135,7 @@ gtag('config', 'G-0WLH5S9VD5', { 'anonymize_ip': true});
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
     <a class="nav-link" href="../../index.html"> 
-<span class="menu-text">Climate Change and Health Research Hub</span></a>
+<span class="menu-text">Spatial Analysis and Health Research Hub</span></a>
   </li>  
 </ul>
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
@@ -293,7 +293,7 @@ gtag('config', 'G-0WLH5S9VD5', { 'anonymize_ip': true});
 
 
 
-<p>Researchers interested in understanding population distribution in the Global South are faced with a dilemma: data identifying where communities are and how many people live in them often does not exist. National censuses commonly report populations in aggregates, at province, district, or county levels—spatial resolutions much too coarse for studies of climate change or health.</p>
+<p>Researchers interested in understanding population distribution in the Global South are faced with a dilemma: data identifying where communities are and how many people live in them often does not exist. National censuses commonly report populations in aggregates, at province, district, or county levels—spatial resolutions much too coarse for studies of weather extremes or health.</p>
 <p>Datasets that <em>estimate</em> how and where many people live (<strong>population density layers</strong>) do exist, but differ in fundamental ways, and the choice of which dataset to use depends on the scale and scope of the research question. For instance, some datasets are better at identifying built-up areas, while others excel at measuring rural populations. Similarly, researchers who need to understand how many people live in peri-urban areas would not benefit from a dataset that uses a dichotomous urban/rural variable to define built-up areas.</p>
 <p>Furthermore, researchers studying change in population over time should be aware of comparability issues since some data providers update their methods regularly, making their datasets less comparable from year to year. Still, gridded population data are often the most effective tool for researchers to understand large-scale population distribution and explore human-environment relationships. Given the nuance of these datasets, how can we effectively include population density in our analyses?</p>
 <p>As a start, this post will introduce several of the most widely-used population datasets:</p>
@@ -306,8 +306,8 @@ gtag('config', 'G-0WLH5S9VD5', { 'anonymize_ip': true});
 <p>Below, discuss each source’s history, input data layers, and methods used in its development. This can serve as a starting point for researchers to explore each dataset in more depth to determine which may be most appropriate for their specific research area.</p>
 <section id="background" class="level1 page-columns page-full">
 <h1>Background</h1>
-<p>As fields of study related to climate, health, and population grew in the 1970s and 80s, researchers began to recognize that a deeper understanding of population distribution was needed. Censuses are costly and populations are dynamic; it became apparent that datasets estimating where people live needed to be combined with census data.</p>
-<p>The need to fill the gap in population data availability led to the development of the first global gridded population dataset in the 1990s (see <a href="#fig-1" class="quarto-xref">Figure&nbsp;1</a>): the Gridded Population of the World (GPW).<span class="citation" data-cites="Tobler1995 Deichmann1996 CIESIN"><sup><a href="#ref-Tobler1995" role="doc-biblioref">1</a>–<a href="#ref-CIESIN" role="doc-biblioref">3</a></sup></span> By combining population counts from censuses at second-administrative levels (i.e.&nbsp;counties and districts) with spatially-explicit administrative boundary data, researchers created a raster dataset that depicts population counts at 5-minute grid resolution (roughly 10km at the equator) on a continuous surface of the earth.<span class="citation" data-cites="Balk2006"><sup><a href="#ref-Balk2006" role="doc-biblioref">4</a></sup></span> This data enabled researchers studying climate (data that are commonly reported as a gridded surface) to incorporate population into their analyses without aggregating climate data to subnational administrative units.</p>
+<p>As fields of study related to extreme weather, health, and population grew in the 1970s and 80s, researchers began to recognize that a deeper understanding of population distribution was needed. Censuses are costly and populations are dynamic; it became apparent that datasets estimating where people live needed to be combined with census data.</p>
+<p>The need to fill the gap in population data availability led to the development of the first global gridded population dataset in the 1990s (see <a href="#fig-1" class="quarto-xref">Figure&nbsp;1</a>): the Gridded Population of the World (GPW).<span class="citation" data-cites="Tobler1995 Deichmann1996 CIESIN"><sup><a href="#ref-Tobler1995" role="doc-biblioref">1</a>–<a href="#ref-CIESIN" role="doc-biblioref">3</a></sup></span> By combining population counts from censuses at second-administrative levels (i.e.&nbsp;counties and districts) with spatially-explicit administrative boundary data, researchers created a raster dataset that depicts population counts at 5-minute grid resolution (roughly 10km at the equator) on a continuous surface of the earth.<span class="citation" data-cites="Balk2006"><sup><a href="#ref-Balk2006" role="doc-biblioref">4</a></sup></span> This data enabled researchers studying extreme weather (data that are commonly reported as a gridded surface) to incorporate population into their analyses without aggregating environmental data to subnational administrative units.</p>
 <div class="page-columns page-full">
 <div id="fig-1" class="quarto-float quarto-figure quarto-figure-center anchored page-columns page-full">
 <figure class="quarto-float quarto-float-fig figure page-columns page-full">
@@ -338,7 +338,7 @@ Figure&nbsp;1: Data publication timeline
 <h2 class="anchored" data-anchor-id="global-human-settlement-layer-ghsl">Global Human Settlement Layer (GHSL)</h2>
 <p>Available in 5-year intervals from 1975 to 2020, GHSL data products are provided at a spatial resolution of 3 arc-seconds (roughly 100 meters at the equator). GHSL utilizes Landsat imagery (prior to 2014) and Sentinel-2 composite imagery (2014-forward) in an image classification method called Symbolic Machine Learning (SML) to map urban land cover and classify population and land area into seven classes along an urban-rural continuum.<span class="citation" data-cites="Pesaresi2016 Macmanus2021"><sup><a href="#ref-Macmanus2021" role="doc-biblioref">9</a>,<a href="#ref-Pesaresi2016" role="doc-biblioref">10</a></sup></span></p>
 <p>The GHSL population data product is made up of three datasets: GHS-POP (population size), GHS-BUILT (built-up areas), and GHS-SMOD (a Degree of Urbanization model grid that delineates settlement types using GHS-POP and GHS-BUILT).<span class="citation" data-cites="Florczyk2019"><sup><a href="#ref-Florczyk2019" role="doc-biblioref">11</a></sup></span></p>
-<p>GHSL has been widely used to study the interactions between climate, health, and populations. For example, Pinchoff and colleagues<span class="citation" data-cites="Pinchoff2020"><sup><a href="#ref-Pinchoff2020" role="doc-biblioref">12</a></sup></span> used GHS-BUILT to examine the impact of urbanicity on health in Tanzania. McGranahan and colleagues<span class="citation" data-cites="McGranahan2023"><sup><a href="#ref-McGranahan2023" role="doc-biblioref">13</a></sup></span> used GHS-SMOD to calculate urbanization rates in low-elevation coastal zones and estimate the effect of urbanization on climate change in deltaic regions. In another study, the authors examined spatial accessibility to healthcare in sub-Saharan Africa (SSA) using GHS-SMOD.<span class="citation" data-cites="Florio2023"><sup><a href="#ref-Florio2023" role="doc-biblioref">14</a></sup></span></p>
+<p>GHSL has been widely used to study the interactions between weather extremes, health, and populations. For example, Pinchoff and colleagues<span class="citation" data-cites="Pinchoff2020"><sup><a href="#ref-Pinchoff2020" role="doc-biblioref">12</a></sup></span> used GHS-BUILT to examine the impact of urbanicity on health in Tanzania. McGranahan and colleagues<span class="citation" data-cites="McGranahan2023"><sup><a href="#ref-McGranahan2023" role="doc-biblioref">13</a></sup></span> used GHS-SMOD to calculate urbanization rates in low-elevation coastal zones and estimate the effect of urbanization on weather extremes in deltaic regions. In another study, the authors examined spatial accessibility to healthcare in sub-Saharan Africa (SSA) using GHS-SMOD.<span class="citation" data-cites="Florio2023"><sup><a href="#ref-Florio2023" role="doc-biblioref">14</a></sup></span></p>
 </section>
 <section id="landscan" class="level2">
 <h2 class="anchored" data-anchor-id="landscan">LandScan</h2>

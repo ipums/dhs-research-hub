@@ -1,10 +1,9 @@
 ---
 title: |
-  Developing Robust Conceptual Models in
-  Climate Change and Health Research
+  Developing Robust Conceptual Models in Research on Extreme Weather and Health
 description: |
-  Introducing the theoretical foundations for effective research on climate change and
-  health
+  Introducing the theoretical foundations for effective research on 
+  weather extremes and health
 author:
   - name: Elizabeth Heger Boyle
     affiliation: Professor, Department of Sociology, University of Minnesota
@@ -16,7 +15,7 @@ author:
     affiliation: Research Manager, IPUMS
 date: 02-03-2024
 categories:
-  - Climate
+  - Extreme weather
   - Methodology
   - Research concepts
 fig-width: 10
@@ -24,78 +23,82 @@ fig-height: 8
 bibliography: references.bib
 open-graph:
   title: |
-    Developing Robust Conceptual Models in Climate Change and Health Research
+    Developing Robust Conceptual Models in Research on Extreme Weather and 
+    Health
   description: |
-    Introducing the theoretical foundations for effective research on climate change and health
+    Introducing the theoretical foundations for effective research on weather
+    extremes and health
   image: images/pathways.png
 twitter-card:
   title: |
-    Developing Robust Conceptual Models in Climate Change and Health Research
+    Developing Robust Conceptual Models in Research on Extreme Weather and 
+    Health
   description: |
-    Introducing the theoretical foundations for effective research on climate change and health
+    Introducing the theoretical foundations for effective research on weather
+    extremes and health
   image: images/pathways.png
 ---
 
-Unpacking the relationship between climate change and health requires
+Unpacking the relationship between weather extremes and health requires
 not only technical skills, but also a strong theoretical foundation.
-Climate change, health, and their relationships are all complex.
+Extreme weather, health, and their relationships are all complex.
 Researchers begin by conceptualizing—for their specific questions—1) the
-nature of the climate event, 2) the details of the health outcome, and
-3) the temporal and spatial relationships between the climate and health
+nature of the extreme weather event, 2) the details of the health outcome, and
+3) the temporal and spatial relationships between extreme weather and the health 
 phenomena of interest.
 
-![Figure 1: Pathways of climate effects on health Available at:
+![Figure 1: Pathways of extreme weather effects on health. Available at:
 <https://nca2018.globalchange.gov/chapter/14/>
 [@Ebi2018]](images/pathways.png)
 
 Beyond these three elements, contextual factors are crucial for
-identifying the complex causal pathways among climate change and health.
-Figure 1 illustrates how the pathway from a climate event, its
+identifying the complex causal pathways among weather extremes and health.
+Figure 1 illustrates how the pathway from an extreme weather event, its
 manifestation in the environment, and its impact on various health
 outcomes is embedded within larger contexts. As suggested by the gray
-box on the right, individuals will be impacted by climate change in
+box on the right, individuals will be impacted by extreme weather in
 unique ways based on their demographic characteristics and social
 determinants that affect their lived experiences. The gray box on the
 left illustrates how environmental and institutional contexts will also
-influence relationships between climatic events and health. Contexts
+influence relationships between extreme weather events and health. Contexts
 influence the impact of exposures on individuals as well as their
-mitigation and adaptation strategies in response to climate risks.
+mitigation and adaptation strategies in response to extreme weather risks.
 
 ## Building a conceptual model
 
 Below, we provide the steps in creating a tailored conceptual model for
-climate change and health research.
+research on extreme weather and health.
 
-### 1. Assessing the temporal and spatial nature of climate risk
+### 1. Assessing the temporal and spatial nature of extreme weather risk
 
-Risks arising from climate change vary in their temporal and spatial
+Risks arising from weather extremes vary in their temporal and spatial
 scales. In terms of timing, risks may be acute or protracted. Acute
-risks arise when one-time exposure to a climate event is sufficient to
+risks arise when one-time exposure to an extreme weather event is sufficient to
 trigger health outcomes, for example, when flooding makes water unsafe
 for drinking. Protracted risks, in contrast, arise from sustained
-exposure to climate phenomenon, such as the inhalation of dust over the
-course of enduring dry periods. The impact of climate change is also
-spatially variable. While some climate events affect wide areas, others’
+exposure to extreme weather, such as the inhalation of dust over the
+course of enduring dry periods. The impact of extreme weather is also
+spatially variable. While some events affect wide areas, others’
 scope is limited to discrete locations. Determining the type of risk
-depends on both the nature of the climate event and the health outcome
+depends on both the nature of the extreme weather event and the health outcome
 studied. Identifying the temporal and spatial dimensions of risk provide
-the basis for decisions concerning temporal aggregation of climate data,
-as well as the length of expected lags between initial exposure to a
-climate event and the manifestation of the health outcome.
+the basis for decisions concerning temporal aggregation of environmental data,
+as well as the length of expected lags between initial exposure to an
+extreme weather event and the manifestation of the health outcome.
 
 ### 2. Incorporating social and behavioral context
 
-Certain climate events are known to have deleterious effects on humans.
+Certain extreme weather events are known to have deleterious effects on humans.
 For example, exposure to extremely high temperatures during the first
 trimester of pregnancy increases the risk of low birth-weight babies.
 [@Grace2021] Basic biological truths such as this are insufficient,
-however, to fully assess the impact of climate events on individual
+however, to fully assess the impact of extreme weather on individual
 health because individuals have dramatically different access to
 resources, opportunities, and constraints. A pregnant person who lives
 in an air-conditioned house will experience extreme temperatures very
 differently than a person who is houseless. Demographic characteristics,
 such as age, gender, wealth, and partnership status matter when
-assessing climate impacts.
+assessing the impacts of weather extremes.
 
 Furthermore, the characteristics of societies (e.g., rural versus urban,
 gender roles, livelihoods) matter. Consider rising temperatures in
@@ -108,16 +111,16 @@ more physically demanding. Who and how individuals are affected by water
 shortages will vary depending on community norms and roles. Community
 characteristics will also affect the instigation and nature of
 mitigation and adaptation efforts. While analyses that map the nature of
-climate change over time provide a useful starting point, they cannot
-fully capture the individual- and community-specific impacts of climate
-change.[@Grace2017]
+extreme weather over time provide a useful starting point, they cannot
+fully capture the individual- and community-specific impacts of extreme
+weather.[@Grace2017]
 
 ### 3. Understanding environmental and institutional contexts
 
 Environmental and institutional contexts are also influential in shaping
-causal pathways between climate change and health. The physical
+causal pathways between weather extremes and health. The physical
 environment, such as altitude and the demarcation of seasons, can
-provide some level of protection from some climatic events. For
+provide some level of protection from some extreme weather events. For
 instance, a small reduction in annual rainfall can have a devastating
 effect in an arid location where there is a close correspondence between
 a rainy season and agricultural production.[@Dorelien2023] The same
@@ -134,40 +137,40 @@ Institutional contexts include the built environment, such as the
 presence of roads, wells, and irrigation systems, as well as
 organizations designed to facilitate human capabilities, such as
 political, healthcare, and education systems. Local governments’
-capacities to intervene to protect populations faced with climate risks
-can reduce negative health outcomes. Healthcare systems affect the
+capacities to intervene to protect populations faced with risks of extreme 
+weather can reduce negative health outcomes. Healthcare systems affect the
 accessibility of treatment (both physically and financially), while
 education systems provide individuals with the knowledge of when and how
-to respond to climatic events. Climate change and health research that
+to respond to weather events. Extreme weather and health research that
 fails to capture these contextual effects can lead to faulty
 conclusions.
 
 ## Conclusion
 
-Theorizing the core relationship among specific climate events and
+Theorizing the core relationship among specific extreme weather events and
 specific health outcomes is the first step in developing a conceptual
 model but is insufficient to fully capture complex causal pathways.
 Individual characteristics, social determinants of health, and
 environmental and institutional environments are also critical. Informed
-and clearly identified spatial and temporal measurement of climate
+and clearly identified spatial and temporal measurement of environmental
 exposures is necessary, and these exposures should be thoughtfully,
 appropriately, and explicitly linked to the particular health outcomes
 of interest. Community-focused expertise and stakeholder engagement is
 vital to fully understand and incorporate how broader contexts interact
-with local circumstances to uniquely influence how climate change is
+with local circumstances to uniquely influence how weather extremes are
 experienced.
 
 ### For more information
 
-To learn more about the technical modeling implications of
-climate-change-and-health conceptual models, see Dorélien and Grace
+To learn more about the technical modeling implications of conceptual models
+of extreme weather and health, see Dorélien and Grace
 (2023). [@Dorelien2023]
 
-To see a specific model of the impact of climate change on women’s
+To see a specific model of the impact of weather extremes on women’s
 reproductive health in Africa, see Grace (2017).[@Grace2017]
 
-For further delineation of the elements in climate-change-and-health
-models (in the U.S. context), see Balbus et al. (2016).[@Balbus2016]
+For further delineation of the elements in models of extreme weather and
+health (in the U.S. context), see Balbus et al. (2016).[@Balbus2016]
 
 ## Getting Help {.appendix}
 

@@ -8,7 +8,7 @@ author:
     affiliation: Senior Research Fellow, University of Minnesota College of Pharmacy
 date: 07-02-2024
 categories:
-  - Climate
+  - Extreme weather
   - NDVI
   - Food production
   - Agriculture
@@ -41,17 +41,17 @@ on the lives, biology, and behavior of the subsistence farmers,
 agriculturalists, and pastoralist residents who rely on specific
 environmental conditions to support their livelihoods.
 
-These effects are especially pronounced in low-income countries on the
-front lines of climate change. Beyond merely the choices of when to
-plant, water, and harvest, research consistently demonstrates that
-growing conditions—and by extension, food access and availability—play a
-key role in migration decisions, livelihood selection and
-diversification, health outcomes, resource related conflict, and the
-choice of whether, when and how often to have children. Because of this,
-data on immediate and longitudinal growing conditions are at the heart
-of social and climate scientists' understanding of the link between
-climate change and health, particularly among the most vulnerable and
-poorest regions and populations.
+These effects are especially pronounced in low-income countries where
+extreme weather may have an outsize impact. Beyond merely the choices of
+when to plant, water, and harvest, research consistently demonstrates
+that growing conditions—and by extension, food access and
+availability—play a key role in migration decisions, livelihood
+selection and diversification, health outcomes, resource related
+conflict, and the choice of whether, when and how often to have
+children. Because of this, data on immediate and longitudinal growing
+conditions are at the heart of scientists' understanding of the link
+between weather extremes and health, particularly among the most
+vulnerable and poorest regions and populations.
 
 # Measuring Growing Conditions
 
@@ -150,7 +150,7 @@ of miscarriage and thus driving down fertility.[@randell2021climatic;
 various health outcomes are not straightforward, and teasing them out
 often requires qualitative study and stakeholder engagement.
 
-NDVI provides an invaluable tool for understanding how climate change
+NDVI provides an invaluable tool for understanding how extreme weather
 impacts food production with implications for health and health-related
 behaviors. Yet in order to make best use of NDVI, it is imperative to
 understand the decisions in measurement and quantification of local

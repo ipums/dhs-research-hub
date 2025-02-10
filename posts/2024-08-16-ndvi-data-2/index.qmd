@@ -1,7 +1,7 @@
 ---
 title: "Aggregation Methods for NDVI Data"
 description: |
-    We use data from two climates to illustrate approaches to 
+    We use data from two regions to illustrate approaches to 
     processing NDVI data
 author: 
   - name: "Finn Roberts"
@@ -10,9 +10,9 @@ date: 08-16-2024
 categories:
   - NDVI
   - Seasonality
-  - Climate normals
+  - Climatological normals
   - Agriculture
-  - Climate
+  - Extreme weather
   - Food production
   - R
   - Time series
@@ -25,13 +25,13 @@ image: index_files/figure-html/listing-img-1.png
 open-graph:
   title: "Aggregation Methods for NDVI Data"
   description: |
-    We use data from two distinct climates to illustrate approaches to 
+    We use data from two regions to illustrate approaches to 
     processing NDVI data
   image: index_files/figure-html/listing-img-1.png
 twitter-card:
   title: "Aggregation Methods for NDVI Data"
   description: |
-    We use data from two distinct climates to illustrate approaches to 
+    We use data from two regions to illustrate approaches to 
     processing NDVI data
   image: index_files/figure-html/listing-img-1.png
 ---
@@ -86,8 +86,8 @@ series from two capitals with different climates: Nairobi, Kenya and
 Ouagadougou, Burkina Faso. We'll use a familiar workflow to build
 buffers around the DHS cluster points in these regions and will extract
 NDVI time series for each. Once we have these time series, we'll use
-them to explore how climate and seasonality may play a role in the way
-we aggregate NDVI data.
+them to explore how extreme weather and seasonality may play a role in
+the way we aggregate NDVI data.
 
 As always, we'll start by loading some of the packages used in the post:
 
@@ -430,7 +430,7 @@ because they represent a water source), but it could also be because of
 **human interaction**, like irrigation.
 
 This human element is an important feature of NDVI that distinguishes it
-from other climate metrics, like precipitation and temperature.
+from other environmental metrics, like precipitation and temperature.
 Vegetation is more directly influenced by human behavior than these
 other sources.
 
@@ -624,8 +624,8 @@ Because NDVI is an index, its values don't have any intrinsic units
 example?). This means that NDVI is often easier to interpret when
 considered *relative* to past NDVI values in a given location. Instead
 of aggregating NDVI directly, we can compare each pixel to its prior
-values over the course of many years. In climate science, these long-run
-comparisons are called **normals**.
+values over the course of many years. These long-run comparisons are
+called **normals**.
 
 To demonstrate, imagine we wanted to calculate the deviation from normal
 NDVI we observed in 2021. First, we'll split our final year of data

@@ -40,7 +40,7 @@ Global South are faced with a dilemma: data identifying where
 communities are and how many people live in them often does not exist.
 National censuses commonly report populations in aggregates, at
 province, district, or county levels—spatial resolutions much too coarse
-for studies of climate change or health.
+for studies of weather extremes or health.
 
 Datasets that *estimate* how and where many people live (**population
 density layers**) do exist, but differ in fundamental ways, and the
@@ -75,7 +75,7 @@ be most appropriate for their specific research area.
 
 # Background
 
-As fields of study related to climate, health, and population grew in
+As fields of study related to extreme weather, health, and population grew in
 the 1970s and 80s, researchers began to recognize that a deeper
 understanding of population distribution was needed. Censuses are costly
 and populations are dynamic; it became apparent that datasets estimating
@@ -89,9 +89,9 @@ second-administrative levels (i.e. counties and districts) with
 spatially-explicit administrative boundary data, researchers created a
 raster dataset that depicts population counts at 5-minute grid
 resolution (roughly 10km at the equator) on a continuous surface of the
-earth.[@Balk2006] This data enabled researchers studying climate (data
+earth.[@Balk2006] This data enabled researchers studying extreme weather (data
 that are commonly reported as a gridded surface) to incorporate
-population into their analyses without aggregating climate data to
+population into their analyses without aggregating environmental data to
 subnational administrative units.
 
 ::: column-page
@@ -162,13 +162,13 @@ The GHSL population data product is made up of three datasets: GHS-POP
 Urbanization model grid that delineates settlement types using GHS-POP
 and GHS-BUILT).[@Florczyk2019]
 
-GHSL has been widely used to study the interactions between climate,
+GHSL has been widely used to study the interactions between weather extremes,
 health, and populations. For example, Pinchoff and
 colleagues[@Pinchoff2020] used GHS-BUILT to examine the impact of
 urbanicity on health in Tanzania. McGranahan and
 colleagues[@McGranahan2023] used GHS-SMOD to calculate urbanization
 rates in low-elevation coastal zones and estimate the effect of
-urbanization on climate change in deltaic regions. In another study, the
+urbanization on weather extremes in deltaic regions. In another study, the
 authors examined spatial accessibility to healthcare in sub-Saharan
 Africa (SSA) using GHS-SMOD.[@Florio2023]
 
