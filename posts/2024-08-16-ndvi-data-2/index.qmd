@@ -66,6 +66,15 @@ sysfonts::font_add(
 showtext::showtext_auto()
 ```
 
+::: callout-caution
+## Update
+
+Since we originally released this post, we now recommend using VIIRS
+when doing contemporary NDVI research. See our [VIIRS
+post](../2025-03-31-viirs) for more information about how to adapt the
+contents discussed in this post for use with VIIRS files.
+:::
+
 Previously, we showed how to load NDVI data for two time points in Kenya
 using NASA's Earthdata Search interface. If you're new to NDVI, we
 suggest you go ahead and take a look at our [introductory

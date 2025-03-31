@@ -298,7 +298,20 @@ gtag('config', 'G-0WLH5S9VD5', { 'anonymize_ip': true});
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
     </div>
 <!-- main -->
-<main class="content quarto-banner-title-block page-columns page-full" id="quarto-document-content"><p>Previously, we showed how to load NDVI data for two time points in Kenya using NASA’s Earthdata Search interface. If you’re new to NDVI, we suggest you go ahead and take a look at our <a href="../2024-07-02-ndvi-concepts">introductory post</a> as well as our <a href="../2024-08-01-ndvi-data">NDVI data loading post</a> before continuing.</p>
+<main class="content quarto-banner-title-block page-columns page-full" id="quarto-document-content"><div class="callout callout-style-default callout-caution callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Update
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Since we originally released this post, we now recommend using VIIRS when doing contemporary NDVI research. See our <a href="../2025-03-31-viirs">VIIRS post</a> for more information about how to adapt the contents discussed in this post for use with VIIRS files.</p>
+</div>
+</div>
+<p>Previously, we showed how to load NDVI data for two time points in Kenya using NASA’s Earthdata Search interface. If you’re new to NDVI, we suggest you go ahead and take a look at our <a href="../2024-07-02-ndvi-concepts">introductory post</a> as well as our <a href="../2024-08-01-ndvi-data">NDVI data loading post</a> before continuing.</p>
 <p>In this post, we’ll use two NDVI time series to demonstrate some of the considerations that emerge when aggregating and processing NDVI raster data in the context of population health research. We need to conduct many of the same aggregation steps for our NDVI data as we did for previous data sources, like <a href="../2024-02-04-dhs-chirps">CHIRPS</a> and <a href="../2024-04-15-chirts-metrics">CHIRTS</a>. However, as with any new data source, the decisions we make about how to do so will vary when working with NDVI.</p>
 <p>To highlight some of the features of NDVI data, we’ll load NDVI time series from two capitals with different climates: Nairobi, Kenya and Ouagadougou, Burkina Faso. We’ll use a familiar workflow to build buffers around the DHS cluster points in these regions and will extract NDVI time series for each. Once we have these time series, we’ll use them to explore how extreme weather and seasonality may play a role in the way we aggregate NDVI data.</p>
 <p>As always, we’ll start by loading some of the packages used in the post:</p>

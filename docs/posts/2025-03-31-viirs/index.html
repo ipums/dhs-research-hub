@@ -1,0 +1,1527 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.5.57">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<meta name="author" content="Finn Roberts">
+<meta name="author" content="Rebecca Luttinen">
+<meta name="dcterms.date" content="2025-03-31">
+<meta name="description" content="Update your NDVI workflows with NASA’s newest instruments">
+<title>From MODIS to VIIRS: The Latest Source for NDVI Data – IPUMS DHS Spatial Analysis and Health Research Hub</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<link href="../../images/favicon/favicon-32x32.ico" rel="icon">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/quarto-contrib/fontawesome6-0.1.0/all.css" rel="stylesheet">
+<link href="../../site_libs/quarto-contrib/fontawesome6-0.1.0/latex-fontsize.css" rel="stylesheet"><script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script><script async="" src="https://www.googletagmanager.com/gtag/js?id=G-0WLH5S9VD5"></script><script type="text/javascript">
+
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-0WLH5S9VD5', { 'anonymize_ip': true});
+</script>
+<meta property="og:title" content="From MODIS to VIIRS: The Latest Source for NDVI Data">
+<meta property="og:description" content="Update your NDVI workflows with NASA’s newest instruments">
+<meta property="og:image" content="https://ipums.github.io/dhs-research-hub/posts/2025-03-31-viirs/index_files/figure-html/listing-img-1.png">
+<meta property="og:site_name" content="IPUMS DHS Spatial Analysis and Health Research Hub">
+<meta property="og:image:height" content="1536">
+<meta property="og:image:width" content="1920">
+<meta name="twitter:title" content="From MODIS to VIIRS: The Latest Source for NDVI Data">
+<meta name="twitter:description" content="Update your NDVI workflows with NASA’s newest instruments">
+<meta name="twitter:image" content="https://ipums.github.io/dhs-research-hub/posts/2025-03-31-viirs/index_files/figure-html/listing-img-1.png">
+<meta name="twitter:image-height" content="1536">
+<meta name="twitter:image-width" content="1920">
+<meta name="twitter:card" content="summary_large_image">
+</head>
+<body class="floating nav-fixed slimcontent">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top quarto-banner"><nav class="navbar navbar-expand-lg " data-bs-theme="dark"><div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a href="https://www.idhsdata.org/idhs/" class="navbar-brand navbar-brand-logo">
+    <img src="../../images/dhs_logo_white.png" alt="" class="navbar-logo"></a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+<li class="nav-item">
+    <a class="nav-link" href="../../index.html"> 
+<span class="menu-text">Spatial Analysis and Health Research Hub</span></a>
+  </li>  
+</ul>
+<ul class="navbar-nav navbar-nav-scroll ms-auto">
+<li class="nav-item">
+    <a class="nav-link" href="../../index.html"> 
+<span class="menu-text">Posts</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-getting-started" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Getting Started</span>
+    </a>
+    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="nav-menu-getting-started">
+<li>
+    <a class="dropdown-item" href="../../posts/2024-02-01-getting-started-with-r/index.html">
+ <span class="dropdown-text">An Introduction to R</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../posts/2024-02-02-download-dhs-data/index.html">
+ <span class="dropdown-text">Obtaining IPUMS DHS Data</span></a>
+  </li>  
+    </ul>
+</li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-community" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Community</span>
+    </a>
+    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="nav-menu-community">
+<li>
+    <a class="dropdown-item" href="https://forum.ipums.org">
+ <span class="dropdown-text">IPUMS Forum</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../CODE_OF_CONDUCT.html">
+ <span class="dropdown-text">Code of Conduct</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../LICENSE.html">
+ <span class="dropdown-text">License</span></a>
+  </li>  
+    </ul>
+</li>
+  <li class="nav-item">
+    <a class="nav-link" href="../../about.html"> 
+<span class="menu-text">About</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="https://github.com/ipums/dhs-research-hub"> 
+<span class="menu-text"><i class="fa-brands fa-github" aria-label="github"></i></span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../index.xml"> 
+<span class="menu-text"><i class="fa-solid fa-rss" aria-label="rss"></i></span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="https://twitter.com/ipumsGH"> 
+<span class="menu-text"><i class="fa-brands fa-x-twitter" aria-label="x-twitter"></i></span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="https://forum.ipums.org"> 
+<span class="menu-text"><i class="fa-solid fa-users" aria-label="users"></i></span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="https://www.ipums.org/"> 
+<span class="menu-text"><i class="fa-solid fa-globe" aria-label="globe"></i></span></a>
+  </li>  
+</ul>
+</div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav></header><!-- content --><header id="title-block-header" class="quarto-title-block default toc-left page-columns page-full"><div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body">
+      <h1 class="title">From MODIS to VIIRS: The Latest Source for NDVI Data</h1>
+                  <div>
+        <div class="description">
+          Update your NDVI workflows with NASA’s newest instruments
+        </div>
+      </div>
+                          <div class="quarto-categories">
+                <div class="quarto-category">NDVI</div>
+                <div class="quarto-category">VIIRS</div>
+                <div class="quarto-category">MODIS</div>
+                <div class="quarto-category">NASA</div>
+                <div class="quarto-category">Agriculture</div>
+                <div class="quarto-category">Food production</div>
+                <div class="quarto-category">Importing Data</div>
+                <div class="quarto-category">R</div>
+                <div class="quarto-category">Reproducible workflows</div>
+                <div class="quarto-category">terra</div>
+                <div class="quarto-category">rhdf5</div>
+                <div class="quarto-category">stringr</div>
+                <div class="quarto-category">purrr</div>
+                <div class="quarto-category">ggspatial</div>
+              </div>
+                  </div>
+  </div>
+    
+  <div class="quarto-title-meta-author">
+    <div class="quarto-title-meta-heading">Authors</div>
+    <div class="quarto-title-meta-heading">Affiliations</div>
+    
+      <div class="quarto-title-meta-contents">
+      <p class="author">Finn Roberts </p>
+    </div>
+    <div class="quarto-title-meta-contents">
+          <p class="affiliation">
+              IPUMS Senior Data Analyst
+            </p>
+        </div>
+      <div class="quarto-title-meta-contents">
+      <p class="author">Rebecca Luttinen </p>
+    </div>
+    <div class="quarto-title-meta-contents">
+          <p class="affiliation">
+              IPUMS Global Health Data Analyst
+            </p>
+        </div>
+    </div>
+
+  <div class="quarto-title-meta">
+
+        
+      <div>
+      <div class="quarto-title-meta-heading">Published</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">March 31, 2025</p>
+      </div>
+    </div>
+    
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto"><nav id="TOC" role="doc-toc" class="toc-active" data-toc-expanded="1"><h2 id="toc-title">Contents</h2>
+   
+  <ul>
+<li><a href="#modis-vs.-viirs" id="toc-modis-vs.-viirs" class="nav-link active" data-scroll-target="#modis-vs.-viirs">MODIS vs.&nbsp;VIIRS</a></li>
+  <li>
+<a href="#obtaining-viirs-ndvi-data" id="toc-obtaining-viirs-ndvi-data" class="nav-link" data-scroll-target="#obtaining-viirs-ndvi-data">Obtaining VIIRS NDVI data</a>
+  <ul class="collapse">
+<li>
+<a href="#why-coarse-resolution-data" id="toc-why-coarse-resolution-data" class="nav-link" data-scroll-target="#why-coarse-resolution-data">Why coarse resolution data?</a>
+  <ul class="collapse">
+<li><a href="#viirs-global-data-vnp13c2" id="toc-viirs-global-data-vnp13c2" class="nav-link" data-scroll-target="#viirs-global-data-vnp13c2">VIIRS global data: VNP13C2</a></li>
+  </ul>
+</li>
+  </ul>
+</li>
+  <li>
+<a href="#loading-viirs-data-into-r" id="toc-loading-viirs-data-into-r" class="nav-link" data-scroll-target="#loading-viirs-data-into-r">Loading VIIRS data into R</a>
+  <ul class="collapse">
+<li><a href="#fixing-raster-metadata" id="toc-fixing-raster-metadata" class="nav-link" data-scroll-target="#fixing-raster-metadata">Fixing raster metadata</a></li>
+  </ul>
+</li>
+  <li>
+<a href="#working-with-other-viirs-data-products" id="toc-working-with-other-viirs-data-products" class="nav-link" data-scroll-target="#working-with-other-viirs-data-products">Working with other VIIRS data products</a>
+  <ul class="collapse">
+<li>
+<a href="#hdf5-metadata" id="toc-hdf5-metadata" class="nav-link" data-scroll-target="#hdf5-metadata">HDF5 metadata</a>
+  <ul class="collapse">
+<li><a href="#bioconductor-and-the-rhdf5-package" id="toc-bioconductor-and-the-rhdf5-package" class="nav-link" data-scroll-target="#bioconductor-and-the-rhdf5-package">Bioconductor and the rhdf5 package</a></li>
+  <li><a href="#access-metadata" id="toc-access-metadata" class="nav-link" data-scroll-target="#access-metadata">Accessing metadata</a></li>
+  <li><a href="#using-metadata" id="toc-using-metadata" class="nav-link" data-scroll-target="#using-metadata">Using metadata</a></li>
+  </ul>
+</li>
+  </ul>
+</li>
+  <li>
+<a href="#viirs-iterative-workflow" id="toc-viirs-iterative-workflow" class="nav-link" data-scroll-target="#viirs-iterative-workflow">An iterative workflow for multiple tiles</a>
+  <ul class="collapse">
+<li><a href="#identify-tile-codes" id="toc-identify-tile-codes" class="nav-link" data-scroll-target="#identify-tile-codes">Identify tile codes</a></li>
+  <li><a href="#using-string-matching-to-identify-tile-extent-coordinates" id="toc-using-string-matching-to-identify-tile-extent-coordinates" class="nav-link" data-scroll-target="#using-string-matching-to-identify-tile-extent-coordinates">Using string matching to identify tile extent coordinates</a></li>
+  <li><a href="#load-all-tiles" id="toc-load-all-tiles" class="nav-link" data-scroll-target="#load-all-tiles">Load all tiles</a></li>
+  <li><a href="#mosaic-georeferenced-tiles" id="toc-mosaic-georeferenced-tiles" class="nav-link" data-scroll-target="#mosaic-georeferenced-tiles">Mosaic georeferenced tiles</a></li>
+  
+  </ul>
+</li>
+  </ul></nav>
+</nav><div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
+    </div>
+<!-- main -->
+<main class="content quarto-banner-title-block page-columns page-full" id="quarto-document-content"><p>The Normalized Vegetation Index (NDVI) is a measure that can be used in research involving climate patterns, agriculture, access to green space and much more. We’ve introduced NDVI in a <a href="../2024-08-01-ndvi-data">previous post</a>, where we downloaded and prepared NDVI data from MODIS.</p>
+<p><a href="https://modis.gsfc.nasa.gov/">MODIS</a>, or the Moderate Resolution Imaging Spectroradiometer, is a global imager on two satellites (Terra and Aqua) that has collected images of Earth’s surface for more than 20 years. While originally designed with the expectation of a 5-year lifespan, MODIS is still operating today. However, as we <a href="../2024-08-01-ndvi-data/#obtaining-ndvi">mentioned</a> previously, both Terra and Aqua are set to be <a href="https://www.earthdata.nasa.gov/news/feature-articles/from-terra-terra-firma">decommissioned</a>. As they drift from their original orbits, their overpass times will increasingly lag, making the data they collect more difficult to compare over time. Terra will continue to collect data until December 2025, while Aqua will remain in orbit until August 2026.</p>
+<p>Fortunately, a new imaging instrument has already been launched: the <a href="https://www.earthdata.nasa.gov/data/instruments/viirs">Visible Infrared Imaging Radiometer Suite</a> (VIIRS). In this post, we’ll adapt the workflows we introduced before using MODIS data with a new workflow using VIIRS data.</p>
+<section id="modis-vs.-viirs" class="level1 page-columns page-full"><h1>MODIS vs.&nbsp;VIIRS</h1>
+<p>Fortunately, given the importance of MODIS in many earth science and observation applications, significant effort has been put into ensuring continuity between MODIS and VIIRS to ease the transition between the two instruments.<span class="citation" data-cites="Roman2024 Skakun2018"><sup><a href="#ref-Roman2024" role="doc-biblioref">1</a>,<a href="#ref-Skakun2018" role="doc-biblioref">2</a></sup></span> Still, there are some differences between the two products.</p>
+<p>Perhaps most importantly, of course, is difference in temporal availability between the two. VIIRS data is only available starting in 2012, while MODIS data are available all the way back to early 2000. Thus, if you’re linking environmental data to historical survey records, you may have no choice but to use MODIS data. Fortunately, research suggests that you can use data from the two instruments together if your timeframe of interest overlaps the transition from MODIS to VIIRS.<span class="citation" data-cites="Roman2024 Li2014 Skakun2018"><sup><a href="#ref-Roman2024" role="doc-biblioref">1</a>–<a href="#ref-Li2014" role="doc-biblioref">3</a></sup></span></p>
+
+<div class="no-row-height column-margin column-container"><div class="margin-aside">
+<p>For use before 2000, you may need to look into the <a href="https://www.earthdata.nasa.gov/data/instruments/avhrr">Advanced Very High Resolution Radiometer</a> (AVHRR).</p>
+</div></div><p>VIIRS and MODIS also have different spectral bands. MODIS has 36 spectral bands ranging from 250m to 1km in resolution, while VIIRS has 22 spectral bands at 375m and 750m. Some, though not all, of the VIIRS spectral bands have higher resolution than their analogous MODIS bands.<span class="citation" data-cites="Roman2024"><sup><a href="#ref-Roman2024" role="doc-biblioref">1</a></sup></span> So, while VIIRS does use more current technology and improves upon MODIS in detection and accuracy for certain wavelengths of light, there are specific bands where MODIS provides higher resolution.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>A spectral <strong>band</strong> refers to a specific range of light wavelengths that are detected by the imaging sensor. The reflectance of the surface in different bands can be used to calculate many remote sensing metrics. NDVI, for instance, is calculated using both the near-infrared band reflectance and the red band reflectance.</p>
+</div>
+</div>
+<p>Further, while MODIS data was collected both in the morning and in the afternoon, VIIRS only provides afternoon data. This means that diurnal comparisons are not possible using VIIRS, and observations for areas that tend to have cloud cover during the afternoon may be more difficult.</p>
+<p>See Román et al.&nbsp;(2024)<span class="citation" data-cites="Roman2024"><sup><a href="#ref-Roman2024" role="doc-biblioref">1</a></sup></span> for more detailed technical comparisons between the two instruments. The <a href="https://viirsland.gsfc.nasa.gov/PDF/SNPP_VIIRS_VI_UserGuide_09-26-2017_KDidan.pdf">VIIRS vegetation index technical documentation</a> is also a comprehensive resource for understanding how VIIRS vegetation data is collected and processed.</p>
+</section><section id="obtaining-viirs-ndvi-data" class="level1 page-columns page-full"><h1>Obtaining VIIRS NDVI data</h1>
+<p>You can obtain VIIRS data through NASA’s <a href="https://search.earthdata.nasa.gov/search">Earthdata Search</a> interface, just like we <a href="../2024-08-01-ndvi-data/#earthdata-search">previously demonstrated</a> when explaining how to download data from MODIS. All you need to do is update the data collection you search for to identify VIIRS data products rather than MODIS data products.</p>
+<p>In our previous post, we used the MOD13Q1 collection—250m resolution data delivered in 16-day increments. In this section, we’ll demonstrate how to obtain coarser global vegetation data from VIIRS.</p>
+<section id="why-coarse-resolution-data" class="level2 page-columns page-full"><h2 class="anchored" data-anchor-id="why-coarse-resolution-data">Why coarse resolution data?</h2>
+<p>Just like MODIS, VIIRS provides several different spatial and temporal resolution options.</p>
+<p>While it may seem obvious that you’d always want to find the highest resolution data available, this isn’t always the case. Particularly when linking environmental data to large-scale surveys as we’ve demonstrated throughout this blog, the limiting factor on our precision is typically the location data available in the <em>survey</em>, not the environmental data. Essentially, because of the inherent uncertainty in our survey locations, the benefit of highly detailed environmental data is lost.</p>
+<p>In many cases, NASA will provide data products that have already been aggregated both spatially and temporally. These data are often easier to work with and smaller in size, and the aggregation methods that NASA uses often do a better job of handling data quality issues than we could do when aggregating ourselves.</p>
+<p>That being said, there are certainly cases where it’s worthwhile to obtain higher-resolution data. This may be the case if you have a high degree of spatial resolution in the data you’re linking to the environmental metrics, or if you want to aggregate data in a particular way to calculate environmental metrics that NASA doesn’t provide out of the box (see our <a href="../2024-04-15-chirts-metrics/#days-above">CHIRTS heatwave post</a> for an example).</p>
+<p>The key is that when coarse resolution data are sufficient—as they often are—they’re typically the best option.</p>
+<section id="viirs-global-data-vnp13c2" class="level3 page-columns page-full"><h3 class="anchored" data-anchor-id="viirs-global-data-vnp13c2">VIIRS global data: VNP13C2</h3>
+<p>In the Earthdata Search interface, the product we’ll use has the code <strong>VNP13C2</strong>.</p>
+<p><strong>VNP</strong> is the prefix used for products that use the VIIRS instrument aboard the NPP (as opposed to <strong>MOD</strong>, which we used for Terra-based MODIS products).</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>NPP refers to the <a href="https://eospso.nasa.gov/missions/suomi-national-polar-orbiting-partnership">Suomi National Polar-orbiting Partnership</a>, a satellite launched in 2011 with VIIRS (and other instruments) on board. The newer <a href="https://eospso.nasa.gov/missions/joint-polar-satellite-system-1">Joint Polar Satellite System</a> (JPSS-1) also houses VIIRS instruments (with the code VJ1).</p>
+<p>We’re using data from 2014 in this demo for consistency with our previous post on MODIS. However, if you’re working with data more recent than 2017, you likely will want to use JPSS-1 VIIRS data.</p>
+</div>
+</div>
+<p>The <strong>13</strong> component of the collection name is a code that indicates that the collection is a vegetation index.</p>
+<p>The spatial resolution is represented by the final 2 digits of the collection code. In this case we’ll use <strong>C2</strong>, which is the coarsest data available from VIIRS (~5.5 km) and is delivered globally. This and other global data products are provided on the <strong>Climate Modeling Grid</strong>, or CMG, in which data are in geographic (latitude and longitude) coordinates (this will be important later!).</p>
+<p>To find the VNP13C2 product, enter the code in the search bar on the Earthdata Search interface.</p>
+<p>You should see a few different collections that pop up. We’ll want to use the <strong>latest version</strong> of the data. NASA regularly makes improvements and corrections to the data from its instruments, and importantly these changes are <strong>retroactively applied</strong> to prior years of data. Thus, it’s always advisable to use the latest version of a data product once it’s released. At the time of writing, the latest version is v002, so we’ll select the “VIIRS/NPP Vegetation Indices Monthly L3 Global 0.05Deg CMG V002” collection.</p>
+<div class="column-page">
+<p><img src="images/earthdata_viirs1.png" class="img-fluid"></p>
+</div>
+<p>From here, you can follow the <a href="../2024-08-01-ndvi-data/#earthdata-search">instructions</a> we introduced in our previous post (or use the Earthdata Search walk-through available when you launch the website) to narrow down your temporal range of interest. Here, our data are global, but if you were working with a higher resolution dataset, you could also select data for a specific spatial region through this interface as well.</p>
+<p>We’ve restricted our data to the first three months of 2014 for demonstration. You can download the data by clicking <strong>Download All</strong>.</p>
+<div class="column-page">
+<p><img src="images/earthdata_viirs2.png" class="img-fluid"></p>
+</div>
+<p>We’ve placed these VNP13C2 files in a <code>data/VNP13C2</code> directory, which we’ll use for the rest of the post.</p>
+</section></section></section><section id="loading-viirs-data-into-r" class="level1 page-columns page-full"><h1>Loading VIIRS data into R</h1>
+<p>As always, we’ll start by loading the packages we’ll use in this demo.</p>
+<!-- Note that this was run under terra 1.8.29 -->
+<div class="cell">
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://stringr.tidyverse.org">stringr</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org">ggplot2</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://paleolimbot.github.io/ggspatial/">ggspatial</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://purrr.tidyverse.org/">purrr</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://rspatial.org/">terra</a></span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>In large part, loading VIIRS data follows the same workflow that we <a href="../2024-08-01-ndvi-data/#nasa-image-files">demonstrated</a> for MODIS data. Both data sources are raster data containing the same vegetation indices.</p>
+<div class="cell">
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">files</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.files.html">list.files</a></span><span class="op">(</span><span class="st">"data/VNP13C2"</span>, full.names <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>The file names contain helpful information about the data within. We can see the VIIRS product code (VNP13C2) followed by the file timestamp (e.g., A2014001), which uses the year (2014) followed by the Julian day (001—for January 1st). We also see the version (002) and finally the time that the file was last processed by NASA.</p>
+<div class="cell" data-scrub_data_local="true">
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">files</span></span>
+<span><span class="co">#&gt; [1] "data/VNP13C2/VNP13C2.A2014001.002.2024060013808.h5"</span></span>
+<span><span class="co">#&gt; [2] "data/VNP13C2/VNP13C2.A2014032.002.2024060030203.h5"</span></span>
+<span><span class="co">#&gt; [3] "data/VNP13C2/VNP13C2.A2014060.002.2024060044137.h5"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>One key difference is in the file format. While the MODIS files we downloaded previously came in HDF4 format, VIIRS files come in HDF5 (<code>.h5</code>) format. HDF5 files are supported by <a href="https://rspatial.org/">terra</a>, but they store their metadata in different ways, which are not always detected automatically.</p>
+<p>For instance, if we load a few sample VIIRS files that we downloaded as described above, we notice that we get a warning when attempting to load with <code><a href="https://rspatial.github.io/terra/reference/rast.html">rast()</a></code>:</p>
+<div class="cell">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">viirs_cmg</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rspatial.github.io/terra/reference/rast.html">rast</a></span><span class="op">(</span><span class="va">files</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Warning: [rast] unknown extent</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>This warning is alerting us to the fact that while we were able to load the file into a <code>SpatRaster</code> object, we’re missing information about the spatial extent of the data we’ve loaded.</p>
+<p>We can check the extent information with <code><a href="https://rspatial.github.io/terra/reference/ext.html">ext()</a></code>:</p>
+<div class="cell">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rspatial.github.io/terra/reference/ext.html">ext</a></span><span class="op">(</span><span class="va">viirs_cmg</span><span class="op">)</span></span>
+<span><span class="co">#&gt; SpatExtent : 0, 7200, 0, 3600 (xmin, xmax, ymin, ymax)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Why do we have extent information stored when terra warned us that it couldn’t identify the extent? This is because the extent that’s used in the absence of geographical information is simply in <em>pixel units</em>. That is, our raster is 7200x3600 pixels.</p>
+<p>Unfortunately, this doesn’t tell us anything about the geographic locations that the data correspond to. That is, the data aren’t <strong>georeferenced</strong>.</p>
+<p>Accordingly, we’ll notice that our data are also missing a coordinate reference system:</p>
+<div class="cell">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rspatial.github.io/terra/reference/crs.html">crs</a></span><span class="op">(</span><span class="va">viirs_cmg</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] ""</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>So, terra was able to load the raster values, but we don’t know any of the critical geographical information associated with these data. Apparently terra isn’t able to access it in these files!</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>While these metadata aren’t loaded automatically at the time of writing, it’s possible that future updates to these files, <a href="https://rspatial.org/">terra</a> or other R packages may make it possible to do so, and you may not need to manually fix the raster metadata after loading as we demonstrate below.</p>
+</div>
+</div>
+<section id="fixing-raster-metadata" class="level2 page-columns page-full"><h2 class="anchored" data-anchor-id="fixing-raster-metadata">Fixing raster metadata</h2>
+<p>As stated in the <a href="https://viirsland.gsfc.nasa.gov/PDF/SNPP_VIIRS_VI_UserGuide_09-26-2017_KDidan.pdf">VIIRS Vegetation Index Product Guide</a>, the VIIRS CMG data are provided in WGS84 geographic coordinates (that is, latitude and longitude) for the entire globe.</p>
+<p>We could use this knowledge to provide the missing extent and CRS information ourselves. We know that the global extent should span from -180° to 180° in longitude and -90° to 90° in latitude, so we can easily set the extent using terra’s <code><a href="https://rspatial.github.io/terra/reference/ext.html">ext()</a></code>:</p>
+<div class="cell">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Note that `ext()` expects coordinates in (xmin, xmax, ymin, ymax) order</span></span>
+<span><span class="fu"><a href="https://rspatial.github.io/terra/reference/ext.html">ext</a></span><span class="op">(</span><span class="va">viirs_cmg</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">180</span>, <span class="fl">180</span>, <span class="op">-</span><span class="fl">90</span>, <span class="fl">90</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Similarly, we could provide the <a href="https://epsg.io/">EPSG code</a> for WGS84 using terra’s <code><a href="https://rspatial.github.io/terra/reference/crs.html">crs()</a></code>:</p>
+<div class="cell">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rspatial.github.io/terra/reference/crs.html">crs</a></span><span class="op">(</span><span class="va">viirs_cmg</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="st">"epsg:4326"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Unfortunately, if we go ahead and plot our data, we notice something a bit unexpected:</p>
+<div class="cell">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rspatial.github.io/terra/reference/plot.html">plot</a></span><span class="op">(</span><span class="va">viirs_cmg</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell page-columns page-full">
+<div class="cell-output-display page-columns page-full">
+<div class="page-columns page-full">
+<figure class="figure page-columns page-full"><p class="page-columns page-full"><img src="images/global-map-1.png" class="img-fluid figure-img column-page" style="width:100.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>As it turns out, because of the lack of geographic metadata, the file was flagged as “flipped” by <a href="https://gdal.org/en/stable/">GDAL</a> (the spatial translation library used by terra), so terra flipped the file vertically. When loading our raster, we can set <code>noflip = TRUE</code> to ensure our data are loaded in the correct orientation.</p>
+<p>You may also have noticed that the range of values in the plot above doesn’t correspond to what we’d expect from NDVI (which should range from -1 to 1). This is because our input file actually contains several measures (“subdatasets”) in addition to NDVI, and we’ve only shown the first. We can use the <code>subds</code> argument to select a particular subdataset from the HDF5 file. (<a href="#access-metadata">Later</a>, we’ll show how you can use the metadata to find the correct subdataset name.)</p>
+<p>Making these adjustments, we get:</p>
+<div class="cell">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">viirs_cmg</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rspatial.github.io/terra/reference/rast.html">rast</a></span><span class="op">(</span></span>
+<span>  <span class="va">files</span>, </span>
+<span>  subds <span class="op">=</span> <span class="st">"//HDFEOS/GRIDS/VIIRS_Grid_monthly_VI_CMG/Data_Fields/CMG_0.05_Deg_monthly_NDVI"</span>,</span>
+<span>  noflip <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Don't forget to attach geographic info as we've re-loaded the file!</span></span>
+<span><span class="fu"><a href="https://rspatial.github.io/terra/reference/ext.html">ext</a></span><span class="op">(</span><span class="va">viirs_cmg</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">180</span>, <span class="fl">180</span>, <span class="op">-</span><span class="fl">90</span>, <span class="fl">90</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rspatial.github.io/terra/reference/crs.html">crs</a></span><span class="op">(</span><span class="va">viirs_cmg</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="st">"epsg:4326"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>We now have a georeferenced NDVI raster dataset for 3 months:</p>
+<div class="cell">
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">viirs_cmg</span></span>
+<span><span class="co">#&gt; class       : SpatRaster </span></span>
+<span><span class="co">#&gt; dimensions  : 3600, 7200, 3  (nrow, ncol, nlyr)</span></span>
+<span><span class="co">#&gt; resolution  : 0.05, 0.05  (x, y)</span></span>
+<span><span class="co">#&gt; extent      : -180, 180, -90, 90  (xmin, xmax, ymin, ymax)</span></span>
+<span><span class="co">#&gt; coord. ref. : lon/lat WGS 84 (EPSG:4326) </span></span>
+<span><span class="co">#&gt; sources     : VNP13C2.A2014001.002.2024060013808.h5://CMG_0.05_Deg_monthly_NDVI  </span></span>
+<span><span class="co">#&gt;               VNP13C2.A2014032.002.2024060030203.h5://CMG_0.05_Deg_monthly_NDVI  </span></span>
+<span><span class="co">#&gt;               VNP13C2.A2014060.002.2024060044137.h5://CMG_0.05_Deg_monthly_NDVI  </span></span>
+<span><span class="co">#&gt; varnames    : CMG_0 </span></span>
+<span><span class="co">#&gt;               CMG_0 </span></span>
+<span><span class="co">#&gt;               CMG_0 </span></span>
+<span><span class="co">#&gt; names       : CMG_0.05_D~nthly_NDVI, CMG_0.05_D~nthly_NDVI, CMG_0.05_D~nthly_NDVI</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>A quick map of our data shows that it’s now oriented correctly:</p>
+<div class="cell">
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rspatial.github.io/terra/reference/plot.html">plot</a></span><span class="op">(</span><span class="va">viirs_cmg</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell page-columns page-full">
+<div class="cell-output-display page-columns page-full">
+<div class="page-columns page-full">
+<figure class="figure page-columns page-full"><p class="page-columns page-full"><img src="images/global-map-2.png" class="img-fluid figure-img column-page" style="width:100.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>However, our NDVI units still appear to be off—we’d expect them to range from -1 to 1, but here we see they appear to be scaled. The <a href="https://viirsland.gsfc.nasa.gov/PDF/SNPP_VIIRS_VI_UserGuide_09-26-2017_KDidan.pdf">VIIRS documentation</a> indicates that the values have been scaled by 10000 and that the valid range of data is from -10000 to 10000.</p>
+<p>We’ll rescale our data with simple division:</p>
+<div class="cell">
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Rescale data</span></span>
+<span><span class="va">viirs_cmg</span> <span class="op">&lt;-</span> <span class="va">viirs_cmg</span> <span class="op">/</span> <span class="fl">10000</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Then, we’ll use <code><a href="https://rspatial.github.io/terra/reference/classify.html">classify()</a></code> to convert all raster values below -1 to missing values. <code><a href="https://rspatial.github.io/terra/reference/classify.html">classify()</a></code> expects a matrix that contains an input range (in this case, <code>-Inf</code> to <code>-1</code>) and an output value that should be used as a replacement for values in that range (in this case, <code>NA</code>).</p>
+<div class="cell">
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Reclassify out-of-range data to NA</span></span>
+<span><span class="va">m</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="op">-</span><span class="cn">Inf</span>, <span class="op">-</span><span class="fl">1</span>, <span class="cn">NA</span><span class="op">)</span>, nrow <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
+<span><span class="va">viirs_cmg</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rspatial.github.io/terra/reference/classify.html">classify</a></span><span class="op">(</span><span class="va">viirs_cmg</span>, <span class="va">m</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>This looks much better:</p>
+<!-- ```{r} -->
+<!-- #| cache: true -->
+<!-- #| echo: false -->
+<!-- #| code-fold: true -->
+<!-- #| code-summary: "Show plot code" -->
+<!-- #| column: page -->
+<!-- #| include: false -->
+<!-- ndvi_pal <- list( -->
+<!--   pal = c( -->
+<!--     "#fdfbdc", -->
+<!--     "#f1f4b7", -->
+<!--     "#d3ef9f", -->
+<!--     "#a5da8d", -->
+<!--     "#6cc275", -->
+<!--     "#51a55b", -->
+<!--     "#397e43", -->
+<!--     "#2d673a", -->
+<!--     "#1d472e" -->
+<!--   ), -->
+<!--   values = c(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 1) -->
+<!-- ) -->
+<!-- ggplot() + -->
+<!--   layer_spatial(viirs_cmg[[1]]) + -->
+<!--   scale_fill_gradientn( -->
+<!--     colors = ndvi_pal$pal, -->
+<!--     values = ndvi_pal$values, -->
+<!--     limits = c(0, 1), -->
+<!--     na.value = "transparent" -->
+<!--   ) + -->
+<!--   theme_void() + -->
+<!--   guides(fill = "none") -->
+<!-- ``` -->
+<div class="cell">
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rspatial.github.io/terra/reference/plot.html">plot</a></span><span class="op">(</span><span class="va">viirs_cmg</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell page-columns page-full">
+<div class="cell-output-display page-columns page-full">
+<div class="page-columns page-full">
+<figure class="figure page-columns page-full"><p class="page-columns page-full"><img src="images/global-map-3.png" class="img-fluid figure-img column-page" style="width:100.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>At this point, we could load spatial boundary files for a particular region to crop our data and proceed with our analysis. We’ve covered this kind of process <a href="../2024-08-01-ndvi-data/#crop-tiles">previously</a>, so we won’t demonstrate again here. As is often the case, the bulk of the work when introducing a new data product is figuring out how to get it loaded and prepared correctly.</p>
+</section></section><section id="working-with-other-viirs-data-products" class="level1 page-columns page-full"><h1>Working with other VIIRS data products</h1>
+<p>So far we’ve been working with global, coarse-resolution data. In our previous <a href="../2024-08-01-ndvi-data">MODIS post</a>, we instead showed how to access higher-resolution data for a particular region of interest.</p>
+<p>As a more direct analog to our previous workflow, we’ll quickly demonstrate how that process can be updated for use with VIIRS HDF5 files. This will also give us a chance to show you how you can access HDF5 file metadata to help identify subdatasets and geographic information for a file.</p>
+<section id="hdf5-metadata" class="level2 page-columns page-full"><h2 class="anchored" data-anchor-id="hdf5-metadata">HDF5 metadata</h2>
+<p>In general, the process for loading and working with higher-resolution files mirrors the process we demonstrated above. However, instead of downloading global data, we’ll download data for a collection of <strong>tiles</strong> of data in our area of interest.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>We showed you how to use Earthdata Search to download data on a tile-by-tile basis in our <a href="../2024-08-01-ndvi-data/#earthdata-search">MODIS post</a>. The only difference here is that we’ve downloaded data for the VNP13A1 product, not the MOD13Q1 product.</p>
+</div>
+</div>
+<p>There are two key differences when working with VNP13A1 as compared to the global VNP13C2 data described above.</p>
+<ul>
+<li>First, NASA uses a <strong>sinusoidal projection</strong> for its high resolution products, not the geographic coordinates used for the global CMG product.</li>
+<li>Second, because we will be stitching together multiple tiles of data, each will have a different geographic extent.</li>
+</ul>
+<p>To deal with these additional complexities, we’ll need to access the file metadata directly to attempt to identify the correct CRS and extent information.</p>
+<section id="bioconductor-and-the-rhdf5-package" class="level3"><h3 class="anchored" data-anchor-id="bioconductor-and-the-rhdf5-package">Bioconductor and the rhdf5 package</h3>
+<p>First, we’ll load a collection of 8 HDF files that cover 2 timestamps for the same 4 tiles that we used in our MODIS post. We’ve placed them in a <code>data/VNP13A1</code> directory.</p>
+<div class="cell">
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">files</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.files.html">list.files</a></span><span class="op">(</span><span class="st">"data/VNP13A1"</span>, full.names <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Unfortunately, terra isn’t designed to provide flexible access to metadata for HDF5 files. However, there is another R package that can help, appropriately named <a href="https://github.com/grimbough/rhdf5">rhdf5</a>.</p>
+<p>rhdf5 is a package from <a href="https://www.bioconductor.org/">Bioconductor</a>, an open-source software project focused on building bioinformatics tools. You’re probably familiar with installing packages from <a href="https://cran.r-project.org/">CRAN</a>, which is the default behavior when using <code><a href="https://rdrr.io/r/utils/install.packages.html">install.packages()</a></code>, but Bioconductor packages are not stored on CRAN.</p>
+<p>Fortunately, Bioconductor maintains the <a href="https://bioconductor.github.io/BiocManager/">BiocManager</a> package to help install Bioconductor packages. If you’ve never worked with a Bioconductor package before, you can install the manager with</p>
+<div class="cell">
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"BiocManager"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Then, you can use it to install rhdf5:</p>
+<div class="cell">
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">BiocManager</span><span class="fu">::</span><span class="fu"><a href="https://bioconductor.github.io/BiocManager/reference/install.html">install</a></span><span class="op">(</span><span class="st">"rhdf5"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Note that you’ll only need to do this once, unless you later need to update the <code>BiocManager</code> or <code>rhdf5</code> packages.</p>
+</section><section id="access-metadata" class="level3 page-columns page-full"><h3 class="anchored" data-anchor-id="access-metadata">Accessing metadata</h3>
+<p>First, we’ll load the <a href="https://github.com/grimbough/rhdf5">rhdf5</a> package:</p>
+<div class="cell">
+<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/grimbough/rhdf5">rhdf5</a></span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>We can view the available data and metadata fields in an HDF5 file with <code><a href="https://rdrr.io/pkg/rhdf5/man/h5ls.html">h5ls()</a></code>.</p>
+<div class="cell">
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">ds</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/rhdf5/man/h5ls.html">h5ls</a></span><span class="op">(</span><span class="va">files</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>HDF5 files are organized into <strong>groups</strong>. Groups refer to an abstract collection of objects, like datasets or metadata objects. Each data object has a <strong>name</strong>. You can think of each group as a directory and the objects inside as different files within that directory.</p>
+<p>For instance, if we view this file’s groups, we notice that there are several entries in the <code>Data Fields</code> group, among others:</p>
+<div class="cell">
+<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">ds</span><span class="op">$</span><span class="va">group</span></span>
+<span><span class="co">#&gt;  [1] "/"                                                 </span></span>
+<span><span class="co">#&gt;  [2] "/HDFEOS"                                           </span></span>
+<span><span class="co">#&gt;  [3] "/HDFEOS/ADDITIONAL"                                </span></span>
+<span><span class="co">#&gt;  [4] "/HDFEOS"                                           </span></span>
+<span><span class="co">#&gt;  [5] "/HDFEOS/GRIDS"                                     </span></span>
+<span><span class="co">#&gt;  [6] "/HDFEOS/GRIDS/VIIRS_Grid_16Day_VI_500m"            </span></span>
+<span><span class="co">#&gt;  [7] "/HDFEOS/GRIDS/VIIRS_Grid_16Day_VI_500m/Data Fields"</span></span>
+<span><span class="co">#&gt;  [8] "/HDFEOS/GRIDS/VIIRS_Grid_16Day_VI_500m/Data Fields"</span></span>
+<span><span class="co">#&gt;  [9] "/HDFEOS/GRIDS/VIIRS_Grid_16Day_VI_500m/Data Fields"</span></span>
+<span><span class="co">#&gt; [10] "/HDFEOS/GRIDS/VIIRS_Grid_16Day_VI_500m/Data Fields"</span></span>
+<span><span class="co">#&gt; [11] "/HDFEOS/GRIDS/VIIRS_Grid_16Day_VI_500m/Data Fields"</span></span>
+<span><span class="co">#&gt; [12] "/HDFEOS/GRIDS/VIIRS_Grid_16Day_VI_500m/Data Fields"</span></span>
+<span><span class="co">#&gt; [13] "/HDFEOS/GRIDS/VIIRS_Grid_16Day_VI_500m/Data Fields"</span></span>
+<span><span class="co">#&gt; [14] "/HDFEOS/GRIDS/VIIRS_Grid_16Day_VI_500m/Data Fields"</span></span>
+<span><span class="co">#&gt; [15] "/HDFEOS/GRIDS/VIIRS_Grid_16Day_VI_500m/Data Fields"</span></span>
+<span><span class="co">#&gt; [16] "/HDFEOS/GRIDS/VIIRS_Grid_16Day_VI_500m/Data Fields"</span></span>
+<span><span class="co">#&gt; [17] "/HDFEOS/GRIDS/VIIRS_Grid_16Day_VI_500m/Data Fields"</span></span>
+<span><span class="co">#&gt; [18] "/HDFEOS/GRIDS/VIIRS_Grid_16Day_VI_500m/Data Fields"</span></span>
+<span><span class="co">#&gt; [19] "/HDFEOS/GRIDS/VIIRS_Grid_16Day_VI_500m/Data Fields"</span></span>
+<span><span class="co">#&gt; [20] "/HDFEOS/GRIDS/VIIRS_Grid_16Day_VI_500m/Data Fields"</span></span>
+<span><span class="co">#&gt; [21] "/HDFEOS/GRIDS/VIIRS_Grid_16Day_VI_500m/Data Fields"</span></span>
+<span><span class="co">#&gt; [22] "/HDFEOS/GRIDS/VIIRS_Grid_16Day_VI_500m/Data Fields"</span></span>
+<span><span class="co">#&gt; [23] "/HDFEOS/GRIDS/VIIRS_Grid_16Day_VI_500m/Data Fields"</span></span>
+<span><span class="co">#&gt; [24] "/HDFEOS/GRIDS/VIIRS_Grid_16Day_VI_500m"            </span></span>
+<span><span class="co">#&gt; [25] "/HDFEOS/GRIDS/VIIRS_Grid_16Day_VI_500m"            </span></span>
+<span><span class="co">#&gt; [26] "/"                                                 </span></span>
+<span><span class="co">#&gt; [27] "/HDFEOS INFORMATION"                               </span></span>
+<span><span class="co">#&gt; [28] "/HDFEOS INFORMATION"                               </span></span>
+<span><span class="co">#&gt; [29] "/HDFEOS INFORMATION"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>If we look at the specific objects within these groups, we see that each of these data fields is a different metric (e.g.&nbsp; EVI [Enhanced Vegetation Index], NDVI, etc.):</p>
+<div class="cell">
+<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span><span class="op">(</span><span class="va">ds</span><span class="op">$</span><span class="va">group</span>, <span class="va">ds</span><span class="op">$</span><span class="va">name</span>, sep <span class="op">=</span> <span class="st">"/"</span><span class="op">)</span></span>
+<span><span class="co">#&gt;  [1] "//HDFEOS"                                                                                  </span></span>
+<span><span class="co">#&gt;  [2] "/HDFEOS/ADDITIONAL"                                                                        </span></span>
+<span><span class="co">#&gt;  [3] "/HDFEOS/ADDITIONAL/FILE_ATTRIBUTES"                                                        </span></span>
+<span><span class="co">#&gt;  [4] "/HDFEOS/GRIDS"                                                                             </span></span>
+<span><span class="co">#&gt;  [5] "/HDFEOS/GRIDS/VIIRS_Grid_16Day_VI_500m"                                                    </span></span>
+<span><span class="co">#&gt;  [6] "/HDFEOS/GRIDS/VIIRS_Grid_16Day_VI_500m/Data Fields"                                        </span></span>
+<span><span class="co">#&gt;  [7] "/HDFEOS/GRIDS/VIIRS_Grid_16Day_VI_500m/Data Fields/500 m 16 days EVI"                      </span></span>
+<span><span class="co">#&gt;  [8] "/HDFEOS/GRIDS/VIIRS_Grid_16Day_VI_500m/Data Fields/500 m 16 days EVI2"                     </span></span>
+<span><span class="co">#&gt;  [9] "/HDFEOS/GRIDS/VIIRS_Grid_16Day_VI_500m/Data Fields/500 m 16 days NDVI"                     </span></span>
+<span><span class="co">#&gt; [10] "/HDFEOS/GRIDS/VIIRS_Grid_16Day_VI_500m/Data Fields/500 m 16 days NIR reflectance"          </span></span>
+<span><span class="co">#&gt; [11] "/HDFEOS/GRIDS/VIIRS_Grid_16Day_VI_500m/Data Fields/500 m 16 days SWIR1 reflectance"        </span></span>
+<span><span class="co">#&gt; [12] "/HDFEOS/GRIDS/VIIRS_Grid_16Day_VI_500m/Data Fields/500 m 16 days SWIR2 reflectance"        </span></span>
+<span><span class="co">#&gt; [13] "/HDFEOS/GRIDS/VIIRS_Grid_16Day_VI_500m/Data Fields/500 m 16 days SWIR3 reflectance"        </span></span>
+<span><span class="co">#&gt; [14] "/HDFEOS/GRIDS/VIIRS_Grid_16Day_VI_500m/Data Fields/500 m 16 days VI Quality"               </span></span>
+<span><span class="co">#&gt; [15] "/HDFEOS/GRIDS/VIIRS_Grid_16Day_VI_500m/Data Fields/500 m 16 days blue reflectance"         </span></span>
+<span><span class="co">#&gt; [16] "/HDFEOS/GRIDS/VIIRS_Grid_16Day_VI_500m/Data Fields/500 m 16 days composite day of the year"</span></span>
+<span><span class="co">#&gt; [17] "/HDFEOS/GRIDS/VIIRS_Grid_16Day_VI_500m/Data Fields/500 m 16 days green reflectance"        </span></span>
+<span><span class="co">#&gt; [18] "/HDFEOS/GRIDS/VIIRS_Grid_16Day_VI_500m/Data Fields/500 m 16 days pixel reliability"        </span></span>
+<span><span class="co">#&gt; [19] "/HDFEOS/GRIDS/VIIRS_Grid_16Day_VI_500m/Data Fields/500 m 16 days red reflectance"          </span></span>
+<span><span class="co">#&gt; [20] "/HDFEOS/GRIDS/VIIRS_Grid_16Day_VI_500m/Data Fields/500 m 16 days relative azimuth angle"   </span></span>
+<span><span class="co">#&gt; [21] "/HDFEOS/GRIDS/VIIRS_Grid_16Day_VI_500m/Data Fields/500 m 16 days sun zenith angle"         </span></span>
+<span><span class="co">#&gt; [22] "/HDFEOS/GRIDS/VIIRS_Grid_16Day_VI_500m/Data Fields/500 m 16 days view zenith angle"        </span></span>
+<span><span class="co">#&gt; [23] "/HDFEOS/GRIDS/VIIRS_Grid_16Day_VI_500m/Data Fields/Projection"                             </span></span>
+<span><span class="co">#&gt; [24] "/HDFEOS/GRIDS/VIIRS_Grid_16Day_VI_500m/XDim"                                               </span></span>
+<span><span class="co">#&gt; [25] "/HDFEOS/GRIDS/VIIRS_Grid_16Day_VI_500m/YDim"                                               </span></span>
+<span><span class="co">#&gt; [26] "//HDFEOS INFORMATION"                                                                      </span></span>
+<span><span class="co">#&gt; [27] "/HDFEOS INFORMATION/ArchiveMetadata.0"                                                     </span></span>
+<span><span class="co">#&gt; [28] "/HDFEOS INFORMATION/CoreMetadata.0"                                                        </span></span>
+<span><span class="co">#&gt; [29] "/HDFEOS INFORMATION/StructMetadata.0"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Of particular interest is the <code>"500 m 16 days NDVI"</code> data field, which contains the NDVI data we’ll eventually want to load.</p>
+<p>Also of note is the <code>"/HDFEOS INFORMATION/StructMetadata.0"</code> object. By convention, this is where NASA stores some of the key geographic metadata for the file.</p>
+<p>We can read the HDF5 metadata using <code><a href="https://rdrr.io/pkg/rhdf5/man/h5_read.html">h5read()</a></code>. The <code>name</code> argument should be set to one of the <code>group</code> and <code>name</code> values from the <code><a href="https://rdrr.io/pkg/rhdf5/man/h5ls.html">h5ls()</a></code> output above.</p>
+<div class="cell">
+<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">metadata</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/rhdf5/man/h5_read.html">h5read</a></span><span class="op">(</span><span class="va">files</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>, name <span class="op">=</span> <span class="st">"//HDFEOS INFORMATION/StructMetadata.0"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>You can use <code><a href="https://rdrr.io/r/base/cat.html">cat()</a></code> to display the metadata text in the R console, making it a bit easier to read.</p>
+<div class="cell" data-out.lines="15">
+<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span><span class="op">(</span><span class="va">metadata</span><span class="op">)</span></span>
+<span><span class="co">#&gt; GROUP=SwathStructure</span></span>
+<span><span class="co">#&gt; END_GROUP=SwathStructure</span></span>
+<span><span class="co">#&gt; GROUP=GridStructure</span></span>
+<span><span class="co">#&gt;  GROUP=GRID_1</span></span>
+<span><span class="co">#&gt;      GridName="VIIRS_Grid_16Day_VI_500m"</span></span>
+<span><span class="co">#&gt;      XDim=2400</span></span>
+<span><span class="co">#&gt;      YDim=2400</span></span>
+<span><span class="co">#&gt;      UpperLeftPointMtrs=(3335851.559000,1111950.519667)</span></span>
+<span><span class="co">#&gt;      LowerRightMtrs=(4447802.078667,0.000000)</span></span>
+<span><span class="co">#&gt;      Projection=HE5_GCTP_SNSOID</span></span>
+<span><span class="co">#&gt;      ProjParams=(6371007.181000,0,0,0,0,0,0,0,0,0,0,0,0)</span></span>
+<span><span class="co">#&gt;      SphereCode=-1</span></span>
+<span><span class="co">#&gt;      GROUP=Dimension</span></span>
+<span><span class="co">#&gt;          OBJECT=Dimension_1</span></span>
+<span><span class="co">#&gt;              DimensionName="dimofone"</span></span>
+<span><span class="va">....</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<section id="projection-metadata" class="level4 page-columns page-full"><h4 class="anchored" data-anchor-id="projection-metadata">Projection metadata</h4>
+<p>Notice the <code>Projection</code> and <code>ProjParams</code> rows in the output above. These show details about the projection and projection parameters for our data. On their own, they’re hard to interpret, but a quick look at the VIIRS documentation reveals that this is the NASA code for the sinusoidal projection.</p>
+<p>We can use a <a href="https://proj.org/en/stable/usage/quickstart.html">PROJ-string</a> to represent this projection. This will allow us to assign the appropriate projection when we later load our data.</p>
+
+<div class="no-row-height column-margin column-container"><div class="margin-aside">
+<p><a href="https://proj.org/en/stable/about.html">PROJ</a> is a set of software tools that support transformations between coordinate reference systems. PROJ-strings are one way to represent the parameters of a specific projection in a way that PROJ can interpret.</p>
+</div></div><p>For the sinusoidal projection, we can use the following:</p>
+<div class="cell">
+<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">sinu_proj</span> <span class="op">&lt;-</span> <span class="st">"+proj=sinu +lon_0=0 +x_0=0 +y_0=0 +R=6371007.181 +units=m +no_defs"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Note that this is the projection that NASA uses for all its tiled VIIRS (and MODIS) products. Even if you’re working with a different tile, you can use the same projection string to set the CRS of the raster you’re working with.</p>
+</div>
+</div>
+</section><section id="extent-metadata" class="level4 page-columns page-full"><h4 class="anchored" data-anchor-id="extent-metadata">Extent metadata</h4>
+<p>The <code>UpperLeftPointMtrs</code> and <code>LowerRightMtrs</code> metadata rows show the locations of the upper left and lower right points of the raster grid in the sinusoidal projection.</p>
+<div class="cell">
+<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">....</span></span>
+<span><span class="co">#&gt;      UpperLeftPointMtrs=(3335851.559000,1111950.519667)</span></span>
+<span><span class="co">#&gt;      LowerRightMtrs=(4447802.078667,0.000000)</span></span>
+<span><span class="va">....</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>From these, we can determine the extent of our raster grid. To simplify things, we’ll just hard-code these points in this demo:</p>
+
+<div class="no-row-height column-margin column-container"><div class="margin-aside">
+<p>You could also use <a href="https://stringr.tidyverse.org/articles/regular-expressions.html">regular expressions</a> to extract the numeric values themselves. We use this approach in our iterative workflow <a href="#using-string-matching-to-identify-tile-extent-coordinates">later</a> in the post.</p>
+</div></div><div class="cell">
+<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">ul</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">3335851.559</span>, <span class="fl">1111950.519667</span><span class="op">)</span></span>
+<span><span class="va">lr</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">4447802.078667</span>, <span class="fl">0</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><a href="https://rspatial.org/">terra</a> expects the extent to be in (xmin, xmax, ymin, ymax) order. In our case, this corresponds to (upper-left x-coordinate, lower-right x-coordinate, lower-right y-coordinate, upper-left y-coordinate).</p>
+<p>We’ll use terra’s <code><a href="https://rspatial.github.io/terra/reference/ext.html">ext()</a></code> to create a <code>SpatExtent</code> object containing the extent:</p>
+<div class="cell">
+<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Using (xmin, xmax, ymin, ymax) order</span></span>
+<span><span class="va">extent</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rspatial.github.io/terra/reference/ext.html">ext</a></span><span class="op">(</span><span class="va">ul</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>, <span class="va">lr</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>, <span class="va">lr</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span>, <span class="va">ul</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">extent</span></span>
+<span><span class="co">#&gt; SpatExtent : 3335851.559, 4447802.078667, 0, 1111950.519667 (xmin, xmax, ymin, ymax)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Note that when working with multiple tiles, you’ll need to get the extent information <em>individually</em> for each tile, as each tile contains data for a different geographic area.</p>
+<p>We’ll show one way to deal with this <a href="#viirs-iterative-workflow">below</a>, where we update the iterative workflow we demonstrated in our MODIS post to work with VIIRS files.</p>
+</div>
+</div>
+</section></section><section id="using-metadata" class="level3 page-columns page-full"><h3 class="anchored" data-anchor-id="using-metadata">Using metadata</h3>
+<p>We can use the metadata we’ve explored to improve our data loading workflow and attach correct geographic information to the loaded data.</p>
+<p>First, we’ll use the NDVI subdataset name we identified above to load just the NDVI raster, ignoring other bands:</p>
+<div class="cell">
+<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">viirs_ndvi</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rspatial.github.io/terra/reference/rast.html">rast</a></span><span class="op">(</span></span>
+<span>  <span class="va">files</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>, </span>
+<span>  subds <span class="op">=</span> <span class="st">"//HDFEOS/GRIDS/VIIRS_Grid_16Day_VI_500m/Data_Fields/500_m_16_days_NDVI"</span>,</span>
+<span>  noflip <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Now, we can assign our sinusoidal projection to our data:</p>
+<div class="cell">
+<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rspatial.github.io/terra/reference/crs.html">crs</a></span><span class="op">(</span><span class="va">viirs_ndvi</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">sinu_proj</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>As well as the extent we created above:</p>
+<div class="cell">
+<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rspatial.github.io/terra/reference/ext.html">ext</a></span><span class="op">(</span><span class="va">viirs_ndvi</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">extent</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Finally, we’ll make the scale adjustments that we introduced when working with the global CMG data:</p>
+<div class="cell">
+<div class="sourceCode" id="cb32"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Rescale NDVI values</span></span>
+<span><span class="va">viirs_ndvi</span> <span class="op">&lt;-</span> <span class="va">viirs_ndvi</span> <span class="op">/</span> <span class="fl">10000</span></span>
+<span></span>
+<span><span class="co"># Replace out-of-range values with NA</span></span>
+<span><span class="va">m</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="op">-</span><span class="cn">Inf</span>, <span class="op">-</span><span class="fl">1</span>, <span class="cn">NA</span><span class="op">)</span>, nrow <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
+<span><span class="va">viirs_ndvi</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rspatial.github.io/terra/reference/classify.html">classify</a></span><span class="op">(</span><span class="va">viirs_ndvi</span>, <span class="va">m</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Now we can see that our raster seems to have the appropriate CRS, extent, and scale!</p>
+<div class="cell">
+<div class="sourceCode" id="cb33"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">viirs_ndvi</span></span>
+<span><span class="co">#&gt; class       : SpatRaster </span></span>
+<span><span class="co">#&gt; dimensions  : 2400, 2400, 1  (nrow, ncol, nlyr)</span></span>
+<span><span class="co">#&gt; resolution  : 463.3127, 463.3127  (x, y)</span></span>
+<span><span class="co">#&gt; extent      : 3335852, 4447802, 0, 1111951  (xmin, xmax, ymin, ymax)</span></span>
+<span><span class="co">#&gt; coord. ref. : +proj=sinu +lon_0=0 +x_0=0 +y_0=0 +R=6371007.181 +units=m +no_defs </span></span>
+<span><span class="co">#&gt; source(s)   : memory</span></span>
+<span><span class="co">#&gt; varname     : 500_m_16_days_NDVI </span></span>
+<span><span class="co">#&gt; name        : 500_m_16_days_NDVI </span></span>
+<span><span class="co">#&gt; min value   :            -0.9688 </span></span>
+<span><span class="co">#&gt; max value   :             0.9994</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell page-columns page-full">
+<details class="code-fold"><summary>Show plot code</summary><div class="sourceCode" id="cb34"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">ndvi_pal</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span></span>
+<span>  pal <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span></span>
+<span>    <span class="st">"#fdfbdc"</span>,</span>
+<span>    <span class="st">"#f1f4b7"</span>,</span>
+<span>    <span class="st">"#d3ef9f"</span>,</span>
+<span>    <span class="st">"#a5da8d"</span>,</span>
+<span>    <span class="st">"#6cc275"</span>,</span>
+<span>    <span class="st">"#51a55b"</span>,</span>
+<span>    <span class="st">"#397e43"</span>,</span>
+<span>    <span class="st">"#2d673a"</span>,</span>
+<span>    <span class="st">"#1d472e"</span> </span>
+<span>  <span class="op">)</span>,</span>
+<span>  values <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0.1</span>, <span class="fl">0.2</span>, <span class="fl">0.3</span>, <span class="fl">0.4</span>, <span class="fl">0.5</span>, <span class="fl">0.6</span>, <span class="fl">0.7</span>, <span class="fl">1</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="fu"><a href="https://paleolimbot.github.io/ggspatial/reference/layer_spatial.html">layer_spatial</a></span><span class="op">(</span><span class="va">viirs_ndvi</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggsf.html">coord_sf</a></span><span class="op">(</span>datum <span class="op">=</span> <span class="fu">sf</span><span class="fu">::</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_crs.html">st_crs</a></span><span class="op">(</span><span class="va">viirs_ndvi</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_gradient.html">scale_fill_gradientn</a></span><span class="op">(</span></span>
+<span>    colors <span class="op">=</span> <span class="va">ndvi_pal</span><span class="op">$</span><span class="va">pal</span>,</span>
+<span>    values <span class="op">=</span> <span class="va">ndvi_pal</span><span class="op">$</span><span class="va">values</span>,</span>
+<span>    limits <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">1</span><span class="op">)</span>,</span>
+<span>    na.value <span class="op">=</span> <span class="st">"transparent"</span></span>
+<span>  <span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span></span>
+<span>    title <span class="op">=</span> <span class="st">"VIIRS NDVI"</span>, </span>
+<span>    subtitle <span class="op">=</span> <span class="st">"Tile h21v08, January 1-16, 2014"</span>, </span>
+<span>    fill <span class="op">=</span> <span class="st">"NDVI"</span>,</span>
+<span>    caption <span class="op">=</span> <span class="st">"Source: NASA Visible Infrared Imaging Radiometer Suite (VIIRS)"</span></span>
+<span>  <span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">theme_dhs_map</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">theme_dhs_base</span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details><div class="cell-output-display page-columns page-full">
+<div class="page-columns page-full">
+<figure class="figure page-columns page-full"><p class="page-columns page-full"><img src="index_files/figure-html/unnamed-chunk-40-1.png" class="img-fluid figure-img column-page" style="width:100.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+</section></section></section><section id="viirs-iterative-workflow" class="level1 page-columns page-full"><h1>An iterative workflow for multiple tiles</h1>
+<p>In our <a href="../2024-08-01-ndvi-data/#an-iterative-r-workflow">MODIS post</a>, we demonstrated a way to load and process multiple tiles of data using <a href="https://purrr.tidyverse.org/">purrr</a> and <a href="https://rspatial.org/">terra</a>.</p>
+<p>For the most part, this workflow can be directly applied to VIIRS files. The primary difference is that each of the tiles will have a different geographic extent. Our workflow therefore will need to correctly identify and assign the extent on a <strong>per-tile</strong> basis.</p>
+<p>Certainly, you could reproduce the process we just introduced for a single file to manually update extent and projection information for multiple files. But if you’re working with many tiles or time points, it may be worthwhile to automate the data loading process.</p>
+<p>We’ll reproduce an analogous workflow to the one we introduced for MODIS tiles here.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Because this workflow tracks closely with the workflow we’ve shown <a href="../2024-08-01-ndvi-data/#an-iterative-r-workflow">previously</a>, we won’t spend a lot of time discussing the details of our code in this section. We’ve included it primarily to serve as a reference for how the transition from MODIS to VIIRS may affect the approach we’ve previously shown.</p>
+<p>In many cases, global CMG data may be more appropriate, and you can avoid needing to load data from multiple tiles.</p>
+</div>
+</div>
+<section id="identify-tile-codes" class="level2"><h2 class="anchored" data-anchor-id="identify-tile-codes">Identify tile codes</h2>
+<p>As we demonstrated last time, we’ll identify each unique tile code from our file names:</p>
+<div class="cell">
+<div class="sourceCode" id="cb35"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">tile_codes</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rspatial.github.io/terra/reference/unique.html">unique</a></span><span class="op">(</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_extract.html">str_extract</a></span><span class="op">(</span><span class="va">files</span>, <span class="st">"h[0-9]{2}v[0-9]{2}"</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">tile_codes</span></span>
+<span><span class="co">#&gt; [1] "h21v08" "h21v09" "h22v08" "h22v09"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>This allows us to group our files by tile into a list:</p>
+<div class="cell" data-scrub_data_local="true">
+<div class="sourceCode" id="cb36"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">tiles</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span><span class="op">(</span></span>
+<span>  <span class="va">tile_codes</span>,</span>
+<span>  <span class="kw">function</span><span class="op">(</span><span class="va">code</span><span class="op">)</span> <span class="va">files</span><span class="op">[</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_detect.html">str_detect</a></span><span class="op">(</span><span class="va">files</span>, <span class="va">code</span><span class="op">)</span><span class="op">]</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">tiles</span></span>
+<span><span class="co">#&gt; [[1]]</span></span>
+<span><span class="co">#&gt; [1] "data/VNP13A1/VNP13A1.A2014001.h21v08.002.2024059234751.h5"</span></span>
+<span><span class="co">#&gt; [2] "data/VNP13A1/VNP13A1.A2014017.h21v08.002.2024060002117.h5"</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; [[2]]</span></span>
+<span><span class="co">#&gt; [1] "data/VNP13A1/VNP13A1.A2014001.h21v09.002.2024059234749.h5"</span></span>
+<span><span class="co">#&gt; [2] "data/VNP13A1/VNP13A1.A2014017.h21v09.002.2024060002133.h5"</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; [[3]]</span></span>
+<span><span class="co">#&gt; [1] "data/VNP13A1/VNP13A1.A2014001.h22v08.002.2024059234752.h5"</span></span>
+<span><span class="co">#&gt; [2] "data/VNP13A1/VNP13A1.A2014017.h22v08.002.2024060002157.h5"</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; [[4]]</span></span>
+<span><span class="co">#&gt; [1] "data/VNP13A1/VNP13A1.A2014001.h22v09.002.2024059234755.h5"</span></span>
+<span><span class="co">#&gt; [2] "data/VNP13A1/VNP13A1.A2014017.h22v09.002.2024060002123.h5"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section><section id="using-string-matching-to-identify-tile-extent-coordinates" class="level2"><h2 class="anchored" data-anchor-id="using-string-matching-to-identify-tile-extent-coordinates">Using string matching to identify tile extent coordinates</h2>
+<p>Now, for each of these tiles, we can extract the metadata for the first file using <code><a href="https://rdrr.io/pkg/rhdf5/man/h5_read.html">h5read()</a></code>. (Recall that the two files in each group are differentiated by their timestamps, but share the same geographic extent.)</p>
+<div class="cell">
+<div class="sourceCode" id="cb37"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">tile_metadata</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span><span class="op">(</span></span>
+<span>  <span class="va">tiles</span>,</span>
+<span>  <span class="kw">function</span><span class="op">(</span><span class="va">t</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/pkg/rhdf5/man/h5_read.html">h5read</a></span><span class="op">(</span><span class="va">t</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>, name <span class="op">=</span> <span class="st">"//HDFEOS INFORMATION/StructMetadata.0"</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>The metadata are in string format. To extract the upper left and lower right coordinates, we’ll need to use regular expressions to pull out the text coordinates and convert to numeric values.</p>
+<div class="cell">
+<div class="sourceCode" id="cb38"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">ul</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span><span class="op">(</span></span>
+<span>  <span class="va">tile_metadata</span>,</span>
+<span>  <span class="op">~</span> <span class="fu"><a href="https://stringr.tidyverse.org/reference/str_match.html">str_match</a></span><span class="op">(</span><span class="va">.x</span>, <span class="st">"UpperLeftPointMtrs=\\((.*?)\\)"</span><span class="op">)</span><span class="op">[</span>, <span class="fl">2</span><span class="op">]</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">ul</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span><span class="op">(</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_split.html">str_split</a></span><span class="op">(</span><span class="va">ul</span>, <span class="st">","</span><span class="op">)</span>, <span class="va">as.numeric</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">ul</span></span>
+<span><span class="co">#&gt; [[1]]</span></span>
+<span><span class="co">#&gt; [1] 3335852 1111951</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; [[2]]</span></span>
+<span><span class="co">#&gt; [1] 3335852       0</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; [[3]]</span></span>
+<span><span class="co">#&gt; [1] 4447802 1111951</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; [[4]]</span></span>
+<span><span class="co">#&gt; [1] 4447802       0</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode" id="cb39"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">lr</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map_chr</a></span><span class="op">(</span></span>
+<span>  <span class="va">tile_metadata</span>,</span>
+<span>  <span class="op">~</span> <span class="fu"><a href="https://stringr.tidyverse.org/reference/str_match.html">str_match</a></span><span class="op">(</span><span class="va">.x</span>, <span class="st">"LowerRightMtrs=\\((.*?)\\)"</span><span class="op">)</span><span class="op">[</span>, <span class="fl">2</span><span class="op">]</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">lr</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span><span class="op">(</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_split.html">str_split</a></span><span class="op">(</span><span class="va">lr</span>, <span class="st">","</span><span class="op">)</span>, <span class="va">as.numeric</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">lr</span></span>
+<span><span class="co">#&gt; [[1]]</span></span>
+<span><span class="co">#&gt; [1] 4447802       0</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; [[2]]</span></span>
+<span><span class="co">#&gt; [1]  4447802 -1111951</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; [[3]]</span></span>
+<span><span class="co">#&gt; [1] 5559753       0</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; [[4]]</span></span>
+<span><span class="co">#&gt; [1]  5559753 -1111951</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Now we can convert these points to extents using terra’s conventions. We use <code><a href="https://purrr.tidyverse.org/reference/map2.html">map2()</a></code> to iterate over both sets of points <strong>in parallel</strong>. That is, we’ll use the first point in the <code>ul</code> list along with the first point in the <code>lr</code> list to construct the first extent, and so on.</p>
+<div class="cell">
+<div class="sourceCode" id="cb40"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">tile_ext</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://purrr.tidyverse.org/reference/map2.html">map2</a></span><span class="op">(</span><span class="va">ul</span>, <span class="va">lr</span>, <span class="kw">function</span><span class="op">(</span><span class="va">u</span>, <span class="va">l</span><span class="op">)</span> <span class="fu"><a href="https://rspatial.github.io/terra/reference/ext.html">ext</a></span><span class="op">(</span><span class="va">u</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>, <span class="va">l</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>, <span class="va">l</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span>, <span class="va">u</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">tile_ext</span></span>
+<span><span class="co">#&gt; [[1]]</span></span>
+<span><span class="co">#&gt; SpatExtent : 3335851.559, 4447802.078667, 0, 1111950.519667 (xmin, xmax, ymin, ymax)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; [[2]]</span></span>
+<span><span class="co">#&gt; SpatExtent : 3335851.559, 4447802.078667, -1111950.519667, 0 (xmin, xmax, ymin, ymax)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; [[3]]</span></span>
+<span><span class="co">#&gt; SpatExtent : 4447802.078667, 5559752.598333, 0, 1111950.519667 (xmin, xmax, ymin, ymax)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; [[4]]</span></span>
+<span><span class="co">#&gt; SpatExtent : 4447802.078667, 5559752.598333, -1111950.519667, 0 (xmin, xmax, ymin, ymax)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section><section id="load-all-tiles" class="level2"><h2 class="anchored" data-anchor-id="load-all-tiles">Load all tiles</h2>
+<p>Now, we need to load the data for each tile, updating its CRS and extent information with the corresponding extent for that tile. Since we need to iterate over both <strong>tiles</strong> and <strong>extents</strong>, we’ll again use <code><a href="https://purrr.tidyverse.org/reference/map2.html">map2()</a></code>. This will load the first tile and apply the first extent, then the second tile with the second extent, and so on.</p>
+<div class="cell">
+<div class="sourceCode" id="cb41"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">viirs_tiles</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://purrr.tidyverse.org/reference/map2.html">map2</a></span><span class="op">(</span></span>
+<span>  <span class="va">tiles</span>,</span>
+<span>  <span class="va">tile_ext</span>,</span>
+<span>  <span class="kw">function</span><span class="op">(</span><span class="va">tile</span>, <span class="va">ext</span><span class="op">)</span> <span class="op">{</span></span>
+<span>    <span class="co"># Load raster for the input tile. We select the NDVI subdataset</span></span>
+<span>    <span class="va">r</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rspatial.github.io/terra/reference/rast.html">rast</a></span><span class="op">(</span></span>
+<span>      <span class="va">tile</span>, </span>
+<span>      subds <span class="op">=</span> <span class="st">"//HDFEOS/GRIDS/VIIRS_Grid_16Day_VI_500m/Data_Fields/500_m_16_days_NDVI"</span>,</span>
+<span>      noflip <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span>    <span class="op">)</span></span>
+<span>    </span>
+<span>    <span class="fu"><a href="https://rspatial.github.io/terra/reference/crs.html">crs</a></span><span class="op">(</span><span class="va">r</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">sinu_proj</span> <span class="co"># Attach sinusoidal projection defined above</span></span>
+<span>    <span class="fu"><a href="https://rspatial.github.io/terra/reference/ext.html">ext</a></span><span class="op">(</span><span class="va">r</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">ext</span> <span class="co"># Attach this tile's extent</span></span>
+<span>    </span>
+<span>    <span class="va">r</span> <span class="co"># Return the updated raster for this tile</span></span>
+<span>  <span class="op">}</span></span>
+<span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section><section id="mosaic-georeferenced-tiles" class="level2 page-columns page-full"><h2 class="anchored" data-anchor-id="mosaic-georeferenced-tiles">Mosaic georeferenced tiles</h2>
+<p>As we did in our <a href="../2024-08-01-ndvi-data/#mosaic-tiles">MODIS post</a>, we’ll now mosaic all the tiles together into a single source:</p>
+<div class="cell">
+<div class="sourceCode" id="cb42"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">viirs_mosaic</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://purrr.tidyverse.org/reference/reduce.html">reduce</a></span><span class="op">(</span><span class="va">viirs_tiles</span>, <span class="va">mosaic</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>And take care of the NDVI adjustments we described above.</p>
+<div class="cell">
+<div class="sourceCode" id="cb43"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">viirs_mosaic</span> <span class="op">&lt;-</span> <span class="va">viirs_mosaic</span> <span class="op">/</span> <span class="fl">10000</span></span>
+<span></span>
+<span><span class="va">m</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="op">-</span><span class="cn">Inf</span>, <span class="op">-</span><span class="fl">1</span>, <span class="cn">NA</span><span class="op">)</span>, nrow <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
+<span><span class="va">viirs_mosaic</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rspatial.github.io/terra/reference/classify.html">classify</a></span><span class="op">(</span><span class="va">viirs_mosaic</span>, <span class="va">m</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell page-columns page-full">
+<details class="code-fold"><summary>Show plot code</summary><div class="sourceCode" id="cb44"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://r-spatial.github.io/sf/">sf</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://patchwork.data-imaginist.com">patchwork</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">ke_borders</span> <span class="op">&lt;-</span> <span class="fu">ipumsr</span><span class="fu">::</span><span class="fu"><a href="https://tech.popdata.org/ipumsr/reference/read_ipums_sf.html">read_ipums_sf</a></span><span class="op">(</span><span class="st">"data/geo_ke1989_2014.zip"</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://r-spatial.github.io/sf/reference/valid.html">st_make_valid</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="co"># Fix minor border inconsistencies</span></span>
+<span>  <span class="fu"><a href="https://r-spatial.github.io/sf/reference/geos_combine.html">st_union</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_transform.html">st_transform</a></span><span class="op">(</span><span class="fu"><a href="https://rspatial.github.io/terra/reference/crs.html">crs</a></span><span class="op">(</span><span class="va">viirs_mosaic</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">ke_viirs</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rspatial.github.io/terra/reference/crop.html">crop</a></span><span class="op">(</span><span class="va">viirs_mosaic</span>, <span class="va">ke_borders</span><span class="op">)</span></span>
+<span><span class="va">ke_viirs_mask</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rspatial.github.io/terra/reference/mask.html">mask</a></span><span class="op">(</span><span class="va">ke_viirs</span>, <span class="fu"><a href="https://rspatial.github.io/terra/reference/vect.html">vect</a></span><span class="op">(</span><span class="va">ke_borders</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">p1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="fu"><a href="https://paleolimbot.github.io/ggspatial/reference/layer_spatial.html">layer_spatial</a></span><span class="op">(</span><span class="va">ke_viirs_mask</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://paleolimbot.github.io/ggspatial/reference/layer_spatial.html">layer_spatial</a></span><span class="op">(</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/geos_unary.html">st_simplify</a></span><span class="op">(</span><span class="va">ke_borders</span>, dTolerance <span class="op">=</span> <span class="fl">1000</span><span class="op">)</span>, fill <span class="op">=</span> <span class="cn">NA</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggsf.html">coord_sf</a></span><span class="op">(</span>datum <span class="op">=</span> <span class="fu">sf</span><span class="fu">::</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_crs.html">st_crs</a></span><span class="op">(</span><span class="va">viirs_ndvi</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_gradient.html">scale_fill_gradientn</a></span><span class="op">(</span></span>
+<span>    colors <span class="op">=</span> <span class="va">ndvi_pal</span><span class="op">$</span><span class="va">pal</span>,</span>
+<span>    values <span class="op">=</span> <span class="va">ndvi_pal</span><span class="op">$</span><span class="va">values</span>,</span>
+<span>    limits <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">1</span><span class="op">)</span>,</span>
+<span>    na.value <span class="op">=</span> <span class="st">"transparent"</span></span>
+<span>  <span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>subtitle <span class="op">=</span> <span class="st">"January 1-16, 2014"</span>, fill <span class="op">=</span> <span class="st">"NDVI"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">theme_dhs_map</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">theme_dhs_base</span><span class="op">(</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">p2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="fu"><a href="https://paleolimbot.github.io/ggspatial/reference/layer_spatial.html">layer_spatial</a></span><span class="op">(</span><span class="va">ke_viirs_mask</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://paleolimbot.github.io/ggspatial/reference/layer_spatial.html">layer_spatial</a></span><span class="op">(</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/geos_unary.html">st_simplify</a></span><span class="op">(</span><span class="va">ke_borders</span>, dTolerance <span class="op">=</span> <span class="fl">1000</span><span class="op">)</span>, fill <span class="op">=</span> <span class="cn">NA</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggsf.html">coord_sf</a></span><span class="op">(</span>datum <span class="op">=</span> <span class="fu">sf</span><span class="fu">::</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_crs.html">st_crs</a></span><span class="op">(</span><span class="va">viirs_ndvi</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_gradient.html">scale_fill_gradientn</a></span><span class="op">(</span></span>
+<span>    colors <span class="op">=</span> <span class="va">ndvi_pal</span><span class="op">$</span><span class="va">pal</span>,</span>
+<span>    values <span class="op">=</span> <span class="va">ndvi_pal</span><span class="op">$</span><span class="va">values</span>,</span>
+<span>    limits <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">1</span><span class="op">)</span>,</span>
+<span>    na.value <span class="op">=</span> <span class="st">"transparent"</span></span>
+<span>  <span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>subtitle <span class="op">=</span> <span class="st">"January 17-31, 2014"</span>, fill <span class="op">=</span> <span class="st">"NDVI"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">theme_dhs_map</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">theme_dhs_base</span><span class="op">(</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">p1</span> <span class="op">+</span> <span class="va">p2</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://patchwork.data-imaginist.com/reference/plot_layout.html">plot_layout</a></span><span class="op">(</span>guides <span class="op">=</span> <span class="st">"collect"</span>, ncol <span class="op">=</span> <span class="fl">2</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://patchwork.data-imaginist.com/reference/plot_annotation.html">plot_annotation</a></span><span class="op">(</span></span>
+<span>    title <span class="op">=</span> <span class="st">"NDVI: Kenya"</span>,</span>
+<span>    caption <span class="op">=</span> <span class="st">"Source: NASA Visible Infrared Imaging Radiometer Suite (VIIRS)"</span></span>
+<span>  <span class="op">)</span> <span class="op">&amp;</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span><span class="op">(</span>legend.position<span class="op">=</span><span class="st">'bottom'</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details><div class="cell-output-display page-columns page-full">
+<div class="page-columns page-full">
+<figure class="figure page-columns page-full"><p class="page-columns page-full"><img src="index_files/figure-html/unnamed-chunk-50-1.png" class="img-fluid figure-img column-page" style="width:100.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Fortunately, you can avoid most of this processing when working with global data, as the data have a simpler CRS and are already whole. While you’re likely to want to use global CMG data for most purposes, it’s worthwhile to be aware of some of the quirks required for handling VIIRS files when working with multiple tiles. That being said, resist the temptation to always use high-resolution data! Always assess the spatial resolution of your other data sources to determine when it may be more appropriate to rely on the simpler global VIIRS data.</p>
+</section></section><div id="quarto-appendix" class="default"><section id="getting-help" class="level2 appendix"><h2 class="anchored quarto-appendix-heading">Getting Help</h2><div class="quarto-appendix-contents">
+<p>Questions or comments? Check out the <a href="https://forum.ipums.org">IPUMS User Forum</a> or reach out to IPUMS User Support at ipums@umn.edu.</p>
+
+
+
+</div></section><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" data-line-spacing="2" role="list">
+<div id="ref-Roman2024" class="csl-entry" role="listitem">
+1. Román, M. O., Justice, C., Paynter, I., Boucher, P. B., Devadiga, S., Endsley, A., Erb, A., Friedl, M., Gao, H., Giglio, L., Gray, J. M., Hall, D., Hulley, G., Kimball, J., Knyazikhin, Y., Lyapustin, A., Myneni, R. B., Noojipady, P., Pu, J., … Wolfe, R. (2024). Continuity between NASA MODIS collection 6.1 and VIIRS collection 2 land products. <em>Remote Sensing of Environment</em>, <em>302</em>, 113963. <a href="https://doi.org/10.1016/J.RSE.2023.113963">https://doi.org/10.1016/J.RSE.2023.113963</a>
+</div>
+<div id="ref-Skakun2018" class="csl-entry" role="listitem">
+2. Skakun, S., Justice, C. O., Vermote, E., &amp; Roger, J. C. (2018). Transitioning from MODIS to VIIRS: An analysis of inter-consistency of NDVI data sets for agricultural monitoring. <em>International Journal of Remote Sensing</em>, <em>39</em>, 971–992. <a href="https://doi.org/10.1080/01431161.2017.1395970">https://doi.org/10.1080/01431161.2017.1395970</a>
+</div>
+<div id="ref-Li2014" class="csl-entry" role="listitem">
+3. Li, H., Sun, D., Yu, Y., Wang, H., Liu, Y., Liu, Q., Du, Y., Wang, H., &amp; Cao, B. (2014). Evaluation of the VIIRS and MODIS LST products in an arid area of <span>N</span>orthwest <span>C</span>hina. <em>Remote Sensing of Environment</em>, <em>142</em>, 111–121. <a href="https://doi.org/10.1016/J.RSE.2013.11.014">https://doi.org/10.1016/J.RSE.2013.11.014</a>
+</div>
+</div></section></div></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp("https:\/\/ipums\.github\.io\/dhs-research-hub");
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+<footer class="footer"><div class="nav-footer">
+    <div class="nav-footer-left">
+      &nbsp;
+    </div>   
+    <div class="nav-footer-center">
+<p>Developed by <a href="https://www.ipums.org">IPUMS</a> at the University of Minnesota<br>Licensed under the <a href="https://www.mozilla.org/en-US/MPL/2.0/">Mozilla Public License Version 2.0</a></p>
+</div>
+    <div class="nav-footer-right">
+      &nbsp;
+    </div>
+  </div>
+</footer>
+
+
+</body></html>

@@ -53,6 +53,15 @@ sysfonts::font_add(
 showtext::showtext_auto()
 ```
 
+::: callout-caution
+## Update
+
+Since we originally released this post, we now recommend using VIIRS
+when doing contemporary NDVI research. See our [VIIRS post](../2025-03-31-viirs) 
+for more information about how to adapt the contents discussed in this post for
+use with VIIRS files.
+:::
+
 In our [previous post](../2024-07-02-ndvi-concepts), we introduced NDVI
 as a remote sensing tool that can be used to study the effects of
 environmental conditions on malnourishment and other health outcomes. In
@@ -91,12 +100,12 @@ some of the additional steps required to produce a usable NDVI time
 series for a particular area of interest. In the process, we'll
 introduce new R techniques that can assist in this workflow.
 
-# Obtaining NDVI Data
+# Obtaining NDVI Data {#obtaining-ndvi}
 
 Not only are there multiple sources that provide NDVI data, there are
 also multiple satellites that collect the images used to calculate NDVI.
 For this post, we'll use data from NASA's
-[MODIS](https://terra.nasa.gov/about/terra-instruments/modis) satellite,
+[MODIS](https://terra.nasa.gov/about/terra-instruments/modis) instrument,
 which provides data at a 250 meter resolution.
 
 ::: column-margin

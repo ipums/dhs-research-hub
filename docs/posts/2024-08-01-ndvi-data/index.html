@@ -267,7 +267,7 @@ gtag('config', 'G-0WLH5S9VD5', { 'anonymize_ip': true});
   <ul>
 <li><a href="#ndvi-vs.-other-environmental-data-sources" id="toc-ndvi-vs.-other-environmental-data-sources" class="nav-link active" data-scroll-target="#ndvi-vs.-other-environmental-data-sources">NDVI vs.&nbsp;other environmental data sources</a></li>
   <li>
-<a href="#obtaining-ndvi-data" id="toc-obtaining-ndvi-data" class="nav-link" data-scroll-target="#obtaining-ndvi-data">Obtaining NDVI Data</a>
+<a href="#obtaining-ndvi" id="toc-obtaining-ndvi" class="nav-link" data-scroll-target="#obtaining-ndvi">Obtaining NDVI Data</a>
   <ul class="collapse">
 <li>
 <a href="#earthdata-search" id="toc-earthdata-search" class="nav-link" data-scroll-target="#earthdata-search">Earthdata Search</a>
@@ -305,7 +305,20 @@ gtag('config', 'G-0WLH5S9VD5', { 'anonymize_ip': true});
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
     </div>
 <!-- main -->
-<main class="content quarto-banner-title-block page-columns page-full" id="quarto-document-content"><p>In our <a href="../2024-07-02-ndvi-concepts">previous post</a>, we introduced NDVI as a remote sensing tool that can be used to study the effects of environmental conditions on malnourishment and other health outcomes. In this post, we’ll show how to access and load NDVI data using R.</p>
+<main class="content quarto-banner-title-block page-columns page-full" id="quarto-document-content"><div class="callout callout-style-default callout-caution callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Update
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Since we originally released this post, we now recommend using VIIRS when doing contemporary NDVI research. See our <a href="../2025-03-31-viirs">VIIRS post</a> for more information about how to adapt the contents discussed in this post for use with VIIRS files.</p>
+</div>
+</div>
+<p>In our <a href="../2024-07-02-ndvi-concepts">previous post</a>, we introduced NDVI as a remote sensing tool that can be used to study the effects of environmental conditions on malnourishment and other health outcomes. In this post, we’ll show how to access and load NDVI data using R.</p>
 <section id="ndvi-vs.-other-environmental-data-sources" class="level1"><h1>NDVI vs.&nbsp;other environmental data sources</h1>
 <p>Like the other environmental metrics we’ve used on this blog (<a href="../2024-02-04-dhs-chirps">CHIRPS</a> and <a href="../2024-04-15-chirts-metrics">CHIRTS</a>), NDVI data are also provided in raster format. However, there are some key differences.</p>
 <ol type="1">
@@ -314,8 +327,8 @@ gtag('config', 'G-0WLH5S9VD5', { 'anonymize_ip': true});
 <li><p>Depending on the data source, NDVI data may be distributed for specific spatial extents and at multi-week time intervals. Whereas daily time series of CHIRPS and CHIRTS could be downloaded for large spatial extents and cropped to an area of interest, NDVI often requires more manual work to integrate data from different spatial extents and time intervals.</p></li>
 </ol>
 <p>This post will primarily focus on this last point. We’ll demonstrate some of the additional steps required to produce a usable NDVI time series for a particular area of interest. In the process, we’ll introduce new R techniques that can assist in this workflow.</p>
-</section><section id="obtaining-ndvi-data" class="level1 page-columns page-full"><h1>Obtaining NDVI Data</h1>
-<p>Not only are there multiple sources that provide NDVI data, there are also multiple satellites that collect the images used to calculate NDVI. For this post, we’ll use data from NASA’s <a href="https://terra.nasa.gov/about/terra-instruments/modis">MODIS</a> satellite, which provides data at a 250 meter resolution.</p>
+</section><section id="obtaining-ndvi" class="level1 page-columns page-full"><h1>Obtaining NDVI Data</h1>
+<p>Not only are there multiple sources that provide NDVI data, there are also multiple satellites that collect the images used to calculate NDVI. For this post, we’ll use data from NASA’s <a href="https://terra.nasa.gov/about/terra-instruments/modis">MODIS</a> instrument, which provides data at a 250 meter resolution.</p>
 
 <div class="no-row-height column-margin column-container"><div class="">
 <p>While this resolution exceeds our typical needs, we use 250 meter data for this post and the next to help demonstrate some of the relevant considerations for working with NDVI data in a population health context.</p>
@@ -904,7 +917,7 @@ Caution
 <span><span class="co">#&gt; resolution  : 231.6564, 231.6564  (x, y)</span></span>
 <span><span class="co">#&gt; extent      : 3769512, 4648648, -520300.2, 559681.8  (xmin, xmax, ymin, ymax)</span></span>
 <span><span class="co">#&gt; coord. ref. : +proj=sinu +lon_0=0 +x_0=0 +y_0=0 +R=6371007.181 +units=m +no_defs </span></span>
-<span><span class="co">#&gt; source      : spat_100574e7581d4_65623.tif </span></span>
+<span><span class="co">#&gt; source      : spat_2020fd5ebe_8224_SDnwk7fjh8CwF05.tif </span></span>
 <span><span class="co">#&gt; names       : "250m 16 days NDVI", "250m 16 days NDVI" </span></span>
 <span><span class="co">#&gt; min values  :             -0.2000,             -0.2000 </span></span>
 <span><span class="co">#&gt; max values  :              0.9995,              0.9995 </span></span>
