@@ -1,0 +1,225 @@
+---
+title: "Anticipating the Future: Important terminology"
+description: |
+  Part 1 in our series exploring climate and population projections in health
+  research
+author: 
+  - name: "Molly Brown"
+    affiliation: "Research Professor, Department of Geographical Sciences, University of Maryland College Park"
+  - name: "Rebecca Luttinen"
+    affiliation: "IPUMS Global Health Data Analyst"
+date: 04-23-2025
+categories:
+  - Projections
+  - Scenarios
+  - Forecasts
+  - Predictions
+  - Population
+  - Methodology
+  - Research concepts
+fig-width: 10
+fig-height: 8
+bibliography: references.bib
+image: images/image1.png
+open-graph:
+  title: "Anticipating the Future: Important terminology"
+  description: |
+    Part 1 in our series exploring climate and population projections in health
+    research
+  image: images/image1.png
+twitter-card:
+  title: "Anticipating the Future: Important terminology"
+  description: |
+    Part 1 in our series exploring climate and population projections in health
+    research
+  image: images/image1.png
+---
+
+Climate and social scientists study past conditions to establish links
+between environmental conditions and human behavior and health. Once
+these patterns are identified, the interest may shift toward
+understanding what they imply about the **evolution** of our health
+outcomes as conditions change in the future.
+
+Of course, studying future outcomes is no easy task, as it's impossible
+to make concrete observations of phenomena that haven't happened yet!
+Still, we often have enough information to make informed judgments about
+what is likely to happen in the future.
+
+This is the first in a series of posts that will discuss some of the
+complexities involved when attempting to anticipate future conditions.
+In this post, we'll establish the foundational terminology that will be
+critical to understanding the concepts we introduce going forward.
+
+# Scenarios, predictions, forecasts: What's the difference?
+
+Climate and social scientists use several different terms when
+discussing possible future outcomes. Some of the most common are
+***scenarios***, ***forecasts***, and ***predictions***.
+
+-   **Scenarios** attempt to describe the possible ways a system could
+    evolve over time. These often include expert opinion on what time
+    steps, thresholds, or drivers of different model output should be
+    presented, but are still based on quantitative or numeric models.
+
+-   **Forecasts** are usually short-term, numeric model estimates of
+    physical phenomena which can have accuracy assessments embedded in
+    them.
+
+-   **Predictions** are used to describe estimates of future changes in
+    the context of more complicated political, social, or biophysical
+    changes. The term is often used as if it were synonymous with both
+    scenarios and forecasts, but it typically emphasizes expert opinion.
+
+While these terms refer to related or shared ideas, they have distinct
+meanings and will be used in different ways in the upcoming posts in
+this series. In the rest of this post, we'll elaborate on these
+definitions and and tie these terms to real world examples.
+
+| **Term** | **Dictionary Definition** | **Scientific Use** | **Example** |
+|------------------|------------------|------------------|------------------|
+| Scenario | An imagined or projected sequence of events, especially any of several detailed plans or possibilities | Used to challenge assumptions, explore potential futures, and for strategic planning and risk management | Scenarios of different potential outcomes from the results of an election or policy change |
+| Forecast | To estimate or conjecture the course of events or future condition of things based on present indications | A quantitative estimate of a future event or condition based on past and current data, using statistical models and trends | The weather forecast is for warm and dry conditions for the next week. |
+| Prediction | The action of foretelling future events, a prophecy | Prediction often includes expert judgement and estimation of a future event or outcome. Can be based on information and expertise but does not necessarily include models or data. | Economists are predicting higher inflation due to unprecedented changes in trade policy. |
+
+: {.hover .bordered
+.column-body-outset}
+
+## Scenarios
+
+**Scenarios** are the result of thought experiments or models that
+incorporate information from a small subset of a multitude of events
+that could occur. A scenario is a postulated sequence of events, which
+considers the *possible* evolution of the events under consideration.
+For instance, a scenario may consider the likely actions or decisions
+made by governments or individuals within specific countries or
+organizations.
+
+Notably, scenarios do not affirm that these actions or decisions *will
+actually* happen. Rather, they intend to illustrate the potential
+ramifications of risks and uncertainties and highlight the possible
+effects of government decisions and policy. Thus, scenarios can help
+decision makers think through the potential consequences of their
+decisions and consider alternatives that may improve outcomes.
+
+For example, Lloyd's of London is a market regulator for insurance
+providers and those that buy and sell insured risk in a global
+marketplace. Lloyd’s maintains a set of [Realistic Disaster Scenarios
+(RDS)](https://www.lloyds.com/conducting-business/underwriting/realistic-disaster-scenarios)
+to stress test both individual syndicates and the market as a whole. The
+disasters within these scenarios include climate events (e.g.,
+[earthquakes](https://science.nasa.gov/earth/climate-change/can-climate-affect-earthquakes-or-are-the-connections-shaky/#:~:text=Scientists%20know%20earthquakes%20can%20be,studies%20have%20supported%20such%20correlations), floods, and windstorms in very high value markets in the
+US, Japan, UK, and Europe) as well as terrorism and cyber attack events.
+If an earthquake occurs in the San Francisco area, for instance, Lloyd’s
+has estimated the losses for residential and commercial property
+insurance to be around \$80 billion. The scenarios provide ways to
+ensure the stability of the reinsurance market and to reduce exposure by
+any one risk holder.
+
+The United States government has a [sea level rise
+tool](https://sealevel.globalchange.gov/national-sea-level-explorer/?view=map),
+which provides a set of scenarios for the likely amount of sea level
+rise that will be experienced in different coastal areas. The five
+scenarios consider a variety of processes that could influence sea level
+across a wide range of future warming conditions—specifically, the
+amount of greenhouse gases emitted due to economic activity. They are
+defined by target values of Global Mean Sea Level Rise in 2100. These
+scenarios draw a direct connection between policy and action on climate
+mitigation and the amount of area along the US coastline which will
+likely be inundated by 2100.
+
+The [Famine Early Warning System
+Network](https://www.usgs.gov/international-programs/fews-net) (FEWS
+NET) used scenarios to estimate future food insecurity four months into
+the future through analysis of rainfall, harvests, commodity prices,
+seasonal labor demand, government policy, international aid, and other
+factors (see @fig-fews). The scenarios relied on analysis of the current
+situation, assumptions about future changes, and the likely response to
+events by various actors. Updated every month, the scenarios provided
+members in the network guidance on appropriate responses to local
+shocks, like drought or conflict.
+
+![FEWS NET projection period
+updates.](images/image2.png){#fig-fews width="100%"}
+
+Population scientists can employ scenarios when estimating future
+population counts as well. Typically, population scenarios are
+constructed by assuming constant, higher, or lower rates of core
+population processes, like fertility, migration, and mortality. [Our
+World in
+Data](https://ourworldindata.org/grapher/population-long-run-with-projections)
+has a tool for users to create population projections based on
+[fertility
+scenarios](https://population.un.org/wpp/definition-of-projection-scenarios)
+drafted by the United Nations.
+
+## Forecasts
+
+Unlike scenarios, which are estimates based on assumptions about context and 
+response to events in the future, **forecasts** are model predictions based on 
+current and historical data. Forecasts are always evaluated for their accuracy
+and predictive ability using quantitative metrics. For example, the accuracy
+of a weather forecast can be evaluated by comparing the prediction to
+the observation dataset, allowing the forecast users to know whether the
+forecast was able to predict events that occurred.
+
+
+[Subseasonal to seasonal (S2S)
+forecasts](https://www.sciencedirect.com/science/article/abs/pii/S0022169421011082)
+extend short-term weather forecasts from two weeks to two years into the
+future. While raw forecasts from S2S models are informative, calibration
+is necessary to correct systematic biases and quantify forecast
+uncertainty to facilitate applications such as scheduling agricultural
+activities or planning outdoor events. Most S2S forecasts can predict
+that it will be warm in summer and cool in winter, but being able to
+forecast significantly above or below average temperatures in a
+particular month is far more challenging.
+
+::: column-page
+![Figure 2. Seasonal temperature outlook for the United States, issued
+October 2024.](images/image1.png)
+:::
+
+Population scientists create population forecasts—predicted population
+counts—using various methods depending on the amount of input
+information available. The process of creating a population forecast is
+called **population projection**. There is some debate on whether
+population projections should be considered true forecasts, however, and
+most population scientists refer to their projections as "estimates" to
+showcase their professional caution.[@CarmichaelGordonA2016;
+@HindeAndrew2014]
+
+## Predictions
+
+**Predictions** result from the expert analysis of information
+that integrates knowledge from multiple disciplines. The term "prediction"
+has the connotation of being less rigorous as it focuses on expert
+knowledge and is based on flexible assumptions. Predictions may also
+consider hypothetical conditions such as policy, politics or economic
+changes.
+
+Forecasts, in contrast, often represent events that are likely to occur
+regardless of near-term government or individual actions, and are checked
+for accuracy once future conditions have been observed. However, there
+often is no direct way to determine the accuracy of a *prediction*
+due to incomplete information on the system and the lack of a
+specific model used in its creation.
+
+For example, a government may decide to invest in subsidized fertilizer
+for smallholders, but this may not affect the price of commodities in
+the market in the current year given the impacts of broader
+macroeconomic forces and immediate supply and demand. Forecasts of
+drought impacts on crop production in the current year can’t be
+influenced by agricultural policies made by governments, since those
+investments take time to affect productivity. However, experts could
+still make predictions about the likely long-term impact of the
+investments.
+
+# Looking ahead
+
+This blog post is the start to a series covering scenarios,
+forecasting, and population projections and how these concepts can be
+applied to climate and child health research. The next post will explain
+population projections in more detail and later posts will provide
+technical examples of these methodologies and how they can be used
+together.
