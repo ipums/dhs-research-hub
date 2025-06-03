@@ -1,0 +1,1143 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.5.57">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<meta name="author" content="Rebecca Luttinen">
+<meta name="author" content="Elizabeth Heger Boyle">
+<meta name="dcterms.date" content="2025-06-03">
+<meta name="description" content="Use the DHS to estimate fertility levels and project future population levels">
+<title>Estimating the now and predicting the future: Fertility rate estimation and population projection – IPUMS DHS Spatial Analysis and Health Research Hub</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<link href="../../images/favicon/favicon-32x32.ico" rel="icon">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/quarto-contrib/fontawesome6-0.1.0/all.css" rel="stylesheet">
+<link href="../../site_libs/quarto-contrib/fontawesome6-0.1.0/latex-fontsize.css" rel="stylesheet"><script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script><script async="" src="https://www.googletagmanager.com/gtag/js?id=G-0WLH5S9VD5"></script><script type="text/javascript">
+
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-0WLH5S9VD5', { 'anonymize_ip': true});
+</script><script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script><script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script><script>window.define = window.backupDefine; window.backupDefine = undefined;</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css">
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+<meta property="og:title" content="Estimating the now and predicting the future: Fertility rate estimation and population projection">
+<meta property="og:description" content="Use the DHS to estimate fertility levels and project future population levels">
+<meta property="og:image" content="https://ipums.github.io/dhs-research-hub/posts/2025-06-03-forecasting-pt2/images/family.jpg">
+<meta property="og:site_name" content="IPUMS DHS Spatial Analysis and Health Research Hub">
+<meta name="twitter:title" content="Estimating the now and predicting the future: Fertility rate estimation and population projection">
+<meta name="twitter:description" content="Use the DHS to estimate fertility levels and project future population levels">
+<meta name="twitter:image" content="https://ipums.github.io/dhs-research-hub/posts/2025-06-03-forecasting-pt2/images/family.jpg">
+<meta name="twitter:card" content="summary_large_image">
+</head>
+<body class="floating nav-fixed slimcontent">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top quarto-banner"><nav class="navbar navbar-expand-lg " data-bs-theme="dark"><div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a href="https://www.idhsdata.org/idhs/" class="navbar-brand navbar-brand-logo">
+    <img src="../../images/dhs_logo_white.png" alt="" class="navbar-logo"></a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+<li class="nav-item">
+    <a class="nav-link" href="../../index.html"> 
+<span class="menu-text">Spatial Analysis and Health Research Hub</span></a>
+  </li>  
+</ul>
+<ul class="navbar-nav navbar-nav-scroll ms-auto">
+<li class="nav-item">
+    <a class="nav-link" href="../../index.html"> 
+<span class="menu-text">Posts</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-getting-started" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Getting Started</span>
+    </a>
+    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="nav-menu-getting-started">
+<li>
+    <a class="dropdown-item" href="../../posts/2024-02-01-getting-started-with-r/index.html">
+ <span class="dropdown-text">An Introduction to R</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../posts/2024-02-02-download-dhs-data/index.html">
+ <span class="dropdown-text">Obtaining IPUMS DHS Data</span></a>
+  </li>  
+    </ul>
+</li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-community" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Community</span>
+    </a>
+    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="nav-menu-community">
+<li>
+    <a class="dropdown-item" href="https://forum.ipums.org">
+ <span class="dropdown-text">IPUMS Forum</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../CODE_OF_CONDUCT.html">
+ <span class="dropdown-text">Code of Conduct</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../LICENSE.html">
+ <span class="dropdown-text">License</span></a>
+  </li>  
+    </ul>
+</li>
+  <li class="nav-item">
+    <a class="nav-link" href="../../about.html"> 
+<span class="menu-text">About</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="https://github.com/ipums/dhs-research-hub"> 
+<span class="menu-text"><i class="fa-brands fa-github" aria-label="github"></i></span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../index.xml"> 
+<span class="menu-text"><i class="fa-solid fa-rss" aria-label="rss"></i></span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="https://twitter.com/ipumsGH"> 
+<span class="menu-text"><i class="fa-brands fa-x-twitter" aria-label="x-twitter"></i></span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="https://forum.ipums.org"> 
+<span class="menu-text"><i class="fa-solid fa-users" aria-label="users"></i></span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="https://www.ipums.org/"> 
+<span class="menu-text"><i class="fa-solid fa-globe" aria-label="globe"></i></span></a>
+  </li>  
+</ul>
+</div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav></header><!-- content --><header id="title-block-header" class="quarto-title-block default toc-left page-columns page-full"><div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body">
+      <h1 class="title">Estimating the now and predicting the future: Fertility rate estimation and population projection</h1>
+                  <div>
+        <div class="description">
+          <p>Use the DHS to estimate fertility levels and project future population levels</p>
+        </div>
+      </div>
+                          <div class="quarto-categories">
+                <div class="quarto-category">Projections</div>
+                <div class="quarto-category">Population</div>
+                <div class="quarto-category">Fertility</div>
+                <div class="quarto-category">Methodology</div>
+                <div class="quarto-category">R</div>
+              </div>
+                  </div>
+  </div>
+    
+  <div class="quarto-title-meta-author">
+    <div class="quarto-title-meta-heading">Authors</div>
+    <div class="quarto-title-meta-heading">Affiliations</div>
+    
+      <div class="quarto-title-meta-contents">
+      <p class="author">Rebecca Luttinen </p>
+    </div>
+    <div class="quarto-title-meta-contents">
+          <p class="affiliation">
+              IPUMS Global Health Data Analyst
+            </p>
+        </div>
+      <div class="quarto-title-meta-contents">
+      <p class="author">Elizabeth Heger Boyle </p>
+    </div>
+    <div class="quarto-title-meta-contents">
+          <p class="affiliation">
+              Professor, Department of Sociology, University of Minnesota
+            </p>
+        </div>
+    </div>
+
+  <div class="quarto-title-meta">
+
+        
+      <div>
+      <div class="quarto-title-meta-heading">Published</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">June 3, 2025</p>
+      </div>
+    </div>
+    
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto"><nav id="TOC" role="doc-toc" class="toc-active" data-toc-expanded="1"><h2 id="toc-title">Contents</h2>
+   
+  <ul>
+<li>
+<a href="#population-projections" id="toc-population-projections" class="nav-link active" data-scroll-target="#population-projections">Population projections</a>
+  <ul class="collapse">
+<li><a href="#fertility-rates" id="toc-fertility-rates" class="nav-link" data-scroll-target="#fertility-rates">Fertility rates</a></li>
+  </ul>
+</li>
+  <li><a href="#how-do-we-know-population-level-statistics" id="toc-how-do-we-know-population-level-statistics" class="nav-link" data-scroll-target="#how-do-we-know-population-level-statistics">How do we know population-level statistics?</a></li>
+  <li><a href="#the-importance-of-the-dhs" id="toc-the-importance-of-the-dhs" class="nav-link" data-scroll-target="#the-importance-of-the-dhs">The importance of the DHS</a></li>
+  <li>
+<a href="#how-to-generate-fertility-estimates" id="toc-how-to-generate-fertility-estimates" class="nav-link" data-scroll-target="#how-to-generate-fertility-estimates">How to generate fertility estimates</a>
+  <ul class="collapse">
+<li><a href="#the-general-fertility-rate-gfr" id="toc-the-general-fertility-rate-gfr" class="nav-link" data-scroll-target="#the-general-fertility-rate-gfr">The general fertility rate (GFR)</a></li>
+  <li><a href="#the-age-specific-fertility-rate-asfr" id="toc-the-age-specific-fertility-rate-asfr" class="nav-link" data-scroll-target="#the-age-specific-fertility-rate-asfr">The age-specific fertility rate (ASFR)</a></li>
+  <li><a href="#the-total-fertility-rate-tfr" id="toc-the-total-fertility-rate-tfr" class="nav-link" data-scroll-target="#the-total-fertility-rate-tfr">The total fertility rate (TFR)</a></li>
+  <li><a href="#comparing-rates-across-categories" id="toc-comparing-rates-across-categories" class="nav-link" data-scroll-target="#comparing-rates-across-categories">Comparing rates across categories</a></li>
+  </ul>
+</li>
+  <li>
+<a href="#population-projections-an-introduction" id="toc-population-projections-an-introduction" class="nav-link" data-scroll-target="#population-projections-an-introduction">Population Projections: An Introduction</a>
+  <ul class="collapse">
+<li><a href="#the-hamilton-perry-method" id="toc-the-hamilton-perry-method" class="nav-link" data-scroll-target="#the-hamilton-perry-method">The Hamilton-Perry method</a></li>
+  <li>
+<a href="#other-methods" id="toc-other-methods" class="nav-link" data-scroll-target="#other-methods">Other methods</a>
+  <ul class="collapse">
+<li><a href="#cohort-component-method" id="toc-cohort-component-method" class="nav-link" data-scroll-target="#cohort-component-method">Cohort-component method</a></li>
+  <li><a href="#mathematical-model-approaches" id="toc-mathematical-model-approaches" class="nav-link" data-scroll-target="#mathematical-model-approaches">Mathematical model approaches</a></li>
+  </ul>
+</li>
+  </ul>
+</li>
+  <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion">Conclusion</a></li>
+  </ul></nav>
+</nav><div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
+    </div>
+<!-- main -->
+<main class="content quarto-banner-title-block page-columns page-full" id="quarto-document-content"><p>The second blog post in our series describes how to use R to estimate fertility rates and to project a population. Understanding the rate of a population process (e.g., fertility) is a key consideration when thinking about the future. A population projection, on the other hand is the result of predicting a future population level.</p>
+<section id="population-projections" class="level1"><h1>Population projections</h1>
+<p>How do we estimate future population levels? A systematic approach for predicting future population levels is to create a population projection. We first introduced this concept in <a href="https://tech.popdata.org/dhs-research-hub/posts/2025-04-23-forecasting-pt1/">our last post</a>, which discussed proper terminology to use when considering the role of future conditions.</p>
+<p>A population projection describes the process of using population estimates and information about various demographic processes—like births, deaths and migration—to generate an estimated future population size. There are various statistical methods to project a population, one of which is explored in detail the second workflow of this blog post.</p>
+<section id="fertility-rates" class="level2"><h2 class="anchored" data-anchor-id="fertility-rates">Fertility rates</h2>
+<p>Fertility is a key population process that influences future population size. A fertility rate simply summarizes the number of children relative to an overall population. Most commonly, fertility rates summarize the number of children per woman in the population. The fertility rate of a given population is the result of various factors that influence people’s fertility decision making. The fertility rate of nation can influence the <strong>dependency-ratio</strong>, the ratio of working age adults to children and retirees, which has implications for a nation’s social security system.</p>
+<p>It is important to note that fertility is not the only population process that influences population size: migration and mortality do, too. However, this blog post focuses on fertility, and the first workflow demonstrated will walk you through how to use a nationally representative survey to estimate various fertility rates.</p>
+</section></section><section id="how-do-we-know-population-level-statistics" class="level1"><h1>How do we know population-level statistics?</h1>
+<p>With internet access and a smartphone, it can seem easy to access a statistic about the United States or the world. For example, if you were to use an internet search engine to look up statistics on educational attainment, you may find a <a href="https://www.census.gov/newsroom/press-releases/2022/educational-attainment.html">census report from 2022</a> that shares that 23.5% of Americans’ highest degree was a bachelor’s degree in 2022.</p>
+<p>Just like any other population-level fact, we are able access counts of people living in a specific place at a given time. The census makes an attempt to count all individuals within most countries every ten years to give us this knowledge. Another way we know this is through <strong>population estimates</strong>, which are generated through applying survey weights to a nationally representative sample of a population.</p>
+<p>It is also easy to take data access for granted. Not all countries have a census or reliable population-level information/statistics. This post highlights the <a href="https://www.dhsprogram.com/">Demographic and Health Surveys (DHS)</a> as a notable data source for estimating both fertility rates and population size in regions that do not have the same level of data access as places such as the United States.</p>
+</section><section id="the-importance-of-the-dhs" class="level1"><h1>The importance of the DHS</h1>
+<p>The DHS are the principal–and often only–source of vital information on human populations in low- and middle-income countries. Administered from 1984 to 2025, the DHS includes over 400 publicly available cross-sectional household surveys from more than 90 countries.</p>
+<p>Nationally representative and fielded for countries about every five years, the DHS are lauded for allowing researchers to distinguish between population-level and individual-level factors and for high participation rates, excellent standardized data collection procedures and interviewer training, and the breadth of data collected.<span class="citation" data-cites="Corsi2012"><sup><a href="#ref-Corsi2012" role="doc-biblioref">1</a></sup></span> The DHS provide population-level statistics on dozens of topics, including:</p>
+<div>
+
+</div>
+<div class="quarto-layout-panel" data-layout-ncol="2">
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+<ul>
+<li>Family structure</li>
+<li>Educational Attainment</li>
+<li>Marriage and sexual activity</li>
+<li>Fertility</li>
+<li>Contraception</li>
+<li>Preferences for family size</li>
+<li>Infant and child mortality</li>
+<li>Adult mortality</li>
+</ul>
+</div>
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+<ul>
+<li>Maternal &amp; newborn care</li>
+<li>Child health, including vaccinations</li>
+<li>Child nutrition</li>
+<li>Malaria</li>
+<li>HIV knowledge and opinions</li>
+<li>Women’s empowerment</li>
+<li>Household water and sanitation</li>
+<li>Wealth and socioeconomic indicators</li>
+</ul>
+</div>
+</div>
+</div>
+<p>The most recent DHS also include detailed information on migration, a crucial component of population projections. As of 2025, more than 2000 published <a href="https://www.dhsprogram.com/publications/publication-search.cfm">peer-reviewed articles based on DHS data had been reported to ICF</a>, the organization that administered the program.</p>
+<p><a href="https://www.idhsdata.org/idhs/">IPUMS DHS</a> is a freely available database that streamlines access and reduces technical barriers to comparative analyses with the DHS. IPUMS DHS harmonizes DHS variables across surveys and makes crucial documentation easily accessible, greatly reducing researchers’ data-management tasks. Researchers constructing population projections across multiple countries may want to consider accessing DHS through IPUMS.</p>
+</section><section id="how-to-generate-fertility-estimates" class="level1 page-columns page-full"><h1>How to generate fertility estimates</h1>
+<p>This blog post walks you through how to use DHS data to generate various forms of fertility rates. This example will use the most recent women’s file in Kenya, which is from the year 2022. This year is not uploaded to IPUMS DHS at this time, so this portion of the analysis uses the raw DHS women’s individual recode (IR) file.</p>
+<p>We use the <a href="https://cran.rstudio.com/web/packages/DHS.rates/DHS.rates.pdf">DHS.rates</a> package to calculate the <strong>general fertility rate (GFR)</strong>, the <strong>age-specific fertility rates (ASFR)</strong> for five-year age groups and a <strong>total fertility rate (TFR)</strong>. This package was developed to allow users to calculate key indicators of DHS data at the national or at various domain levels (such as urban vs.&nbsp;rural, educational attainment, or region).</p>
+
+<div class="no-row-height column-margin column-container"><div class="">
+<p>The DHS.rates package was designed for standard DHS file types, however as long as the data extract includes the necessary information to calculate a fertility rate (i.e., birth history data) it will work. This package can also be used with surveys other than the DHS, as long as they include the necessary information.</p>
+</div></div><div class="cell">
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># load libraries</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://haven.tidyverse.org">haven</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org">dplyr</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">DHS.rates</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>First, we read in our data.</p>
+<div class="cell">
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># read in data</span></span>
+<span><span class="va">kenya22</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://haven.tidyverse.org/reference/read_dta.html">read_dta</a></span><span class="op">(</span><span class="st">"data/Kenya2022/KEIR8BDT/KEIR8BFL.DTA"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">kenya22</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://haven.tidyverse.org/reference/zap_labels.html">zap_labels</a></span><span class="op">(</span><span class="va">kenya22</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>An important consideration in estimating a fertility rate is whether you are interested in a period or cohort rate. A period rate considers the rate for fertility over a specific interval of time. A cohort rate can either be calculated by:</p>
+<ul>
+<li>following a group of women throughout their lifespan and counting their births</li>
+</ul>
+<p>or by:</p>
+<ul>
+<li>creating synthetic cohorts and considering parity (their number of children at a given time) at the time of survey.</li>
+</ul>
+<p>We will calculate two period rates: the general fertility rate and the age-specific fertility rate. Then we calculate a synthetic cohort rate: the total fertility rate.</p>
+<section id="the-general-fertility-rate-gfr" class="level2"><h2 class="anchored" data-anchor-id="the-general-fertility-rate-gfr">The general fertility rate (GFR)</h2>
+<p>The GFR is calculated using the following equation:</p>
+<p><span class="math display">
+GFR=\frac{\text{Number of live births in reference period}}{\text{Number of women aged 15-44 in reference period}}
+</span></p>
+<p>That is, the GFR is the total number of births during an interval of time (the reference period) divided by the total number of women-years of exposure during that same reference period. The women under consideration are all women in their reproductive years—here taken as those women between the ages of 15 and 44.<span class="citation" data-cites="Elkasabi2019"><sup><a href="#ref-Elkasabi2019" role="doc-biblioref">2</a></sup></span></p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Techincally, all women between the ages of 15 and 49 are eligible to complete the women’s interview. However, because fertility declines sharply after age 44, including these women in the denominator of the GFR may serve to reduce the fertility rate for the overall population, potentially giving a misleading result. This is why the GFR is typically calculated only for women up to age 44.</p>
+<p>In some of the metrics we introduce later, fertility is split out by age, so all women up to age 49 are included in those calculations.</p>
+</div>
+</div>
+<p>You can use the <code><a href="https://rdrr.io/pkg/DHS.rates/man/fert.html">fert()</a></code> function from DHS.rates to calculate the GFR by setting <code>Indicator = "gfr"</code>. This function will identify the reference period and print out the standard error (<code>SE</code>), the number of observations (<code>N</code>), the weighted number of observations (<code>WN</code>), the standard error design effect (<code>DEFT</code>), the relative standard error (<code>RSE</code>), and the lower and upper confidence interval bounds (<code>LCI</code> and <code>UCI</code>).</p>
+<div class="cell">
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># use the fert function to calculate various fertilty rates</span></span>
+<span></span>
+<span><span class="co"># General Fertility Rate</span></span>
+<span><span class="va">general_fertility_rate</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/DHS.rates/man/fert.html">fert</a></span><span class="op">(</span></span>
+<span>  <span class="va">kenya22</span>,</span>
+<span>  Indicator <span class="op">=</span> <span class="st">"gfr"</span></span>
+<span><span class="op">)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt;  The current function calculated GFR based on a reference period of 36 months </span></span>
+<span><span class="co">#&gt;  The reference period ended at the time of the interview, in 2022.33 OR Feb - Jul 2022 </span></span>
+<span><span class="co">#&gt;  The average reference period is 2020.83</span></span>
+<span></span>
+<span><span class="va">general_fertility_rate</span></span>
+<span><span class="co">#&gt;          GFR    SE     N    WN  DEFT   RSE     LCI     UCI</span></span>
+<span><span class="co">#&gt; [1,] 121.266 1.634 85634 86313 1.496 0.013 118.062 124.469</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>The GFR for this sample is just over 121 children per woman, meaning that from 2020-2022 the general fertility rate in Kenya was 121.27 children per women aged 15-49.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><code><a href="https://rdrr.io/pkg/DHS.rates/man/fert.html">fert()</a></code> uses a default reference period of 36 months. Use the <code>Period</code> and <code>PeriodEnd</code> arguments to set your own reference period. See the <a href="https://cran.rstudio.com/web/packages/DHS.rates/DHS.rates.pdf">DHS.rates documentation</a> for details about the available options.</p>
+</div>
+</div>
+</section><section id="the-age-specific-fertility-rate-asfr" class="level2 page-columns page-full"><h2 class="anchored" data-anchor-id="the-age-specific-fertility-rate-asfr">The age-specific fertility rate (ASFR)</h2>
+<p>The ASFR, similar to the GFR, summarizes the number of children being born during a time interval relative to the number of women-years of exposure, but it does so within specific age groups. The typical grouping strategy for this is to break up age into five year categories (15-19, 20-24, 25-29, 30-34, 35-39, 40-44, and 45-49).<span class="citation" data-cites="Elkasabi2019"><sup><a href="#ref-Elkasabi2019" role="doc-biblioref">2</a></sup></span></p>
+<p>The ASFR uses the following equation:</p>
+<div class="column-page">
+<p><span class="math display">
+ASFR = \frac{(\text{Number of live births to women age } a) - (\text{Number of live births to women age } a+4)}{\text{Women-years during the reference period}  } * 1000
+</span></p>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The ASFR is multiplied by 1,000 because it is interpreted as per 1,000 women.</p>
+</div>
+</div>
+<p>To calculate the ASFR with DHS.rates, we again use <code><a href="https://rdrr.io/pkg/DHS.rates/man/fert.html">fert()</a></code>, but this time we set <code>Indicator = "asfr"</code>:</p>
+<div class="cell">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Age Specific Fertility Rate</span></span>
+<span><span class="va">age_specific_fertility_rate</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/DHS.rates/man/fert.html">fert</a></span><span class="op">(</span></span>
+<span>  <span class="va">kenya22</span>,</span>
+<span>  Indicator <span class="op">=</span> <span class="st">"asfr"</span></span>
+<span><span class="op">)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt;  The current function calculated ASFR based on a reference period of 36 months </span></span>
+<span><span class="co">#&gt;  The reference period ended at the time of the interview, in 2022.33 OR Feb - Jul 2022 </span></span>
+<span><span class="co">#&gt;  The average reference period is 2020.83</span></span>
+<span></span>
+<span><span class="va">age_specific_fertility_rate</span></span>
+<span><span class="co">#&gt;     AGE    ASFR    SE     N    WN  DEFT   RSE     LCI     UCI</span></span>
+<span><span class="co">#&gt; 0 15-19  73.169 2.573 18693 18333 1.356 0.035  68.127  78.211</span></span>
+<span><span class="co">#&gt; 1 20-24 178.609 4.220 16996 17654 1.523 0.024 170.338 186.879</span></span>
+<span><span class="co">#&gt; 2 25-29 172.145 4.384 15357 15695 1.529 0.025 163.553 180.737</span></span>
+<span><span class="co">#&gt; 3 30-34 137.389 4.212 14167 14146 1.538 0.031 129.133 145.646</span></span>
+<span><span class="co">#&gt; 4 35-39  86.690 3.623 11282 11325 1.369 0.042  79.589  93.792</span></span>
+<span><span class="co">#&gt; 5 40-44  34.877 2.764  9139  9158 1.401 0.079  29.459  40.294</span></span>
+<span><span class="co">#&gt; 6 45-49   5.314 1.056  4850  4806 1.008 0.199   3.244   7.385</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Women aged 20-24 have the highest ASFR, at 178.61 children per woman, which is consistent with the literature on fertility in sub-Saharan Africa.<span class="citation" data-cites="Rahman2020"><sup><a href="#ref-Rahman2020" role="doc-biblioref">3</a></sup></span></p>
+
+<div class="no-row-height column-margin column-container"><div class="">
+<p>Per our discussion earlier, the ASFR does include women between 44-49, but notice how this age category has far fewer births than any other category.</p>
+</div></div><p>Now, we will use the ASFR information we have calculated to generate the most commonly referenced fertility rate, the TFR.</p>
+</section><section id="the-total-fertility-rate-tfr" class="level2"><h2 class="anchored" data-anchor-id="the-total-fertility-rate-tfr">The total fertility rate (TFR)</h2>
+<p>The TFR is a synthetic measure that summarizes the ASFRs into one age-standardized rate. A TFR can be interpreted as the number of children who would be born per woman if she were to have children according to each age-specific rate throughout her reproductive years. This is summarized in the following equation:</p>
+<p><span class="math display">
+TFR= 5 * \frac{\text{sum of each ASFR}}{1000}
+</span></p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The TFR is multiplied by 5 because the ASFRs are in five-year intervals.</p>
+</div>
+</div>
+<p>Again, use the <code>Indicator</code> argument to calculate the total fertility rate with <code><a href="https://rdrr.io/pkg/DHS.rates/man/fert.html">fert()</a></code>:</p>
+<div class="cell">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Total Fertility Rate</span></span>
+<span><span class="va">total_fertility_rate</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/DHS.rates/man/fert.html">fert</a></span><span class="op">(</span></span>
+<span>  <span class="va">kenya22</span>,</span>
+<span>  Indicator <span class="op">=</span> <span class="st">"tfr"</span>,</span>
+<span><span class="op">)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt;  The current function calculated TFR based on a reference period of 36 months </span></span>
+<span><span class="co">#&gt;  The reference period ended at the time of the interview, in 2022.33 OR Feb - Jul 2022 </span></span>
+<span><span class="co">#&gt;  The average reference period is 2020.83</span></span>
+<span></span>
+<span><span class="va">total_fertility_rate</span></span>
+<span><span class="co">#&gt;        TFR     N    WN</span></span>
+<span><span class="co">#&gt; [1,] 3.441 90484 91119</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Fertility around the world is in decline, even in high fertility countries such as Kenya. This TFR of 3.4 children per woman is lower than the previous TFR from the <a href="https://dhsprogram.com/pubs/pdf/fr308/fr308.pdf">2014 DHS survey</a> of 3.9 children per woman.</p>
+</section><section id="comparing-rates-across-categories" class="level2"><h2 class="anchored" data-anchor-id="comparing-rates-across-categories">Comparing rates across categories</h2>
+<p>Now let’s consider the TFR at different domain levels. The <code>class</code> argument in the <code><a href="https://rdrr.io/pkg/DHS.rates/man/fert.html">fert()</a></code> function allows you to calculate rates based on certain characteristics.</p>
+<p>For instance, if we wanted to compare the fertility rate of women who live in urban areas to those who live in rural areas, we can provide the name of the urban/rural variable in our data—in this case, <code>v025</code>:</p>
+<div class="cell">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Let's compare the urban and rural total fertility rate</span></span>
+<span><span class="va">total_fertility_rate_urban_vs_rural</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/DHS.rates/man/fert.html">fert</a></span><span class="op">(</span></span>
+<span>  <span class="va">kenya22</span>,</span>
+<span>  Indicator <span class="op">=</span> <span class="st">"tfr"</span>,</span>
+<span>  Class <span class="op">=</span> <span class="st">"v025"</span></span>
+<span><span class="op">)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt;  The current function calculated TFR based on a reference period of 36 months </span></span>
+<span><span class="co">#&gt;  The reference period ended at the time of the interview, in 2022.33 OR Feb - Jul 2022 </span></span>
+<span><span class="co">#&gt;  The average reference period is 2020.83</span></span>
+<span></span>
+<span><span class="va">total_fertility_rate_urban_vs_rural</span></span>
+<span><span class="co">#&gt;   Class   TFR     N    WN</span></span>
+<span><span class="co">#&gt; 1     1 2.842 35442 38137</span></span>
+<span><span class="co">#&gt; 2     2 3.941 55042 52982</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>We can see that we now have two fertility rates in our output, one for class 1 and another for class 2. These correspond to the variable codes used to distinguish urban and rural categories in our data. The DHS codebook tells us that 1 corresponds to urban records and 2 corresponds to rural records.</p>
+<p>In this sample, the difference between fertility rates across urban and rural areas of is almost one child, which is in line with literature on fertility in sub-Saharan Africa.<span class="citation" data-cites="Lerch2019 Shapiro2017"><sup><a href="#ref-Lerch2019" role="doc-biblioref">4</a>,<a href="#ref-Shapiro2017" role="doc-biblioref">5</a></sup></span></p>
+</section></section><section id="population-projections-an-introduction" class="level1 page-columns page-full"><h1>Population Projections: An Introduction</h1>
+<p>The DHS is not only useful in calculating current and historical rates, it can also be used to project a future population.</p>
+<p>The second workflow in this blog post walks you through how to project a population of women in their reproductive years (aged 15-49) using the Hamilton-Perry method. This method is useful if you don’t have information on all population processes because it assumes fertility, migration, and mortality are constant. In reality, these processes are ever-evolving and changing, so the Hamilton-Perry method will be less reliable than projection methods that take changing trends into account.</p>
+<p>This method requires at least two population estimates from different time points. In this method, a demographer would calculate the <strong>cohort-change ratio (CCR)</strong> using the population levels at each point. This can be achieved by dividing one of the population counts at the most recent time by the population at the earlier time period. The resulting value is the CCR. The demographer can then multiply the CCR by their base population count, to generate the forecast of a given year.<span class="citation" data-cites="Swanson2017"><sup><a href="#ref-Swanson2017" role="doc-biblioref">6</a></sup></span></p>
+<section id="the-hamilton-perry-method" class="level2"><h2 class="anchored" data-anchor-id="the-hamilton-perry-method">The Hamilton-Perry method</h2>
+<p>For our second workflow we use the 2001, 2006, and 2011 women’s files in Uganda to project the total population in 2016. We then compare our population projection to the DHS estimate from the 2016 survey. We source this data from <a href="https://www.idhsdata.org/idhs/">IPUMS DHS</a>.</p>
+<div class="cell">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># load libraries</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tech.popdata.org/ipumsr/">ipumsr</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">stats</span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org">dplyr</a></span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># read in data extract from IPUMS DHS</span></span>
+<span><span class="va">uganda_dhs</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tech.popdata.org/ipumsr/reference/read_ipums_micro.html">read_ipums_micro</a></span><span class="op">(</span><span class="st">"data/idhs_00004.xml"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Use of data from IPUMS DHS is subject to conditions including that users should cite the data appropriately. Use command `ipums_conditions()` for more details.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>We will use the <code><a href="https://rdrr.io/r/stats/aggregate.html">aggregate()</a></code> function from base R to sum the <code>POPWT</code> variable to estimate the total population of women in their reproductive years (aged 15-49).</p>
+<div class="cell">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">uganda_pop</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/aggregate.html">aggregate</a></span><span class="op">(</span></span>
+<span>  <span class="va">uganda_dhs</span><span class="op">$</span><span class="va">POPWT</span>, </span>
+<span>  by <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="va">uganda_dhs</span><span class="op">$</span><span class="va">YEAR</span><span class="op">)</span>, </span>
+<span>  FUN <span class="op">=</span> <span class="st">"sum"</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">uganda_pop</span></span>
+<span><span class="co">#&gt;   Group.1       x</span></span>
+<span><span class="co">#&gt; 1    1988 3610171</span></span>
+<span><span class="co">#&gt; 2    1995 4478497</span></span>
+<span><span class="co">#&gt; 3    2001 5309989</span></span>
+<span><span class="co">#&gt; 4    2006 6428314</span></span>
+<span><span class="co">#&gt; 5    2011 7763897</span></span>
+<span><span class="co">#&gt; 6    2016 9407944</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>In the Hamilton-Perry method of population projection you need at least two different observations of a population estimate. When working with more than two observations of population estimates, It is important to keep the interval between years the same. We will use 2001, 2006 and 2011 to project 2016’s population. We will then compare our projeciton to the DHS estimation for 2016 and other published estimates.</p>
+<div class="cell">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># calculate the cohort-change ratio</span></span>
+<span></span>
+<span><span class="co"># from 2001-2006</span></span>
+<span><span class="va">ccr_2006</span> <span class="op">&lt;-</span> <span class="fl">6428314</span> <span class="op">/</span> <span class="fl">5309989</span></span>
+<span></span>
+<span><span class="co"># from 2006-2011</span></span>
+<span><span class="va">ccr_2011</span> <span class="op">&lt;-</span> <span class="fl">7763897</span> <span class="op">/</span> <span class="fl">6428314</span></span>
+<span></span>
+<span><span class="co"># take the average of the two</span></span>
+<span><span class="va">ccr_mean</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">ccr_2006</span>, <span class="va">ccr_2011</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># multiply the average by the population in 2011</span></span>
+<span><span class="va">pop_est</span> <span class="op">&lt;-</span> <span class="va">ccr_mean</span> <span class="op">*</span> <span class="fl">7763897</span></span>
+<span></span>
+<span><span class="va">pop_est</span></span>
+<span><span class="co">#&gt; [1] 9399034</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>This method estimates that 9,399,036 women in their reproductive years were living in Uganda in 2016. The DHS estimation for this population in 2016 is slightly higher at 9,407,944. Comparing these values can give us an idea of the magnitude of this difference:</p>
+<div class="cell">
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># difference between our population projection and the DHS 2016 estimate</span></span>
+<span><span class="fl">9407944</span> <span class="op">-</span> <span class="va">pop_est</span></span>
+<span><span class="co">#&gt; [1] 8909.882</span></span>
+<span></span>
+<span><span class="co"># calculate the percent difference between the two</span></span>
+<span><span class="op">(</span><span class="op">(</span><span class="va">pop_est</span> <span class="op">-</span> <span class="fl">9407944</span><span class="op">)</span> <span class="op">/</span> <span class="fl">9407944</span><span class="op">)</span> <span class="op">*</span> <span class="fl">100</span></span>
+<span><span class="co">#&gt; [1] -0.09470594</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Our estimate was off by just under 9,000 women. While this number may seem relatively large, the percent difference is less than 1%!</p>
+</section><section id="other-methods" class="level2 page-columns page-full"><h2 class="anchored" data-anchor-id="other-methods">Other methods</h2>
+<section id="cohort-component-method" class="level3 page-columns page-full"><h3 class="anchored" data-anchor-id="cohort-component-method">Cohort-component method</h3>
+<p>Another example of projecting a population is called the <strong>cohort component method</strong>. The cohort component method utilizes two important demographic concepts: the life table and the demographic equation of population change. This method is considered as the most comprehensive method of population projection, as it essentially maps out the basic demographic equation of population change:<span class="citation" data-cites="Carmichael2016"><sup><a href="#ref-Carmichael2016" role="doc-biblioref">7</a></sup></span></p>
+<div class="column-page">
+<p><span class="math display">
+(\text{population at time } t+1) + (\text{births at time } t) - (\text{deaths at time } t) + \\ (\text{in-migration at time } t) - (\text{out-migration at time } t)
+</span></p>
+</div>
+<p>The first part of this blog post demonstrated how to generate various fertility rates. If we had access to data on the other population processes, such as the rate of mortality and migration, we would be able to use the cohort-component method.</p>
+
+<div class="no-row-height column-margin column-container"><div class="">
+<p>Another source of population estimates for middle- and low-income countries is the <a href="https://population.un.org/dataportal/home?df=98d323f2-2989-48e5-86b5-6f3054bb581d">United Nations Population Division.</a></p>
+</div></div></section><section id="mathematical-model-approaches" class="level3"><h3 class="anchored" data-anchor-id="mathematical-model-approaches">Mathematical model approaches</h3>
+<p>Another method of population projection involves fitting a mathematical model to population data. This approach does not disaggregate data by age and sex, but rather considers the total population.<span class="citation" data-cites="Yusuf2014"><sup><a href="#ref-Yusuf2014" role="doc-biblioref">8</a></sup></span></p>
+<p>Some examples of the types of models used in this approach are linear, logistic, and exponential. In a linear approach, signified by this equation: <span class="math inline">Y=a+bX</span>, the slope <span class="math inline">b</span> would be an indicator of population growth.<span class="citation" data-cites="Yusuf2014"><sup><a href="#ref-Yusuf2014" role="doc-biblioref">8</a></sup></span> In this equation <span class="math inline">Y</span> represents the population, <span class="math inline">X</span> represents time (usually in years), and <span class="math inline">a</span> the intercept.</p>
+<p>Both a linear approach and the cohort-change ratio assume that the rate of change within a population is constant. In real life, however, these rates are not constant, as there are <strong>period effects</strong>, which are caused by events that influence people at a certain point in time.</p>
+<p>A mathematical approach that does not assume a constant rate over time is called the <strong>Gompertz model</strong>. This model uses an <strong>asymptote</strong> to indicate an upper limit for population size. The Gompertz model uses the following equation to project a population:</p>
+<p><span class="math display">
+log(Y) = log(k) + log(a)bx
+</span></p>
+<p>In this equation <span class="math inline">Y</span> represents the population, <span class="math inline">X</span> is a measure of time, <span class="math inline">k</span> is an asymptote setting a limit for the population, and <span class="math inline">a</span> and <span class="math inline">b</span> are parameters of the population.<span class="citation" data-cites="Yusuf2014"><sup><a href="#ref-Yusuf2014" role="doc-biblioref">8</a></sup></span></p>
+</section></section></section><section id="conclusion" class="level1"><h1>Conclusion</h1>
+<p>This is the second post in a four-part series on methods of future estimation and how they can be applied to child health and climate research. We first highlighted the DHS as a critically important data source for population-level knowledge particularly focused on child and women’s health in many low- and middle-income countries. Then we demonstrated how to use the DHS.rates package to calculate various fertility rates. Lastly, we demonstrated how to use DHS data sourced from IPUMS to project a future population estimate. Stay tuned for the next post in this series, which will be focused on how to use methods of future estimation in climate research.</p>
+
+
+
+</section><div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" data-line-spacing="2" role="list">
+<div id="ref-Corsi2012" class="csl-entry" role="listitem">
+1. Corsi, D. J., Neuman, M., Finlay, J. E., &amp; Subramanian, S. (2012). Demographic and health surveys: A profile. <em>International Journal of Epidemiology</em>, <em>41</em>(6), 1602–1613.
+</div>
+<div id="ref-Elkasabi2019" class="csl-entry" role="listitem">
+2. Elkasabi, M. (2019). Calculating fertility and childhood mortality rates from survey data using the <span>DHS</span>.rates <span>R</span> package. <em>PloS One</em>, <em>14</em>(5), e0216403.
+</div>
+<div id="ref-Rahman2020" class="csl-entry" role="listitem">
+3. Rahman, A., Islam, A., &amp; Yeasmin, S. (2020). Influencing factors of fertility in developing countries: Evidence from 16 DHS data. <em>Journal of International Women’s Studies</em>, <em>21</em>(6), 416–426.
+</div>
+<div id="ref-Lerch2019" class="csl-entry" role="listitem">
+4. Lerch, M. (2019). Regional variations in the rural-urban fertility gradient in the global south. <em>PLoS One</em>, <em>14</em>(7), e0219624.
+</div>
+<div id="ref-Shapiro2017" class="csl-entry" role="listitem">
+5. Shapiro, D., &amp; Tenikue, M. (2017). Women’s education, infant and child mortality, and fertility decline in urban and rural sub-<span>S</span>aharan <span>A</span>frica. <em>Demographic Research</em>, <em>37</em>, 669–708.
+</div>
+<div id="ref-Swanson2017" class="csl-entry" role="listitem">
+6. Swanson, D. A., &amp; Tayman, J. (2017). A long term test of the accuracy of the <span>H</span>amilton-<span>P</span>erry method for forecasting state populations by age. <em>The Frontiers of Applied Demography</em>, 491–513.
+</div>
+<div id="ref-Carmichael2016" class="csl-entry" role="listitem">
+7. Carmichael, G. A. (2016). <em>Fundamentals of demographic analysis: Concepts, measures and methods</em>. Springer.
+</div>
+<div id="ref-Yusuf2014" class="csl-entry" role="listitem">
+8. Yusuf, F., Martins, J. M., &amp; Swanson, D. A. (2014). <em>Methods of demographic analysis</em>. Springer.
+</div>
+</div></section></div></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp("https:\/\/ipums\.github\.io\/dhs-research-hub");
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+<footer class="footer"><div class="nav-footer">
+    <div class="nav-footer-left">
+      &nbsp;
+    </div>   
+    <div class="nav-footer-center">
+<p>Developed by <a href="https://www.ipums.org">IPUMS</a> at the University of Minnesota<br>Licensed under the <a href="https://www.mozilla.org/en-US/MPL/2.0/">Mozilla Public License Version 2.0</a></p>
+</div>
+    <div class="nav-footer-right">
+      &nbsp;
+    </div>
+  </div>
+</footer>
+
+
+</body></html>

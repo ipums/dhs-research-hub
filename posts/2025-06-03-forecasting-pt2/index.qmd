@@ -1,0 +1,368 @@
+---
+title: "Estimating the now and predicting the future: Fertility rate estimation and population projection"
+description: |
+  Use the DHS to estimate fertility levels and project future population levels
+author:
+  - name: Rebecca Luttinen
+    affiliation: IPUMS Global Health Data Analyst
+  - name: Elizabeth Heger Boyle
+    affiliation: Professor, Department of Sociology, University of Minnesota
+date: 06-03-2025
+image: images/family.jpg
+categories:
+  - Projections
+  - Population
+  - Fertility
+  - Methodology
+  - R
+fig-width: 10
+fig-height: 8
+bibliography: references.bib
+open-graph:
+  title: |
+      Estimating the now and predicting the future: Fertility rate estimation and population projection
+  description: |
+     Use the DHS to estimate fertility levels and project future population levels
+  image: images/family.jpg
+twitter-card: 
+  title: |
+     Estimating the now and predicting the future: Fertility rate estimation and population projection
+  description: |
+     Use the DHS to estimate fertility levels and project future population levels
+  image: images/family.jpg
+---
+
+The second blog post in our series describes how to use R to estimate fertility rates and to project a population. Understanding the rate of a population process (e.g., fertility) is a key consideration when thinking about the future. A population projection, on the other hand is the result of predicting a future population level.
+
+# Population projections
+
+How do we estimate future population levels? A systematic approach for predicting future population levels is to create a population projection. We first introduced this concept in [our last post](https://tech.popdata.org/dhs-research-hub/posts/2025-04-23-forecasting-pt1/), which discussed proper terminology to use when considering the role of future conditions.
+
+A population projection describes the process of using population estimates and information about various demographic processes—like births, deaths and migration—to generate an estimated future population size. There are various statistical methods to project a population, one of which is explored in detail the second workflow of this blog post.
+
+## Fertility rates
+
+Fertility is a key population process that influences future population size. A fertility rate simply summarizes the number of children relative to an overall population. Most commonly, fertility rates summarize the number of children per woman in the population. The fertility rate of a given population is the result of various factors that influence people's fertility decision making. The fertility rate of nation can influence the **dependency-ratio**, the ratio of working age adults to children and retirees, which has implications for a nation's social security system.
+
+It is important to note that fertility is not the only population process that influences population size: migration and mortality do, too. However, this blog post focuses on fertility, and the first workflow demonstrated will walk you through how to use a nationally representative survey to estimate various fertility rates.
+
+# How do we know population-level statistics?
+
+With internet access and a smartphone, it can seem easy to access a statistic about the United States or the world. For example, if you were to use an internet search engine to look up statistics on educational attainment, you may find a [census report from 2022](https://www.census.gov/newsroom/press-releases/2022/educational-attainment.html) that shares that 23.5% of Americans' highest degree was a bachelor's degree in 2022.
+
+Just like any other population-level fact, we are able access counts of people living in a specific place at a given time. The census makes an attempt to count all individuals within most countries every ten years to give us this knowledge. Another way we know this is through **population estimates**, which are generated through applying survey weights to a nationally representative sample of a population.
+
+It is also easy to take data access for granted. Not all countries have a census or reliable population-level information/statistics. This post highlights the [Demographic and Health Surveys (DHS)](https://www.dhsprogram.com/) as a notable data source for estimating both fertility rates and population size in regions that do not have the same level of data access as places such as the United States.
+
+# The importance of the DHS
+
+The DHS are the principal--and often only--source of vital information on human populations in low- and middle-income countries. Administered from 1984 to 2025, the DHS includes over 400 publicly available cross-sectional household surveys from more than 90 countries.
+
+Nationally representative and fielded for countries about every five years, the DHS are lauded for allowing researchers to distinguish between population-level and individual-level factors and for high participation rates, excellent standardized data collection procedures and interviewer training, and the breadth of data collected. [@Corsi2012] The DHS provide population-level statistics on dozens of topics, including:
+
+::::: {layout-ncol="2"}
+<div>
+
+-   Family structure
+-   Educational Attainment
+-   Marriage and sexual activity
+-   Fertility
+-   Contraception
+-   Preferences for family size
+-   Infant and child mortality
+-   Adult mortality
+
+</div>
+
+<div>
+
+-   Maternal & newborn care
+-   Child health, including vaccinations
+-   Child nutrition
+-   Malaria
+-   HIV knowledge and opinions
+-   Women's empowerment
+-   Household water and sanitation
+-   Wealth and socioeconomic indicators
+
+</div>
+:::::
+
+The most recent DHS also include detailed information on migration, a crucial component of population projections. As of 2025, more than 2000 published [peer-reviewed articles based on DHS data had been reported to ICF](https://www.dhsprogram.com/publications/publication-search.cfm), the organization that administered the program.
+
+[IPUMS DHS](https://www.idhsdata.org/idhs/) is a freely available database that streamlines access and reduces technical barriers to comparative analyses with the DHS. IPUMS DHS harmonizes DHS variables across surveys and makes crucial documentation easily accessible, greatly reducing researchers' data-management tasks. Researchers constructing population projections across multiple countries may want to consider accessing DHS through IPUMS.
+
+# How to generate fertility estimates
+
+This blog post walks you through how to use DHS data to generate various forms of fertility rates. This example will use the most recent women’s file in Kenya, which is from the year 2022. This year is not uploaded to IPUMS DHS at this time, so this portion of the analysis uses the raw DHS women’s individual recode (IR) file.
+
+We use the [DHS.rates](https://cran.rstudio.com/web/packages/DHS.rates/DHS.rates.pdf) package to calculate the **general fertility rate (GFR)**, the **age-specific fertility rates (ASFR)** for five-year age groups and a **total fertility rate (TFR)**. This package was developed to allow users to calculate key indicators of DHS data at the national or at various domain levels (such as urban vs. rural, educational attainment, or region).
+
+::: column-margin
+The DHS.rates package was designed for standard DHS file types, however as long as the data extract includes the necessary information to calculate a fertility rate (i.e., birth history data) it will work. This package can also be used with surveys other than the DHS, as long as they include the necessary information.
+:::
+
+```{r}
+#| message: false
+#| warning: false
+# load libraries
+library(haven)
+library(dplyr)
+library(DHS.rates)
+```
+
+First, we read in our data.
+
+```{r}
+#| echo: false
+#| cache: true 
+
+# read in data
+kenya22 <- read_dta("data_local/Kenya2022/KEIR8BDT/KEIR8BFL.DTA")
+
+kenya22 <- zap_labels(kenya22)
+```
+
+```{r}
+#| eval: false
+
+# read in data
+kenya22 <- read_dta("data/Kenya2022/KEIR8BDT/KEIR8BFL.DTA")
+
+kenya22 <- zap_labels(kenya22)
+```
+
+An important consideration in estimating a fertility rate is whether you are interested in a period or cohort rate. A period rate considers the rate for fertility over a specific interval of time. A cohort rate can either be calculated by:
+
+-   following a group of women throughout their lifespan and counting their births
+
+or by:
+
+-   creating synthetic cohorts and considering parity (their number of children at a given time) at the time of survey.
+
+We will calculate two period rates: the general fertility rate and the age-specific fertility rate. Then we calculate a synthetic cohort rate: the total fertility rate.
+
+## The general fertility rate (GFR)
+
+The GFR is calculated using the following equation:
+
+$$
+GFR=\frac{\text{Number of live births in reference period}}{\text{Number of women aged 15-44 in reference period}}
+$$
+
+That is, the GFR is the total number of births during an interval of time (the reference period) divided by the total number of women-years of exposure during that same reference period. The women under consideration are all women in their reproductive years—here taken as those women between the ages of 15 and 44.[@Elkasabi2019]
+
+::: callout-note
+Techincally, all women between the ages of 15 and 49 are eligible to complete the women's interview. However, because fertility declines sharply after age 44, including these women in the denominator of the GFR may serve to reduce the fertility rate for the overall population, potentially giving a misleading result. This is why the GFR is typically calculated only for women up to age 44.
+
+In some of the metrics we introduce later, fertility is split out by age, so all women up to age 49 are included in those calculations.
+:::
+
+You can use the `fert()` function from DHS.rates to calculate the GFR by setting `Indicator = "gfr"`. This function will identify the reference period and print out the standard error (`SE`), the number of observations (`N`), the weighted number of observations (`WN`), the standard error design effect (`DEFT`), the relative standard error (`RSE`), and the lower and upper confidence interval bounds (`LCI` and `UCI`).
+
+```{r}
+# use the fert function to calculate various fertilty rates
+
+# General Fertility Rate
+general_fertility_rate <- fert(
+  kenya22,
+  Indicator = "gfr"
+)
+
+general_fertility_rate
+```
+
+The GFR for this sample is just over 121 children per woman, meaning that from 2020-2022 the general fertility rate in Kenya was 121.27 children per women aged 15-49.
+
+::: callout-tip
+`fert()` uses a default reference period of 36 months. Use the `Period` and `PeriodEnd` arguments to set your own reference period. See the [DHS.rates documentation](https://cran.rstudio.com/web/packages/DHS.rates/DHS.rates.pdf) for details about the available options.
+:::
+
+## The age-specific fertility rate (ASFR)
+
+The ASFR, similar to the GFR, summarizes the number of children being born during a time interval relative to the number of women-years of exposure, but it does so within specific age groups. The typical grouping strategy for this is to break up age into five year categories (15-19, 20-24, 25-29, 30-34, 35-39, 40-44, and 45-49).[@Elkasabi2019]
+
+The ASFR uses the following equation:
+
+::: column-page
+$$
+ASFR = \frac{(\text{Number of live births to women age } a) - (\text{Number of live births to women age } a+4)}{\text{Women-years during the reference period}  } * 1000
+$$
+:::
+
+::: callout-note
+The ASFR is multiplied by 1,000 because it is interpreted as per 1,000 women.
+:::
+
+To calculate the ASFR with DHS.rates, we again use `fert()`, but this time we set `Indicator = "asfr"`:
+
+```{r}
+# Age Specific Fertility Rate
+age_specific_fertility_rate <- fert(
+  kenya22,
+  Indicator = "asfr"
+)
+
+age_specific_fertility_rate
+```
+
+Women aged 20-24 have the highest ASFR, at 178.61 children per woman, which is consistent with the literature on fertility in sub-Saharan Africa. [@Rahman2020]
+
+::: column-margin
+Per our discussion earlier, the ASFR does include women between 44-49, but notice how this age category has far fewer births than any other category.
+:::
+
+Now, we will use the ASFR information we have calculated to generate the most commonly referenced fertility rate, the TFR.
+
+## The total fertility rate (TFR)
+
+The TFR is a synthetic measure that summarizes the ASFRs into one age-standardized rate. A TFR can be interpreted as the number of children who would be born per woman if she were to have children according to each age-specific rate throughout her reproductive years. This is summarized in the following equation:
+
+$$
+TFR= 5 * \frac{\text{sum of each ASFR}}{1000}
+$$
+
+::: callout-note
+The TFR is multiplied by 5 because the ASFRs are in five-year intervals.
+:::
+
+Again, use the `Indicator` argument to calculate the total fertility rate with `fert()`:
+
+```{r}
+# Total Fertility Rate
+total_fertility_rate <- fert(
+  kenya22,
+  Indicator = "tfr",
+)
+
+total_fertility_rate
+```
+
+Fertility around the world is in decline, even in high fertility countries such as Kenya. This TFR of 3.4 children per woman is lower than the previous TFR from the [2014 DHS survey](https://dhsprogram.com/pubs/pdf/fr308/fr308.pdf) of 3.9 children per woman.
+
+## Comparing rates across categories
+
+Now let's consider the TFR at different domain levels. The `class` argument in the `fert()` function allows you to calculate rates based on certain characteristics.
+
+For instance, if we wanted to compare the fertility rate of women who live in urban areas to those who live in rural areas, we can provide the name of the urban/rural variable in our data—in this case, `v025`:
+
+```{r}
+# Let's compare the urban and rural total fertility rate
+total_fertility_rate_urban_vs_rural <- fert(
+  kenya22,
+  Indicator = "tfr",
+  Class = "v025"
+)
+
+total_fertility_rate_urban_vs_rural
+```
+
+We can see that we now have two fertility rates in our output, one for class 1 and another for class 2. These correspond to the variable codes used to distinguish urban and rural categories in our data. The DHS codebook tells us that 1 corresponds to urban records and 2 corresponds to rural records.
+
+In this sample, the difference between fertility rates across urban and rural areas of is almost one child, which is in line with literature on fertility in sub-Saharan Africa.[@Lerch2019; @Shapiro2017]
+
+# Population Projections: An Introduction
+
+The DHS is not only useful in calculating current and historical rates, it can also be used to project a future population.
+
+The second workflow in this blog post walks you through how to project a population of women in their reproductive years (aged 15-49) using the Hamilton-Perry method. This method is useful if you don't have information on all population processes because it assumes fertility, migration, and mortality are constant. In reality, these processes are ever-evolving and changing, so the Hamilton-Perry method will be less reliable than projection methods that take changing trends into account.
+
+This method requires at least two population estimates from different time points. In this method, a demographer would calculate the **cohort-change ratio (CCR)** using the population levels at each point. This can be achieved by dividing one of the population counts at the most recent time by the population at the earlier time period. The resulting value is the CCR. The demographer can then multiply the CCR by their base population count, to generate the forecast of a given year. [@Swanson2017]
+
+## The Hamilton-Perry method
+
+For our second workflow we use the 2001, 2006, and 2011 women's files in Uganda to project the total population in 2016. We then compare our population projection to the DHS estimate from the 2016 survey. We source this data from [IPUMS DHS](https://www.idhsdata.org/idhs/).
+
+```{r}
+# load libraries
+library(ipumsr)
+library(stats)
+library(dplyr)
+```
+
+```{r}
+# read in data extract from IPUMS DHS
+uganda_dhs <- read_ipums_micro("data/idhs_00004.xml")
+```
+
+We will use the `aggregate()` function from base R to sum the `POPWT` variable to estimate the total population of women in their reproductive years (aged 15-49).
+
+```{r}
+uganda_pop <- aggregate(
+  uganda_dhs$POPWT, 
+  by = list(uganda_dhs$YEAR), 
+  FUN = "sum"
+)
+
+uganda_pop
+```
+
+In the Hamilton-Perry method of population projection you need at least two different observations of a population estimate. When working with more than two observations of population estimates, It is important to keep the interval between years the same. We will use 2001, 2006 and 2011 to project 2016's population. We will then compare our projeciton to the DHS estimation for 2016 and other published estimates.
+
+```{r}
+# calculate the cohort-change ratio
+
+# from 2001-2006
+ccr_2006 <- 6428314 / 5309989
+
+# from 2006-2011
+ccr_2011 <- 7763897 / 6428314
+
+# take the average of the two
+ccr_mean <- mean(ccr_2006, ccr_2011)
+
+# multiply the average by the population in 2011
+pop_est <- ccr_mean * 7763897
+
+pop_est
+```
+
+This method estimates that 9,399,036 women in their reproductive years were living in Uganda in 2016. The DHS estimation for this population in 2016 is slightly higher at 9,407,944. Comparing these values can give us an idea of the magnitude of this difference:
+
+```{r}
+# difference between our population projection and the DHS 2016 estimate
+9407944 - pop_est
+
+# calculate the percent difference between the two
+((pop_est - 9407944) / 9407944) * 100
+```
+
+Our estimate was off by just under 9,000 women. While this number may seem relatively large, the percent difference is less than 1%!
+
+## Other methods
+
+### Cohort-component method
+
+Another example of projecting a population is called the **cohort component method**. The cohort component method utilizes two important demographic concepts: the life table and the demographic equation of population change. This method is considered as the most comprehensive method of population projection, as it essentially maps out the basic demographic equation of population change:[@Carmichael2016]
+
+::: column-page
+$$
+(\text{population at time } t+1) + (\text{births at time } t) - (\text{deaths at time } t) + \\ (\text{in-migration at time } t) - (\text{out-migration at time } t)
+$$
+:::
+
+The first part of this blog post demonstrated how to generate various fertility rates. If we had access to data on the other population processes, such as the rate of mortality and migration, we would be able to use the cohort-component method.
+
+::: column-margin
+Another source of population estimates for middle- and low-income countries is the [United Nations Population Division.](https://population.un.org/dataportal/home?df=98d323f2-2989-48e5-86b5-6f3054bb581d)
+:::
+
+### Mathematical model approaches
+
+Another method of population projection involves fitting a mathematical model to population data. This approach does not disaggregate data by age and sex, but rather considers the total population. [@Yusuf2014]
+
+Some examples of the types of models used in this approach are linear, logistic, and exponential. In a linear approach, signified by this equation: $Y=a+bX$, the slope $b$ would be an indicator of population growth. [@Yusuf2014] In this equation $Y$ represents the population, $X$ represents time (usually in years), and $a$ the intercept.
+
+Both a linear approach and the cohort-change ratio assume that the rate of change within a population is constant. In real life, however, these rates are not constant, as there are **period effects**, which are caused by events that influence people at a certain point in time.
+
+A mathematical approach that does not assume a constant rate over time is called the **Gompertz model**. This model uses an **asymptote** to indicate an upper limit for population size. The Gompertz model uses the following equation to project a population:
+
+$$
+log(Y) = log(k) + log(a)bx
+$$
+
+In this equation $Y$ represents the population, $X$ is a measure of time, $k$ is an asymptote setting a limit for the population, and $a$ and $b$ are parameters of the population.[@Yusuf2014]
+
+# Conclusion
+
+This is the second post in a four-part series on methods of future estimation and how they can be applied to child health and climate research. We first highlighted the DHS as a critically important data source for population-level knowledge particularly focused on child and women's health in many low- and middle-income countries. Then we demonstrated how to use the DHS.rates package to calculate various fertility rates. Lastly, we demonstrated how to use DHS data sourced from IPUMS to project a future population estimate. Stay tuned for the next post in this series, which will be focused on how to use methods of future estimation in climate research.
