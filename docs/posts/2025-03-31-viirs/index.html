@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.5.57">
+<meta name="generator" content="quarto-1.6.42">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 <meta name="author" content="Finn Roberts">
 <meta name="author" content="Rebecca Luttinen">
@@ -90,10 +90,10 @@ div.csl-indent {
 <script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-03fd5f99cfc2f8297f3c5ef65ead31dc.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-7590f946cc175b093b1053850525e467.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <link href="../../site_libs/quarto-contrib/fontawesome6-0.1.0/all.css" rel="stylesheet">
 <link href="../../site_libs/quarto-contrib/fontawesome6-0.1.0/latex-fontsize.css" rel="stylesheet"><script id="quarto-search-options" type="application/json">{
   "location": "navbar",
@@ -611,7 +611,7 @@ Tip
 <div class="cell">
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">files</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.files.html">list.files</a></span><span class="op">(</span><span class="st">"data/VNP13A1"</span>, full.names <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Unfortunately, terra isn’t designed to provide flexible access to metadata for HDF5 files. However, there is another R package that can help, appropriately named <code>{rhdf5}</code>.</p>
+<p>Unfortunately, terra isn’t designed to provide flexible access to metadata for HDF5 files. However, there is another R package that can help, appropriately named <a href="https://github.com/grimbough/rhdf5">rhdf5</a>.</p>
 <p>rhdf5 is a package from <a href="https://www.bioconductor.org/">Bioconductor</a>, an open-source software project focused on building bioinformatics tools. You’re probably familiar with installing packages from <a href="https://cran.r-project.org/">CRAN</a>, which is the default behavior when using <code><a href="https://rdrr.io/r/utils/install.packages.html">install.packages()</a></code>, but Bioconductor packages are not stored on CRAN.</p>
 <p>Fortunately, Bioconductor maintains the <a href="https://bioconductor.github.io/BiocManager/">BiocManager</a> package to help install Bioconductor packages. If you’ve never worked with a Bioconductor package before, you can install the manager with</p>
 <div class="cell">
@@ -619,17 +619,17 @@ Tip
 </div>
 <p>Then, you can use it to install rhdf5:</p>
 <div class="cell">
-<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">BiocManager</span><span class="fu">::</span><span class="fu">install</span><span class="op">(</span><span class="st">"rhdf5"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">BiocManager</span><span class="fu">::</span><span class="fu"><a href="https://bioconductor.github.io/BiocManager/reference/install.html">install</a></span><span class="op">(</span><span class="st">"rhdf5"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Note that you’ll only need to do this once, unless you later need to update the <code>BiocManager</code> or <code>rhdf5</code> packages.</p>
 </section><section id="access-metadata" class="level3 page-columns page-full"><h3 class="anchored" data-anchor-id="access-metadata">Accessing metadata</h3>
-<p>First, we’ll load the <code>{rhdf5}</code> package:</p>
+<p>First, we’ll load the <a href="https://github.com/grimbough/rhdf5">rhdf5</a> package:</p>
 <div class="cell">
-<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">rhdf5</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/grimbough/rhdf5">rhdf5</a></span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>We can view the available data and metadata fields in an HDF5 file with <code>h5ls()</code>.</p>
+<p>We can view the available data and metadata fields in an HDF5 file with <code><a href="https://rdrr.io/pkg/rhdf5/man/h5ls.html">h5ls()</a></code>.</p>
 <div class="cell">
-<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">ds</span> <span class="op">&lt;-</span> <span class="fu">h5ls</span><span class="op">(</span><span class="va">files</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">ds</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/rhdf5/man/h5ls.html">h5ls</a></span><span class="op">(</span><span class="va">files</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>HDF5 files are organized into <strong>groups</strong>. Groups refer to an abstract collection of objects, like datasets or metadata objects. Each data object has a <strong>name</strong>. You can think of each group as a directory and the objects inside as different files within that directory.</p>
 <p>For instance, if we view this file’s groups, we notice that there are several entries in the <code>Data Fields</code> group, among others:</p>
@@ -700,9 +700,9 @@ Tip
 </div>
 <p>Of particular interest is the <code>"500 m 16 days NDVI"</code> data field, which contains the NDVI data we’ll eventually want to load.</p>
 <p>Also of note is the <code>"/HDFEOS INFORMATION/StructMetadata.0"</code> object. By convention, this is where NASA stores some of the key geographic metadata for the file.</p>
-<p>We can read the HDF5 metadata using <code>h5read()</code>. The <code>name</code> argument should be set to one of the <code>group</code> and <code>name</code> values from the <code>h5ls()</code> output above.</p>
+<p>We can read the HDF5 metadata using <code><a href="https://rdrr.io/pkg/rhdf5/man/h5_read.html">h5read()</a></code>. The <code>name</code> argument should be set to one of the <code>group</code> and <code>name</code> values from the <code><a href="https://rdrr.io/pkg/rhdf5/man/h5ls.html">h5ls()</a></code> output above.</p>
 <div class="cell">
-<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">metadata</span> <span class="op">&lt;-</span> <span class="fu">h5read</span><span class="op">(</span><span class="va">files</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>, name <span class="op">=</span> <span class="st">"//HDFEOS INFORMATION/StructMetadata.0"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">metadata</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/rhdf5/man/h5_read.html">h5read</a></span><span class="op">(</span><span class="va">files</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>, name <span class="op">=</span> <span class="st">"//HDFEOS INFORMATION/StructMetadata.0"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>You can use <code><a href="https://rdrr.io/r/base/cat.html">cat()</a></code> to display the metadata text in the R console, making it a bit easier to read.</p>
 <div class="cell" data-out.lines="15">
@@ -919,11 +919,11 @@ Note
 <span><span class="co">#&gt; [2] "data/VNP13A1/VNP13A1.A2014017.h22v09.002.2024060002123.h5"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section><section id="using-string-matching-to-identify-tile-extent-coordinates" class="level2"><h2 class="anchored" data-anchor-id="using-string-matching-to-identify-tile-extent-coordinates">Using string matching to identify tile extent coordinates</h2>
-<p>Now, for each of these tiles, we can extract the metadata for the first file using <code>h5read()</code>. (Recall that the two files in each group are differentiated by their timestamps, but share the same geographic extent.)</p>
+<p>Now, for each of these tiles, we can extract the metadata for the first file using <code><a href="https://rdrr.io/pkg/rhdf5/man/h5_read.html">h5read()</a></code>. (Recall that the two files in each group are differentiated by their timestamps, but share the same geographic extent.)</p>
 <div class="cell">
 <div class="sourceCode" id="cb37"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">tile_metadata</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span><span class="op">(</span></span>
 <span>  <span class="va">tiles</span>,</span>
-<span>  <span class="kw">function</span><span class="op">(</span><span class="va">t</span><span class="op">)</span> <span class="fu">h5read</span><span class="op">(</span><span class="va">t</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>, name <span class="op">=</span> <span class="st">"//HDFEOS INFORMATION/StructMetadata.0"</span><span class="op">)</span></span>
+<span>  <span class="kw">function</span><span class="op">(</span><span class="va">t</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/pkg/rhdf5/man/h5_read.html">h5read</a></span><span class="op">(</span><span class="va">t</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>, name <span class="op">=</span> <span class="st">"//HDFEOS INFORMATION/StructMetadata.0"</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>The metadata are in string format. To extract the upper left and lower right coordinates, we’ll need to use regular expressions to pull out the text coordinates and convert to numeric values.</p>
@@ -1171,8 +1171,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   });
   clipboard.on('success', onCopySuccess);
   if (window.document.getElementById('quarto-embedded-source-code-modal')) {
-    // For code content inside modals, clipBoardJS needs to be initialized with a container option
-    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
     const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
       text: getTextToCopy,
       container: window.document.getElementById('quarto-embedded-source-code-modal')
@@ -1283,7 +1281,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       if (window.Quarto?.typesetMath) {
         window.Quarto.typesetMath(note);
       }
-      // TODO in 1.5, we should make sure this works without a callout special case
       if (note.classList.contains("callout")) {
         return note.outerHTML;
       } else {

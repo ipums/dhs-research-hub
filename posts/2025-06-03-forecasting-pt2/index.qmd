@@ -317,7 +317,7 @@ pop_est <- ccr_mean * 7763897
 pop_est
 ```
 
-This method estimates that 9,399,036 women in their reproductive years were living in Uganda in 2016. The DHS estimation for this population in 2016 is slightly higher at 9,407,944. Comparing these values can give us an idea of the magnitude of this difference:
+This method estimates that 9,399,034 women in their reproductive years were living in Uganda in 2016. The DHS estimation for this population in 2016 is slightly higher at 9,407,944. Comparing these values can give us an idea of the magnitude of this difference:
 
 ```{r}
 # difference between our population projection and the DHS 2016 estimate
