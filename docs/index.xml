@@ -9,8 +9,23 @@
 <link>https://ipums.github.io/dhs-research-hub/</link>
 <atom:link href="https://ipums.github.io/dhs-research-hub/index.xml" rel="self" type="application/rss+xml"/>
 <description>Understand population health in its environmental context</description>
-<generator>quarto-1.6.42</generator>
-<lastBuildDate>Tue, 03 Jun 2025 04:00:00 GMT</lastBuildDate>
+<generator>quarto-1.5.57</generator>
+<lastBuildDate>Wed, 06 Aug 2025 05:00:00 GMT</lastBuildDate>
+<item>
+  <title>Measuring Dietary Diversity using DHS data</title>
+  <dc:creator>Devon Kristiansen</dc:creator>
+  <dc:creator>Rebecca Luttinen</dc:creator>
+  <link>https://ipums.github.io/dhs-research-hub/posts/2025-08-06-intro-diet-diversity/</link>
+  <description><![CDATA[ An introduction to constructing comparable dietary diversity indicators. This post breaks away from the series on future conditions, with the first post of two on dietary diversity. ]]></description>
+  <category>Nutrition</category>
+  <category>Integrated geography</category>
+  <category>Comparable indicators</category>
+  <category>Trends</category>
+  <category>terra</category>
+  <category>sf</category>
+  <guid>https://ipums.github.io/dhs-research-hub/posts/2025-08-06-intro-diet-diversity/</guid>
+  <pubDate>Wed, 06 Aug 2025 05:00:00 GMT</pubDate>
+</item>
 <item>
   <title>Estimating the now and predicting the future: Fertility rate estimation and population projection</title>
   <dc:creator>Rebecca Luttinen</dc:creator>
@@ -23,7 +38,7 @@
   <category>Methodology</category>
   <category>R</category>
   <guid>https://ipums.github.io/dhs-research-hub/posts/2025-06-03-forecasting-pt2/</guid>
-  <pubDate>Tue, 03 Jun 2025 04:00:00 GMT</pubDate>
+  <pubDate>Tue, 03 Jun 2025 05:00:00 GMT</pubDate>
   <media:content url="https://ipums.github.io/dhs-research-hub/posts/2025-06-03-forecasting-pt2/images/family.jpg" medium="image" type="image/jpeg"/>
 </item>
 <item>
@@ -40,7 +55,7 @@
   <category>Methodology</category>
   <category>Research concepts</category>
   <guid>https://ipums.github.io/dhs-research-hub/posts/2025-04-23-forecasting-pt1/</guid>
-  <pubDate>Wed, 23 Apr 2025 04:00:00 GMT</pubDate>
+  <pubDate>Wed, 23 Apr 2025 05:00:00 GMT</pubDate>
   <media:content url="https://ipums.github.io/dhs-research-hub/posts/2025-04-23-forecasting-pt1/images/image1.png" medium="image" type="image/png" height="99" width="144"/>
 </item>
 <item>
@@ -64,7 +79,7 @@
   <category>purrr</category>
   <category>ggspatial</category>
   <guid>https://ipums.github.io/dhs-research-hub/posts/2025-03-31-viirs/</guid>
-  <pubDate>Mon, 31 Mar 2025 04:00:00 GMT</pubDate>
+  <pubDate>Mon, 31 Mar 2025 05:00:00 GMT</pubDate>
   <media:content url="https://ipums.github.io/dhs-research-hub/posts/2025-03-31-viirs/index_files/figure-html/listing-img-1.png" medium="image" type="image/png" height="115" width="144"/>
 </item>
 <item>
@@ -77,7 +92,7 @@
   <category>Methodology</category>
   <category>Research concepts</category>
   <guid>https://ipums.github.io/dhs-research-hub/posts/2024-12-06-qualitative-methods/</guid>
-  <pubDate>Fri, 06 Dec 2024 05:00:00 GMT</pubDate>
+  <pubDate>Fri, 06 Dec 2024 06:00:00 GMT</pubDate>
   <media:content url="https://ipums.github.io/dhs-research-hub/posts/2024-12-06-qualitative-methods/images/flowchart.png" medium="image" type="image/png" height="121" width="144"/>
 </item>
 <item>
@@ -91,7 +106,7 @@
   <category>CHIRTS</category>
   <category>Geoprocessing</category>
   <guid>https://ipums.github.io/dhs-research-hub/posts/2024-10-25-qgis/</guid>
-  <pubDate>Fri, 25 Oct 2024 04:00:00 GMT</pubDate>
+  <pubDate>Fri, 25 Oct 2024 05:00:00 GMT</pubDate>
   <media:content url="https://ipums.github.io/dhs-research-hub/posts/2024-10-25-qgis/images/Fig4.png" medium="image" type="image/png" height="76" width="144"/>
 </item>
 <item>
@@ -109,7 +124,7 @@
   <category>terra</category>
   <category>sf</category>
   <guid>https://ipums.github.io/dhs-research-hub/posts/2024-09-30-leaflet-pt2/</guid>
-  <pubDate>Mon, 30 Sep 2024 04:00:00 GMT</pubDate>
+  <pubDate>Mon, 30 Sep 2024 05:00:00 GMT</pubDate>
   <media:content url="https://ipums.github.io/dhs-research-hub/posts/2024-09-30-leaflet-pt2/images/listing-img.png" medium="image" type="image/png" height="111" width="144"/>
 </item>
 <item>
@@ -126,7 +141,7 @@
   <category>terra</category>
   <category>sf</category>
   <guid>https://ipums.github.io/dhs-research-hub/posts/2024-09-13-leaflet-pt1/</guid>
-  <pubDate>Fri, 13 Sep 2024 04:00:00 GMT</pubDate>
+  <pubDate>Fri, 13 Sep 2024 05:00:00 GMT</pubDate>
   <media:content url="https://ipums.github.io/dhs-research-hub/posts/2024-09-13-leaflet-pt1/images/listing-img.png" medium="image" type="image/png" height="91" width="144"/>
 </item>
 <item>
@@ -144,7 +159,7 @@
   <category>WorldPop</category>
   <category>Research concepts</category>
   <guid>https://ipums.github.io/dhs-research-hub/posts/2024-08-30-pop-density/</guid>
-  <pubDate>Fri, 30 Aug 2024 04:00:00 GMT</pubDate>
+  <pubDate>Fri, 30 Aug 2024 05:00:00 GMT</pubDate>
   <media:content url="https://ipums.github.io/dhs-research-hub/posts/2024-08-30-pop-density/images/listing-img.png" medium="image" type="image/png" height="140" width="144"/>
 </item>
 <item>
@@ -164,8 +179,8 @@
   <category>ggspatial</category>
   <category>sf</category>
   <guid>https://ipums.github.io/dhs-research-hub/posts/2024-08-16-ndvi-data-2/</guid>
-  <pubDate>Fri, 16 Aug 2024 04:00:00 GMT</pubDate>
-  <media:content url="https://ipums.github.io/dhs-research-hub/posts/2024-08-16-ndvi-data-2/index_files/figure-html/listing-img-1.png" medium="image" type="image/png" height="115" width="144"/>
+  <pubDate>Fri, 16 Aug 2024 05:00:00 GMT</pubDate>
+  <media:content url="https://ipums.github.io/dhs-research-hub/posts/2024-08-16-ndvi-data-2/index_files/figure-html/listing-img-1.png" medium="image" type="image/png"/>
 </item>
 <item>
   <title>An Iterative Workflow for Loading NDVI Data in R</title>
@@ -186,7 +201,7 @@
   <category>ggspatial</category>
   <category>sf</category>
   <guid>https://ipums.github.io/dhs-research-hub/posts/2024-08-01-ndvi-data/</guid>
-  <pubDate>Thu, 01 Aug 2024 04:00:00 GMT</pubDate>
+  <pubDate>Thu, 01 Aug 2024 05:00:00 GMT</pubDate>
   <media:content url="https://ipums.github.io/dhs-research-hub/posts/2024-08-01-ndvi-data/index_files/figure-html/listing-img-1.png" medium="image" type="image/png" height="115" width="144"/>
 </item>
 <item>
@@ -201,7 +216,7 @@
   <category>Methodology</category>
   <category>Research concepts</category>
   <guid>https://ipums.github.io/dhs-research-hub/posts/2024-07-02-ndvi-concepts/</guid>
-  <pubDate>Tue, 02 Jul 2024 04:00:00 GMT</pubDate>
+  <pubDate>Tue, 02 Jul 2024 05:00:00 GMT</pubDate>
   <media:content url="https://ipums.github.io/dhs-research-hub/posts/2024-07-02-ndvi-concepts/images/max_ndvi.png" medium="image" type="image/png" height="65" width="144"/>
 </item>
 <item>
@@ -216,7 +231,7 @@
   <category>Methodology</category>
   <category>Research concepts</category>
   <guid>https://ipums.github.io/dhs-research-hub/posts/2024-06-11-climate-reproduction/</guid>
-  <pubDate>Tue, 11 Jun 2024 04:00:00 GMT</pubDate>
+  <pubDate>Tue, 11 Jun 2024 05:00:00 GMT</pubDate>
   <media:content url="https://ipums.github.io/dhs-research-hub/posts/2024-06-11-climate-reproduction/images/ptest.jpg" medium="image" type="image/jpeg"/>
 </item>
 <item>
@@ -236,8 +251,8 @@
   <category>tidyr</category>
   <category>R</category>
   <guid>https://ipums.github.io/dhs-research-hub/posts/2024-05-31-ts-join/</guid>
-  <pubDate>Fri, 31 May 2024 04:00:00 GMT</pubDate>
-  <media:content url="https://ipums.github.io/dhs-research-hub/posts/2024-05-31-ts-join/index_files/figure-html/listing-img-1.png" medium="image" type="image/png" height="115" width="144"/>
+  <pubDate>Fri, 31 May 2024 05:00:00 GMT</pubDate>
+  <media:content url="https://ipums.github.io/dhs-research-hub/posts/2024-05-31-ts-join/index_files/figure-html/listing-img-1.png" medium="image" type="image/png"/>
 </item>
 <item>
   <title>Flexible Workflows with CHIRTS Temperature Data</title>
@@ -256,7 +271,7 @@
   <category>ggspatial</category>
   <category>R</category>
   <guid>https://ipums.github.io/dhs-research-hub/posts/2024-04-15-chirts-metrics/</guid>
-  <pubDate>Mon, 15 Apr 2024 04:00:00 GMT</pubDate>
+  <pubDate>Mon, 15 Apr 2024 05:00:00 GMT</pubDate>
   <media:content url="https://ipums.github.io/dhs-research-hub/posts/2024-04-15-chirts-metrics/index_files/figure-html/listing-img-1.png" medium="image" type="image/png" height="115" width="144"/>
 </item>
 <item>
@@ -273,7 +288,7 @@
   <category>Research concepts</category>
   <category>Cartography</category>
   <guid>https://ipums.github.io/dhs-research-hub/posts/2024-04-09-spatial-harmonization/</guid>
-  <pubDate>Tue, 09 Apr 2024 04:00:00 GMT</pubDate>
+  <pubDate>Tue, 09 Apr 2024 05:00:00 GMT</pubDate>
 </item>
 <item>
   <title>Droplets of Insights for Integrating DHS and Rainfall Data</title>
@@ -287,7 +302,7 @@
   <category>Methodology</category>
   <category>Research concepts</category>
   <guid>https://ipums.github.io/dhs-research-hub/posts/2024-02-23-rainfall-insights/</guid>
-  <pubDate>Thu, 07 Mar 2024 05:00:00 GMT</pubDate>
+  <pubDate>Thu, 07 Mar 2024 06:00:00 GMT</pubDate>
   <media:content url="https://ipums.github.io/dhs-research-hub/posts/2024-02-23-rainfall-insights/images/storm-clouds-over-wheat-field-danger-weather-with-dark-sky-over-fields-SBI-300870591.jpg" medium="image" type="image/jpeg"/>
 </item>
 <item>
@@ -305,8 +320,8 @@
   <category>ggspatial</category>
   <category>R</category>
   <guid>https://ipums.github.io/dhs-research-hub/posts/2024-02-04-dhs-chirps/</guid>
-  <pubDate>Sun, 04 Feb 2024 05:00:00 GMT</pubDate>
-  <media:content url="https://ipums.github.io/dhs-research-hub/posts/2024-02-04-dhs-chirps/index_files/figure-html/listing-img-1.png" medium="image" type="image/png" height="115" width="144"/>
+  <pubDate>Sun, 04 Feb 2024 06:00:00 GMT</pubDate>
+  <media:content url="https://ipums.github.io/dhs-research-hub/posts/2024-02-04-dhs-chirps/index_files/figure-html/listing-img-1.png" medium="image" type="image/png"/>
 </item>
 <item>
   <title>Developing Robust Conceptual Models in Research on Extreme Weather and Health</title>
@@ -320,7 +335,7 @@
   <category>Methodology</category>
   <category>Research concepts</category>
   <guid>https://ipums.github.io/dhs-research-hub/posts/2024-02-03-climate-theory/</guid>
-  <pubDate>Sat, 03 Feb 2024 05:00:00 GMT</pubDate>
+  <pubDate>Sat, 03 Feb 2024 06:00:00 GMT</pubDate>
 </item>
 <item>
   <title>Obtaining Data from IPUMS DHS</title>
@@ -332,19 +347,8 @@
   <category>Importing data</category>
   <category>R</category>
   <guid>https://ipums.github.io/dhs-research-hub/posts/2024-02-02-download-dhs-data/</guid>
-  <pubDate>Fri, 02 Feb 2024 05:00:00 GMT</pubDate>
+  <pubDate>Fri, 02 Feb 2024 06:00:00 GMT</pubDate>
   <media:content url="https://ipums.github.io/dhs-research-hub/images/dhs_logo_navy.png" medium="image" type="image/png" height="41" width="144"/>
-</item>
-<item>
-  <title>An Introduction to R</title>
-  <dc:creator>Finn Roberts</dc:creator>
-  <dc:creator>Matt Gunther</dc:creator>
-  <link>https://ipums.github.io/dhs-research-hub/posts/2024-02-01-getting-started-with-r/</link>
-  <description><![CDATA[ Getting started with R and RStudio ]]></description>
-  <category>Tips</category>
-  <category>R</category>
-  <guid>https://ipums.github.io/dhs-research-hub/posts/2024-02-01-getting-started-with-r/</guid>
-  <pubDate>Thu, 01 Feb 2024 05:00:00 GMT</pubDate>
 </item>
 </channel>
 </rss>

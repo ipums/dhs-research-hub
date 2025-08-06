@@ -1,12 +1,15 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.6.42">
+<meta name="generator" content="quarto-1.5.57">
+
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
 <meta name="author" content="Finn Roberts">
 <meta name="dcterms.date" content="2024-08-01">
 <meta name="description" content="Use purrr and terra to efficiently integrate NDVI data across multiple spatial extents">
+
 <title>An Iterative Workflow for Loading NDVI Data in R – IPUMS DHS Spatial Analysis and Health Research Hub</title>
 <style>
 code{white-space: pre-wrap;}
@@ -56,6 +59,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 }
 </style>
 
+
 <script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
 <script src="../../site_libs/quarto-nav/headroom.min.js"></script>
 <script src="../../site_libs/clipboard/clipboard.min.js"></script>
@@ -69,12 +73,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-03fd5f99cfc2f8297f3c5ef65ead31dc.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap-7590f946cc175b093b1053850525e467.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
 <link href="../../site_libs/quarto-contrib/fontawesome6-0.1.0/all.css" rel="stylesheet">
-<link href="../../site_libs/quarto-contrib/fontawesome6-0.1.0/latex-fontsize.css" rel="stylesheet"><script id="quarto-search-options" type="application/json">{
+<link href="../../site_libs/quarto-contrib/fontawesome6-0.1.0/latex-fontsize.css" rel="stylesheet">
+<script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
   "collapse-after": 3,
@@ -99,13 +104,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-submit-button-title": "Submit",
     "search-label": "Search"
   }
-}</script><script async="" src="https://www.googletagmanager.com/gtag/js?id=G-0WLH5S9VD5"></script><script type="text/javascript">
+}</script>
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-0WLH5S9VD5"></script>
+
+<script type="text/javascript">
 
 window.dataLayer = window.dataLayer || [];
 function gtag(){dataLayer.push(arguments);}
 gtag('js', new Date());
 gtag('config', 'G-0WLH5S9VD5', { 'anonymize_ip': true});
 </script>
+
+
 <meta property="og:title" content="An Iterative Workflow for Loading NDVI Data in R">
 <meta property="og:description" content="Use purrr and terra to efficiently integrate NDVI data across multiple spatial extents">
 <meta property="og:image" content="https://ipums.github.io/dhs-research-hub/posts/2024-08-01-ndvi-data/index_files/figure-html/listing-img-1.png">
@@ -119,13 +129,17 @@ gtag('config', 'G-0WLH5S9VD5', { 'anonymize_ip': true});
 <meta name="twitter:image-width" content="1920">
 <meta name="twitter:card" content="summary_large_image">
 </head>
+
 <body class="floating nav-fixed slimcontent">
 
 <div id="quarto-search-results"></div>
-  <header id="quarto-header" class="headroom fixed-top quarto-banner"><nav class="navbar navbar-expand-lg " data-bs-theme="dark"><div class="navbar-container container-fluid">
+  <header id="quarto-header" class="headroom fixed-top quarto-banner">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
     <a href="https://www.idhsdata.org/idhs/" class="navbar-brand navbar-brand-logo">
-    <img src="../../images/dhs_logo_white.png" alt="" class="navbar-logo"></a>
+    <img src="../../images/dhs_logo_white.png" alt="" class="navbar-logo">
+    </a>
   </div>
             <div id="quarto-search" class="" title="Search"></div>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
@@ -133,13 +147,13 @@ gtag('config', 'G-0WLH5S9VD5', { 'anonymize_ip': true});
 </button>
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
-<li class="nav-item">
+  <li class="nav-item">
     <a class="nav-link" href="../../index.html"> 
 <span class="menu-text">Spatial Analysis and Health Research Hub</span></a>
   </li>  
 </ul>
-<ul class="navbar-nav navbar-nav-scroll ms-auto">
-<li class="nav-item">
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
     <a class="nav-link" href="../../index.html"> 
 <span class="menu-text">Posts</span></a>
   </li>  
@@ -147,8 +161,8 @@ gtag('config', 'G-0WLH5S9VD5', { 'anonymize_ip': true});
     <a class="nav-link dropdown-toggle" href="#" id="nav-menu-getting-started" role="link" data-bs-toggle="dropdown" aria-expanded="false">
  <span class="menu-text">Getting Started</span>
     </a>
-    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="nav-menu-getting-started">
-<li>
+    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="nav-menu-getting-started">    
+        <li>
     <a class="dropdown-item" href="../../posts/2024-02-01-getting-started-with-r/index.html">
  <span class="dropdown-text">An Introduction to R</span></a>
   </li>  
@@ -157,13 +171,13 @@ gtag('config', 'G-0WLH5S9VD5', { 'anonymize_ip': true});
  <span class="dropdown-text">Obtaining IPUMS DHS Data</span></a>
   </li>  
     </ul>
-</li>
+  </li>
   <li class="nav-item dropdown ">
     <a class="nav-link dropdown-toggle" href="#" id="nav-menu-community" role="link" data-bs-toggle="dropdown" aria-expanded="false">
  <span class="menu-text">Community</span>
     </a>
-    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="nav-menu-community">
-<li>
+    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="nav-menu-community">    
+        <li>
     <a class="dropdown-item" href="https://forum.ipums.org">
  <span class="dropdown-text">IPUMS Forum</span></a>
   </li>  
@@ -176,7 +190,7 @@ gtag('config', 'G-0WLH5S9VD5', { 'anonymize_ip': true});
  <span class="dropdown-text">License</span></a>
   </li>  
     </ul>
-</li>
+  </li>
   <li class="nav-item">
     <a class="nav-link" href="../../about.html"> 
 <span class="menu-text">About</span></a>
@@ -202,11 +216,15 @@ gtag('config', 'G-0WLH5S9VD5', { 'anonymize_ip': true});
 <span class="menu-text"><i class="fa-solid fa-globe" aria-label="globe"></i></span></a>
   </li>  
 </ul>
-</div> <!-- /navcollapse -->
+          </div> <!-- /navcollapse -->
             <div class="quarto-navbar-tools">
 </div>
       </div> <!-- /container-fluid -->
-    </nav></header><!-- content --><header id="title-block-header" class="quarto-title-block default toc-left page-columns page-full"><div class="quarto-title-banner page-columns page-full">
+    </nav>
+</header>
+<!-- content -->
+<header id="title-block-header" class="quarto-title-block default toc-left page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
     <div class="quarto-title column-body">
       <h1 class="title">An Iterative Workflow for Loading NDVI Data in R</h1>
                   <div>
@@ -262,50 +280,50 @@ gtag('config', 'G-0WLH5S9VD5', { 'anonymize_ip': true});
   
   </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto"><nav id="TOC" role="doc-toc" class="toc-active" data-toc-expanded="1"><h2 id="toc-title">Contents</h2>
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <nav id="TOC" role="doc-toc" class="toc-active" data-toc-expanded="1">
+    <h2 id="toc-title">Contents</h2>
    
   <ul>
-<li><a href="#ndvi-vs.-other-environmental-data-sources" id="toc-ndvi-vs.-other-environmental-data-sources" class="nav-link active" data-scroll-target="#ndvi-vs.-other-environmental-data-sources">NDVI vs.&nbsp;other environmental data sources</a></li>
-  <li>
-<a href="#obtaining-ndvi" id="toc-obtaining-ndvi" class="nav-link" data-scroll-target="#obtaining-ndvi">Obtaining NDVI Data</a>
+  <li><a href="#ndvi-vs.-other-environmental-data-sources" id="toc-ndvi-vs.-other-environmental-data-sources" class="nav-link active" data-scroll-target="#ndvi-vs.-other-environmental-data-sources">NDVI vs.&nbsp;other environmental data sources</a></li>
+  <li><a href="#obtaining-ndvi" id="toc-obtaining-ndvi" class="nav-link" data-scroll-target="#obtaining-ndvi">Obtaining NDVI Data</a>
   <ul class="collapse">
-<li>
-<a href="#earthdata-search" id="toc-earthdata-search" class="nav-link" data-scroll-target="#earthdata-search">Earthdata Search</a>
+  <li><a href="#earthdata-search" id="toc-earthdata-search" class="nav-link" data-scroll-target="#earthdata-search">Earthdata Search</a>
   <ul class="collapse">
-<li><a href="#find-data" id="toc-find-data" class="nav-link" data-scroll-target="#find-data">Find data</a></li>
+  <li><a href="#find-data" id="toc-find-data" class="nav-link" data-scroll-target="#find-data">Find data</a></li>
   <li><a href="#download" id="toc-download" class="nav-link" data-scroll-target="#download">Download</a></li>
-  </ul>
-</li>
-  </ul>
-</li>
-  <li>
-<a href="#preparing-ndvi-data" id="toc-preparing-ndvi-data" class="nav-link" data-scroll-target="#preparing-ndvi-data">Preparing NDVI data</a>
+  </ul></li>
+  </ul></li>
+  <li><a href="#preparing-ndvi-data" id="toc-preparing-ndvi-data" class="nav-link" data-scroll-target="#preparing-ndvi-data">Preparing NDVI data</a>
   <ul class="collapse">
-<li><a href="#nasa-image-files" id="toc-nasa-image-files" class="nav-link" data-scroll-target="#nasa-image-files">NASA image files</a></li>
+  <li><a href="#nasa-image-files" id="toc-nasa-image-files" class="nav-link" data-scroll-target="#nasa-image-files">NASA image files</a></li>
   <li><a href="#regular-expressions" id="toc-regular-expressions" class="nav-link" data-scroll-target="#regular-expressions">Regular expressions</a></li>
-  <li>
-<a href="#an-iterative-r-workflow" id="toc-an-iterative-r-workflow" class="nav-link" data-scroll-target="#an-iterative-r-workflow">An iterative R workflow</a>
+  <li><a href="#an-iterative-r-workflow" id="toc-an-iterative-r-workflow" class="nav-link" data-scroll-target="#an-iterative-r-workflow">An iterative R workflow</a>
   <ul class="collapse">
-<li><a href="#the-purrr-package" id="toc-the-purrr-package" class="nav-link" data-scroll-target="#the-purrr-package">The purrr package</a></li>
-  </ul>
-</li>
+  <li><a href="#the-purrr-package" id="toc-the-purrr-package" class="nav-link" data-scroll-target="#the-purrr-package">The purrr package</a></li>
+  </ul></li>
   <li><a href="#crop-tiles" id="toc-crop-tiles" class="nav-link" data-scroll-target="#crop-tiles">Crop tiles</a></li>
   <li><a href="#mosaic-tiles" id="toc-mosaic-tiles" class="nav-link" data-scroll-target="#mosaic-tiles">Mosaic tiles</a></li>
-  </ul>
-</li>
-  <li>
-<a href="#up-next" id="toc-up-next" class="nav-link" data-scroll-target="#up-next">Up next</a>
+  </ul></li>
+  <li><a href="#up-next" id="toc-up-next" class="nav-link" data-scroll-target="#up-next">Up next</a>
   <ul class="collapse">
-
+  
+  </ul></li>
   </ul>
-</li>
-  </ul></nav>
-</nav><div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+</nav>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
     </div>
 <!-- main -->
-<main class="content quarto-banner-title-block page-columns page-full" id="quarto-document-content"><div class="callout callout-style-default callout-caution callout-titled">
+<main class="content quarto-banner-title-block page-columns page-full" id="quarto-document-content">
+
+
+
+
+
+<div class="callout callout-style-default callout-caution callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
@@ -319,7 +337,8 @@ Update
 </div>
 </div>
 <p>In our <a href="../2024-07-02-ndvi-concepts">previous post</a>, we introduced NDVI as a remote sensing tool that can be used to study the effects of environmental conditions on malnourishment and other health outcomes. In this post, we’ll show how to access and load NDVI data using R.</p>
-<section id="ndvi-vs.-other-environmental-data-sources" class="level1"><h1>NDVI vs.&nbsp;other environmental data sources</h1>
+<section id="ndvi-vs.-other-environmental-data-sources" class="level1">
+<h1>NDVI vs.&nbsp;other environmental data sources</h1>
 <p>Like the other environmental metrics we’ve used on this blog (<a href="../2024-02-04-dhs-chirps">CHIRPS</a> and <a href="../2024-04-15-chirts-metrics">CHIRTS</a>), NDVI data are also provided in raster format. However, there are some key differences.</p>
 <ol type="1">
 <li><p>First, NDVI is a <em>calculated value</em>, whereas our previous metrics were <em>modeled values</em>. That is, NDVI is calculated directly from the reflectance of different light wavelengths as measured via satellite. In contrast, CHIRPS and CHIRTS integrate ground-level station data with satellite observations to create a <strong>model</strong> of rainfall and temperature across the surface.</p></li>
@@ -327,7 +346,9 @@ Update
 <li><p>Depending on the data source, NDVI data may be distributed for specific spatial extents and at multi-week time intervals. Whereas daily time series of CHIRPS and CHIRTS could be downloaded for large spatial extents and cropped to an area of interest, NDVI often requires more manual work to integrate data from different spatial extents and time intervals.</p></li>
 </ol>
 <p>This post will primarily focus on this last point. We’ll demonstrate some of the additional steps required to produce a usable NDVI time series for a particular area of interest. In the process, we’ll introduce new R techniques that can assist in this workflow.</p>
-</section><section id="obtaining-ndvi" class="level1 page-columns page-full"><h1>Obtaining NDVI Data</h1>
+</section>
+<section id="obtaining-ndvi" class="level1 page-columns page-full">
+<h1>Obtaining NDVI Data</h1>
 <p>Not only are there multiple sources that provide NDVI data, there are also multiple satellites that collect the images used to calculate NDVI. For this post, we’ll use data from NASA’s <a href="https://terra.nasa.gov/about/terra-instruments/modis">MODIS</a> instrument, which provides data at a 250 meter resolution.</p>
 
 <div class="no-row-height column-margin column-container"><div class="">
@@ -348,16 +369,19 @@ MODIS Retirement
 <p>In the future, we hope to release more posts highlighting additional data products!</p>
 </div>
 </div>
-<section id="earthdata-search" class="level2 page-columns page-full"><h2 class="anchored" data-anchor-id="earthdata-search">Earthdata Search</h2>
+<section id="earthdata-search" class="level2 page-columns page-full">
+<h2 class="anchored" data-anchor-id="earthdata-search">Earthdata Search</h2>
 <p>We’ll use NASA’s Earthdata Search web interface to select and download data. Earthdata Search provides access to NASA’s immense archive of satellite data.</p>
 <p>Before you can access MODIS register for access to Earthdata Search, you’ll need to <a href="https://urs.earthdata.nasa.gov/home">register</a> for a free account.</p>
-<section id="find-data" class="level3 page-columns page-full"><h3 class="anchored" data-anchor-id="find-data">Find data</h3>
+<section id="find-data" class="level3 page-columns page-full">
+<h3 class="anchored" data-anchor-id="find-data">Find data</h3>
 <p>Once you’ve registered for an account, you can open up the <a href="https://search.earthdata.nasa.gov/search">Earthdata Search interface</a>, which should look something like this:</p>
 <div class="column-page">
 <p><img src="images/ed_search.png" class="img-fluid"></p>
 </div>
 <p>From this interface, you can search for data across many NASA products.</p>
-<section id="selecting-a-product" class="level4 page-columns page-full"><h4 class="anchored" data-anchor-id="selecting-a-product">Selecting a product</h4>
+<section id="selecting-a-product" class="level4 page-columns page-full">
+<h4 class="anchored" data-anchor-id="selecting-a-product">Selecting a product</h4>
 <p>As mentioned above, we’ll use data from MODIS for this post. MODIS provides several different <a href="https://modis.gsfc.nasa.gov/data/dataprod/mod13.php">NDVI products</a> that vary in their temporal and spatial resolution. Each product has a specific code used to reference it (see the previous link for a table including these codes).</p>
 <p>Some products are provided at the monthly level. If you don’t need finer temporal resolution, it’s preferable to download the monthly data provided directly by NASA. This is because NASA performs additional quality assurance steps when producing monthly data, including adding corrections for pixels obscured due to cloud cover and other similar tweaks. NASA’s processing will generally be better than any preprocessing we would do on our own.</p>
 <p>Of course, for more finely-tuned temporal analyses (e.g.&nbsp;start-of-season analyses), it may be more appropriate to download data from one of the 16-day MODIS products.</p>
@@ -376,136 +400,150 @@ MODIS Retirement
 <div class="column-page">
 <p><img src="images/ed_search_time.png" class="img-fluid"></p>
 </div>
-</section></section><section id="download" class="level3 page-columns page-full"><h3 class="anchored" data-anchor-id="download">Download</h3>
+</section>
+</section>
+<section id="download" class="level3 page-columns page-full">
+<h3 class="anchored" data-anchor-id="download">Download</h3>
 <p>Depending on how many tiles and time increments you’ll be downloading, you’ll notice that the estimated data storage size will be quite large. This is both a product of the resolution of this data as well as the fact that we must download full tiles of data. That is, we can’t download data just for our region of interest alone; instead, we have to download data for the MODIS tile(s) that contain that region and then crop the resulting data.</p>
-<section id="data-storage-concerns" class="level4"><h4 class="anchored" data-anchor-id="data-storage-concerns">Data storage concerns</h4>
+<section id="data-storage-concerns" class="level4">
+<h4 class="anchored" data-anchor-id="data-storage-concerns">Data storage concerns</h4>
 <p>Data storage can therefore be a significant barrier with working with long time series of NDVI data. This is why most institutions and researchers who work extensively with raster data have dedicated server space to use when running raster operations.</p>
 <p>However, if your area of interest is small enough, it may be possible to build up a dataset by downloading and cropping data to that area incrementally, preventing you from needing to store large image files indefinitely.</p>
 <p>There are also cloud-based solutions available, <a href="https://earthengine.google.com/">Google Earth Engine</a> and <a href="https://aws.amazon.com/earth/">Amazon Web Services</a>. Google Earth Engine in particular has become a popular interface that combines an interactive map and documentation with a JavaScript library that allows you to write scripts for geoprocessing on Google’s servers. We won’t discuss these options extensively here, but if you begin working on more data-intensive spatial projects, it may be worth exploring what they have to offer.</p>
-</section><section id="downloaded-files" class="level4 page-columns page-full"><h4 class="anchored" data-anchor-id="downloaded-files">Downloaded files</h4>
+</section>
+<section id="downloaded-files" class="level4 page-columns page-full">
+<h4 class="anchored" data-anchor-id="downloaded-files">Downloaded files</h4>
 <p>After clicking the <strong>Download</strong> link, you should be redirected to a download page that shows the individual files that fit your selection criteria. The page will also include a <code>download.sh</code> script that will perform a batch download. This can be useful if you’re downloading data for many files at once. See the <a href="https://wiki.earthdata.nasa.gov/display/EDSC/How+To%3A+Use+the+Download+Access+Script">Earthdata documentation</a> for more details on how to use this script to automate the download of many files.</p>
-<p>You’ll get a separate HDF file for each tile and time increment. Fortunately, <a href="https://rspatial.org/">terra</a> is able to load HDF files, so we don’t need to learn any new R tools yet. However, because each tile represents a <em>different</em> spatial extent, we need to use a new technique to combine them into a single source, called a <strong>mosaic</strong>.</p>
+<p>You’ll get a separate HDF file for each tile and time increment. Fortunately, <code>{terra}</code> is able to load HDF files, so we don’t need to learn any new R tools yet. However, because each tile represents a <em>different</em> spatial extent, we need to use a new technique to combine them into a single source, called a <strong>mosaic</strong>.</p>
 
 <div class="no-row-height column-margin column-container"><div class="">
-<p></p>
-<div class="hex"> <a href="https://rspatial.github.io/terra/index.html" class="hex"> <img src="../../images/hex/terra.png" class="hex-img"></a> <p class="hex-cap">© Robert J. Hijmans et al. (GPL &gt;=3)</p> </div>
-</div></div></section></section></section></section><section id="preparing-ndvi-data" class="level1 page-columns page-full"><h1>Preparing NDVI data</h1>
+<p></p><div class="hex"> <a href="https://rspatial.github.io/terra/index.html" class="hex"> <img src="../../images/hex/terra.png" class="hex-img"> </a> <p class="hex-cap">© Robert J. Hijmans et al. (GPL &gt;=3)</p> </div><p></p>
+</div></div></section>
+</section>
+</section>
+</section>
+<section id="preparing-ndvi-data" class="level1 page-columns page-full">
+<h1>Preparing NDVI data</h1>
 <p>Now that we have our data downloaded, we’ll shift our focus to loading those data into R. For this demonstration, we’ve downloaded data for the 4 tiles that cover the entirety of Kenya for 2 time intervals in 2014. That is, we have 8 total files downloaded.</p>
 <p>In practice, you’d likely include a longer time series; we’ve opted to use only 2 dates to limit the processing time required for this demo. Regardless, we will demonstrate a workflow that can be easily scaled to load more files.</p>
 <p>Before getting started, we’ll load some of the familiar packages that have been introduced previously on the blog:</p>
 <div class="cell">
-<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://rspatial.org/">terra</a></span><span class="op">)</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://r-spatial.github.io/sf/">sf</a></span><span class="op">)</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org">ggplot2</a></span><span class="op">)</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://paleolimbot.github.io/ggspatial/">ggspatial</a></span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(terra)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sf)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggspatial)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<section id="nasa-image-files" class="level2 page-columns page-full"><h2 class="anchored" data-anchor-id="nasa-image-files">NASA image files</h2>
+<section id="nasa-image-files" class="level2 page-columns page-full">
+<h2 class="anchored" data-anchor-id="nasa-image-files">NASA image files</h2>
 <p>NASA provides its files in HDF format. Each HDF file is identified by its tile code (e.g.&nbsp;<code>h21v08</code>) and its timestamp code (e.g.&nbsp;<code>A2014001</code>). To mosaic our tiles, we’ll need to create a separate raster stack for each tile across all of our timestamps.</p>
 
 <div class="no-row-height column-margin column-container"><div class="">
 <p>HDF stands for Hierarchical Data Format, yet another common raster data file format.</p>
 </div></div><p>First, we’ll list all our files, which we’ve saved in a directory we’ve named <code>data_local/MOD13Q1</code>:</p>
 <div class="cell">
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">files</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.files.html">list.files</a></span><span class="op">(</span><span class="st">"data_local/MOD13Q1"</span>, full.names <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>files <span class="ot">&lt;-</span> <span class="fu">list.files</span>(<span class="st">"data_local/MOD13Q1"</span>, <span class="at">full.names =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>You’ll notice that each file contains the tile code and timestamp in the file name.</p>
 <div class="cell">
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">files</span></span>
-<span><span class="co">#&gt; [1] "data_local/MOD13Q1/MOD13Q1.A2014001.h21v08.061.2021246163834.hdf"</span></span>
-<span><span class="co">#&gt; [2] "data_local/MOD13Q1/MOD13Q1.A2014001.h21v09.061.2021246163703.hdf"</span></span>
-<span><span class="co">#&gt; [3] "data_local/MOD13Q1/MOD13Q1.A2014001.h22v08.061.2021246164307.hdf"</span></span>
-<span><span class="co">#&gt; [4] "data_local/MOD13Q1/MOD13Q1.A2014001.h22v09.061.2021246155251.hdf"</span></span>
-<span><span class="co">#&gt; [5] "data_local/MOD13Q1/MOD13Q1.A2014209.h21v08.061.2021260011612.hdf"</span></span>
-<span><span class="co">#&gt; [6] "data_local/MOD13Q1/MOD13Q1.A2014209.h21v09.061.2021260011337.hdf"</span></span>
-<span><span class="co">#&gt; [7] "data_local/MOD13Q1/MOD13Q1.A2014209.h22v08.061.2021260023343.hdf"</span></span>
-<span><span class="co">#&gt; [8] "data_local/MOD13Q1/MOD13Q1.A2014209.h22v09.061.2021260023455.hdf"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>files</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] "data_local/MOD13Q1/MOD13Q1.A2014001.h21v08.061.2021246163834.hdf"</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [2] "data_local/MOD13Q1/MOD13Q1.A2014001.h21v09.061.2021246163703.hdf"</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [3] "data_local/MOD13Q1/MOD13Q1.A2014001.h22v08.061.2021246164307.hdf"</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [4] "data_local/MOD13Q1/MOD13Q1.A2014001.h22v09.061.2021246155251.hdf"</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [5] "data_local/MOD13Q1/MOD13Q1.A2014209.h21v08.061.2021260011612.hdf"</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [6] "data_local/MOD13Q1/MOD13Q1.A2014209.h21v09.061.2021260011337.hdf"</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [7] "data_local/MOD13Q1/MOD13Q1.A2014209.h22v08.061.2021260023343.hdf"</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [8] "data_local/MOD13Q1/MOD13Q1.A2014209.h22v09.061.2021260023455.hdf"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Ultimately, we’ll need to group each of these files such that we can create a single raster stack for each <strong>tile</strong>. The layers in that stack should correspond to the data’s <strong>timestamps</strong>. This will produce a time series of NDVI data for each spatial region which can later be combined with the adjacent regions.</p>
 <p>To achieve this, we’ll need to leverage the tile and timestamp codes that NASA provides in its file names.</p>
-</section><section id="regular-expressions" class="level2 page-columns page-full"><h2 class="anchored" data-anchor-id="regular-expressions">Regular expressions</h2>
+</section>
+<section id="regular-expressions" class="level2 page-columns page-full">
+<h2 class="anchored" data-anchor-id="regular-expressions">Regular expressions</h2>
 <p>Right now, all our files are in one large list. But because they represent different spatial extents, we can’t load them all at once with terra:</p>
 <div class="cell">
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rspatial.github.io/terra/reference/rast.html">rast</a></span><span class="op">(</span><span class="va">files</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Error: [rast] extents do not match</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rast</span>(files)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Error: [rast] extents do not match</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Instead, we need to first organize our files by their tile codes. We could go ahead and manually store the codes for later access like so:</p>
 <div class="cell">
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">tile_codes</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"h21v08"</span>, <span class="st">"h21v09"</span>, <span class="st">"h22v08"</span>, <span class="st">"h22v09"</span><span class="op">)</span></span>
-<span><span class="va">timestamps</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"2014001"</span>, <span class="st">"2014209"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>tile_codes <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"h21v08"</span>, <span class="st">"h21v09"</span>, <span class="st">"h22v08"</span>, <span class="st">"h22v09"</span>)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>timestamps <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"2014001"</span>, <span class="st">"2014209"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>However, this wouldn’t produce a very flexible workflow: if we ever decided to perform a similar analysis for different times or spatial regions, we’d have to modify these codes manually.</p>
 <p>An alternative approach would be to dynamically extract the codes using <strong>regular expressions</strong>. The term <em>regular expressions</em> refers to a specific syntax designed to identify and extract sequences of characters in a set of text.</p>
-<p>We’ll use the <a href="https://stringr.tidyverse.org">stringr</a> package to demonstrate the basics of regular expressions:</p>
+<p>We’ll use the <code>{stringr}</code> package to demonstrate the basics of regular expressions:</p>
 <div class="cell">
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://stringr.tidyverse.org">stringr</a></span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(stringr)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 
 <div class="no-row-height column-margin column-container"><div class="">
-<p></p>
-<div class="hex"> <a href="https://stringr.tidyverse.org/index.html" class="hex"> <img src="../../images/hex/stringr.png" class="hex-img"></a> <p class="hex-cap">© RStudio, Inc. (MIT)</p> </div>
+<p></p><div class="hex"> <a href="https://stringr.tidyverse.org/index.html" class="hex"> <img src="../../images/hex/stringr.png" class="hex-img"> </a> <p class="hex-cap">© RStudio, Inc. (MIT)</p> </div><p></p>
 </div></div><p>At their simplest, regular expressions allow you to extract specific characters from a string:</p>
 <div class="cell">
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># str_detect() tells us whether a search pattern exists in the target string</span></span>
-<span></span>
-<span><span class="co"># "b" does exist in the string</span></span>
-<span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_detect.html">str_detect</a></span><span class="op">(</span><span class="st">"abc123"</span>, <span class="st">"b"</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] TRUE</span></span>
-<span></span>
-<span><span class="co"># "z" does not exist in the string:</span></span>
-<span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_detect.html">str_detect</a></span><span class="op">(</span><span class="st">"abc123"</span>, <span class="st">"z"</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] FALSE</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># str_detect() tells us whether a search pattern exists in the target string</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="co"># "b" does exist in the string</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="fu">str_detect</span>(<span class="st">"abc123"</span>, <span class="st">"b"</span>)</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] TRUE</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="co"># "z" does not exist in the string:</span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="fu">str_detect</span>(<span class="st">"abc123"</span>, <span class="st">"z"</span>)</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] FALSE</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>However, regular expressions may also include special characters, which allow you to search more flexibly. For instance, <code>[</code> brackets allow us to define a <em>character class</em>, which will detect whether any of the enclosed characters is present.</p>
 <div class="cell">
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_detect.html">str_detect</a></span><span class="op">(</span><span class="st">"abc123"</span>, <span class="st">"[ahz]"</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] TRUE</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str_detect</span>(<span class="st">"abc123"</span>, <span class="st">"[ahz]"</span>)</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] TRUE</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>We can use a similar approach to search for any numeric digits in our string:</p>
 <div class="cell">
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_detect.html">str_detect</a></span><span class="op">(</span><span class="st">"abc123"</span>, <span class="st">"[0-9]"</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] TRUE</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str_detect</span>(<span class="st">"abc123"</span>, <span class="st">"[0-9]"</span>)</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] TRUE</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Curly braces can be used to detect a certain number of sequential characters. For instance, to determine whether the string contains 3 consecutive digits:</p>
 <div class="cell">
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_detect.html">str_detect</a></span><span class="op">(</span><span class="st">"abc123"</span>, <span class="st">"[0-9]{3}"</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] TRUE</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str_detect</span>(<span class="st">"abc123"</span>, <span class="st">"[0-9]{3}"</span>)</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] TRUE</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>This returns <code>TRUE</code>, but if we searched for a longer sequence, we’d no longer be able to detect a match for the pattern:</p>
 <div class="cell">
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_detect.html">str_detect</a></span><span class="op">(</span><span class="st">"abc123"</span>, <span class="st">"[0-9]{4}"</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] FALSE</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str_detect</span>(<span class="st">"abc123"</span>, <span class="st">"[0-9]{4}"</span>)</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] FALSE</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>The special characters <code>^</code> and <code>$</code> represent the start and end of the string, respectively. For instance, to determine if the string starts with a digit:</p>
 <div class="cell">
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_detect.html">str_detect</a></span><span class="op">(</span><span class="st">"abc123"</span>, <span class="st">"^[0-9]"</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] FALSE</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str_detect</span>(<span class="st">"abc123"</span>, <span class="st">"^[0-9]"</span>)</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] FALSE</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Or to determine if it ends with a digit:</p>
 <div class="cell">
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_detect.html">str_detect</a></span><span class="op">(</span><span class="st">"abc123"</span>, <span class="st">"[0-9]$"</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] TRUE</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str_detect</span>(<span class="st">"abc123"</span>, <span class="st">"[0-9]$"</span>)</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] TRUE</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>There are far more <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_expressions/Cheatsheet">available options</a> in the regular expression language, and we won’t be able to cover them all here. The stringr package includes a helpful <a href="https://stringr.tidyverse.org/articles/regular-expressions.html?q=:digit:#matching-multiple-characters">introduction</a> to help you get started.</p>
 <p>In our case, we can use the basic syntax we just introduced to extract the tile code from our file names:</p>
 <div class="cell">
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Extract h00v00 tile code pattern</span></span>
-<span><span class="va">tile_codes</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rspatial.github.io/terra/reference/unique.html">unique</a></span><span class="op">(</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_extract.html">str_extract</a></span><span class="op">(</span><span class="va">files</span>, <span class="st">"h[0-9]{2}v[0-9]{2}"</span><span class="op">)</span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">tile_codes</span></span>
-<span><span class="co">#&gt; [1] "h21v08" "h21v09" "h22v08" "h22v09"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Extract h00v00 tile code pattern</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>tile_codes <span class="ot">&lt;-</span> <span class="fu">unique</span>(<span class="fu">str_extract</span>(files, <span class="st">"h[0-9]{2}v[0-9]{2}"</span>))</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>tile_codes</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] "h21v08" "h21v09" "h22v08" "h22v09"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Importantly, if we ever download new files for different tiles, this code will <em>still extract their tile codes</em> without any modification (that is, unless NASA changes their file naming conventions unexpectedly).</p>
 <p>Regular expressions therefore allow us to implement a <strong>generalized</strong> approach that is more robust to future changes in our analysis.</p>
-</section><section id="an-iterative-r-workflow" class="level2 page-columns page-full"><h2 class="anchored" data-anchor-id="an-iterative-r-workflow">An iterative R workflow</h2>
+</section>
+<section id="an-iterative-r-workflow" class="level2 page-columns page-full">
+<h2 class="anchored" data-anchor-id="an-iterative-r-workflow">An iterative R workflow</h2>
 <p>Next, we need to group the files so that all files for a single tile are placed together. That way, all the timestamps for each tile will be loaded into a raster stack with a single spatial extent. Each layer will correspond to a different timestamp.</p>
 <p>Because we have multiple tiles and multiple files for each tile, we will likely need to apply the same set of processing operations many times over. While we could copy and paste our code to group each tile’s files, this would quickly become tedious. Furthermore, hard-coding our file groups would make it harder to make modifications if we were to add more files to our analysis or adapt our code to work with a different region.</p>
 <p>Instead, we can build an <em>iterative</em> workflow that will automatically apply our processing steps for each tile.</p>
-<section id="the-purrr-package" class="level3 page-columns page-full"><h3 class="anchored" data-anchor-id="the-purrr-package">The purrr package</h3>
-<p>We’ll use the <a href="https://purrr.tidyverse.org/">purrr</a> package to build our workflow. The purrr package provides a concise syntax for iterating through multiple inputs. This is primarily facilitated by purrr’s <code><a href="https://purrr.tidyverse.org/reference/map.html">map()</a></code> function.</p>
+<section id="the-purrr-package" class="level3 page-columns page-full">
+<h3 class="anchored" data-anchor-id="the-purrr-package">The purrr package</h3>
+<p>We’ll use the <code>{purrr}</code> package to build our workflow. The purrr package provides a concise syntax for iterating through multiple inputs. This is primarily facilitated by purrr’s <code>map()</code> function.</p>
 
 <div class="no-row-height column-margin column-container"><div class="">
-<p></p>
-<div class="hex"> <a href="https://purrr.tidyverse.org/index.html" class="hex"> <img src="../../images/hex/purrr.png" class="hex-img"></a> <p class="hex-cap">© RStudio, Inc. (GPL-3)</p> </div>
+<p></p><div class="hex"> <a href="https://purrr.tidyverse.org/index.html" class="hex"> <img src="../../images/hex/purrr.png" class="hex-img"> </a> <p class="hex-cap">© RStudio, Inc. (GPL-3)</p> </div><p></p>
 </div></div><div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -516,55 +554,55 @@ Iterating in base R
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>You may already be familiar with the <code>for</code> loop or with <code><a href="https://rdrr.io/r/base/lapply.html">lapply()</a></code>, both of which are options for iterating in base R (<code><a href="https://rdrr.io/r/base/lapply.html">lapply()</a></code> is most similar to purrr’s <code><a href="https://purrr.tidyverse.org/reference/map.html">map()</a></code>).</p>
-<p>If you’re more comfortable with these tools, the code we introduce below can certainly be adapted for a <code>for</code> loop or <code><a href="https://rdrr.io/r/base/lapply.html">lapply()</a></code> workflow.</p>
+<p>You may already be familiar with the <code>for</code> loop or with <code>lapply()</code>, both of which are options for iterating in base R (<code>lapply()</code> is most similar to purrr’s <code>map()</code>).</p>
+<p>If you’re more comfortable with these tools, the code we introduce below can certainly be adapted for a <code>for</code> loop or <code>lapply()</code> workflow.</p>
 </div>
 </div>
-<p><code><a href="https://purrr.tidyverse.org/reference/map.html">map()</a></code> allows us to iterate by providing two things:</p>
+<p><code>map()</code> allows us to iterate by providing two things:</p>
 <ul>
 <li>The list (or vector) of objects we want to iterate over</li>
 <li>A function describing the operation we want to do for each element in the list</li>
 </ul>
 <p>For instance, take this list of letters:</p>
 <div class="cell">
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">l</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"A"</span>, <span class="st">"B"</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"C"</span>, <span class="st">"D"</span>, <span class="st">"E"</span><span class="op">)</span>, </span>
-<span>  <span class="st">"F"</span></span>
-<span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">l</span></span>
-<span><span class="co">#&gt; [[1]]</span></span>
-<span><span class="co">#&gt; [1] "A" "B"</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; [[2]]</span></span>
-<span><span class="co">#&gt; [1] "C" "D" "E"</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; [[3]]</span></span>
-<span><span class="co">#&gt; [1] "F"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>l <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">c</span>(<span class="st">"A"</span>, <span class="st">"B"</span>),</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">c</span>(<span class="st">"C"</span>, <span class="st">"D"</span>, <span class="st">"E"</span>), </span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>  <span class="st">"F"</span></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>l</span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [[1]]</span></span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] "A" "B"</span></span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [[2]]</span></span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] "C" "D" "E"</span></span>
+<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [[3]]</span></span>
+<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] "F"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Let’s say we want to find out the length of each element in our list. Many R functions are vectorized, so we might think to simply use <code><a href="https://rdrr.io/r/base/length.html">length()</a></code> on our list:</p>
+<p>Let’s say we want to find out the length of each element in our list. Many R functions are vectorized, so we might think to simply use <code>length()</code> on our list:</p>
 
 <div class="no-row-height column-margin column-container"><div class="">
-<p>Vectorized functions automatically operate on each individual element of a vector. For instance, <code><a href="https://rdrr.io/r/base/nchar.html">nchar()</a></code> can count characters in a single string or for each string in a vector of strings.</p>
+<p>Vectorized functions automatically operate on each individual element of a vector. For instance, <code>nchar()</code> can count characters in a single string or for each string in a vector of strings.</p>
 </div></div><div class="cell">
-<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">l</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] 3</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(l)</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 3</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>However, this gives us the length of our <em>input</em> list <code>l</code>, which isn’t what we want. Instead, we can use purrr to <strong>map</strong> the <code><a href="https://rdrr.io/r/base/length.html">length()</a></code> function to each element in our list <code>l</code>:</p>
+<p>However, this gives us the length of our <em>input</em> list <code>l</code>, which isn’t what we want. Instead, we can use purrr to <strong>map</strong> the <code>length()</code> function to each element in our list <code>l</code>:</p>
 <div class="cell">
-<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://purrr.tidyverse.org/">purrr</a></span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># For each element in `l`, apply the `length()` function</span></span>
-<span><span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span><span class="op">(</span><span class="va">l</span>, <span class="va">length</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [[1]]</span></span>
-<span><span class="co">#&gt; [1] 2</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; [[2]]</span></span>
-<span><span class="co">#&gt; [1] 3</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; [[3]]</span></span>
-<span><span class="co">#&gt; [1] 1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(purrr)</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="co"># For each element in `l`, apply the `length()` function</span></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a><span class="fu">map</span>(l, length)</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [[1]]</span></span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 2</span></span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [[2]]</span></span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 3</span></span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [[3]]</span></span>
+<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -578,58 +616,58 @@ Anonymous function syntax
 <div class="callout-body-container callout-body">
 <p>We can also provide the function in R’s anonymous function syntax, which we introduced <a href="../2024-04-15-chirts-metrics/index.html#scaling-up">previously</a>. For instance:</p>
 <div class="cell">
-<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span><span class="op">(</span><span class="va">l</span>, <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># Or, for R 4.1+</span></span>
-<span><span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span><span class="op">(</span><span class="va">l</span>, \<span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">map</span>(l, <span class="cf">function</span>(x) <span class="fu">length</span>(x))</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Or, for R 4.1+</span></span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a><span class="fu">map</span>(l, \(x) <span class="fu">length</span>(x))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>If you want to modify other arguments of the function being mapped, you’ll need to use anonymous function syntax instead of the function name itself.</p>
 </div>
 </div>
-<p>We see that <code><a href="https://purrr.tidyverse.org/reference/map.html">map()</a></code> returns a <strong>list</strong> containing the result we get when we apply the <code><a href="https://rdrr.io/r/base/length.html">length()</a></code> function to each individual element in <code>l</code>.</p>
+<p>We see that <code>map()</code> returns a <strong>list</strong> containing the result we get when we apply the <code>length()</code> function to each individual element in <code>l</code>.</p>
 <p>We can do a similar process with our raster tiles. For each tile code, we want to detect the files that contain that tile code in their name. This way, we can group those files together.</p>
-<p>Here, we use <code><a href="https://stringr.tidyverse.org/reference/str_detect.html">str_detect()</a></code> to detect the presence of the input <code>tile_code</code> string in our set of files. For each tile code, we’ll get a set of logical values indicating the position of the files that contain that code.</p>
+<p>Here, we use <code>str_detect()</code> to detect the presence of the input <code>tile_code</code> string in our set of files. For each tile code, we’ll get a set of logical values indicating the position of the files that contain that code.</p>
 <div class="cell">
-<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># For each tile code, identify the file indexes that contain that code</span></span>
-<span><span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span><span class="op">(</span></span>
-<span>  <span class="va">tile_codes</span>,</span>
-<span>  <span class="kw">function</span><span class="op">(</span><span class="va">code</span><span class="op">)</span> <span class="fu"><a href="https://stringr.tidyverse.org/reference/str_detect.html">str_detect</a></span><span class="op">(</span><span class="va">files</span>, <span class="va">code</span><span class="op">)</span></span>
-<span><span class="op">)</span></span>
-<span><span class="co">#&gt; [[1]]</span></span>
-<span><span class="co">#&gt; [1]  TRUE FALSE FALSE FALSE  TRUE FALSE FALSE FALSE</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; [[2]]</span></span>
-<span><span class="co">#&gt; [1] FALSE  TRUE FALSE FALSE FALSE  TRUE FALSE FALSE</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; [[3]]</span></span>
-<span><span class="co">#&gt; [1] FALSE FALSE  TRUE FALSE FALSE FALSE  TRUE FALSE</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; [[4]]</span></span>
-<span><span class="co">#&gt; [1] FALSE FALSE FALSE  TRUE FALSE FALSE FALSE  TRUE</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># For each tile code, identify the file indexes that contain that code</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="fu">map</span>(</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>  tile_codes,</span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>  <span class="cf">function</span>(code) <span class="fu">str_detect</span>(files, code)</span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [[1]]</span></span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1]  TRUE FALSE FALSE FALSE  TRUE FALSE FALSE FALSE</span></span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [[2]]</span></span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] FALSE  TRUE FALSE FALSE FALSE  TRUE FALSE FALSE</span></span>
+<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [[3]]</span></span>
+<span id="cb19-13"><a href="#cb19-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] FALSE FALSE  TRUE FALSE FALSE FALSE  TRUE FALSE</span></span>
+<span id="cb19-14"><a href="#cb19-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb19-15"><a href="#cb19-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [[4]]</span></span>
+<span id="cb19-16"><a href="#cb19-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] FALSE FALSE FALSE  TRUE FALSE FALSE FALSE  TRUE</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>We can use these logical values to subset the file names that correspond to each tile code. Remember that we’ll have multiple files for each tile because we’re working with multiple timestamps:</p>
 <div class="cell">
-<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">tiles</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span><span class="op">(</span></span>
-<span>  <span class="va">tile_codes</span>,</span>
-<span>  <span class="kw">function</span><span class="op">(</span><span class="va">code</span><span class="op">)</span> <span class="va">files</span><span class="op">[</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_detect.html">str_detect</a></span><span class="op">(</span><span class="va">files</span>, <span class="va">code</span><span class="op">)</span><span class="op">]</span></span>
-<span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">tiles</span></span>
-<span><span class="co">#&gt; [[1]]</span></span>
-<span><span class="co">#&gt; [1] "data_local/MOD13Q1/MOD13Q1.A2014001.h21v08.061.2021246163834.hdf"</span></span>
-<span><span class="co">#&gt; [2] "data_local/MOD13Q1/MOD13Q1.A2014209.h21v08.061.2021260011612.hdf"</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; [[2]]</span></span>
-<span><span class="co">#&gt; [1] "data_local/MOD13Q1/MOD13Q1.A2014001.h21v09.061.2021246163703.hdf"</span></span>
-<span><span class="co">#&gt; [2] "data_local/MOD13Q1/MOD13Q1.A2014209.h21v09.061.2021260011337.hdf"</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; [[3]]</span></span>
-<span><span class="co">#&gt; [1] "data_local/MOD13Q1/MOD13Q1.A2014001.h22v08.061.2021246164307.hdf"</span></span>
-<span><span class="co">#&gt; [2] "data_local/MOD13Q1/MOD13Q1.A2014209.h22v08.061.2021260023343.hdf"</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; [[4]]</span></span>
-<span><span class="co">#&gt; [1] "data_local/MOD13Q1/MOD13Q1.A2014001.h22v09.061.2021246155251.hdf"</span></span>
-<span><span class="co">#&gt; [2] "data_local/MOD13Q1/MOD13Q1.A2014209.h22v09.061.2021260023455.hdf"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>tiles <span class="ot">&lt;-</span> <span class="fu">map</span>(</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>  tile_codes,</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>  <span class="cf">function</span>(code) files[<span class="fu">str_detect</span>(files, code)]</span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>tiles</span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [[1]]</span></span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] "data_local/MOD13Q1/MOD13Q1.A2014001.h21v08.061.2021246163834.hdf"</span></span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [2] "data_local/MOD13Q1/MOD13Q1.A2014209.h21v08.061.2021260011612.hdf"</span></span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [[2]]</span></span>
+<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] "data_local/MOD13Q1/MOD13Q1.A2014001.h21v09.061.2021246163703.hdf"</span></span>
+<span id="cb20-13"><a href="#cb20-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [2] "data_local/MOD13Q1/MOD13Q1.A2014209.h21v09.061.2021260011337.hdf"</span></span>
+<span id="cb20-14"><a href="#cb20-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb20-15"><a href="#cb20-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [[3]]</span></span>
+<span id="cb20-16"><a href="#cb20-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] "data_local/MOD13Q1/MOD13Q1.A2014001.h22v08.061.2021246164307.hdf"</span></span>
+<span id="cb20-17"><a href="#cb20-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [2] "data_local/MOD13Q1/MOD13Q1.A2014209.h22v08.061.2021260023343.hdf"</span></span>
+<span id="cb20-18"><a href="#cb20-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb20-19"><a href="#cb20-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [[4]]</span></span>
+<span id="cb20-20"><a href="#cb20-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] "data_local/MOD13Q1/MOD13Q1.A2014001.h22v09.061.2021246155251.hdf"</span></span>
+<span id="cb20-21"><a href="#cb20-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [2] "data_local/MOD13Q1/MOD13Q1.A2014209.h22v09.061.2021260023455.hdf"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <!-- :::{.callout-note} -->
 <!-- purrr syntax takes a little bit of getting used to, but it ultimately can make -->
@@ -637,129 +675,132 @@ Anonymous function syntax
 <!-- In the long run, learning to add iteration to your data processing workflows  -->
 <!-- will save you time and make your processing scripts more robust. -->
 <!-- ::: -->
-<p>At this point we can load each of our tiles into a separate raster stack using terra’s <code><a href="https://rspatial.github.io/terra/reference/rast.html">rast()</a></code>. Each of these files contains several layers with different measures. We can peek at the layers by loading the first file. We’re only interested in the layer of NDVI values, which we see is the first layer:</p>
+<p>At this point we can load each of our tiles into a separate raster stack using terra’s <code>rast()</code>. Each of these files contains several layers with different measures. We can peek at the layers by loading the first file. We’re only interested in the layer of NDVI values, which we see is the first layer:</p>
 <div class="cell">
-<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rspatial.github.io/terra/reference/names.html">names</a></span><span class="op">(</span><span class="fu"><a href="https://rspatial.github.io/terra/reference/rast.html">rast</a></span><span class="op">(</span><span class="va">files</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="co">#&gt;  [1] "\"250m 16 days NDVI\""                     </span></span>
-<span><span class="co">#&gt;  [2] "\"250m 16 days EVI\""                      </span></span>
-<span><span class="co">#&gt;  [3] "\"250m 16 days VI Quality\""               </span></span>
-<span><span class="co">#&gt;  [4] "\"250m 16 days red reflectance\""          </span></span>
-<span><span class="co">#&gt;  [5] "\"250m 16 days NIR reflectance\""          </span></span>
-<span><span class="co">#&gt;  [6] "\"250m 16 days blue reflectance\""         </span></span>
-<span><span class="co">#&gt;  [7] "\"250m 16 days MIR reflectance\""          </span></span>
-<span><span class="co">#&gt;  [8] "\"250m 16 days view zenith angle\""        </span></span>
-<span><span class="co">#&gt;  [9] "\"250m 16 days sun zenith angle\""         </span></span>
-<span><span class="co">#&gt; [10] "\"250m 16 days relative azimuth angle\""   </span></span>
-<span><span class="co">#&gt; [11] "\"250m 16 days composite day of the year\""</span></span>
-<span><span class="co">#&gt; [12] "\"250m 16 days pixel reliability\""</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(<span class="fu">rast</span>(files[<span class="dv">1</span>]))</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [1] "\"250m 16 days NDVI\""                     </span></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [2] "\"250m 16 days EVI\""                      </span></span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [3] "\"250m 16 days VI Quality\""               </span></span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [4] "\"250m 16 days red reflectance\""          </span></span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [5] "\"250m 16 days NIR reflectance\""          </span></span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [6] "\"250m 16 days blue reflectance\""         </span></span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [7] "\"250m 16 days MIR reflectance\""          </span></span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [8] "\"250m 16 days view zenith angle\""        </span></span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [9] "\"250m 16 days sun zenith angle\""         </span></span>
+<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [10] "\"250m 16 days relative azimuth angle\""   </span></span>
+<span id="cb21-12"><a href="#cb21-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [11] "\"250m 16 days composite day of the year\""</span></span>
+<span id="cb21-13"><a href="#cb21-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [12] "\"250m 16 days pixel reliability\""</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Because data at this resolution can be memory-intensive, we can load only the layer of NDVI data by using the <code>lyrs</code> argument to <code><a href="https://rspatial.github.io/terra/reference/rast.html">rast()</a></code>:</p>
+<p>Because data at this resolution can be memory-intensive, we can load only the layer of NDVI data by using the <code>lyrs</code> argument to <code>rast()</code>:</p>
 <div class="cell">
-<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rspatial.github.io/terra/reference/rast.html">rast</a></span><span class="op">(</span><span class="va">files</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>, lyrs <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
-<span><span class="co">#&gt; class       : SpatRaster </span></span>
-<span><span class="co">#&gt; dimensions  : 4800, 4800, 1  (nrow, ncol, nlyr)</span></span>
-<span><span class="co">#&gt; resolution  : 231.6564, 231.6564  (x, y)</span></span>
-<span><span class="co">#&gt; extent      : 3335852, 4447802, 0, 1111951  (xmin, xmax, ymin, ymax)</span></span>
-<span><span class="co">#&gt; coord. ref. : +proj=sinu +lon_0=0 +x_0=0 +y_0=0 +R=6371007.181 +units=m +no_defs </span></span>
-<span><span class="co">#&gt; source      : MOD13Q1.A2014001.h21v08.061.2021246163834.hdf:MODIS_Grid_16DAY_250m_500m_VI:250m 16 days NDVI </span></span>
-<span><span class="co">#&gt; varname     : MOD13Q1.A2014001.h21v08.061.2021246163834 </span></span>
-<span><span class="co">#&gt; name        : "250m 16 days NDVI"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rast</span>(files[<span class="dv">1</span>], <span class="at">lyrs =</span> <span class="dv">1</span>)</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; class       : SpatRaster </span></span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; dimensions  : 4800, 4800, 1  (nrow, ncol, nlyr)</span></span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; resolution  : 231.6564, 231.6564  (x, y)</span></span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; extent      : 3335852, 4447802, 0, 1111951  (xmin, xmax, ymin, ymax)</span></span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; coord. ref. : +proj=sinu +lon_0=0 +x_0=0 +y_0=0 +R=6371007.181 +units=m +no_defs </span></span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; source      : MOD13Q1.A2014001.h21v08.061.2021246163834.hdf:MODIS_Grid_16DAY_250m_500m_VI:250m 16 days NDVI </span></span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; varname     : MOD13Q1.A2014001.h21v08.061.2021246163834 </span></span>
+<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; name        : "250m 16 days NDVI"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>However, we’ll be loading multiple files (one for each timestamp) into each raster stack for each tile. Therefore, we have to select the first layer <em>of each raster file</em>. The <code>lyrs</code> argument considers all the files together when loading them. That is, <code>lyrs = 1</code> doesn’t refer to the first layer of <em>each</em> file. Instead, it will extract the very first layer of the first file only.</p>
 <p>Fortunately, each file is organized identically, so we know that NDVI will always be the first layer. Because there are 12 layers in each file, we just need to load every 12th layer. We can easily build a sequence that contains the correct layer numbers:</p>
 <div class="cell">
-<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Maximum layer value will be the first layer in the very last file being loaded</span></span>
-<span><span class="va">max_lyrs</span> <span class="op">&lt;-</span> <span class="fl">12</span> <span class="op">*</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">tiles</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># Create sequence in increments of 12 up to the maximum layer index needed</span></span>
-<span><span class="va">ndvi_layers</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="fl">1</span>, <span class="va">max_lyrs</span>, by <span class="op">=</span> <span class="fl">12</span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">ndvi_layers</span></span>
-<span><span class="co">#&gt; [1]  1 13</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Maximum layer value will be the first layer in the very last file being loaded</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>max_lyrs <span class="ot">&lt;-</span> <span class="dv">12</span> <span class="sc">*</span> <span class="fu">length</span>(tiles[[<span class="dv">1</span>]])</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Create sequence in increments of 12 up to the maximum layer index needed</span></span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>ndvi_layers <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">1</span>, max_lyrs, <span class="at">by =</span> <span class="dv">12</span>)</span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>ndvi_layers</span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1]  1 13</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Now, we can again <code><a href="https://purrr.tidyverse.org/reference/map.html">map()</a></code> over our file groups to load each set of files, selecting out only the NDVI layers:</p>
+<p>Now, we can again <code>map()</code> over our file groups to load each set of files, selecting out only the NDVI layers:</p>
 <div class="cell">
-<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Load NDVI layers for each set of files corresponding to a particular tile</span></span>
-<span><span class="va">ndvi_tiles</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span><span class="op">(</span></span>
-<span>  <span class="va">tiles</span>, </span>
-<span>  <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="https://rspatial.github.io/terra/reference/rast.html">rast</a></span><span class="op">(</span><span class="va">x</span>, lyrs <span class="op">=</span> <span class="va">ndvi_layers</span><span class="op">)</span></span>
-<span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load NDVI layers for each set of files corresponding to a particular tile</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>ndvi_tiles <span class="ot">&lt;-</span> <span class="fu">map</span>(</span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>  tiles, </span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>  <span class="cf">function</span>(x) <span class="fu">rast</span>(x, <span class="at">lyrs =</span> ndvi_layers)</span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>We see that we now have a list of 4 separate raster stacks, because we loaded each entry in <code>tiles</code> separately:</p>
 <div class="cell">
-<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">ndvi_tiles</span></span>
-<span><span class="co">#&gt; [[1]]</span></span>
-<span><span class="co">#&gt; class       : SpatRaster </span></span>
-<span><span class="co">#&gt; dimensions  : 4800, 4800, 2  (nrow, ncol, nlyr)</span></span>
-<span><span class="co">#&gt; resolution  : 231.6564, 231.6564  (x, y)</span></span>
-<span><span class="co">#&gt; extent      : 3335852, 4447802, 0, 1111951  (xmin, xmax, ymin, ymax)</span></span>
-<span><span class="co">#&gt; coord. ref. : +proj=sinu +lon_0=0 +x_0=0 +y_0=0 +R=6371007.181 +units=m +no_defs </span></span>
-<span><span class="co">#&gt; sources     : MOD13Q1.A2014001.h21v08.061.2021246163834.hdf:MODIS_Grid_16DAY_250m_500m_VI:250m 16 days NDVI  </span></span>
-<span><span class="co">#&gt;               MOD13Q1.A2014209.h21v08.061.2021260011612.hdf:MODIS_Grid_16DAY_250m_500m_VI:250m 16 days NDVI  </span></span>
-<span><span class="co">#&gt; varnames    : MOD13Q1.A2014001.h21v08.061.2021246163834 </span></span>
-<span><span class="co">#&gt;               MOD13Q1.A2014209.h21v08.061.2021260011612 </span></span>
-<span><span class="co">#&gt; names       : "250m 16 days NDVI", "250m 16 days NDVI" </span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; [[2]]</span></span>
-<span><span class="co">#&gt; class       : SpatRaster </span></span>
-<span><span class="co">#&gt; dimensions  : 4800, 4800, 2  (nrow, ncol, nlyr)</span></span>
-<span><span class="co">#&gt; resolution  : 231.6564, 231.6564  (x, y)</span></span>
-<span><span class="co">#&gt; extent      : 3335852, 4447802, -1111951, 0  (xmin, xmax, ymin, ymax)</span></span>
-<span><span class="co">#&gt; coord. ref. : +proj=sinu +lon_0=0 +x_0=0 +y_0=0 +R=6371007.181 +units=m +no_defs </span></span>
-<span><span class="co">#&gt; sources     : MOD13Q1.A2014001.h21v09.061.2021246163703.hdf:MODIS_Grid_16DAY_250m_500m_VI:250m 16 days NDVI  </span></span>
-<span><span class="co">#&gt;               MOD13Q1.A2014209.h21v09.061.2021260011337.hdf:MODIS_Grid_16DAY_250m_500m_VI:250m 16 days NDVI  </span></span>
-<span><span class="co">#&gt; varnames    : MOD13Q1.A2014001.h21v09.061.2021246163703 </span></span>
-<span><span class="co">#&gt;               MOD13Q1.A2014209.h21v09.061.2021260011337 </span></span>
-<span><span class="co">#&gt; names       : "250m 16 days NDVI", "250m 16 days NDVI" </span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; [[3]]</span></span>
-<span><span class="co">#&gt; class       : SpatRaster </span></span>
-<span><span class="co">#&gt; dimensions  : 4800, 4800, 2  (nrow, ncol, nlyr)</span></span>
-<span><span class="co">#&gt; resolution  : 231.6564, 231.6564  (x, y)</span></span>
-<span><span class="co">#&gt; extent      : 4447802, 5559753, 0, 1111951  (xmin, xmax, ymin, ymax)</span></span>
-<span><span class="co">#&gt; coord. ref. : +proj=sinu +lon_0=0 +x_0=0 +y_0=0 +R=6371007.181 +units=m +no_defs </span></span>
-<span><span class="co">#&gt; sources     : MOD13Q1.A2014001.h22v08.061.2021246164307.hdf:MODIS_Grid_16DAY_250m_500m_VI:250m 16 days NDVI  </span></span>
-<span><span class="co">#&gt;               MOD13Q1.A2014209.h22v08.061.2021260023343.hdf:MODIS_Grid_16DAY_250m_500m_VI:250m 16 days NDVI  </span></span>
-<span><span class="co">#&gt; varnames    : MOD13Q1.A2014001.h22v08.061.2021246164307 </span></span>
-<span><span class="co">#&gt;               MOD13Q1.A2014209.h22v08.061.2021260023343 </span></span>
-<span><span class="co">#&gt; names       : "250m 16 days NDVI", "250m 16 days NDVI" </span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; [[4]]</span></span>
-<span><span class="co">#&gt; class       : SpatRaster </span></span>
-<span><span class="co">#&gt; dimensions  : 4800, 4800, 2  (nrow, ncol, nlyr)</span></span>
-<span><span class="co">#&gt; resolution  : 231.6564, 231.6564  (x, y)</span></span>
-<span><span class="co">#&gt; extent      : 4447802, 5559753, -1111951, 0  (xmin, xmax, ymin, ymax)</span></span>
-<span><span class="co">#&gt; coord. ref. : +proj=sinu +lon_0=0 +x_0=0 +y_0=0 +R=6371007.181 +units=m +no_defs </span></span>
-<span><span class="co">#&gt; sources     : MOD13Q1.A2014001.h22v09.061.2021246155251.hdf:MODIS_Grid_16DAY_250m_500m_VI:250m 16 days NDVI  </span></span>
-<span><span class="co">#&gt;               MOD13Q1.A2014209.h22v09.061.2021260023455.hdf:MODIS_Grid_16DAY_250m_500m_VI:250m 16 days NDVI  </span></span>
-<span><span class="co">#&gt; varnames    : MOD13Q1.A2014001.h22v09.061.2021246155251 </span></span>
-<span><span class="co">#&gt;               MOD13Q1.A2014209.h22v09.061.2021260023455 </span></span>
-<span><span class="co">#&gt; names       : "250m 16 days NDVI", "250m 16 days NDVI"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>ndvi_tiles</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [[1]]</span></span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; class       : SpatRaster </span></span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; dimensions  : 4800, 4800, 2  (nrow, ncol, nlyr)</span></span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; resolution  : 231.6564, 231.6564  (x, y)</span></span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; extent      : 3335852, 4447802, 0, 1111951  (xmin, xmax, ymin, ymax)</span></span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; coord. ref. : +proj=sinu +lon_0=0 +x_0=0 +y_0=0 +R=6371007.181 +units=m +no_defs </span></span>
+<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; sources     : MOD13Q1.A2014001.h21v08.061.2021246163834.hdf:MODIS_Grid_16DAY_250m_500m_VI:250m 16 days NDVI  </span></span>
+<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;               MOD13Q1.A2014209.h21v08.061.2021260011612.hdf:MODIS_Grid_16DAY_250m_500m_VI:250m 16 days NDVI  </span></span>
+<span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; varnames    : MOD13Q1.A2014001.h21v08.061.2021246163834 </span></span>
+<span id="cb25-11"><a href="#cb25-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;               MOD13Q1.A2014209.h21v08.061.2021260011612 </span></span>
+<span id="cb25-12"><a href="#cb25-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; names       : "250m 16 days NDVI", "250m 16 days NDVI" </span></span>
+<span id="cb25-13"><a href="#cb25-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb25-14"><a href="#cb25-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [[2]]</span></span>
+<span id="cb25-15"><a href="#cb25-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; class       : SpatRaster </span></span>
+<span id="cb25-16"><a href="#cb25-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; dimensions  : 4800, 4800, 2  (nrow, ncol, nlyr)</span></span>
+<span id="cb25-17"><a href="#cb25-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; resolution  : 231.6564, 231.6564  (x, y)</span></span>
+<span id="cb25-18"><a href="#cb25-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; extent      : 3335852, 4447802, -1111951, 0  (xmin, xmax, ymin, ymax)</span></span>
+<span id="cb25-19"><a href="#cb25-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; coord. ref. : +proj=sinu +lon_0=0 +x_0=0 +y_0=0 +R=6371007.181 +units=m +no_defs </span></span>
+<span id="cb25-20"><a href="#cb25-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; sources     : MOD13Q1.A2014001.h21v09.061.2021246163703.hdf:MODIS_Grid_16DAY_250m_500m_VI:250m 16 days NDVI  </span></span>
+<span id="cb25-21"><a href="#cb25-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;               MOD13Q1.A2014209.h21v09.061.2021260011337.hdf:MODIS_Grid_16DAY_250m_500m_VI:250m 16 days NDVI  </span></span>
+<span id="cb25-22"><a href="#cb25-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; varnames    : MOD13Q1.A2014001.h21v09.061.2021246163703 </span></span>
+<span id="cb25-23"><a href="#cb25-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;               MOD13Q1.A2014209.h21v09.061.2021260011337 </span></span>
+<span id="cb25-24"><a href="#cb25-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; names       : "250m 16 days NDVI", "250m 16 days NDVI" </span></span>
+<span id="cb25-25"><a href="#cb25-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb25-26"><a href="#cb25-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [[3]]</span></span>
+<span id="cb25-27"><a href="#cb25-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; class       : SpatRaster </span></span>
+<span id="cb25-28"><a href="#cb25-28" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; dimensions  : 4800, 4800, 2  (nrow, ncol, nlyr)</span></span>
+<span id="cb25-29"><a href="#cb25-29" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; resolution  : 231.6564, 231.6564  (x, y)</span></span>
+<span id="cb25-30"><a href="#cb25-30" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; extent      : 4447802, 5559753, 0, 1111951  (xmin, xmax, ymin, ymax)</span></span>
+<span id="cb25-31"><a href="#cb25-31" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; coord. ref. : +proj=sinu +lon_0=0 +x_0=0 +y_0=0 +R=6371007.181 +units=m +no_defs </span></span>
+<span id="cb25-32"><a href="#cb25-32" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; sources     : MOD13Q1.A2014001.h22v08.061.2021246164307.hdf:MODIS_Grid_16DAY_250m_500m_VI:250m 16 days NDVI  </span></span>
+<span id="cb25-33"><a href="#cb25-33" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;               MOD13Q1.A2014209.h22v08.061.2021260023343.hdf:MODIS_Grid_16DAY_250m_500m_VI:250m 16 days NDVI  </span></span>
+<span id="cb25-34"><a href="#cb25-34" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; varnames    : MOD13Q1.A2014001.h22v08.061.2021246164307 </span></span>
+<span id="cb25-35"><a href="#cb25-35" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;               MOD13Q1.A2014209.h22v08.061.2021260023343 </span></span>
+<span id="cb25-36"><a href="#cb25-36" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; names       : "250m 16 days NDVI", "250m 16 days NDVI" </span></span>
+<span id="cb25-37"><a href="#cb25-37" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb25-38"><a href="#cb25-38" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [[4]]</span></span>
+<span id="cb25-39"><a href="#cb25-39" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; class       : SpatRaster </span></span>
+<span id="cb25-40"><a href="#cb25-40" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; dimensions  : 4800, 4800, 2  (nrow, ncol, nlyr)</span></span>
+<span id="cb25-41"><a href="#cb25-41" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; resolution  : 231.6564, 231.6564  (x, y)</span></span>
+<span id="cb25-42"><a href="#cb25-42" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; extent      : 4447802, 5559753, -1111951, 0  (xmin, xmax, ymin, ymax)</span></span>
+<span id="cb25-43"><a href="#cb25-43" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; coord. ref. : +proj=sinu +lon_0=0 +x_0=0 +y_0=0 +R=6371007.181 +units=m +no_defs </span></span>
+<span id="cb25-44"><a href="#cb25-44" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; sources     : MOD13Q1.A2014001.h22v09.061.2021246155251.hdf:MODIS_Grid_16DAY_250m_500m_VI:250m 16 days NDVI  </span></span>
+<span id="cb25-45"><a href="#cb25-45" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;               MOD13Q1.A2014209.h22v09.061.2021260023455.hdf:MODIS_Grid_16DAY_250m_500m_VI:250m 16 days NDVI  </span></span>
+<span id="cb25-46"><a href="#cb25-46" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; varnames    : MOD13Q1.A2014001.h22v09.061.2021246155251 </span></span>
+<span id="cb25-47"><a href="#cb25-47" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;               MOD13Q1.A2014209.h22v09.061.2021260023455 </span></span>
+<span id="cb25-48"><a href="#cb25-48" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; names       : "250m 16 days NDVI", "250m 16 days NDVI"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>To confirm that each raster stack comes from a different tile, we note that each has a different spatial extent:</p>
 <div class="cell">
-<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span><span class="op">(</span><span class="va">ndvi_tiles</span>, <span class="va">ext</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [[1]]</span></span>
-<span><span class="co">#&gt; SpatExtent : 3335851.559, 4447802.078667, 0, 1111950.519667 (xmin, xmax, ymin, ymax)</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; [[2]]</span></span>
-<span><span class="co">#&gt; SpatExtent : 3335851.559, 4447802.078667, -1111950.519667, 0 (xmin, xmax, ymin, ymax)</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; [[3]]</span></span>
-<span><span class="co">#&gt; SpatExtent : 4447802.078667, 5559752.598333, 0, 1111950.519667 (xmin, xmax, ymin, ymax)</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; [[4]]</span></span>
-<span><span class="co">#&gt; SpatExtent : 4447802.078667, 5559752.598333, -1111950.519667, 0 (xmin, xmax, ymin, ymax)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">map</span>(ndvi_tiles, ext)</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [[1]]</span></span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; SpatExtent : 3335851.559, 4447802.078667, 0, 1111950.519667 (xmin, xmax, ymin, ymax)</span></span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [[2]]</span></span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; SpatExtent : 3335851.559, 4447802.078667, -1111950.519667, 0 (xmin, xmax, ymin, ymax)</span></span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [[3]]</span></span>
+<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; SpatExtent : 4447802.078667, 5559752.598333, 0, 1111950.519667 (xmin, xmax, ymin, ymax)</span></span>
+<span id="cb26-10"><a href="#cb26-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb26-11"><a href="#cb26-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [[4]]</span></span>
+<span id="cb26-12"><a href="#cb26-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; SpatExtent : 4447802.078667, 5559752.598333, -1111950.519667, 0 (xmin, xmax, ymin, ymax)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</section></section><section id="crop-tiles" class="level2"><h2 class="anchored" data-anchor-id="crop-tiles">Crop tiles</h2>
+</section>
+</section>
+<section id="crop-tiles" class="level2">
+<h2 class="anchored" data-anchor-id="crop-tiles">Crop tiles</h2>
 <p>Next, we’ll crop our tiles to our area of interest (in this case, using the Kenya national borders). This will reduce the size of our files going forward and speed up any subsequent processing.</p>
-<p>To crop the tiles to our area of interest, we’ll need country borders. We’ll load the integrated boundaries from IPUMS and dissolve them (with <code><a href="https://r-spatial.github.io/sf/reference/geos_combine.html">st_union()</a></code>) to get the national border.</p>
+<p>To crop the tiles to our area of interest, we’ll need country borders. We’ll load the integrated boundaries from IPUMS and dissolve them (with <code>st_union()</code>) to get the national border.</p>
 <div class="cell">
-<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">ke_borders</span> <span class="op">&lt;-</span> <span class="fu">ipumsr</span><span class="fu">::</span><span class="fu"><a href="https://tech.popdata.org/ipumsr/reference/read_ipums_sf.html">read_ipums_sf</a></span><span class="op">(</span><span class="st">"data/geo_ke1989_2014.zip"</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="https://r-spatial.github.io/sf/reference/valid.html">st_make_valid</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="co"># Fix minor border inconsistencies</span></span>
-<span>  <span class="fu"><a href="https://r-spatial.github.io/sf/reference/geos_combine.html">st_union</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>ke_borders <span class="ot">&lt;-</span> ipumsr<span class="sc">::</span><span class="fu">read_ipums_sf</span>(<span class="st">"data/geo_ke1989_2014.zip"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_make_valid</span>() <span class="sc">|&gt;</span> <span class="co"># Fix minor border inconsistencies</span></span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_union</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>We need to make sure our borders are in the same coordinate system as our raster before we can crop to its extent, so we’ll extract the CRS from one of our rasters and use it with <code><a href="https://r-spatial.github.io/sf/reference/st_transform.html">st_transform()</a></code> to convert our borders’ CRS. (We’ve introduced <code><a href="https://r-spatial.github.io/sf/reference/st_transform.html">st_transform()</a></code> <a href="https://tech.popdata.org/dhs-research-hub/posts/2024-02-04-dhs-chirps/index.html#cluster-buffers">in the past</a>.)</p>
+<p>We need to make sure our borders are in the same coordinate system as our raster before we can crop to its extent, so we’ll extract the CRS from one of our rasters and use it with <code>st_transform()</code> to convert our borders’ CRS. (We’ve introduced <code>st_transform()</code> <a href="https://tech.popdata.org/dhs-research-hub/posts/2024-02-04-dhs-chirps/index.html#cluster-buffers">in the past</a>.)</p>
 <div class="callout callout-style-default callout-caution callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -775,126 +816,135 @@ Raster projection
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Obtain CRS of NDVI raster data</span></span>
-<span><span class="va">ndvi_crs</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rspatial.github.io/terra/reference/crs.html">crs</a></span><span class="op">(</span><span class="va">ndvi_tiles</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># Transform borders to same CRS as NDVI</span></span>
-<span><span class="va">ke_borders</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_transform.html">st_transform</a></span><span class="op">(</span><span class="va">ke_borders</span>, crs <span class="op">=</span> <span class="va">ndvi_crs</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Obtain CRS of NDVI raster data</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>ndvi_crs <span class="ot">&lt;-</span> <span class="fu">crs</span>(ndvi_tiles[[<span class="dv">1</span>]])</span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Transform borders to same CRS as NDVI</span></span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>ke_borders <span class="ot">&lt;-</span> <span class="fu">st_transform</span>(ke_borders, <span class="at">crs =</span> ndvi_crs)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Now, we can use our borders to crop each tile, removing the values outside of the border area. Note that we still need to use <code><a href="https://purrr.tidyverse.org/reference/map.html">map()</a></code> because our rasters are still separate elements in the <code>ndvi_tiles</code> list:</p>
+<p>Now, we can use our borders to crop each tile, removing the values outside of the border area. Note that we still need to use <code>map()</code> because our rasters are still separate elements in the <code>ndvi_tiles</code> list:</p>
 <div class="cell">
-<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">ndvi_tiles</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span><span class="op">(</span></span>
-<span>  <span class="va">ndvi_tiles</span>, </span>
-<span>  <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="https://rspatial.github.io/terra/reference/crop.html">crop</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">ke_borders</span><span class="op">)</span></span>
-<span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>ndvi_tiles <span class="ot">&lt;-</span> <span class="fu">map</span>(</span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>  ndvi_tiles, </span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>  <span class="cf">function</span>(x) <span class="fu">crop</span>(x, ke_borders)</span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Now we’re ready to join our tiles together!</p>
-</section><section id="mosaic-tiles" class="level2 page-columns page-full"><h2 class="anchored" data-anchor-id="mosaic-tiles">Mosaic tiles</h2>
-<p>We can mosaic our cropped tiles together with terra’s <code><a href="https://rspatial.github.io/terra/reference/mosaic.html">mosaic()</a></code> function. Typically <code><a href="https://rspatial.github.io/terra/reference/mosaic.html">mosaic()</a></code> only takes two rasters.</p>
+</section>
+<section id="mosaic-tiles" class="level2 page-columns page-full">
+<h2 class="anchored" data-anchor-id="mosaic-tiles">Mosaic tiles</h2>
+<p>We can mosaic our cropped tiles together with terra’s <code>mosaic()</code> function. Typically <code>mosaic()</code> only takes two rasters.</p>
 <div class="cell">
-<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Mosaic two of our tiles together</span></span>
-<span><span class="va">ndvi_mosaic</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rspatial.github.io/terra/reference/mosaic.html">mosaic</a></span><span class="op">(</span><span class="va">ndvi_tiles</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span>, <span class="va">ndvi_tiles</span><span class="op">[[</span><span class="fl">3</span><span class="op">]</span><span class="op">]</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Mosaic two of our tiles together</span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>ndvi_mosaic <span class="ot">&lt;-</span> <span class="fu">mosaic</span>(ndvi_tiles[[<span class="dv">1</span>]], ndvi_tiles[[<span class="dv">3</span>]])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>However, we need to mosaic all 4 tiles to cover Kenya in its entirety:</p>
 <div class="cell page-columns page-full">
-<details class="code-fold"><summary>Show plot code</summary><div class="sourceCode" id="cb31"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">ndvi_pal</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span></span>
-<span>  pal <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span></span>
-<span>    <span class="st">"#fdfbdc"</span>,</span>
-<span>    <span class="st">"#f1f4b7"</span>,</span>
-<span>    <span class="st">"#d3ef9f"</span>,</span>
-<span>    <span class="st">"#a5da8d"</span>,</span>
-<span>    <span class="st">"#6cc275"</span>,</span>
-<span>    <span class="st">"#51a55b"</span>,</span>
-<span>    <span class="st">"#397e43"</span>,</span>
-<span>    <span class="st">"#2d673a"</span>,</span>
-<span>    <span class="st">"#1d472e"</span> </span>
-<span>  <span class="op">)</span>,</span>
-<span>  values <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0.1</span>, <span class="fl">0.2</span>, <span class="fl">0.3</span>, <span class="fl">0.4</span>, <span class="fl">0.5</span>, <span class="fl">0.6</span>, <span class="fl">0.7</span>, <span class="fl">1</span><span class="op">)</span></span>
-<span><span class="op">)</span></span>
-<span></span>
-<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://paleolimbot.github.io/ggspatial/reference/layer_spatial.html">layer_spatial</a></span><span class="op">(</span><span class="va">ndvi_mosaic</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://paleolimbot.github.io/ggspatial/reference/layer_spatial.html">layer_spatial</a></span><span class="op">(</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/geos_unary.html">st_simplify</a></span><span class="op">(</span><span class="va">ke_borders</span>, dTolerance <span class="op">=</span> <span class="fl">1000</span><span class="op">)</span>, fill <span class="op">=</span> <span class="cn">NA</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_gradient.html">scale_fill_gradientn</a></span><span class="op">(</span></span>
-<span>    colors <span class="op">=</span> <span class="va">ndvi_pal</span><span class="op">$</span><span class="va">pal</span>,</span>
-<span>    values <span class="op">=</span> <span class="va">ndvi_pal</span><span class="op">$</span><span class="va">values</span>,</span>
-<span>    limits <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">100000000</span><span class="op">)</span>,</span>
-<span>    na.value <span class="op">=</span> <span class="st">"transparent"</span></span>
-<span>  <span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span></span>
-<span>    title <span class="op">=</span> <span class="st">"NDVI: Kenya"</span>,</span>
-<span>    subtitle <span class="op">=</span> <span class="st">"January 1-16, 2014"</span>,</span>
-<span>    fill <span class="op">=</span> <span class="st">"NDVI"</span>,</span>
-<span>    caption <span class="op">=</span> <span class="st">"Source: NASA MOD13Q1"</span></span>
-<span>  <span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu">theme_dhs_map</span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details><div class="cell-output-display page-columns page-full">
+<details class="code-fold">
+<summary>Show plot code</summary>
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>ndvi_pal <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">pal =</span> <span class="fu">c</span>(</span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"#fdfbdc"</span>,</span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">"#f1f4b7"</span>,</span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">"#d3ef9f"</span>,</span>
+<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">"#a5da8d"</span>,</span>
+<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">"#6cc275"</span>,</span>
+<span id="cb31-8"><a href="#cb31-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">"#51a55b"</span>,</span>
+<span id="cb31-9"><a href="#cb31-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">"#397e43"</span>,</span>
+<span id="cb31-10"><a href="#cb31-10" aria-hidden="true" tabindex="-1"></a>    <span class="st">"#2d673a"</span>,</span>
+<span id="cb31-11"><a href="#cb31-11" aria-hidden="true" tabindex="-1"></a>    <span class="st">"#1d472e"</span> </span>
+<span id="cb31-12"><a href="#cb31-12" aria-hidden="true" tabindex="-1"></a>  ),</span>
+<span id="cb31-13"><a href="#cb31-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">values =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">0.1</span>, <span class="fl">0.2</span>, <span class="fl">0.3</span>, <span class="fl">0.4</span>, <span class="fl">0.5</span>, <span class="fl">0.6</span>, <span class="fl">0.7</span>, <span class="dv">1</span>)</span>
+<span id="cb31-14"><a href="#cb31-14" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb31-15"><a href="#cb31-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-16"><a href="#cb31-16" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb31-17"><a href="#cb31-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">layer_spatial</span>(ndvi_mosaic[[<span class="dv">1</span>]]) <span class="sc">+</span></span>
+<span id="cb31-18"><a href="#cb31-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">layer_spatial</span>(<span class="fu">st_simplify</span>(ke_borders, <span class="at">dTolerance =</span> <span class="dv">1000</span>), <span class="at">fill =</span> <span class="cn">NA</span>) <span class="sc">+</span></span>
+<span id="cb31-19"><a href="#cb31-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_gradientn</span>(</span>
+<span id="cb31-20"><a href="#cb31-20" aria-hidden="true" tabindex="-1"></a>    <span class="at">colors =</span> ndvi_pal<span class="sc">$</span>pal,</span>
+<span id="cb31-21"><a href="#cb31-21" aria-hidden="true" tabindex="-1"></a>    <span class="at">values =</span> ndvi_pal<span class="sc">$</span>values,</span>
+<span id="cb31-22"><a href="#cb31-22" aria-hidden="true" tabindex="-1"></a>    <span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">100000000</span>),</span>
+<span id="cb31-23"><a href="#cb31-23" aria-hidden="true" tabindex="-1"></a>    <span class="at">na.value =</span> <span class="st">"transparent"</span></span>
+<span id="cb31-24"><a href="#cb31-24" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb31-25"><a href="#cb31-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb31-26"><a href="#cb31-26" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"NDVI: Kenya"</span>,</span>
+<span id="cb31-27"><a href="#cb31-27" aria-hidden="true" tabindex="-1"></a>    <span class="at">subtitle =</span> <span class="st">"January 1-16, 2014"</span>,</span>
+<span id="cb31-28"><a href="#cb31-28" aria-hidden="true" tabindex="-1"></a>    <span class="at">fill =</span> <span class="st">"NDVI"</span>,</span>
+<span id="cb31-29"><a href="#cb31-29" aria-hidden="true" tabindex="-1"></a>    <span class="at">caption =</span> <span class="st">"Source: NASA MOD13Q1"</span></span>
+<span id="cb31-30"><a href="#cb31-30" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb31-31"><a href="#cb31-31" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_dhs_map</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display page-columns page-full">
 <div class="page-columns page-full">
-<figure class="figure page-columns page-full"><p class="page-columns page-full"><img src="index_files/figure-html/unnamed-chunk-32-1.png" class="img-fluid figure-img column-page" style="width:100.0%"></p>
+<figure class="figure page-columns page-full">
+<p class="page-columns page-full"><img src="index_files/figure-html/unnamed-chunk-32-1.png" class="img-fluid figure-img column-page" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
 </div>
-<p>We could manually mosaic all the tiles together, but purrr actually provides a more efficient solution. The <code><a href="https://purrr.tidyverse.org/reference/reduce.html">reduce()</a></code> function allows us to collapse a set of objects stored in a list by repeatedly applying the same operation to each pair of list elements.</p>
-<p>That is, <code><a href="https://purrr.tidyverse.org/reference/reduce.html">reduce()</a></code> allows us to mosaic the first two entries in our <code>ndvi_tiles</code> list, then mosaic that output with the next entry in the list, and so on. We simply need to provide the list of our raster tiles and the function that we want to use to collapse the list. In this case, we want to <code><a href="https://rspatial.github.io/terra/reference/mosaic.html">mosaic()</a></code> the elements in the list together into a single raster output.</p>
+<p>We could manually mosaic all the tiles together, but purrr actually provides a more efficient solution. The <code>reduce()</code> function allows us to collapse a set of objects stored in a list by repeatedly applying the same operation to each pair of list elements.</p>
+<p>That is, <code>reduce()</code> allows us to mosaic the first two entries in our <code>ndvi_tiles</code> list, then mosaic that output with the next entry in the list, and so on. We simply need to provide the list of our raster tiles and the function that we want to use to collapse the list. In this case, we want to <code>mosaic()</code> the elements in the list together into a single raster output.</p>
 <div class="cell">
-<div class="sourceCode" id="cb32"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">ke_ndvi</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://purrr.tidyverse.org/reference/reduce.html">reduce</a></span><span class="op">(</span><span class="va">ndvi_tiles</span>, <span class="va">mosaic</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>ke_ndvi <span class="ot">&lt;-</span> <span class="fu">reduce</span>(ndvi_tiles, mosaic)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Next, we’ll rescale the NDVI values, which should range from -1 to 1:</p>
 <div class="cell">
-<div class="sourceCode" id="cb33"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">ke_ndvi</span> <span class="op">&lt;-</span> <span class="va">ke_ndvi</span> <span class="op">/</span> <span class="fl">100000000</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>ke_ndvi <span class="ot">&lt;-</span> ke_ndvi <span class="sc">/</span> <span class="dv">100000000</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell page-columns page-full">
-<details class="code-fold"><summary>Show plot code</summary><div class="sourceCode" id="cb34"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://paleolimbot.github.io/ggspatial/reference/layer_spatial.html">layer_spatial</a></span><span class="op">(</span><span class="va">ke_ndvi</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_gradient.html">scale_fill_gradientn</a></span><span class="op">(</span></span>
-<span>    colors <span class="op">=</span> <span class="va">ndvi_pal</span><span class="op">$</span><span class="va">pal</span>,</span>
-<span>    values <span class="op">=</span> <span class="va">ndvi_pal</span><span class="op">$</span><span class="va">values</span>,</span>
-<span>    limits <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">1</span><span class="op">)</span>,</span>
-<span>    na.value <span class="op">=</span> <span class="st">"transparent"</span></span>
-<span>  <span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span></span>
-<span>    title <span class="op">=</span> <span class="st">"NDVI: Kenya"</span>,</span>
-<span>    subtitle <span class="op">=</span> <span class="st">"January 1-16, 2014"</span>,</span>
-<span>    fill <span class="op">=</span> <span class="st">"NDVI"</span>,</span>
-<span>    caption <span class="op">=</span> <span class="st">"Source: NASA MOD13Q1"</span></span>
-<span>  <span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu">theme_dhs_map</span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details><div class="cell-output-display page-columns page-full">
+<details class="code-fold">
+<summary>Show plot code</summary>
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">layer_spatial</span>(ke_ndvi[[<span class="dv">1</span>]]) <span class="sc">+</span></span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_gradientn</span>(</span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">colors =</span> ndvi_pal<span class="sc">$</span>pal,</span>
+<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">values =</span> ndvi_pal<span class="sc">$</span>values,</span>
+<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>),</span>
+<span id="cb34-7"><a href="#cb34-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">na.value =</span> <span class="st">"transparent"</span></span>
+<span id="cb34-8"><a href="#cb34-8" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb34-9"><a href="#cb34-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb34-10"><a href="#cb34-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"NDVI: Kenya"</span>,</span>
+<span id="cb34-11"><a href="#cb34-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">subtitle =</span> <span class="st">"January 1-16, 2014"</span>,</span>
+<span id="cb34-12"><a href="#cb34-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">fill =</span> <span class="st">"NDVI"</span>,</span>
+<span id="cb34-13"><a href="#cb34-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">caption =</span> <span class="st">"Source: NASA MOD13Q1"</span></span>
+<span id="cb34-14"><a href="#cb34-14" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb34-15"><a href="#cb34-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_dhs_map</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display page-columns page-full">
 <div class="page-columns page-full">
-<figure class="figure page-columns page-full"><p class="page-columns page-full"><img src="index_files/figure-html/unnamed-chunk-35-1.png" class="img-fluid figure-img column-page" style="width:100.0%"></p>
+<figure class="figure page-columns page-full">
+<p class="page-columns page-full"><img src="index_files/figure-html/unnamed-chunk-35-1.png" class="img-fluid figure-img column-page" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
 </div>
 <p>Notice that no time information is attached to our output raster:</p>
 <div class="cell">
-<div class="sourceCode" id="cb35"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rspatial.github.io/terra/reference/time.html">time</a></span><span class="op">(</span><span class="va">ke_ndvi</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] NA NA</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu">time</span>(ke_ndvi)</span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] NA NA</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>The time information is stored in a <code>A0000000</code> format string in the file name. The first 4 digits after the <code>A</code> contain the data year, and the next 3 contain the day of the year.</p>
 <p>We can again use a regular expression to extract the timestamps using this pattern:</p>
 <div class="cell">
-<div class="sourceCode" id="cb36"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Extract 7-digit sequence following an "A"</span></span>
-<span><span class="va">timestamps</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rspatial.github.io/terra/reference/unique.html">unique</a></span><span class="op">(</span><span class="fu">stringr</span><span class="fu">::</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_extract.html">str_extract</a></span><span class="op">(</span><span class="va">files</span>, <span class="st">"(?&lt;=A)[0-9]{7}"</span><span class="op">)</span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">timestamps</span></span>
-<span><span class="co">#&gt; [1] "2014001" "2014209"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Extract 7-digit sequence following an "A"</span></span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>timestamps <span class="ot">&lt;-</span> <span class="fu">unique</span>(stringr<span class="sc">::</span><span class="fu">str_extract</span>(files, <span class="st">"(?&lt;=A)[0-9]{7}"</span>))</span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a>timestamps</span>
+<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] "2014001" "2014209"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 
 <div class="no-row-height column-margin column-container"><div class="">
 <p><code>"(?&lt;=A)"</code> is referred to as a <em>lookbehind assertion</em>. It will match elements of a string only if they follow the text in the assertion (in this case, <code>"A"</code>). For more about assertions, check out this <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_expressions/Cheatsheet#other_assertions">cheatsheet</a>.</p>
-</div></div><p>These timestamps are in year + day of year format. We can parse this format using <a href="https://lubridate.tidyverse.org">lubridate</a>, using <code>"yj"</code> format.</p>
+</div></div><p>These timestamps are in year + day of year format. We can parse this format using <code>{lubridate}</code>, using <code>"yj"</code> format.</p>
 
 <div class="no-row-height column-margin column-container"><div class="">
-<p></p>
-<div class="hex"> <a href="https://lubridate.tidyverse.org/index.html" class="hex"> <img src="../../images/hex/lubridate.png" class="hex-img"></a> <p class="hex-cap">© Garrett Grolemund, Hadley Wickham (GPL &gt;= 2)</p> </div>
+<p></p><div class="hex"> <a href="https://lubridate.tidyverse.org/index.html" class="hex"> <img src="../../images/hex/lubridate.png" class="hex-img"> </a> <p class="hex-cap">© Garrett Grolemund, Hadley Wickham (GPL &gt;= 2)</p> </div><p></p>
 </div><div class="">
 <p>Learn more about the different codes used to specify time formats <a href="https://rdrr.io/r/base/strptime.html">here</a>.</p>
 </div></div>
 <div class="cell">
-<div class="sourceCode" id="cb37"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Parse time format and attach to our output raster</span></span>
-<span><span class="fu"><a href="https://rspatial.github.io/terra/reference/time.html">time</a></span><span class="op">(</span><span class="va">ke_ndvi</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rspatial.github.io/terra/reference/unique.html">unique</a></span><span class="op">(</span><span class="fu">lubridate</span><span class="fu">::</span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/parse_date_time.html">parse_date_time</a></span><span class="op">(</span><span class="va">timestamps</span>, <span class="st">"yj"</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Parse time format and attach to our output raster</span></span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a><span class="fu">time</span>(ke_ndvi) <span class="ot">&lt;-</span> <span class="fu">unique</span>(lubridate<span class="sc">::</span><span class="fu">parse_date_time</span>(timestamps, <span class="st">"yj"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="callout callout-style-default callout-caution callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -911,82 +961,94 @@ Caution
 </div>
 <p>Now, we finally have a full set of NDVI data for our area of interest. We have full spatial coverage for Kenya, and we’ve got our timestamps represented in distinct layers of our raster:</p>
 <div class="cell">
-<div class="sourceCode" id="cb38"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">ke_ndvi</span></span>
-<span><span class="co">#&gt; class       : SpatRaster </span></span>
-<span><span class="co">#&gt; dimensions  : 4662, 3795, 2  (nrow, ncol, nlyr)</span></span>
-<span><span class="co">#&gt; resolution  : 231.6564, 231.6564  (x, y)</span></span>
-<span><span class="co">#&gt; extent      : 3769512, 4648648, -520300.2, 559681.8  (xmin, xmax, ymin, ymax)</span></span>
-<span><span class="co">#&gt; coord. ref. : +proj=sinu +lon_0=0 +x_0=0 +y_0=0 +R=6371007.181 +units=m +no_defs </span></span>
-<span><span class="co">#&gt; source      : spat_2020fd5ebe_8224_SDnwk7fjh8CwF05.tif </span></span>
-<span><span class="co">#&gt; names       : "250m 16 days NDVI", "250m 16 days NDVI" </span></span>
-<span><span class="co">#&gt; min values  :             -0.2000,             -0.2000 </span></span>
-<span><span class="co">#&gt; max values  :              0.9995,              0.9995 </span></span>
-<span><span class="co">#&gt; time        : 2014-01-01 to 2014-07-28 UTC</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>ke_ndvi</span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; class       : SpatRaster </span></span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; dimensions  : 4662, 3795, 2  (nrow, ncol, nlyr)</span></span>
+<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; resolution  : 231.6564, 231.6564  (x, y)</span></span>
+<span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; extent      : 3769512, 4648648, -520300.2, 559681.8  (xmin, xmax, ymin, ymax)</span></span>
+<span id="cb38-6"><a href="#cb38-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; coord. ref. : +proj=sinu +lon_0=0 +x_0=0 +y_0=0 +R=6371007.181 +units=m +no_defs </span></span>
+<span id="cb38-7"><a href="#cb38-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; source      : spat_2020fd5ebe_8224_SDnwk7fjh8CwF05.tif </span></span>
+<span id="cb38-8"><a href="#cb38-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; names       : "250m 16 days NDVI", "250m 16 days NDVI" </span></span>
+<span id="cb38-9"><a href="#cb38-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; min values  :             -0.2000,             -0.2000 </span></span>
+<span id="cb38-10"><a href="#cb38-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; max values  :              0.9995,              0.9995 </span></span>
+<span id="cb38-11"><a href="#cb38-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; time        : 2014-01-01 to 2014-07-28 UTC</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell page-columns page-full">
-<details class="code-fold"><summary>Show plot code</summary><div class="sourceCode" id="cb39"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://patchwork.data-imaginist.com">patchwork</a></span><span class="op">)</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; Attaching package: 'patchwork'</span></span>
-<span><span class="co">#&gt; The following object is masked from 'package:terra':</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt;     area</span></span>
-<span></span>
-<span><span class="va">ke_ndvi_mask</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rspatial.github.io/terra/reference/mask.html">mask</a></span><span class="op">(</span><span class="va">ke_ndvi</span>, <span class="fu"><a href="https://rspatial.github.io/terra/reference/vect.html">vect</a></span><span class="op">(</span><span class="va">ke_borders</span><span class="op">)</span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">p1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://paleolimbot.github.io/ggspatial/reference/layer_spatial.html">layer_spatial</a></span><span class="op">(</span><span class="va">ke_ndvi_mask</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://paleolimbot.github.io/ggspatial/reference/layer_spatial.html">layer_spatial</a></span><span class="op">(</span><span class="va">ke_borders</span>, fill <span class="op">=</span> <span class="cn">NA</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_gradient.html">scale_fill_gradientn</a></span><span class="op">(</span></span>
-<span>    colors <span class="op">=</span> <span class="va">ndvi_pal</span><span class="op">$</span><span class="va">pal</span>,</span>
-<span>    values <span class="op">=</span> <span class="va">ndvi_pal</span><span class="op">$</span><span class="va">values</span>,</span>
-<span>    limits <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">1</span><span class="op">)</span>,</span>
-<span>    na.value <span class="op">=</span> <span class="st">"transparent"</span></span>
-<span>  <span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span></span>
-<span>    subtitle <span class="op">=</span> <span class="st">"January 1-16, 2014"</span>,</span>
-<span>    fill <span class="op">=</span> <span class="st">"NDVI"</span></span>
-<span>  <span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu">theme_dhs_map</span><span class="op">(</span>show_scale <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu">theme_dhs_base</span><span class="op">(</span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">p2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://paleolimbot.github.io/ggspatial/reference/layer_spatial.html">layer_spatial</a></span><span class="op">(</span><span class="va">ke_ndvi_mask</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://paleolimbot.github.io/ggspatial/reference/layer_spatial.html">layer_spatial</a></span><span class="op">(</span><span class="va">ke_borders</span>, fill <span class="op">=</span> <span class="cn">NA</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_gradient.html">scale_fill_gradientn</a></span><span class="op">(</span></span>
-<span>    colors <span class="op">=</span> <span class="va">ndvi_pal</span><span class="op">$</span><span class="va">pal</span>,</span>
-<span>    values <span class="op">=</span> <span class="va">ndvi_pal</span><span class="op">$</span><span class="va">values</span>,</span>
-<span>    limits <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">1</span><span class="op">)</span>,</span>
-<span>    na.value <span class="op">=</span> <span class="st">"transparent"</span></span>
-<span>  <span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span></span>
-<span>    subtitle <span class="op">=</span> <span class="st">"July 28-August 12, 2014"</span>,</span>
-<span>    fill <span class="op">=</span> <span class="st">"NDVI"</span></span>
-<span>  <span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu">theme_dhs_map</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu">theme_dhs_base</span><span class="op">(</span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">p1</span> <span class="op">+</span> <span class="va">p2</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://patchwork.data-imaginist.com/reference/plot_layout.html">plot_layout</a></span><span class="op">(</span>guides <span class="op">=</span> <span class="st">"collect"</span>, ncol <span class="op">=</span> <span class="fl">2</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://patchwork.data-imaginist.com/reference/plot_annotation.html">plot_annotation</a></span><span class="op">(</span></span>
-<span>    title <span class="op">=</span> <span class="st">"Seasonal NDVI Comparison: Kenya"</span>,</span>
-<span>    caption <span class="op">=</span> <span class="st">"Source: NASA MOD13Q1"</span></span>
-<span>  <span class="op">)</span> <span class="op">&amp;</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span><span class="op">(</span>legend.position<span class="op">=</span><span class="st">'bottom'</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details><div class="cell-output-display page-columns page-full">
+<details class="code-fold">
+<summary>Show plot code</summary>
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(patchwork)</span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Attaching package: 'patchwork'</span></span>
+<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; The following object is masked from 'package:terra':</span></span>
+<span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb39-6"><a href="#cb39-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     area</span></span>
+<span id="cb39-7"><a href="#cb39-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-8"><a href="#cb39-8" aria-hidden="true" tabindex="-1"></a>ke_ndvi_mask <span class="ot">&lt;-</span> <span class="fu">mask</span>(ke_ndvi, <span class="fu">vect</span>(ke_borders))</span>
+<span id="cb39-9"><a href="#cb39-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-10"><a href="#cb39-10" aria-hidden="true" tabindex="-1"></a>p1 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb39-11"><a href="#cb39-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">layer_spatial</span>(ke_ndvi_mask[[<span class="dv">1</span>]]) <span class="sc">+</span></span>
+<span id="cb39-12"><a href="#cb39-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">layer_spatial</span>(ke_borders, <span class="at">fill =</span> <span class="cn">NA</span>) <span class="sc">+</span></span>
+<span id="cb39-13"><a href="#cb39-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_gradientn</span>(</span>
+<span id="cb39-14"><a href="#cb39-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">colors =</span> ndvi_pal<span class="sc">$</span>pal,</span>
+<span id="cb39-15"><a href="#cb39-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">values =</span> ndvi_pal<span class="sc">$</span>values,</span>
+<span id="cb39-16"><a href="#cb39-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>),</span>
+<span id="cb39-17"><a href="#cb39-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">na.value =</span> <span class="st">"transparent"</span></span>
+<span id="cb39-18"><a href="#cb39-18" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb39-19"><a href="#cb39-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb39-20"><a href="#cb39-20" aria-hidden="true" tabindex="-1"></a>    <span class="at">subtitle =</span> <span class="st">"January 1-16, 2014"</span>,</span>
+<span id="cb39-21"><a href="#cb39-21" aria-hidden="true" tabindex="-1"></a>    <span class="at">fill =</span> <span class="st">"NDVI"</span></span>
+<span id="cb39-22"><a href="#cb39-22" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb39-23"><a href="#cb39-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_dhs_map</span>(<span class="at">show_scale =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb39-24"><a href="#cb39-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_dhs_base</span>()</span>
+<span id="cb39-25"><a href="#cb39-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-26"><a href="#cb39-26" aria-hidden="true" tabindex="-1"></a>p2 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb39-27"><a href="#cb39-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">layer_spatial</span>(ke_ndvi_mask[[<span class="dv">2</span>]]) <span class="sc">+</span></span>
+<span id="cb39-28"><a href="#cb39-28" aria-hidden="true" tabindex="-1"></a>  <span class="fu">layer_spatial</span>(ke_borders, <span class="at">fill =</span> <span class="cn">NA</span>) <span class="sc">+</span></span>
+<span id="cb39-29"><a href="#cb39-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_gradientn</span>(</span>
+<span id="cb39-30"><a href="#cb39-30" aria-hidden="true" tabindex="-1"></a>    <span class="at">colors =</span> ndvi_pal<span class="sc">$</span>pal,</span>
+<span id="cb39-31"><a href="#cb39-31" aria-hidden="true" tabindex="-1"></a>    <span class="at">values =</span> ndvi_pal<span class="sc">$</span>values,</span>
+<span id="cb39-32"><a href="#cb39-32" aria-hidden="true" tabindex="-1"></a>    <span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>),</span>
+<span id="cb39-33"><a href="#cb39-33" aria-hidden="true" tabindex="-1"></a>    <span class="at">na.value =</span> <span class="st">"transparent"</span></span>
+<span id="cb39-34"><a href="#cb39-34" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb39-35"><a href="#cb39-35" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb39-36"><a href="#cb39-36" aria-hidden="true" tabindex="-1"></a>    <span class="at">subtitle =</span> <span class="st">"July 28-August 12, 2014"</span>,</span>
+<span id="cb39-37"><a href="#cb39-37" aria-hidden="true" tabindex="-1"></a>    <span class="at">fill =</span> <span class="st">"NDVI"</span></span>
+<span id="cb39-38"><a href="#cb39-38" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb39-39"><a href="#cb39-39" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_dhs_map</span>() <span class="sc">+</span></span>
+<span id="cb39-40"><a href="#cb39-40" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_dhs_base</span>()</span>
+<span id="cb39-41"><a href="#cb39-41" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-42"><a href="#cb39-42" aria-hidden="true" tabindex="-1"></a>p1 <span class="sc">+</span> p2 <span class="sc">+</span></span>
+<span id="cb39-43"><a href="#cb39-43" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot_layout</span>(<span class="at">guides =</span> <span class="st">"collect"</span>, <span class="at">ncol =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb39-44"><a href="#cb39-44" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot_annotation</span>(</span>
+<span id="cb39-45"><a href="#cb39-45" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Seasonal NDVI Comparison: Kenya"</span>,</span>
+<span id="cb39-46"><a href="#cb39-46" aria-hidden="true" tabindex="-1"></a>    <span class="at">caption =</span> <span class="st">"Source: NASA MOD13Q1"</span></span>
+<span id="cb39-47"><a href="#cb39-47" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">&amp;</span></span>
+<span id="cb39-48"><a href="#cb39-48" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position=</span><span class="st">'bottom'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display page-columns page-full">
 <div class="page-columns page-full">
-<figure class="figure page-columns page-full"><p class="page-columns page-full"><img src="index_files/figure-html/listing-img-1.png" class="img-fluid figure-img column-page" style="width:100.0%"></p>
+<figure class="figure page-columns page-full">
+<p class="page-columns page-full"><img src="index_files/figure-html/listing-img-1.png" class="img-fluid figure-img column-page" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
 </div>
-</section></section><section id="up-next" class="level1"><h1>Up next</h1>
+</section>
+</section>
+<section id="up-next" class="level1">
+<h1>Up next</h1>
 <p>In this post, we’ve introduced some approaches to build generalized workflows when loading more complicated raster data structures. Using tools like regular expressions and iteration help you produce code that is robust when your data or analyses change. The up-front time investment required for learning these tools often pays off in the long run, especially if you frequently use similar data analysis approaches.</p>
 <p>As we can see in our maps above, NDVI differs significantly across the year. In our next technical post, we’ll take a closer look at this idea of seasonality and consider ways we can adapt our previous work with other environmental metrics to incorporate seasons more explicitly.</p>
-</section><div id="quarto-appendix" class="default"><section id="getting-help" class="level2 appendix"><h2 class="anchored quarto-appendix-heading">Getting Help</h2><div class="quarto-appendix-contents">
+
+</section>
+
+<div id="quarto-appendix" class="default"><section id="getting-help" class="level2 appendix"><h2 class="anchored quarto-appendix-heading">Getting Help</h2><div class="quarto-appendix-contents">
+
 <p>Questions or comments? Check out the <a href="https://forum.ipums.org">IPUMS User Forum</a> or reach out to IPUMS User Support at ipums@umn.edu.</p>
 
 
-</div></section></div></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
+</div></section></div></main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
     const mode = bsSheetEl.getAttribute("data-mode");
@@ -1068,6 +1130,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   });
   clipboard.on('success', onCopySuccess);
   if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
     const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
       text: getTextToCopy,
       container: window.document.getElementById('quarto-embedded-source-code-modal')
@@ -1178,6 +1242,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       if (window.Quarto?.typesetMath) {
         window.Quarto.typesetMath(note);
       }
+      // TODO in 1.5, we should make sure this works without a callout special case
       if (note.classList.contains("callout")) {
         return note.outerHTML;
       } else {
@@ -1404,7 +1469,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 });
 </script>
 </div> <!-- /content -->
-<footer class="footer"><div class="nav-footer">
+<footer class="footer">
+  <div class="nav-footer">
     <div class="nav-footer-left">
       &nbsp;
     </div>   
@@ -1416,6 +1482,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     </div>
   </div>
 </footer>
+
+
 
 
 </body></html>

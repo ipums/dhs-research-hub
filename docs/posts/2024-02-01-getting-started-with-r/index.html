@@ -1,13 +1,16 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.6.42">
+<meta name="generator" content="quarto-1.5.57">
+
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
 <meta name="author" content="Finn Roberts">
 <meta name="author" content="Matt Gunther">
 <meta name="dcterms.date" content="2024-02-01">
 <meta name="description" content="Getting started with R and RStudio">
+
 <title>An Introduction to R – IPUMS DHS Spatial Analysis and Health Research Hub</title>
 <style>
 code{white-space: pre-wrap;}
@@ -57,6 +60,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 }
 </style>
 
+
 <script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
 <script src="../../site_libs/quarto-nav/headroom.min.js"></script>
 <script src="../../site_libs/clipboard/clipboard.min.js"></script>
@@ -70,12 +74,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-03fd5f99cfc2f8297f3c5ef65ead31dc.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap-7590f946cc175b093b1053850525e467.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
 <link href="../../site_libs/quarto-contrib/fontawesome6-0.1.0/all.css" rel="stylesheet">
-<link href="../../site_libs/quarto-contrib/fontawesome6-0.1.0/latex-fontsize.css" rel="stylesheet"><script id="quarto-search-options" type="application/json">{
+<link href="../../site_libs/quarto-contrib/fontawesome6-0.1.0/latex-fontsize.css" rel="stylesheet">
+<script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
   "collapse-after": 3,
@@ -100,13 +105,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-submit-button-title": "Submit",
     "search-label": "Search"
   }
-}</script><script async="" src="https://www.googletagmanager.com/gtag/js?id=G-0WLH5S9VD5"></script><script type="text/javascript">
+}</script>
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-0WLH5S9VD5"></script>
+
+<script type="text/javascript">
 
 window.dataLayer = window.dataLayer || [];
 function gtag(){dataLayer.push(arguments);}
 gtag('js', new Date());
 gtag('config', 'G-0WLH5S9VD5', { 'anonymize_ip': true});
 </script>
+
+
 <meta property="og:title" content="An Introduction to R">
 <meta property="og:description" content="Getting started with R and RStudio">
 <meta property="og:image" content="https://ipums.github.io/dhs-research-hub/images/hex/Rlogo.png">
@@ -120,13 +130,17 @@ gtag('config', 'G-0WLH5S9VD5', { 'anonymize_ip': true});
 <meta name="twitter:image-width" content="724">
 <meta name="twitter:card" content="summary_large_image">
 </head>
+
 <body class="floating nav-fixed slimcontent">
 
 <div id="quarto-search-results"></div>
-  <header id="quarto-header" class="headroom fixed-top quarto-banner"><nav class="navbar navbar-expand-lg " data-bs-theme="dark"><div class="navbar-container container-fluid">
+  <header id="quarto-header" class="headroom fixed-top quarto-banner">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
     <a href="https://www.idhsdata.org/idhs/" class="navbar-brand navbar-brand-logo">
-    <img src="../../images/dhs_logo_white.png" alt="" class="navbar-logo"></a>
+    <img src="../../images/dhs_logo_white.png" alt="" class="navbar-logo">
+    </a>
   </div>
             <div id="quarto-search" class="" title="Search"></div>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
@@ -134,13 +148,13 @@ gtag('config', 'G-0WLH5S9VD5', { 'anonymize_ip': true});
 </button>
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
-<li class="nav-item">
+  <li class="nav-item">
     <a class="nav-link" href="../../index.html"> 
 <span class="menu-text">Spatial Analysis and Health Research Hub</span></a>
   </li>  
 </ul>
-<ul class="navbar-nav navbar-nav-scroll ms-auto">
-<li class="nav-item">
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
     <a class="nav-link" href="../../index.html"> 
 <span class="menu-text">Posts</span></a>
   </li>  
@@ -148,8 +162,8 @@ gtag('config', 'G-0WLH5S9VD5', { 'anonymize_ip': true});
     <a class="nav-link dropdown-toggle" href="#" id="nav-menu-getting-started" role="link" data-bs-toggle="dropdown" aria-expanded="false">
  <span class="menu-text">Getting Started</span>
     </a>
-    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="nav-menu-getting-started">
-<li>
+    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="nav-menu-getting-started">    
+        <li>
     <a class="dropdown-item" href="../../posts/2024-02-01-getting-started-with-r/index.html">
  <span class="dropdown-text">An Introduction to R</span></a>
   </li>  
@@ -158,13 +172,13 @@ gtag('config', 'G-0WLH5S9VD5', { 'anonymize_ip': true});
  <span class="dropdown-text">Obtaining IPUMS DHS Data</span></a>
   </li>  
     </ul>
-</li>
+  </li>
   <li class="nav-item dropdown ">
     <a class="nav-link dropdown-toggle" href="#" id="nav-menu-community" role="link" data-bs-toggle="dropdown" aria-expanded="false">
  <span class="menu-text">Community</span>
     </a>
-    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="nav-menu-community">
-<li>
+    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="nav-menu-community">    
+        <li>
     <a class="dropdown-item" href="https://forum.ipums.org">
  <span class="dropdown-text">IPUMS Forum</span></a>
   </li>  
@@ -177,7 +191,7 @@ gtag('config', 'G-0WLH5S9VD5', { 'anonymize_ip': true});
  <span class="dropdown-text">License</span></a>
   </li>  
     </ul>
-</li>
+  </li>
   <li class="nav-item">
     <a class="nav-link" href="../../about.html"> 
 <span class="menu-text">About</span></a>
@@ -203,11 +217,15 @@ gtag('config', 'G-0WLH5S9VD5', { 'anonymize_ip': true});
 <span class="menu-text"><i class="fa-solid fa-globe" aria-label="globe"></i></span></a>
   </li>  
 </ul>
-</div> <!-- /navcollapse -->
+          </div> <!-- /navcollapse -->
             <div class="quarto-navbar-tools">
 </div>
       </div> <!-- /container-fluid -->
-    </nav></header><!-- content --><header id="title-block-header" class="quarto-title-block default toc-left page-columns page-full"><div class="quarto-title-banner page-columns page-full">
+    </nav>
+</header>
+<!-- content -->
+<header id="title-block-header" class="quarto-title-block default toc-left page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
     <div class="quarto-title column-body">
       <h1 class="title">An Introduction to R</h1>
                   <div>
@@ -260,77 +278,74 @@ gtag('config', 'G-0WLH5S9VD5', { 'anonymize_ip': true});
   
   </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto"><nav id="TOC" role="doc-toc" class="toc-active" data-toc-expanded="1"><h2 id="toc-title">Contents</h2>
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <nav id="TOC" role="doc-toc" class="toc-active" data-toc-expanded="1">
+    <h2 id="toc-title">Contents</h2>
    
   <ul>
-<li>
-<a href="#why-r" id="toc-why-r" class="nav-link active" data-scroll-target="#why-r">Why R?</a>
+  <li><a href="#why-r" id="toc-why-r" class="nav-link active" data-scroll-target="#why-r">Why R?</a>
   <ul class="collapse">
-<li><a href="#getting-started-with-r" id="toc-getting-started-with-r" class="nav-link" data-scroll-target="#getting-started-with-r">Getting started with R</a></li>
-  </ul>
-</li>
+  <li><a href="#getting-started-with-r" id="toc-getting-started-with-r" class="nav-link" data-scroll-target="#getting-started-with-r">Getting started with R</a></li>
+  </ul></li>
   <li><a href="#rstudio" id="toc-rstudio" class="nav-link" data-scroll-target="#rstudio">RStudio</a></li>
-  <li>
-<a href="#packages" id="toc-packages" class="nav-link" data-scroll-target="#packages">R packages</a>
+  <li><a href="#packages" id="toc-packages" class="nav-link" data-scroll-target="#packages">R packages</a>
   <ul class="collapse">
-<li>
-<a href="#essential-packages" id="toc-essential-packages" class="nav-link" data-scroll-target="#essential-packages">Essential packages</a>
+  <li><a href="#essential-packages" id="toc-essential-packages" class="nav-link" data-scroll-target="#essential-packages">Essential packages</a>
   <ul class="collapse">
-<li><a href="#ipumsr" id="toc-ipumsr" class="nav-link" data-scroll-target="#ipumsr">ipumsr</a></li>
+  <li><a href="#ipumsr" id="toc-ipumsr" class="nav-link" data-scroll-target="#ipumsr">ipumsr</a></li>
   <li><a href="#tidyverse" id="toc-tidyverse" class="nav-link" data-scroll-target="#tidyverse">tidyverse</a></li>
   <li><a href="#sf" id="toc-sf" class="nav-link" data-scroll-target="#sf">sf</a></li>
   <li><a href="#terra" id="toc-terra" class="nav-link" data-scroll-target="#terra">terra</a></li>
-  </ul>
-</li>
+  </ul></li>
   
+  </ul></li>
   </ul>
-</li>
-  </ul></nav>
-</nav><div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+</nav>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
     </div>
 <!-- main -->
-<main class="content quarto-banner-title-block page-columns page-full" id="quarto-document-content"><p>The IPUMS DHS Spatial Analysis and Health Research Hub is designed to introduce spatial data concepts for researchers who work with population health survey data.</p>
+<main class="content quarto-banner-title-block page-columns page-full" id="quarto-document-content">
+
+
+
+
+
+<p>The IPUMS DHS Spatial Analysis and Health Research Hub is designed to introduce spatial data concepts for researchers who work with population health survey data.</p>
 <p>To do so, the blog will provide both <strong>conceptual</strong> content describing ways in which spatial data can be appropriately included in population research as well as <strong>technical</strong> content demonstrating how to implement some of these approaches using statistical software.</p>
 <p>Technical content will rely primarily on the R programming language. Not only is R one of the most popular platforms for data analysis around the world, but its open-source nature aligns well with IPUMS values. R is freely available for Windows, MacOS, and a wide variety of UNIX platforms and similar systems (including FreeBSD and Linux).</p>
 
 <div class="no-row-height column-margin column-container"><div class="">
 <p>For those interested in analyzing IPUMS DHS data with other statistical platforms, IPUMS does provide data extracts in proprietary formats, like SPSS, Stata, and SAS.</p>
-</div></div><section id="why-r" class="level1 page-columns page-full"><h1>Why R?</h1>
+</div></div><section id="why-r" class="level1 page-columns page-full">
+<h1>Why R?</h1>
 
 <div class="no-row-height column-margin column-container"><div class="">
-<p></p>
-<div class="hex"> <a href="https://cran.r-project.org/" class="hex"> <img src="../../images/hex/Rlogo.png" class="hex-img"></a> <p class="hex-cap">© R-project.org (GPL-2 | GPL-3)</p> </div>
+<p></p><div class="hex"> <a href="https://cran.r-project.org/" class="hex"> <img src="../../images/hex/Rlogo.png" class="hex-img"> </a> <p class="hex-cap">© R-project.org (GPL-2 | GPL-3)</p> </div><p></p>
 </div></div><p>Plenty of people come to R after working with more common types of data analysis software, like Microsoft Excel or other spreadsheet programs.</p>
 <p>It’s certainly possible to download a CSV file from IPUMS DHS and open it in Excel; however, compared to Excel (and some other analysis software), R has several advantages:</p>
 <ul>
-<li>
-<strong>Reproducibility &amp; automation:</strong> R allows you to explicitly write the sequence of data processing steps used in an analysis. This allows you to demonstrate to others exactly what steps you took in an analysis, and also makes it much easier for you to automate processing tasks that you do regularly.</li>
-<li>
-<strong>Advanced statistical procedures:</strong> R is first and foremost a statistical software. This means that a wide array of statistical methodologies have already been implemented in R, and more are being added all the time.</li>
-<li>
-<strong>Data visualization:</strong> R is well-known for its strong graphics capabilities. In many cases, you can produce professional-quality visuals with R code alone.</li>
-<li>
-<strong>Spatial data:</strong> R is not limited to spreadsheets: it supports a variety of more complex data structures, including several spatial data representations.</li>
-<li>
-<strong>Community support:</strong> R users are active on forums like <a href="https://stackoverflow.com/">Stack Overflow</a> and <a href="https://www.r-bloggers.com/">R-bloggers</a>. Groups like <a href="https://rladies.org/">R-ladies</a> even organize in-person meetups in cities around the world to help promote inclusion within the R community.</li>
-<li>
-<strong>More than just statistics:</strong> You can use R to build a website (like this one), manage and share a code repository on GitHub, scrape and compile a social media database, or automatically generate word documents, slide presentations, and more! There are practically endless ways to use functional programming in R that have nothing to do with statistics at all.</li>
+<li><strong>Reproducibility &amp; automation:</strong> R allows you to explicitly write the sequence of data processing steps used in an analysis. This allows you to demonstrate to others exactly what steps you took in an analysis, and also makes it much easier for you to automate processing tasks that you do regularly.</li>
+<li><strong>Advanced statistical procedures:</strong> R is first and foremost a statistical software. This means that a wide array of statistical methodologies have already been implemented in R, and more are being added all the time.</li>
+<li><strong>Data visualization:</strong> R is well-known for its strong graphics capabilities. In many cases, you can produce professional-quality visuals with R code alone.</li>
+<li><strong>Spatial data:</strong> R is not limited to spreadsheets: it supports a variety of more complex data structures, including several spatial data representations.</li>
+<li><strong>Community support:</strong> R users are active on forums like <a href="https://stackoverflow.com/">Stack Overflow</a> and <a href="https://www.r-bloggers.com/">R-bloggers</a>. Groups like <a href="https://rladies.org/">R-ladies</a> even organize in-person meetups in cities around the world to help promote inclusion within the R community.</li>
+<li><strong>More than just statistics:</strong> You can use R to build a website (like this one), manage and share a code repository on GitHub, scrape and compile a social media database, or automatically generate word documents, slide presentations, and more! There are practically endless ways to use functional programming in R that have nothing to do with statistics at all.</li>
 </ul>
-<p>Additionally, R provides specific tools for working with IPUMS data through the <a href="https://tech.popdata.org/ipumsr/">ipumsr</a> package:</p>
+<p>Additionally, R provides specific tools for working with IPUMS data through the <code>{ipumsr}</code> package:</p>
 <ul>
-<li>
-<strong>Specialized functions</strong> to ease the process of loading IPUMS data into R</li>
-<li>
-<strong>Enhanced metadata</strong> that is not available in Excel spreadsheets</li>
+<li><strong>Specialized functions</strong> to ease the process of loading IPUMS data into R</li>
+<li><strong>Enhanced metadata</strong> that is not available in Excel spreadsheets</li>
 <li>A <strong>client interface</strong> to the <a href="https://developer.ipums.org/docs/v2/apiprogram/">IPUMS API</a>, which allows you to request and download data from IPUMS using R code alone.</li>
 </ul>
 
 <div class="no-row-height column-margin column-container"><div class="">
 <p>IPUMS DHS is not yet supported via the IPUMS API, but the IPUMS API is under active development, and more projects will continue to be added. Check out the <a href="https://developer.ipums.org/docs/v2/apiprogram/apis/">API documentation</a> to see the projects that are supported, and stay tuned for updates!</p>
 </div></div><p>The flip side to these benefits is the learning curve for those just starting out. Learning R <em>will</em> take practice, but doing so will almost certainly make your work much more efficient!</p>
-<section id="getting-started-with-r" class="level2"><h2 class="anchored" data-anchor-id="getting-started-with-r">Getting started with R</h2>
+<section id="getting-started-with-r" class="level2">
+<h2 class="anchored" data-anchor-id="getting-started-with-r">Getting started with R</h2>
 <p>To download R, visit the <a href="https://cloud.r-project.org/">Comprehensive R Archive Network</a> (CRAN) and choose the appropriate download link for your operating system.</p>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -348,23 +363,19 @@ R Version Requirements
 </div>
 <p>There are countless free resources available for learning R, from foundational knowledge to niche topics. Here are a few of our favorite resources to help you get started:</p>
 <ul>
-<li>
-<a href="https://r4ds.hadley.nz/">R for Data Science</a> for beginners</li>
-<li>
-<a href="https://adv-r.hadley.nz/">Advanced R</a> for a deeper dive</li>
-<li>
-<a href="https://rspatial.org/">RSpatial</a> and <a href="https://r.geocompx.org/">Geocomputation with R</a> for analysis with spatial data</li>
-<li>
-<a href="https://ggplot2-book.org/">ggplot2</a> for data visualization</li>
-<li>
-<a href="https://mastering-shiny.org/">Mastering Shiny</a> for interactive applications</li>
-<li>
-<a href="https://bookdown.org/yihui/rmarkdown/">R Markdown: The Definitive Guide</a> for producing annotated code, word documents, presentations, web pages, and more</li>
-<li>
-<a href="https://www.r-bloggers.com/">R-bloggers</a> for regular news and tutorials</li>
+<li><a href="https://r4ds.hadley.nz/">R for Data Science</a> for beginners</li>
+<li><a href="https://adv-r.hadley.nz/">Advanced R</a> for a deeper dive</li>
+<li><a href="https://rspatial.org/">RSpatial</a> and <a href="https://r.geocompx.org/">Geocomputation with R</a> for analysis with spatial data</li>
+<li><a href="https://ggplot2-book.org/">ggplot2</a> for data visualization</li>
+<li><a href="https://mastering-shiny.org/">Mastering Shiny</a> for interactive applications</li>
+<li><a href="https://bookdown.org/yihui/rmarkdown/">R Markdown: The Definitive Guide</a> for producing annotated code, word documents, presentations, web pages, and more</li>
+<li><a href="https://www.r-bloggers.com/">R-bloggers</a> for regular news and tutorials</li>
 </ul>
 <p>Additionally, you can always get help on Stack Overflow and—for <a href="#packages">packages</a> hosted on GitHub—their GitHub issues page. No matter what question you have, you’re unlikely to be the first person to encounter it, so it’s always worth checking to see whether your problem has been solved in the past.</p>
-</section></section><section id="rstudio" class="level1"><h1>RStudio</h1>
+</section>
+</section>
+<section id="rstudio" class="level1">
+<h1>RStudio</h1>
 <p>We <strong>strongly</strong> recommend running R within <a href="https://posit.co/products/open-source/rstudio/">RStudio</a>, a free integrated development environment (IDE) designed to make your experience with R <em>much easier</em>. Some features of RStudio include:</p>
 <ul>
 <li>a multi-pane window that puts your R console, source code, output, and help files all in one place.</li>
@@ -372,14 +383,17 @@ R Version Requirements
 <li>support for <a href="https://support.rstudio.com/hc/en-us/articles/200526207-Using-Projects">R Projects</a>, a crucial approach to organizing your work and sharing it with others.</li>
 <li>support for <a href="https://rmarkdown.rstudio.com/">RMarkdown</a>, an R package that allows you write text-based documents with embedded snippets of code that can be passed directly to your R console.</li>
 <li>a variety of other helpful tools. Check out the <a href="https://posit.co/blog/">Posit blog</a> for the latest!</li>
-</ul></section><section id="packages" class="level1 page-columns page-full"><h1>R packages</h1>
+</ul>
+</section>
+<section id="packages" class="level1 page-columns page-full">
+<h1>R packages</h1>
 <p>An R <em>package</em> is a collection of functions created by other R users that you can download and install for yourself. Most R packages can be downloaded from CRAN (the same resource used to download “base” R).</p>
-<p>You can install packages from CRAN using <code><a href="https://rdrr.io/r/utils/install.packages.html">install.packages()</a></code>. For instance, to install ipumsr:</p>
+<p>You can install packages from CRAN using <code>install.packages()</code>. For instance, to install ipumsr:</p>
 
 <div class="no-row-height column-margin column-container"><div class="">
 <p>This function saves package files in your default “library” location. If you’re using a Linux machine and don’t have root access, you’ll need to <a href="https://www.r-bloggers.com/2010/11/installing-r-packages">set up</a> R to save packages to a location where you’re able to write files.</p>
 </div></div><div class="cell">
-<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"ipumsr"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"ipumsr"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -392,12 +406,12 @@ Other Package Sources
 </div>
 <div class="callout-body-container callout-body">
 <p>It’s also possible to download packages from other public sources, like <a href="https://github.com/">GitHub</a>. This may be the only way to get the latest updates to a package or to install newer packages that haven’t yet been submitted to CRAN.</p>
-<p>Use <code><a href="https://remotes.r-lib.org/reference/install_github.html">remotes::install_github()</a></code> to install packages from GitHub.</p>
+<p>Use <code>remotes::install_github()</code> to install packages from GitHub.</p>
 </div>
 </div>
-<p>In order to access functions from a package, you’ll need to <em>load</em> it with <code><a href="https://rdrr.io/r/base/library.html">library()</a></code>:</p>
+<p>In order to access functions from a package, you’ll need to <em>load</em> it with <code>library()</code>:</p>
 <div class="cell">
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tech.popdata.org/ipumsr/">ipumsr</a></span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ipumsr)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -412,61 +426,55 @@ Installing vs.&nbsp;Loading
 <p>Note the difference between <em>installing</em> a package and <em>loading</em> a package. Installing downloads the package files to your system, but does not automatically make those functions available in your R session. Loading a package takes a previously installed package and makes its functions available for use.</p>
 </div>
 </div>
-<p>Once you’ve done so, all the functions provided by ipumsr will be available for use, and you can call them by name. For instance, to use ipumsr’s <code><a href="https://tech.popdata.org/ipumsr/reference/read_ipums_micro.html">read_ipums_micro()</a></code>:</p>
+<p>Once you’ve done so, all the functions provided by ipumsr will be available for use, and you can call them by name. For instance, to use ipumsr’s <code>read_ipums_micro()</code>:</p>
 <div class="cell">
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://tech.popdata.org/ipumsr/reference/read_ipums_micro.html">read_ipums_micro</a></span><span class="op">(</span></span>
-<span>  ddi <span class="op">=</span> <span class="st">"data/dhs/idhs_00015.xml"</span>,</span>
-<span>  data_file <span class="op">=</span> <span class="st">"data/dhs/idhs_00015.dat.gz"</span></span>
-<span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">read_ipums_micro</span>(</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">ddi =</span> <span class="st">"data/dhs/idhs_00015.xml"</span>,</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">data_file =</span> <span class="st">"data/dhs/idhs_00015.dat.gz"</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>On occasion, you may see the alternative <code>::</code> notation:</p>
 <div class="cell">
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">ipumsr</span><span class="fu">::</span><span class="fu"><a href="https://tech.popdata.org/ipumsr/reference/read_ipums_micro.html">read_ipums_micro</a></span><span class="op">(</span></span>
-<span>  ddi <span class="op">=</span> <span class="st">"data/dhs/idhs_00015.xml"</span>,</span>
-<span>  data_file <span class="op">=</span> <span class="st">"data/dhs/idhs_00015.dat.gz"</span></span>
-<span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>ipumsr<span class="sc">::</span><span class="fu">read_ipums_micro</span>(</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">ddi =</span> <span class="st">"data/dhs/idhs_00015.xml"</span>,</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">data_file =</span> <span class="st">"data/dhs/idhs_00015.dat.gz"</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>This is simply a more explicit way of indicating that we want to use the <code><a href="https://tech.popdata.org/ipumsr/reference/read_ipums_micro.html">read_ipums_micro()</a></code> function <em>from</em> the ipumsr package. If you’ve already loaded the package with <code><a href="https://rdrr.io/r/base/library.html">library()</a></code>, you don’t need to use <code>::</code> notation every time you use a package function. (On the other hand, even if you haven’t loaded an entire package, you can always use <code>::</code> notation to access its functions.)</p>
+<p>This is simply a more explicit way of indicating that we want to use the <code>read_ipums_micro()</code> function <em>from</em> the ipumsr package. If you’ve already loaded the package with <code>library()</code>, you don’t need to use <code>::</code> notation every time you use a package function. (On the other hand, even if you haven’t loaded an entire package, you can always use <code>::</code> notation to access its functions.)</p>
 <p>Packages also come with help files detailing the purpose and possible inputs, or <em>arguments</em>, of each included function. To access help files, use <code>?</code>:</p>
 <div class="cell">
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="op">?</span><span class="va">read_ipums_micro</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>?read_ipums_micro</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<section id="essential-packages" class="level2 page-columns page-full"><h2 class="anchored" data-anchor-id="essential-packages">Essential packages</h2>
+<section id="essential-packages" class="level2 page-columns page-full">
+<h2 class="anchored" data-anchor-id="essential-packages">Essential packages</h2>
 <p>Several packages will come into frequent use on this blog.</p>
-<section id="ipumsr" class="level3 page-columns page-full"><h3 class="anchored" data-anchor-id="ipumsr">ipumsr</h3>
-<p>The <a href="https://tech.popdata.org/ipumsr/">ipumsr</a> package contains functions that make it easier to load IPUMS data into R.</p>
+<section id="ipumsr" class="level3 page-columns page-full">
+<h3 class="anchored" data-anchor-id="ipumsr">ipumsr</h3>
+<p>The <code>{ipumsr}</code> package contains functions that make it easier to load IPUMS data into R.</p>
 
 <div class="no-row-height column-margin column-container"><div class="">
-<p></p>
-<div class="hex"> <a href="https://tech.popdata.org/ipumsr/" class="hex"> <img src="../../images/hex/ipumsr.png" class="hex-img"></a> <p class="hex-cap">© IPUMS (MPL-2.0)</p> </div>
-</div></div><p>For IPUMS DHS, the most relevant of these is <code><a href="https://tech.popdata.org/ipumsr/reference/read_ipums_micro.html">read_ipums_micro()</a></code>, which allows you to load a fixed-width data file along with associated metadata.</p>
-<p>ipumsr also contains functions to interact with variable metadata after loading, like <code><a href="https://tech.popdata.org/ipumsr/reference/ipums_var_info.html">ipums_var_info()</a></code>, <code><a href="https://tech.popdata.org/ipumsr/reference/ipums_var_info.html">ipums_val_labels()</a></code>, and so on.</p>
+<p></p><div class="hex"> <a href="https://tech.popdata.org/ipumsr/" class="hex"> <img src="../../images/hex/ipumsr.png" class="hex-img"> </a> <p class="hex-cap">© IPUMS (MPL-2.0)</p> </div><p></p>
+</div></div><p>For IPUMS DHS, the most relevant of these is <code>read_ipums_micro()</code>, which allows you to load a fixed-width data file along with associated metadata.</p>
+<p>ipumsr also contains functions to interact with variable metadata after loading, like <code>ipums_var_info()</code>, <code>ipums_val_labels()</code>, and so on.</p>
 <p>As mentioned above, ipumsr also contains client tools for interacting with the IPUMS API. This allows users to request and download IPUMS data entirely within their R environment. While not available for IPUMS DHS, users of supported IPUMS collections can learn more from the API workflows introduced on the ipumsr <a href="https://tech.popdata.org/ipumsr/articles/ipums-api.html">website</a></p>
-</section><section id="tidyverse" class="level3 page-columns page-full"><h3 class="anchored" data-anchor-id="tidyverse">tidyverse</h3>
-<p>The <a href="https://tidyverse.tidyverse.org">tidyverse</a> package actually refers to a family of related packages. Installing tidyverse will actually install each of these component packages:</p>
+</section>
+<section id="tidyverse" class="level3 page-columns page-full">
+<h3 class="anchored" data-anchor-id="tidyverse">tidyverse</h3>
+<p>The <code>{tidyverse}</code> package actually refers to a family of related packages. Installing tidyverse will actually install each of these component packages:</p>
 
 <div class="no-row-height column-margin column-container"><div class="">
-<p></p>
-<div class="hex"> <a href="https://tidyverse.tidyverse.org/index.html" class="hex"> <img src="../../images/hex/tidyverse.png" class="hex-img"></a> <p class="hex-cap">© RStudio, Inc. (MIT)</p> </div>
+<p></p><div class="hex"> <a href="https://tidyverse.tidyverse.org/index.html" class="hex"> <img src="../../images/hex/tidyverse.png" class="hex-img"> </a> <p class="hex-cap">© RStudio, Inc. (MIT)</p> </div><p></p>
 </div></div><ul>
-<li>
-<a href="https://ggplot2.tidyverse.org">ggplot2</a> for data visualization</li>
-<li>
-<a href="https://dplyr.tidyverse.org">dplyr</a> for data manipulation</li>
-<li>
-<a href="https://tidyr.tidyverse.org">tidyr</a> for data tidying</li>
-<li>
-<a href="https://readr.tidyverse.org">readr</a> for data import</li>
-<li>
-<a href="https://purrr.tidyverse.org/">purrr</a> for functional programming</li>
-<li>
-<a href="https://tibble.tidyverse.org/">tibble</a> for tibbles (a modern re-imagining of data frames)</li>
-<li>
-<a href="https://stringr.tidyverse.org">stringr</a> for string manipulation</li>
-<li>
-<a href="https://forcats.tidyverse.org/">forcats</a> for factor handling</li>
+<li><code>{ggplot2}</code> for data visualization</li>
+<li><code>{dplyr}</code> for data manipulation</li>
+<li><code>{tidyr}</code> for data tidying</li>
+<li><code>{readr}</code> for data import</li>
+<li><code>{purrr}</code> for functional programming</li>
+<li><code>{tibble}</code> for tibbles (a modern re-imagining of data frames)</li>
+<li><code>{stringr}</code> for string manipulation</li>
+<li><code>{forcats}</code> for factor handling</li>
 </ul>
-<p>It’s possible to call <code><a href="https://tidyverse.tidyverse.org">library(tidyverse)</a></code> to load <em>all</em> the packages in the tidyverse collection, but in most cases it’s best to individually load the specific packages you need for a given R script. This allows you and other users to more easily identify the specific packages required to run your code. It also makes your code more accessible—other users won’t have to have the entire tidyverse collection installed to run your code, only the specific packages that are actually required.</p>
+<p>It’s possible to call <code>library(tidyverse)</code> to load <em>all</em> the packages in the tidyverse collection, but in most cases it’s best to individually load the specific packages you need for a given R script. This allows you and other users to more easily identify the specific packages required to run your code. It also makes your code more accessible—other users won’t have to have the entire tidyverse collection installed to run your code, only the specific packages that are actually required.</p>
 <p>In general, this blog will follow the tidyverse <a href="https://style.tidyverse.org/">style guide</a> where possible. So-called “tidy” conventions are designed with the express purpose of making code and console output more human readable.</p>
 <div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -478,30 +486,39 @@ Tip
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Sometimes, human readability imposes a performance cost: in our experience, IPUMS DHS datasets are small enough that this is not an issue. For larger datasets, we recommend exploring the <a href="https://r-datatable.com">data.table</a> package instead.</p>
+<p>Sometimes, human readability imposes a performance cost: in our experience, IPUMS DHS datasets are small enough that this is not an issue. For larger datasets, we recommend exploring the <code>{data.table}</code> package instead.</p>
 </div>
 </div>
-</section><section id="sf" class="level3 page-columns page-full"><h3 class="anchored" data-anchor-id="sf">sf</h3>
+</section>
+<section id="sf" class="level3 page-columns page-full">
+<h3 class="anchored" data-anchor-id="sf">sf</h3>
 
 <div class="no-row-height column-margin column-container"><div class="">
-<p></p>
-<div class="hex"> <a href="https://r-spatial.github.io/sf/index.html" class="hex"> <img src="../../images/hex/sf.png" class="hex-img"></a> <p class="hex-cap">© Edzer Pebesma (GPL-2 | MIT)</p> </div>
-</div></div><p><a href="https://r-spatial.github.io/sf/">sf</a>, which stands for <em>simple features</em>, is the main R package for working with spatial vector data.</p>
+<p></p><div class="hex"> <a href="https://r-spatial.github.io/sf/index.html" class="hex"> <img src="../../images/hex/sf.png" class="hex-img"> </a> <p class="hex-cap">© Edzer Pebesma (GPL-2 | MIT)</p> </div><p></p>
+</div></div><p><code>{sf}</code>, which stands for <em>simple features</em>, is the main R package for working with spatial vector data.</p>
 <p>sf represents spatial data in a “tidy” format that resembles those used by tidyverse packages mentioned above. sf objects contain tabular data along with a record of the <em>geometry</em> associated with each individual record.</p>
 <p>This format makes it easy to perform spatial operations, attach spatial information to non-spatial data sources (like DHS surveys), and generate maps.</p>
-</section><section id="terra" class="level3 page-columns page-full"><h3 class="anchored" data-anchor-id="terra">terra</h3>
+</section>
+<section id="terra" class="level3 page-columns page-full">
+<h3 class="anchored" data-anchor-id="terra">terra</h3>
 
 <div class="no-row-height column-margin column-container"><div class="">
-<p></p>
-<div class="hex"> <a href="https://rspatial.github.io/terra/index.html" class="hex"> <img src="../../images/hex/terra.png" class="hex-img"></a> <p class="hex-cap">© Robert J. Hijmans et al. (GPL &gt;=3)</p> </div>
-</div></div><p><a href="https://rspatial.org/">terra</a> provides a general framework for working with spatial data in both raster and vector format.</p>
+<p></p><div class="hex"> <a href="https://rspatial.github.io/terra/index.html" class="hex"> <img src="../../images/hex/terra.png" class="hex-img"> </a> <p class="hex-cap">© Robert J. Hijmans et al. (GPL &gt;=3)</p> </div><p></p>
+</div></div><p><code>{terra}</code> provides a general framework for working with spatial data in both raster and vector format.</p>
 <p>While sf provides an alternative approach to working with vector data, terra’s raster handling stands alone and provides robust methods to quickly index, aggregate, and manipulate raster data.</p>
 <p>Because of its speed and simplicity, terra has superseded the long-lived raster package, which is being retired. You may still see online resources that reference the raster package, but we suggest relying only on terra.</p>
-</section></section></section><div id="quarto-appendix" class="default"><section id="getting-help" class="level2 appendix"><h2 class="anchored quarto-appendix-heading">Getting Help</h2><div class="quarto-appendix-contents">
+</section>
+</section>
+
+</section>
+
+<div id="quarto-appendix" class="default"><section id="getting-help" class="level2 appendix"><h2 class="anchored quarto-appendix-heading">Getting Help</h2><div class="quarto-appendix-contents">
+
 <p>Questions or comments? Check out the <a href="https://forum.ipums.org">IPUMS User Forum</a> or reach out to IPUMS User Support at ipums@umn.edu.</p>
 
 
-</div></section></div></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
+</div></section></div></main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
     const mode = bsSheetEl.getAttribute("data-mode");
@@ -583,6 +600,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   });
   clipboard.on('success', onCopySuccess);
   if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
     const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
       text: getTextToCopy,
       container: window.document.getElementById('quarto-embedded-source-code-modal')
@@ -693,6 +712,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       if (window.Quarto?.typesetMath) {
         window.Quarto.typesetMath(note);
       }
+      // TODO in 1.5, we should make sure this works without a callout special case
       if (note.classList.contains("callout")) {
         return note.outerHTML;
       } else {
@@ -919,7 +939,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 });
 </script>
 </div> <!-- /content -->
-<footer class="footer"><div class="nav-footer">
+<footer class="footer">
+  <div class="nav-footer">
     <div class="nav-footer-left">
       &nbsp;
     </div>   
@@ -931,6 +952,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     </div>
   </div>
 </footer>
+
+
 
 
 </body></html>

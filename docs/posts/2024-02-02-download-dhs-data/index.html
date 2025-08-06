@@ -1,13 +1,16 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.6.42">
+<meta name="generator" content="quarto-1.5.57">
+
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
 <meta name="author" content="Finn Roberts">
 <meta name="author" content="Matt Gunther">
 <meta name="dcterms.date" content="2024-02-02">
 <meta name="description" content="Identify and download data from the IPUMS DHS website and load it into R">
+
 <title>Obtaining Data from IPUMS DHS – IPUMS DHS Spatial Analysis and Health Research Hub</title>
 <style>
 code{white-space: pre-wrap;}
@@ -57,6 +60,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 }
 </style>
 
+
 <script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
 <script src="../../site_libs/quarto-nav/headroom.min.js"></script>
 <script src="../../site_libs/clipboard/clipboard.min.js"></script>
@@ -70,12 +74,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-03fd5f99cfc2f8297f3c5ef65ead31dc.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap-7590f946cc175b093b1053850525e467.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
 <link href="../../site_libs/quarto-contrib/fontawesome6-0.1.0/all.css" rel="stylesheet">
-<link href="../../site_libs/quarto-contrib/fontawesome6-0.1.0/latex-fontsize.css" rel="stylesheet"><script id="quarto-search-options" type="application/json">{
+<link href="../../site_libs/quarto-contrib/fontawesome6-0.1.0/latex-fontsize.css" rel="stylesheet">
+<script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
   "collapse-after": 3,
@@ -100,13 +105,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-submit-button-title": "Submit",
     "search-label": "Search"
   }
-}</script><script async="" src="https://www.googletagmanager.com/gtag/js?id=G-0WLH5S9VD5"></script><script type="text/javascript">
+}</script>
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-0WLH5S9VD5"></script>
+
+<script type="text/javascript">
 
 window.dataLayer = window.dataLayer || [];
 function gtag(){dataLayer.push(arguments);}
 gtag('js', new Date());
 gtag('config', 'G-0WLH5S9VD5', { 'anonymize_ip': true});
 </script>
+
+
 <meta property="og:title" content="Obtaining Data from IPUMS DHS">
 <meta property="og:description" content="Identify and download data from the IPUMS DHS website and load it into R">
 <meta property="og:image" content="https://ipums.github.io/dhs-research-hub/images/dhs_logo_navy_pad.png">
@@ -120,13 +130,17 @@ gtag('config', 'G-0WLH5S9VD5', { 'anonymize_ip': true});
 <meta name="twitter:image-width" content="1154">
 <meta name="twitter:card" content="summary_large_image">
 </head>
+
 <body class="floating nav-fixed slimcontent">
 
 <div id="quarto-search-results"></div>
-  <header id="quarto-header" class="headroom fixed-top quarto-banner"><nav class="navbar navbar-expand-lg " data-bs-theme="dark"><div class="navbar-container container-fluid">
+  <header id="quarto-header" class="headroom fixed-top quarto-banner">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
     <a href="https://www.idhsdata.org/idhs/" class="navbar-brand navbar-brand-logo">
-    <img src="../../images/dhs_logo_white.png" alt="" class="navbar-logo"></a>
+    <img src="../../images/dhs_logo_white.png" alt="" class="navbar-logo">
+    </a>
   </div>
             <div id="quarto-search" class="" title="Search"></div>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
@@ -134,13 +148,13 @@ gtag('config', 'G-0WLH5S9VD5', { 'anonymize_ip': true});
 </button>
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
-<li class="nav-item">
+  <li class="nav-item">
     <a class="nav-link" href="../../index.html"> 
 <span class="menu-text">Spatial Analysis and Health Research Hub</span></a>
   </li>  
 </ul>
-<ul class="navbar-nav navbar-nav-scroll ms-auto">
-<li class="nav-item">
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
     <a class="nav-link" href="../../index.html"> 
 <span class="menu-text">Posts</span></a>
   </li>  
@@ -148,8 +162,8 @@ gtag('config', 'G-0WLH5S9VD5', { 'anonymize_ip': true});
     <a class="nav-link dropdown-toggle" href="#" id="nav-menu-getting-started" role="link" data-bs-toggle="dropdown" aria-expanded="false">
  <span class="menu-text">Getting Started</span>
     </a>
-    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="nav-menu-getting-started">
-<li>
+    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="nav-menu-getting-started">    
+        <li>
     <a class="dropdown-item" href="../../posts/2024-02-01-getting-started-with-r/index.html">
  <span class="dropdown-text">An Introduction to R</span></a>
   </li>  
@@ -158,13 +172,13 @@ gtag('config', 'G-0WLH5S9VD5', { 'anonymize_ip': true});
  <span class="dropdown-text">Obtaining IPUMS DHS Data</span></a>
   </li>  
     </ul>
-</li>
+  </li>
   <li class="nav-item dropdown ">
     <a class="nav-link dropdown-toggle" href="#" id="nav-menu-community" role="link" data-bs-toggle="dropdown" aria-expanded="false">
  <span class="menu-text">Community</span>
     </a>
-    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="nav-menu-community">
-<li>
+    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="nav-menu-community">    
+        <li>
     <a class="dropdown-item" href="https://forum.ipums.org">
  <span class="dropdown-text">IPUMS Forum</span></a>
   </li>  
@@ -177,7 +191,7 @@ gtag('config', 'G-0WLH5S9VD5', { 'anonymize_ip': true});
  <span class="dropdown-text">License</span></a>
   </li>  
     </ul>
-</li>
+  </li>
   <li class="nav-item">
     <a class="nav-link" href="../../about.html"> 
 <span class="menu-text">About</span></a>
@@ -203,11 +217,15 @@ gtag('config', 'G-0WLH5S9VD5', { 'anonymize_ip': true});
 <span class="menu-text"><i class="fa-solid fa-globe" aria-label="globe"></i></span></a>
   </li>  
 </ul>
-</div> <!-- /navcollapse -->
+          </div> <!-- /navcollapse -->
             <div class="quarto-navbar-tools">
 </div>
       </div> <!-- /container-fluid -->
-    </nav></header><!-- content --><header id="title-block-header" class="quarto-title-block default toc-left page-columns page-full"><div class="quarto-title-banner page-columns page-full">
+    </nav>
+</header>
+<!-- content -->
+<header id="title-block-header" class="quarto-title-block default toc-left page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
     <div class="quarto-title column-body">
       <h1 class="title">Obtaining Data from IPUMS DHS</h1>
                   <div>
@@ -261,42 +279,53 @@ gtag('config', 'G-0WLH5S9VD5', { 'anonymize_ip': true});
   
   </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto"><nav id="TOC" role="doc-toc" class="toc-active" data-toc-expanded="1"><h2 id="toc-title">Contents</h2>
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <nav id="TOC" role="doc-toc" class="toc-active" data-toc-expanded="1">
+    <h2 id="toc-title">Contents</h2>
    
   <ul>
-<li>
-<a href="#accessing-the-data" id="toc-accessing-the-data" class="nav-link active" data-scroll-target="#accessing-the-data">Accessing the data</a>
+  <li><a href="#accessing-the-data" id="toc-accessing-the-data" class="nav-link active" data-scroll-target="#accessing-the-data">Accessing the data</a>
   <ul class="collapse">
-<li><a href="#browse-data" id="toc-browse-data" class="nav-link" data-scroll-target="#browse-data">Browse data</a></li>
+  <li><a href="#browse-data" id="toc-browse-data" class="nav-link" data-scroll-target="#browse-data">Browse data</a></li>
   <li><a href="#select-data" id="toc-select-data" class="nav-link" data-scroll-target="#select-data">Select data</a></li>
   <li><a href="#download-data" id="toc-download-data" class="nav-link" data-scroll-target="#download-data">Download data</a></li>
-  </ul>
-</li>
-  <li>
-<a href="#load-ipums-dhs-data-into-r" id="toc-load-ipums-dhs-data-into-r" class="nav-link" data-scroll-target="#load-ipums-dhs-data-into-r">Load IPUMS DHS data into R</a>
+  </ul></li>
+  <li><a href="#load-ipums-dhs-data-into-r" id="toc-load-ipums-dhs-data-into-r" class="nav-link" data-scroll-target="#load-ipums-dhs-data-into-r">Load IPUMS DHS data into R</a>
   <ul class="collapse">
-<li><a href="#why-use-ipumsr" id="toc-why-use-ipumsr" class="nav-link" data-scroll-target="#why-use-ipumsr">Why use ipumsr?</a></li>
+  <li><a href="#why-use-ipumsr" id="toc-why-use-ipumsr" class="nav-link" data-scroll-target="#why-use-ipumsr">Why use ipumsr?</a></li>
   
+  </ul></li>
   </ul>
-</li>
-  </ul></nav>
-</nav><div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+</nav>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
     </div>
 <!-- main -->
-<main class="content quarto-banner-title-block page-columns page-full" id="quarto-document-content"><p><a href="https://dhsprogram.com/">The Demographic and Health Surveys Program</a> (DHS) is the leading source of population health data for low- and middle-income countries around the world. <a href="https://www.idhsdata.org/idhs/">IPUMS DHS</a> disseminates a harmonized version of the DHS survey results in which variables are integrated across time and space, facilitating comparative and longitudinal analysis. Furthermore, IPUMS DHS provides a web interface and streamlined documentation to make the data discovery and download process easier.</p>
-<section id="accessing-the-data" class="level1 page-columns page-full"><h1>Accessing the data</h1>
+<main class="content quarto-banner-title-block page-columns page-full" id="quarto-document-content">
+
+
+
+
+
+<p><a href="https://dhsprogram.com/">The Demographic and Health Surveys Program</a> (DHS) is the leading source of population health data for low- and middle-income countries around the world. <a href="https://www.idhsdata.org/idhs/">IPUMS DHS</a> disseminates a harmonized version of the DHS survey results in which variables are integrated across time and space, facilitating comparative and longitudinal analysis. Furthermore, IPUMS DHS provides a web interface and streamlined documentation to make the data discovery and download process easier.</p>
+<section id="accessing-the-data" class="level1 page-columns page-full">
+<h1>Accessing the data</h1>
 <p>To obtain access to IPUMS DHS data, you must first <a href="https://dhsprogram.com/data/new-user-registration.cfm">request data access</a> from the DHS Program. Once you’ve done so, you can use your username and password from DHS to log in to IPUMS DHS.</p>
-<section id="browse-data" class="level2"><h2 class="anchored" data-anchor-id="browse-data">Browse data</h2>
+<section id="browse-data" class="level2">
+<h2 class="anchored" data-anchor-id="browse-data">Browse data</h2>
 <p>Users can browse the available data using the IPUMS DHS <a href="https://www.idhsdata.org/idhs-action/variables/group">data selection interface</a>, which includes sample and variable availability, descriptions, codes, and more.</p>
 <p>For more information about how to use the interface, see the IPUMS DHS <a href="https://www.idhsdata.org/idhs/user_guide.shtml">user guide</a>.</p>
-</section><section id="select-data" class="level2 page-columns page-full"><h2 class="anchored" data-anchor-id="select-data">Select data</h2>
+</section>
+<section id="select-data" class="level2 page-columns page-full">
+<h2 class="anchored" data-anchor-id="select-data">Select data</h2>
 <p>Once you’ve selected the samples and variables you want to include in your data extract, click <strong>View Cart</strong> to review your selections. If you’re satisfied with the contents of your extract, click <strong>Create Data Extract</strong>.</p>
 <div class="cell page-columns page-full" data-layout-align="center">
 <div class="cell-output-display page-columns page-full">
 <div class="quarto-figure quarto-figure-center page-columns page-full">
-<figure class="figure page-columns page-full"><p class="page-columns page-full"><img src="images/dhs-download1.png" class="img-fluid quarto-figure quarto-figure-center figure-img column-body-outset" style="width:100.0%"></p>
+<figure class="figure page-columns page-full">
+<p class="page-columns page-full"><img src="images/dhs-download1.png" class="img-fluid quarto-figure quarto-figure-center figure-img column-body-outset" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
@@ -305,13 +334,16 @@ gtag('config', 'G-0WLH5S9VD5', { 'anonymize_ip': true});
 <div class="cell page-columns page-full" data-layout-align="center">
 <div class="cell-output-display page-columns page-full">
 <div class="quarto-figure quarto-figure-center page-columns page-full">
-<figure class="figure page-columns page-full"><p class="page-columns page-full"><img src="images/dhs-download2.png" class="img-fluid quarto-figure quarto-figure-center figure-img column-body-outset" style="width:100.0%"></p>
+<figure class="figure page-columns page-full">
+<p class="page-columns page-full"><img src="images/dhs-download2.png" class="img-fluid quarto-figure quarto-figure-center figure-img column-body-outset" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
 </div>
 <p>Click <strong>Submit Extract</strong> to submit your extract for processing on the IPUMS servers. You’ll receive an email when your extract is complete and ready to download.</p>
-</section><section id="download-data" class="level2 page-columns page-full"><h2 class="anchored" data-anchor-id="download-data">Download data</h2>
+</section>
+<section id="download-data" class="level2 page-columns page-full">
+<h2 class="anchored" data-anchor-id="download-data">Download data</h2>
 <p>Click the green download button to download the compressed data file for your extract.</p>
 <p>You will also need to download an associated metadata (DDI) file. This is an XML file that contains parsing instructions for the fixed-width data file as well as descriptive information about the variables contained in an extract.</p>
 
@@ -321,7 +353,8 @@ gtag('config', 'G-0WLH5S9VD5', { 'anonymize_ip': true});
 <div class="cell page-columns page-full" data-layout-align="center">
 <div class="cell-output-display page-columns page-full">
 <div class="quarto-figure quarto-figure-center page-columns page-full">
-<figure class="figure page-columns page-full"><p class="page-columns page-full"><img src="images/microdata_annotated_screenshot.png" class="img-fluid quarto-figure quarto-figure-center figure-img column-page" style="width:100.0%"></p>
+<figure class="figure page-columns page-full">
+<p class="page-columns page-full"><img src="images/microdata_annotated_screenshot.png" class="img-fluid quarto-figure quarto-figure-center figure-img column-page" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
@@ -340,83 +373,98 @@ Tip
 <p>The important thing is that you download the DDI file in <strong>.xml</strong> format, <em>not</em> .html format.</p>
 </div>
 </div>
-</section></section><section id="load-ipums-dhs-data-into-r" class="level1 page-columns page-full"><h1>Load IPUMS DHS data into R</h1>
-<p>The <a href="https://tech.popdata.org/ipumsr/">ipumsr</a> package provides the tools you’ll need to easily load your extract into R.</p>
+</section>
+</section>
+<section id="load-ipums-dhs-data-into-r" class="level1 page-columns page-full">
+<h1>Load IPUMS DHS data into R</h1>
+<p>The <code>{ipumsr}</code> package provides the tools you’ll need to easily load your extract into R.</p>
 
 <div class="no-row-height column-margin column-container"><div class="">
-<p></p>
-<div class="hex"> <a href="https://tech.popdata.org/ipumsr/" class="hex"> <img src="../../images/hex/ipumsr.png" class="hex-img"></a> <p class="hex-cap">© IPUMS (MPL-2.0)</p> </div>
+<p></p><div class="hex"> <a href="https://tech.popdata.org/ipumsr/" class="hex"> <img src="../../images/hex/ipumsr.png" class="hex-img"> </a> <p class="hex-cap">© IPUMS (MPL-2.0)</p> </div><p></p>
 </div></div><p>If you haven’t previously installed the package, you can do so with:</p>
 <div class="cell">
-<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"ipumsr"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"ipumsr"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>To load your data, use <code><a href="https://tech.popdata.org/ipumsr/reference/read_ipums_micro.html">read_ipums_micro()</a></code>. If your data file and DDI file are in the same directory, you can load the data by providing only the DDI file path. To be safe, we typically provide the path to both files.</p>
+<p>To load your data, use <code>read_ipums_micro()</code>. If your data file and DDI file are in the same directory, you can load the data by providing only the DDI file path. To be safe, we typically provide the path to both files.</p>
 <p>Note that you’ll need to adjust the file paths to reflect the location of the files on your local system.</p>
 <div class="cell">
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tech.popdata.org/ipumsr/">ipumsr</a></span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">dhs</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tech.popdata.org/ipumsr/reference/read_ipums_micro.html">read_ipums_micro</a></span><span class="op">(</span></span>
-<span>  ddi <span class="op">=</span> <span class="st">"data/dhs/idhs_00015.xml"</span>,</span>
-<span>  data_file <span class="op">=</span> <span class="st">"data/dhs/idhs_00015.dat.gz"</span>,</span>
-<span><span class="op">)</span></span>
-<span><span class="co">#&gt; Use of data from IPUMS DHS is subject to conditions including that users should cite the data appropriately. Use command `ipums_conditions()` for more details.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ipumsr)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>dhs <span class="ot">&lt;-</span> <span class="fu">read_ipums_micro</span>(</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">ddi =</span> <span class="st">"data/dhs/idhs_00015.xml"</span>,</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">data_file =</span> <span class="st">"data/dhs/idhs_00015.dat.gz"</span>,</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Use of data from IPUMS DHS is subject to conditions including that users should cite the data appropriately. Use command `ipums_conditions()` for more details.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>You should now have a tabular data source loaded into R:</p>
 <div class="cell">
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">dhs</span></span>
-<span><span class="co">#&gt; # A tibble: 25,689 × 59</span></span>
-<span><span class="co">#&gt;    SAMPLE        SAMPLESTR  COUNTRY    YEAR IDHSPID IDHSHID DHSID IDHSPSU CASEID</span></span>
-<span><span class="co">#&gt;    &lt;int+lbl&gt;     &lt;chr+lbl&gt;  &lt;int+lbl&gt; &lt;int&gt; &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;   &lt;dbl&gt; &lt;chr&gt; </span></span>
-<span><span class="co">#&gt;  1 85403 [Burki… 854… [Bur… 854 [Bur…  2003 85403 … 85403 … BF20… 8.54e10 1 76 …</span></span>
-<span><span class="co">#&gt;  2 85403 [Burki… 854… [Bur… 854 [Bur…  2003 85403 … 85403 … BF20… 8.54e10 1 76 …</span></span>
-<span><span class="co">#&gt;  3 85403 [Burki… 854… [Bur… 854 [Bur…  2003 85403 … 85403 … BF20… 8.54e10 1 76 …</span></span>
-<span><span class="co">#&gt;  4 85403 [Burki… 854… [Bur… 854 [Bur…  2003 85403 … 85403 … BF20… 8.54e10 1 98 …</span></span>
-<span><span class="co">#&gt;  5 85403 [Burki… 854… [Bur… 854 [Bur…  2003 85403 … 85403 … BF20… 8.54e10 1 98 …</span></span>
-<span><span class="co">#&gt;  6 85403 [Burki… 854… [Bur… 854 [Bur…  2003 85403 … 85403 … BF20… 8.54e10 1113 …</span></span>
-<span><span class="co">#&gt;  7 85403 [Burki… 854… [Bur… 854 [Bur…  2003 85403 … 85403 … BF20… 8.54e10 1207 …</span></span>
-<span><span class="co">#&gt;  8 85403 [Burki… 854… [Bur… 854 [Bur…  2003 85403 … 85403 … BF20… 8.54e10 1207 …</span></span>
-<span><span class="co">#&gt;  9 85403 [Burki… 854… [Bur… 854 [Bur…  2003 85403 … 85403 … BF20… 8.54e10 1232 …</span></span>
-<span><span class="co">#&gt; 10 85403 [Burki… 854… [Bur… 854 [Bur…  2003 85403 … 85403 … BF20… 8.54e10 1232 …</span></span>
-<span><span class="co">#&gt; # ℹ 25,679 more rows</span></span>
-<span><span class="co">#&gt; # ℹ 50 more variables: HHID &lt;chr&gt;, PSU &lt;dbl&gt;, DOMAIN &lt;dbl&gt;, HHNUM &lt;dbl&gt;,</span></span>
-<span><span class="co">#&gt; #   CLUSTERNO &lt;dbl&gt;, LINENO &lt;int&gt;, BIDX &lt;int&gt;, PERWEIGHT &lt;dbl&gt;, KIDWT &lt;dbl&gt;,</span></span>
-<span><span class="co">#&gt; #   AWFACTT &lt;dbl&gt;, AWFACTU &lt;dbl&gt;, AWFACTR &lt;dbl&gt;, AWFACTE &lt;dbl&gt;, AWFACTW &lt;dbl&gt;,</span></span>
-<span><span class="co">#&gt; #   DVWEIGHT &lt;dbl&gt;, INTYEAR &lt;int&gt;, MONTHINT &lt;int+lbl&gt;, INTDAY &lt;int&gt;,</span></span>
-<span><span class="co">#&gt; #   INTDATECMC &lt;dbl&gt;, URBAN &lt;int+lbl&gt;, RESIDEINTYR &lt;int+lbl&gt;,</span></span>
-<span><span class="co">#&gt; #   GEO_BF2003_2010 &lt;int+lbl&gt;, GEO_BF2003 &lt;int+lbl&gt;, GEO_BF2010 &lt;int+lbl&gt;, …</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>dhs</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 25,689 × 59</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    SAMPLE        SAMPLESTR  COUNTRY    YEAR IDHSPID IDHSHID DHSID IDHSPSU CASEID</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    &lt;int+lbl&gt;     &lt;chr+lbl&gt;  &lt;int+lbl&gt; &lt;int&gt; &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;   &lt;dbl&gt; &lt;chr&gt; </span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  1 85403 [Burki… 854… [Bur… 854 [Bur…  2003 85403 … 85403 … BF20… 8.54e10 1 76 …</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  2 85403 [Burki… 854… [Bur… 854 [Bur…  2003 85403 … 85403 … BF20… 8.54e10 1 76 …</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  3 85403 [Burki… 854… [Bur… 854 [Bur…  2003 85403 … 85403 … BF20… 8.54e10 1 76 …</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  4 85403 [Burki… 854… [Bur… 854 [Bur…  2003 85403 … 85403 … BF20… 8.54e10 1 98 …</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  5 85403 [Burki… 854… [Bur… 854 [Bur…  2003 85403 … 85403 … BF20… 8.54e10 1 98 …</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  6 85403 [Burki… 854… [Bur… 854 [Bur…  2003 85403 … 85403 … BF20… 8.54e10 1113 …</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  7 85403 [Burki… 854… [Bur… 854 [Bur…  2003 85403 … 85403 … BF20… 8.54e10 1207 …</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  8 85403 [Burki… 854… [Bur… 854 [Bur…  2003 85403 … 85403 … BF20… 8.54e10 1207 …</span></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  9 85403 [Burki… 854… [Bur… 854 [Bur…  2003 85403 … 85403 … BF20… 8.54e10 1232 …</span></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10 85403 [Burki… 854… [Bur… 854 [Bur…  2003 85403 … 85403 … BF20… 8.54e10 1232 …</span></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # ℹ 25,679 more rows</span></span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # ℹ 50 more variables: HHID &lt;chr&gt;, PSU &lt;dbl&gt;, DOMAIN &lt;dbl&gt;, HHNUM &lt;dbl&gt;,</span></span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; #   CLUSTERNO &lt;dbl&gt;, LINENO &lt;int&gt;, BIDX &lt;int&gt;, PERWEIGHT &lt;dbl&gt;, KIDWT &lt;dbl&gt;,</span></span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; #   AWFACTT &lt;dbl&gt;, AWFACTU &lt;dbl&gt;, AWFACTR &lt;dbl&gt;, AWFACTE &lt;dbl&gt;, AWFACTW &lt;dbl&gt;,</span></span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; #   DVWEIGHT &lt;dbl&gt;, INTYEAR &lt;int&gt;, MONTHINT &lt;int+lbl&gt;, INTDAY &lt;int&gt;,</span></span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; #   INTDATECMC &lt;dbl&gt;, URBAN &lt;int+lbl&gt;, RESIDEINTYR &lt;int+lbl&gt;,</span></span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; #   GEO_BF2003_2010 &lt;int+lbl&gt;, GEO_BF2003 &lt;int+lbl&gt;, GEO_BF2010 &lt;int+lbl&gt;, …</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<section id="why-use-ipumsr" class="level3"><h3 class="anchored" data-anchor-id="why-use-ipumsr">Why use ipumsr?</h3>
+<section id="why-use-ipumsr" class="level3">
+<h3 class="anchored" data-anchor-id="why-use-ipumsr">Why use ipumsr?</h3>
 <p>Several R packages already exist for reading external data files. There are a few reasons we suggest using ipumsr to work with IPUMS data.</p>
-<section id="load-compressed-files" class="level4"><h4 class="anchored" data-anchor-id="load-compressed-files">Load compressed files</h4>
+<section id="load-compressed-files" class="level4">
+<h4 class="anchored" data-anchor-id="load-compressed-files">Load compressed files</h4>
 <p>First, IPUMS delivers data extracts as compressed archives. ipumsr anticipates this and allows you to load data directly without having to manually decompress these files.</p>
-</section><section id="view-variable-metadata" class="level4"><h4 class="anchored" data-anchor-id="view-variable-metadata">View variable metadata</h4>
-<p>Furthermore, ipumsr uses the metadata contained in an extract’s DDI file to attach contextual information to the loaded data. For instance, to get a description of a variable contained in an extract, use <code><a href="https://tech.popdata.org/ipumsr/reference/ipums_var_info.html">ipums_var_label()</a></code>:</p>
+</section>
+<section id="view-variable-metadata" class="level4">
+<h4 class="anchored" data-anchor-id="view-variable-metadata">View variable metadata</h4>
+<p>Furthermore, ipumsr uses the metadata contained in an extract’s DDI file to attach contextual information to the loaded data. For instance, to get a description of a variable contained in an extract, use <code>ipums_var_label()</code>:</p>
 <div class="cell">
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://tech.popdata.org/ipumsr/reference/ipums_var_info.html">ipums_var_label</a></span><span class="op">(</span><span class="va">dhs</span><span class="op">$</span><span class="va">HWHAZWHO</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] "Height for age standard deviations from median (WHO)"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ipums_var_label</span>(dhs<span class="sc">$</span>HWHAZWHO)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] "Height for age standard deviations from median (WHO)"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Use <code><a href="https://tech.popdata.org/ipumsr/reference/ipums_var_info.html">ipums_val_labels()</a></code> to check if there are any labeled values in the data for that variable. Labeled values typically represent categories (for non-continuous variables) or contain information about the codes used for missing values.</p>
+<p>Use <code>ipums_val_labels()</code> to check if there are any labeled values in the data for that variable. Labeled values typically represent categories (for non-continuous variables) or contain information about the codes used for missing values.</p>
 <p>For <code>HWHAZWHO</code>, several values represent different types of missing data. (You will likely want to convert these values to <code>NA</code> before conducting an analysis using this variable!)</p>
 <div class="cell">
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://tech.popdata.org/ipumsr/reference/ipums_var_info.html">ipums_val_labels</a></span><span class="op">(</span><span class="va">dhs</span><span class="op">$</span><span class="va">HWHAZWHO</span><span class="op">)</span></span>
-<span><span class="co">#&gt; # A tibble: 5 × 2</span></span>
-<span><span class="co">#&gt;     val lbl                                </span></span>
-<span><span class="co">#&gt;   &lt;int&gt; &lt;chr&gt;                              </span></span>
-<span><span class="co">#&gt; 1  9995 Height out of plausible limits     </span></span>
-<span><span class="co">#&gt; 2  9996 Age in days out of plausible limits</span></span>
-<span><span class="co">#&gt; 3  9997 Flagged cases                      </span></span>
-<span><span class="co">#&gt; 4  9998 Missing                            </span></span>
-<span><span class="co">#&gt; 5  9999 NIU (not in universe)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ipums_val_labels</span>(dhs<span class="sc">$</span>HWHAZWHO)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 5 × 2</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     val lbl                                </span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   &lt;int&gt; &lt;chr&gt;                              </span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1  9995 Height out of plausible limits     </span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2  9996 Age in days out of plausible limits</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3  9997 Flagged cases                      </span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4  9998 Missing                            </span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5  9999 NIU (not in universe)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>More details about working with IPUMS metadata can be found in the <a href="https://tech.popdata.org/ipumsr/articles/value-labels.html">ipumsr documentation</a>.</p>
-</section><section id="access-the-ipums-api" class="level4"><h4 class="anchored" data-anchor-id="access-the-ipums-api">Access the IPUMS API</h4>
+</section>
+<section id="access-the-ipums-api" class="level4">
+<h4 class="anchored" data-anchor-id="access-the-ipums-api">Access the IPUMS API</h4>
 <p>Finally, ipumsr provides an R interface for the IPUMS API, allowing you to request and download data entirely within your R environment. While these features do not currently support IPUMS DHS, work on the API is ongoing, so you may be able to access IPUMS DHS data in the future! To see more about the projects that are currently supported by the IPUMS API, check out the <a href="https://developer.ipums.org/docs/v2/apiprogram/">API documentation</a>.</p>
 <p>See the <a href="https://tech.popdata.org/ipumsr/articles/ipums-api.html">API introduction</a> to learn how to use ipumsr to interact with the IPUMS API.</p>
-</section></section></section><div id="quarto-appendix" class="default"><section id="getting-help" class="level2 appendix"><h2 class="anchored quarto-appendix-heading">Getting Help</h2><div class="quarto-appendix-contents">
+</section>
+</section>
+
+</section>
+
+<div id="quarto-appendix" class="default"><section id="getting-help" class="level2 appendix"><h2 class="anchored quarto-appendix-heading">Getting Help</h2><div class="quarto-appendix-contents">
+
 <p>Questions or comments? Check out the <a href="https://forum.ipums.org">IPUMS User Forum</a> or reach out to IPUMS User Support at ipums@umn.edu.</p>
 
 
-</div></section></div></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
+</div></section></div></main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
     const mode = bsSheetEl.getAttribute("data-mode");
@@ -498,6 +546,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   });
   clipboard.on('success', onCopySuccess);
   if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
     const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
       text: getTextToCopy,
       container: window.document.getElementById('quarto-embedded-source-code-modal')
@@ -608,6 +658,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       if (window.Quarto?.typesetMath) {
         window.Quarto.typesetMath(note);
       }
+      // TODO in 1.5, we should make sure this works without a callout special case
       if (note.classList.contains("callout")) {
         return note.outerHTML;
       } else {
@@ -834,7 +885,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 });
 </script>
 </div> <!-- /content -->
-<footer class="footer"><div class="nav-footer">
+<footer class="footer">
+  <div class="nav-footer">
     <div class="nav-footer-left">
       &nbsp;
     </div>   
@@ -846,6 +898,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     </div>
   </div>
 </footer>
+
+
 
 
 </body></html>
