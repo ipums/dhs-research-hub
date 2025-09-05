@@ -9,7 +9,7 @@
 <link>https://ipums.github.io/dhs-research-hub/</link>
 <atom:link href="https://ipums.github.io/dhs-research-hub/index.xml" rel="self" type="application/rss+xml"/>
 <description>Understand population health in its environmental context</description>
-<generator>quarto-1.5.57</generator>
+<generator>quarto-1.6.42</generator>
 <lastBuildDate>Wed, 06 Aug 2025 05:00:00 GMT</lastBuildDate>
 <item>
   <title>Measuring Dietary Diversity using DHS data</title>
