@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
-
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.6.42">
-
+<meta name="generator" content="quarto-1.5.57">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-
+<meta name="author" content="Rebecca Luttinen">
+<meta name="author" content="Jessie Pinchoff">
+<meta name="dcterms.date" content="2025-09-05">
 <meta name="description" content="Returning to our series on future estimation, we provide an overview of a data source for future climate scenarios.">
-
 <title>Harnessing CHC-CMIP6 Climate Scenario Data to Explore the Future – IPUMS DHS Spatial Analysis and Health Research Hub</title>
 <style>
 code{white-space: pre-wrap;}
@@ -77,7 +77,6 @@ div.csl-indent {
   margin-left: 2em;
 }</style>
 
-
 <script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
 <script src="../../site_libs/quarto-nav/headroom.min.js"></script>
 <script src="../../site_libs/clipboard/clipboard.min.js"></script>
@@ -91,13 +90,12 @@ div.csl-indent {
 <script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-03fd5f99cfc2f8297f3c5ef65ead31dc.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap-8380f5462b39f9b808e92daec7348b6d.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
 <link href="../../site_libs/quarto-contrib/fontawesome6-0.1.0/all.css" rel="stylesheet">
-<link href="../../site_libs/quarto-contrib/fontawesome6-0.1.0/latex-fontsize.css" rel="stylesheet">
-<script id="quarto-search-options" type="application/json">{
+<link href="../../site_libs/quarto-contrib/fontawesome6-0.1.0/latex-fontsize.css" rel="stylesheet"><script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
   "collapse-after": 3,
@@ -122,18 +120,13 @@ div.csl-indent {
     "search-submit-button-title": "Submit",
     "search-label": "Search"
   }
-}</script>
-<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-0WLH5S9VD5"></script>
-
-<script type="text/javascript">
+}</script><script async="" src="https://www.googletagmanager.com/gtag/js?id=G-0WLH5S9VD5"></script><script type="text/javascript">
 
 window.dataLayer = window.dataLayer || [];
 function gtag(){dataLayer.push(arguments);}
 gtag('js', new Date());
 gtag('config', 'G-0WLH5S9VD5', { 'anonymize_ip': true});
 </script>
-
-
 <meta property="og:title" content="Harnessing CHC-CMIP6 Climate Scenario Data to Explore the Future">
 <meta property="og:description" content="Returning to our series on future estimation, we provide an overview of a data source for future climate scenarios.">
 <meta property="og:image" content="https://ipums.github.io/dhs-research-hub/posts/2025-09-05-forecasting-pt3/images/clipboard-1796866763.png">
@@ -147,17 +140,13 @@ gtag('config', 'G-0WLH5S9VD5', { 'anonymize_ip': true});
 <meta name="twitter:image-width" content="766">
 <meta name="twitter:card" content="summary_large_image">
 </head>
-
 <body class="floating nav-fixed slimcontent">
 
 <div id="quarto-search-results"></div>
-  <header id="quarto-header" class="headroom fixed-top quarto-banner">
-    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
-      <div class="navbar-container container-fluid">
+  <header id="quarto-header" class="headroom fixed-top quarto-banner"><nav class="navbar navbar-expand-lg " data-bs-theme="dark"><div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
     <a href="https://www.idhsdata.org/idhs/" class="navbar-brand navbar-brand-logo">
-    <img src="../../images/dhs_logo_white.png" alt="" class="navbar-logo">
-    </a>
+    <img src="../../images/dhs_logo_white.png" alt="" class="navbar-logo"></a>
   </div>
             <div id="quarto-search" class="" title="Search"></div>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
@@ -165,13 +154,13 @@ gtag('config', 'G-0WLH5S9VD5', { 'anonymize_ip': true});
 </button>
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
-  <li class="nav-item">
+<li class="nav-item">
     <a class="nav-link" href="../../index.html"> 
 <span class="menu-text">Spatial Analysis and Health Research Hub</span></a>
   </li>  
 </ul>
-            <ul class="navbar-nav navbar-nav-scroll ms-auto">
-  <li class="nav-item">
+<ul class="navbar-nav navbar-nav-scroll ms-auto">
+<li class="nav-item">
     <a class="nav-link" href="../../index.html"> 
 <span class="menu-text">Posts</span></a>
   </li>  
@@ -179,8 +168,8 @@ gtag('config', 'G-0WLH5S9VD5', { 'anonymize_ip': true});
     <a class="nav-link dropdown-toggle" href="#" id="nav-menu-getting-started" role="link" data-bs-toggle="dropdown" aria-expanded="false">
  <span class="menu-text">Getting Started</span>
     </a>
-    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="nav-menu-getting-started">    
-        <li>
+    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="nav-menu-getting-started">
+<li>
     <a class="dropdown-item" href="../../posts/2024-02-01-getting-started-with-r/index.html">
  <span class="dropdown-text">An Introduction to R</span></a>
   </li>  
@@ -189,13 +178,13 @@ gtag('config', 'G-0WLH5S9VD5', { 'anonymize_ip': true});
  <span class="dropdown-text">Obtaining IPUMS DHS Data</span></a>
   </li>  
     </ul>
-  </li>
+</li>
   <li class="nav-item dropdown ">
     <a class="nav-link dropdown-toggle" href="#" id="nav-menu-community" role="link" data-bs-toggle="dropdown" aria-expanded="false">
  <span class="menu-text">Community</span>
     </a>
-    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="nav-menu-community">    
-        <li>
+    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="nav-menu-community">
+<li>
     <a class="dropdown-item" href="https://forum.ipums.org">
  <span class="dropdown-text">IPUMS Forum</span></a>
   </li>  
@@ -208,7 +197,7 @@ gtag('config', 'G-0WLH5S9VD5', { 'anonymize_ip': true});
  <span class="dropdown-text">License</span></a>
   </li>  
     </ul>
-  </li>
+</li>
   <li class="nav-item">
     <a class="nav-link" href="../../about.html"> 
 <span class="menu-text">About</span></a>
@@ -234,15 +223,11 @@ gtag('config', 'G-0WLH5S9VD5', { 'anonymize_ip': true});
 <span class="menu-text"><i class="fa-solid fa-globe" aria-label="globe"></i></span></a>
   </li>  
 </ul>
-          </div> <!-- /navcollapse -->
+</div> <!-- /navcollapse -->
             <div class="quarto-navbar-tools">
 </div>
       </div> <!-- /container-fluid -->
-    </nav>
-</header>
-<!-- content -->
-<header id="title-block-header" class="quarto-title-block default toc-left page-columns page-full">
-  <div class="quarto-title-banner page-columns page-full">
+    </nav></header><!-- content --><header id="title-block-header" class="quarto-title-block default toc-left page-columns page-full"><div class="quarto-title-banner page-columns page-full">
     <div class="quarto-title column-body">
       <h1 class="title">Harnessing CHC-CMIP6 Climate Scenario Data to Explore the Future</h1>
                   <div>
@@ -292,7 +277,7 @@ gtag('config', 'G-0WLH5S9VD5', { 'anonymize_ip': true});
       <div>
       <div class="quarto-title-meta-heading">Published</div>
       <div class="quarto-title-meta-contents">
-        <p class="date">09-05-2025</p>
+        <p class="date">September 5, 2025</p>
       </div>
     </div>
     
@@ -302,12 +287,10 @@ gtag('config', 'G-0WLH5S9VD5', { 'anonymize_ip': true});
   
   </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
-    <nav id="TOC" role="doc-toc" class="toc-active" data-toc-expanded="1">
-    <h2 id="toc-title">Contents</h2>
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto"><nav id="TOC" role="doc-toc" class="toc-active" data-toc-expanded="1"><h2 id="toc-title">Contents</h2>
    
   <ul>
-  <li><a href="#long-term-climate-projections" id="toc-long-term-climate-projections" class="nav-link active" data-scroll-target="#long-term-climate-projections"><strong>Long-term Climate Projections</strong></a></li>
+<li><a href="#long-term-climate-projections" id="toc-long-term-climate-projections" class="nav-link active" data-scroll-target="#long-term-climate-projections"><strong>Long-term Climate Projections</strong></a></li>
   <li><a href="#the-couple-model-intercomparison-project-phase-6-cmip-6" id="toc-the-couple-model-intercomparison-project-phase-6-cmip-6" class="nav-link" data-scroll-target="#the-couple-model-intercomparison-project-phase-6-cmip-6">The Couple Model Intercomparison Project Phase 6 (CMIP-6)</a></li>
   <li><a href="#chc-cmip6-datasets" id="toc-chc-cmip6-datasets" class="nav-link" data-scroll-target="#chc-cmip6-datasets">CHC-CMIP6 Datasets</a></li>
   <li><a href="#how-to-access-and-read-the-scenario-data-into-r" id="toc-how-to-access-and-read-the-scenario-data-into-r" class="nav-link" data-scroll-target="#how-to-access-and-read-the-scenario-data-into-r">How to Access and Read the Scenario Data into R</a></li>
@@ -315,35 +298,24 @@ gtag('config', 'G-0WLH5S9VD5', { 'anonymize_ip': true});
   <li><a href="#aggregate-to-the-spatial-level" id="toc-aggregate-to-the-spatial-level" class="nav-link" data-scroll-target="#aggregate-to-the-spatial-level">Aggregate to the Spatial Level</a></li>
   <li><a href="#visualization-demo" id="toc-visualization-demo" class="nav-link" data-scroll-target="#visualization-demo">Visualization Demo</a></li>
   <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion">Conclusion</a></li>
-  </ul>
-</nav>
-</nav>
-<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+  </ul></nav>
+</nav><div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
     </div>
 <!-- main -->
-<main class="content quarto-banner-title-block page-columns page-full" id="quarto-document-content">
-
-
-
-
-
-<p>We now return to our series on using methods of future estimation in spatial health research. The third post in this series introduces <a href="https://www.chc.ucsb.edu/data/chc-cmip6">CHC-CMIP6 data</a> by the Climate Hazards Center at UC Santa Barbara. We will demonstrate how you can read these data into R to create informative visualizations.&nbsp; Kenya will be our example context, continuing from our <a href="https://tech.popdata.org/dhs-research-hub/posts/2025-06-03-forecasting-pt2/">previous post</a> in this series</p>
-<section id="long-term-climate-projections" class="level1">
-<h1><strong>Long-term Climate Projections</strong></h1>
+<main class="content quarto-banner-title-block page-columns page-full" id="quarto-document-content"><p>We now return to our series on using methods of future estimation in spatial health research. The third post in this series introduces <a href="https://www.chc.ucsb.edu/data/chc-cmip6">CHC-CMIP6 data</a> by the Climate Hazards Center at UC Santa Barbara. We will demonstrate how you can read these data into R to create informative visualizations.&nbsp; Kenya will be our example context, continuing from our <a href="https://tech.popdata.org/dhs-research-hub/posts/2025-06-03-forecasting-pt2/">previous post</a> in this series.</p>
+<section id="long-term-climate-projections" class="level1"><h1><strong>Long-term Climate Projections</strong></h1>
 <p>Now that we’ve shown how we can use forecasts, predictions and scenarios to explore future demographic and health patterns, how does climate change fit in?</p>
 <p>We discussed <a href="https://www.sciencedirect.com/science/article/abs/pii/S0022169421011082">Subseasonal to seasonal (S2S) forecasts</a> earlier in this series, which extend short-term weather forecasts from two weeks to two years into the future. Climate change patterns, however, may shift over many years, and often, climate researchers are predicting much further into the future. These predictions can assist policymakers in thinking about how what they do today may impact the future.</p>
 <p>The Intergovernmental Panel on Climate Change (IPCC) is the UN agency that studies climate change, and its annual Conference of Parties (COP) meetings bring together experts in climate change, agriculture, demography, health and other fields to help governments make pledges to increase resources to address climate change. IPCC synthesizes global climate research into comprehensive, authoritative IPCC reports that&nbsp;represent the scientific consensus on climate change, its impacts, and how human activities affect greenhouse gas emissions, providing the foundation for climate policy decisions.</p>
 <p>To understand how climate change may shift in the long-term, the IPCC and researchers around the world use the Shared Socioeconomic Pathways (SSPs) to understand our possible future worlds. For example, SSP 5-8.5 assumes a world where we fail to cut emissions or switch to clean energy, the population grows, and emissions increase rapidly. SSP 2-4.5 is considered the “middle of the road” scenario, a future where greenhouse gas emissions hover around current levels and perhaps start declining but don’t reach net-zero by 2100. The SSP’s consider challenges to mitigation (bringing down emissions) and adaptation (taking steps to reduce exposure and harm). Using the SSPs, scientists can explore how climate and demographic patterns will shift under each possible future scenario.</p>
-<p>The figure below summarizes each single SSP, which is considered the starting point. Read more at the link below the figure to understand the different kinds of assumptions applied to each SSP (i.e.&nbsp;the-4.5 in SSP 2-4.5).</p>
+<p>The figure below summarizes each single SSP, which is considered the starting point. Read more at the link below the figure to understand the different kinds of assumptions that can be applied to each SSP (i.e.&nbsp;the ‘-4.5’ that comes after ‘2’ in SSP 2-4.5).</p>
 <div class="colum-body.outset">
 <p><img src="images/clipboard-1796866763.png" class="img-fluid"></p>
 <p><em>Figure: The five SSPs and the associated challenges to mitigation and adaptation.</em> (<a href="https://climatedata.ca/resource/understanding-shared-socio-economic-pathways-ssps/"><em>https://climatedata.ca/resource/understanding-shared-socio-economic-pathways-ssps/</em></a><em>)</em></p>
 </div>
-</section>
-<section id="the-couple-model-intercomparison-project-phase-6-cmip-6" class="level1 page-columns page-full">
-<h1>The Couple Model Intercomparison Project Phase 6 (CMIP-6)</h1>
+</section><section id="the-couple-model-intercomparison-project-phase-6-cmip-6" class="level1 page-columns page-full"><h1>The Couple Model Intercomparison Project Phase 6 (CMIP-6)</h1>
 <p>The Coupled Model Intercomparison Project Phase 6 (CMIP6) is a global collaboration among climate modeling centers. CMIP6 simulates the earth’s climate system, including the atmosphere, oceans and land surface, across each SSP. Each model starts by running historical data from the past 100-150 years, to see if they can reproduce past climate trends. Then, they feed the model different possible futures through the SSPs. Lastly, the models simulate the future climate, often up to the year 2100 or even 2300, and simulate how temperatures may rise, rainfall patterns may change, or extreme events may increase. Because many research teams around the world are running these models independently, CMIP6 can explore dozens of different models using the same standardized scenarios for comparability.</p>
 <p>Once the simulations are done, scientists can compare the models, average the results, and assess uncertainty levels. The final CMIP6-informed climate projections can be used to guide IPCC reports and guidance, as well as country level national determined contributions (NDCs), adaptation plans, and risk assessments, to guide policy decisions on the ground. To be useful at this level, we need spatially and temporally detailed datasets, that downscale the full model down to more localized estimates and patterns.</p>
 <div class="callout callout-style-default callout-note callout-titled">
@@ -363,16 +335,12 @@ gtag('config', 'G-0WLH5S9VD5', { 'anonymize_ip': true});
 
 <div class="no-row-height column-margin column-container"><div class="">
 <p>We will be using a dataset created by researchers at the Climate Hazards Center (CHC). We used observed climate data from CHC in these earlier posts: 1) <a href="https://tech.popdata.org/dhs-research-hub/posts/2024-04-15-chirts-metrics/">Flexible Workflows with CHIRTS Temperature Data</a> and 2) <a href="https://tech.popdata.org/dhs-research-hub/posts/2024-02-04-dhs-chirps/">Attaching CHIRPS Precipitation Data to DHS Surveys.</a> The format of the projected data is the same as the historical data. This is because the projected data is calculated by adding a daily delta to observed historical data, which is the amount of ‘change’ a climate value is expected to experience.</p>
-</div></div></section>
-<section id="chc-cmip6-datasets" class="level1 page-columns page-full">
-<h1>CHC-CMIP6 Datasets</h1>
+</div></div></section><section id="chc-cmip6-datasets" class="level1 page-columns page-full"><h1>CHC-CMIP6 Datasets</h1>
 <p>The Climate Hazards Center uses CMIP6 outputs and tailors them for more applied research needs. They recently downscaled CMIP6 climate projections to produce high-resolution, bias-corrected datasets that are more useful for local applications. They produced daily 0.05ᵒ gridded data of the Climate Hazards InfraRed Temperature with Stations (CHIRTS) temperature product. So far, CHIRTS has been a historical dataset with daily maximum temperature estimates from 1981-2024, but now we can explore future temperature estimates for 2030 and 2050.</p>
 
 <div class="no-row-height column-margin column-container"><div class="">
 <p>We can use CHC-CMIP data to predict child health outcomes. As this blog has demonstrated, the Demographic and Health Surveys have important, nationally representative information on child health and well-being from countries that often lack detailed health metrics. The DHS includes GPS coordinates for communities where households are sampled, and this information can then be used to link with CHC-CMIP6 downscaled projections by location. We will explore this in our next post in this series.</p>
-</div></div></section>
-<section id="how-to-access-and-read-the-scenario-data-into-r" class="level1">
-<h1>How to Access and Read the Scenario Data into R</h1>
+</div></div></section><section id="how-to-access-and-read-the-scenario-data-into-r" class="level1"><h1>How to Access and Read the Scenario Data into R</h1>
 <p>For this exercise we will work with temperature data for one month, January, which is during the hot season in Kenya for each scenario and time-frame. If you’re interested in working with rainfall data, you can adapt this code, using the previous CHIRPS post (see above) to download projected rainfall data.</p>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -389,402 +357,388 @@ Note
 </div>
 <p>Once those files are downloaded we will create a file path to .tif files.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create list of paths to all individual raster files</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>projections_files_245_2030<span class="ot">&lt;-</span> <span class="fu">list.files</span>(<span class="st">"data/SSP_245_2030_Tmax"</span>, <span class="at">full.names =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>projections_files_585_2030<span class="ot">&lt;-</span> <span class="fu">list.files</span>(<span class="st">"data/SSP_585_2030_Tmax"</span>, <span class="at">full.names =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>projections_files_245_2050<span class="ot">&lt;-</span> <span class="fu">list.files</span>(<span class="st">"data/SSP_245_2050_Tmax"</span>, <span class="at">full.names =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>projections_files_585_2050<span class="ot">&lt;-</span> <span class="fu">list.files</span>(<span class="st">"data/SSP_585_2050_Tmax"</span>, <span class="at">full.names =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Create list of paths to all individual raster files</span></span>
+<span></span>
+<span><span class="va">projections_files_245_2030</span><span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.files.html">list.files</a></span><span class="op">(</span><span class="st">"data/SSP_245_2030_Tmax"</span>, full.names <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">projections_files_585_2030</span><span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.files.html">list.files</a></span><span class="op">(</span><span class="st">"data/SSP_585_2030_Tmax"</span>, full.names <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">projections_files_245_2050</span><span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.files.html">list.files</a></span><span class="op">(</span><span class="st">"data/SSP_245_2050_Tmax"</span>, full.names <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">projections_files_585_2050</span><span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.files.html">list.files</a></span><span class="op">(</span><span class="st">"data/SSP_585_2050_Tmax"</span>, full.names <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Then we will load the files as multiple layers in a raster stack, similar to the workflow demonstrated in this <a href="https://tech.popdata.org/dhs-research-hub/posts/2024-02-04-dhs-chirps/">earlier post</a> on how to use precipitation data from the Climate Hazards Center.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(terra)</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Load each set of .tif files into into its own single raster stack</span></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>proj_temp_raster_245_2030 <span class="ot">&lt;-</span> <span class="fu">rast</span>(projections_files_245_2030)</span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>proj_temp_raster_585_2030 <span class="ot">&lt;-</span> <span class="fu">rast</span>(projections_files_585_2030)</span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>proj_temp_raster_245_2050 <span class="ot">&lt;-</span> <span class="fu">rast</span>(projections_files_245_2050)</span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>proj_temp_raster_585_2050 <span class="ot">&lt;-</span> <span class="fu">rast</span>(projections_files_585_2050)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://rspatial.org/">terra</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Load each set of .tif files into into its own single raster stack</span></span>
+<span></span>
+<span><span class="va">proj_temp_raster_245_2030</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rspatial.github.io/terra/reference/rast.html">rast</a></span><span class="op">(</span><span class="va">projections_files_245_2030</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">proj_temp_raster_585_2030</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rspatial.github.io/terra/reference/rast.html">rast</a></span><span class="op">(</span><span class="va">projections_files_585_2030</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">proj_temp_raster_245_2050</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rspatial.github.io/terra/reference/rast.html">rast</a></span><span class="op">(</span><span class="va">projections_files_245_2050</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">proj_temp_raster_585_2050</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rspatial.github.io/terra/reference/rast.html">rast</a></span><span class="op">(</span><span class="va">projections_files_585_2050</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>The scenario data is provided at the global level, so first we must crop this raster to only cover Kenya. We can do this by using a shapefile for Kenya available on from the <a href="https://data.humdata.org/">Humanitarian Data Exchange</a>, which also has county-level geocodes. First, we read in this shapefile.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sf)</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co">#read in Kenya ADM1 shapefiles</span></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>ken_ADM1_borders <span class="ot">&lt;-</span> <span class="fu">st_read</span>(</span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>  <span class="st">"data/geoBoundaries-KEN-ADM1-all/geoBoundaries-KEN-ADM1.shp"</span>,</span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">quiet =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="co">#make sure the projection systems for our shapefiles and our raster data match</span></span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="fu">crs</span>(ken_ADM1_borders)</span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] "GEOGCRS[\"WGS 84\",\n    ENSEMBLE[\"World Geodetic System 1984 ensemble\",\n        MEMBER[\"World Geodetic System 1984 (Transit)\"],\n        MEMBER[\"World Geodetic System 1984 (G730)\"],\n        MEMBER[\"World Geodetic System 1984 (G873)\"],\n        MEMBER[\"World Geodetic System 1984 (G1150)\"],\n        MEMBER[\"World Geodetic System 1984 (G1674)\"],\n        MEMBER[\"World Geodetic System 1984 (G1762)\"],\n        MEMBER[\"World Geodetic System 1984 (G2139)\"],\n        MEMBER[\"World Geodetic System 1984 (G2296)\"],\n        ELLIPSOID[\"WGS 84\",6378137,298.257223563,\n            LENGTHUNIT[\"metre\",1]],\n        ENSEMBLEACCURACY[2.0]],\n    PRIMEM[\"Greenwich\",0,\n        ANGLEUNIT[\"degree\",0.0174532925199433]],\n    CS[ellipsoidal,2],\n        AXIS[\"geodetic latitude (Lat)\",north,\n            ORDER[1],\n            ANGLEUNIT[\"degree\",0.0174532925199433]],\n        AXIS[\"geodetic longitude (Lon)\",east,\n            ORDER[2],\n            ANGLEUNIT[\"degree\",0.0174532925199433]],\n    USAGE[\n        SCOPE[\"Horizontal component of 3D system.\"],\n        AREA[\"World.\"],\n        BBOX[-90,-180,90,180]],\n    ID[\"EPSG\",4326]]"</span></span>
-<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a><span class="fu">crs</span>(proj_temp_raster_245_2030)</span>
-<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] "GEOGCRS[\"WGS 84\",\n    ENSEMBLE[\"World Geodetic System 1984 ensemble\",\n        MEMBER[\"World Geodetic System 1984 (Transit)\"],\n        MEMBER[\"World Geodetic System 1984 (G730)\"],\n        MEMBER[\"World Geodetic System 1984 (G873)\"],\n        MEMBER[\"World Geodetic System 1984 (G1150)\"],\n        MEMBER[\"World Geodetic System 1984 (G1674)\"],\n        MEMBER[\"World Geodetic System 1984 (G1762)\"],\n        MEMBER[\"World Geodetic System 1984 (G2139)\"],\n        MEMBER[\"World Geodetic System 1984 (G2296)\"],\n        ELLIPSOID[\"WGS 84\",6378137,298.257223563,\n            LENGTHUNIT[\"metre\",1]],\n        ENSEMBLEACCURACY[2.0]],\n    PRIMEM[\"Greenwich\",0,\n        ANGLEUNIT[\"degree\",0.0174532925199433]],\n    CS[ellipsoidal,2],\n        AXIS[\"geodetic latitude (Lat)\",north,\n            ORDER[1],\n            ANGLEUNIT[\"degree\",0.0174532925199433]],\n        AXIS[\"geodetic longitude (Lon)\",east,\n            ORDER[2],\n            ANGLEUNIT[\"degree\",0.0174532925199433]],\n    USAGE[\n        SCOPE[\"Horizontal component of 3D system.\"],\n        AREA[\"World.\"],\n        BBOX[-90,-180,90,180]],\n    ID[\"EPSG\",4326]]"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://r-spatial.github.io/sf/">sf</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">#read in Kenya ADM1 shapefiles</span></span>
+<span></span>
+<span><span class="va">ken_ADM1_borders</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_read.html">st_read</a></span><span class="op">(</span></span>
+<span>  <span class="st">"data/geoBoundaries-KEN-ADM1-all/geoBoundaries-KEN-ADM1.shp"</span>,</span>
+<span>  quiet <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">#make sure the projection systems for our shapefiles and our raster data match</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rspatial.github.io/terra/reference/crs.html">crs</a></span><span class="op">(</span><span class="va">ken_ADM1_borders</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "GEOGCRS[\"WGS 84\",\n    ENSEMBLE[\"World Geodetic System 1984 ensemble\",\n        MEMBER[\"World Geodetic System 1984 (Transit)\"],\n        MEMBER[\"World Geodetic System 1984 (G730)\"],\n        MEMBER[\"World Geodetic System 1984 (G873)\"],\n        MEMBER[\"World Geodetic System 1984 (G1150)\"],\n        MEMBER[\"World Geodetic System 1984 (G1674)\"],\n        MEMBER[\"World Geodetic System 1984 (G1762)\"],\n        MEMBER[\"World Geodetic System 1984 (G2139)\"],\n        ELLIPSOID[\"WGS 84\",6378137,298.257223563,\n            LENGTHUNIT[\"metre\",1]],\n        ENSEMBLEACCURACY[2.0]],\n    PRIMEM[\"Greenwich\",0,\n        ANGLEUNIT[\"degree\",0.0174532925199433]],\n    CS[ellipsoidal,2],\n        AXIS[\"geodetic latitude (Lat)\",north,\n            ORDER[1],\n            ANGLEUNIT[\"degree\",0.0174532925199433]],\n        AXIS[\"geodetic longitude (Lon)\",east,\n            ORDER[2],\n            ANGLEUNIT[\"degree\",0.0174532925199433]],\n    USAGE[\n        SCOPE[\"Horizontal component of 3D system.\"],\n        AREA[\"World.\"],\n        BBOX[-90,-180,90,180]],\n    ID[\"EPSG\",4326]]"</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rspatial.github.io/terra/reference/crs.html">crs</a></span><span class="op">(</span><span class="va">proj_temp_raster_245_2030</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "GEOGCRS[\"WGS 84\",\n    ENSEMBLE[\"World Geodetic System 1984 ensemble\",\n        MEMBER[\"World Geodetic System 1984 (Transit)\"],\n        MEMBER[\"World Geodetic System 1984 (G730)\"],\n        MEMBER[\"World Geodetic System 1984 (G873)\"],\n        MEMBER[\"World Geodetic System 1984 (G1150)\"],\n        MEMBER[\"World Geodetic System 1984 (G1674)\"],\n        MEMBER[\"World Geodetic System 1984 (G1762)\"],\n        MEMBER[\"World Geodetic System 1984 (G2139)\"],\n        MEMBER[\"World Geodetic System 1984 (G2296)\"],\n        ELLIPSOID[\"WGS 84\",6378137,298.257223563,\n            LENGTHUNIT[\"metre\",1]],\n        ENSEMBLEACCURACY[2.0]],\n    PRIMEM[\"Greenwich\",0,\n        ANGLEUNIT[\"degree\",0.0174532925199433]],\n    CS[ellipsoidal,2],\n        AXIS[\"geodetic latitude (Lat)\",north,\n            ORDER[1],\n            ANGLEUNIT[\"degree\",0.0174532925199433]],\n        AXIS[\"geodetic longitude (Lon)\",east,\n            ORDER[2],\n            ANGLEUNIT[\"degree\",0.0174532925199433]],\n    USAGE[\n        SCOPE[\"Horizontal component of 3D system.\"],\n        AREA[\"World.\"],\n        BBOX[-90,-180,90,180]],\n    ID[\"EPSG\",4326]]"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Then we crop each raster according to the boundaries of the said shapefile.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co">#crop each raster so we only have the Tmax information for Kenya</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="co">#2-4.5-2030</span></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>ken_Tmax_245_2030<span class="ot">&lt;-</span> <span class="fu">crop</span>(proj_temp_raster_245_2030, ken_ADM1_borders, <span class="at">snap =</span> <span class="st">"out"</span>)</span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="co">#5-8.5- 2030</span></span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>ken_Tmax_585_2030<span class="ot">&lt;-</span> <span class="fu">crop</span>(proj_temp_raster_585_2030, ken_ADM1_borders, <span class="at">snap =</span> <span class="st">"out"</span>)</span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="co">#2-4.5-2050</span></span>
-<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>ken_Tmax_245_2050<span class="ot">&lt;-</span> <span class="fu">crop</span>(proj_temp_raster_245_2050, ken_ADM1_borders, <span class="at">snap =</span> <span class="st">"out"</span>)</span>
-<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a><span class="co">#5-8.5- 2050</span></span>
-<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>ken_Tmax_585_2050<span class="ot">&lt;-</span> <span class="fu">crop</span>(proj_temp_raster_585_2050, ken_ADM1_borders, <span class="at">snap =</span> <span class="st">"out"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co">#crop each raster so we only have the Tmax information for Kenya</span></span>
+<span></span>
+<span><span class="co">#2-4.5-2030</span></span>
+<span></span>
+<span><span class="va">ken_Tmax_245_2030</span><span class="op">&lt;-</span> <span class="fu"><a href="https://rspatial.github.io/terra/reference/crop.html">crop</a></span><span class="op">(</span><span class="va">proj_temp_raster_245_2030</span>, <span class="va">ken_ADM1_borders</span>, snap <span class="op">=</span> <span class="st">"out"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">#5-8.5- 2030</span></span>
+<span></span>
+<span><span class="va">ken_Tmax_585_2030</span><span class="op">&lt;-</span> <span class="fu"><a href="https://rspatial.github.io/terra/reference/crop.html">crop</a></span><span class="op">(</span><span class="va">proj_temp_raster_585_2030</span>, <span class="va">ken_ADM1_borders</span>, snap <span class="op">=</span> <span class="st">"out"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">#2-4.5-2050</span></span>
+<span></span>
+<span><span class="va">ken_Tmax_245_2050</span><span class="op">&lt;-</span> <span class="fu"><a href="https://rspatial.github.io/terra/reference/crop.html">crop</a></span><span class="op">(</span><span class="va">proj_temp_raster_245_2050</span>, <span class="va">ken_ADM1_borders</span>, snap <span class="op">=</span> <span class="st">"out"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">#5-8.5- 2050</span></span>
+<span></span>
+<span><span class="va">ken_Tmax_585_2050</span><span class="op">&lt;-</span> <span class="fu"><a href="https://rspatial.github.io/terra/reference/crop.html">crop</a></span><span class="op">(</span><span class="va">proj_temp_raster_585_2050</span>, <span class="va">ken_ADM1_borders</span>, snap <span class="op">=</span> <span class="st">"out"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Now we have cropped our data scenario data to Kenya. If we enter the name of one of the cropped objects we have created you can see the max temperature is 44.85 degrees Celsius.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>ken_Tmax_245_2030</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; class       : SpatRaster </span></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; dimensions  : 204, 161, 31  (nrow, ncol, nlyr)</span></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; resolution  : 0.05, 0.05  (x, y)</span></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; extent      : 33.9, 41.95, -4.750001, 5.449999  (xmin, xmax, ymin, ymax)</span></span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; coord. ref. : lon/lat WGS 84 (EPSG:4326) </span></span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; source(s)   : memory</span></span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; names       : 2030_~01.01, 2030_~01.02, 2030_~01.03, 2030_~01.04, 2030_~01.05, 2030_~01.06, ... </span></span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; min values  : -9999.00000, -9999.00000, -9999.00000, -9999.00000, -9999.00000, -9999.00000, ... </span></span>
-<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; max values  :    44.42629,    42.74142,    43.23469,    41.90297,    41.62671,    43.20387, ...</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">ken_Tmax_245_2030</span></span>
+<span><span class="co">#&gt; class       : SpatRaster </span></span>
+<span><span class="co">#&gt; dimensions  : 204, 161, 31  (nrow, ncol, nlyr)</span></span>
+<span><span class="co">#&gt; resolution  : 0.05, 0.05  (x, y)</span></span>
+<span><span class="co">#&gt; extent      : 33.9, 41.95, -4.750001, 5.449999  (xmin, xmax, ymin, ymax)</span></span>
+<span><span class="co">#&gt; coord. ref. : lon/lat WGS 84 (EPSG:4326) </span></span>
+<span><span class="co">#&gt; source(s)   : memory</span></span>
+<span><span class="co">#&gt; names       : 2030_~01.01, 2030_~01.02, 2030_~01.03, 2030_~01.04, 2030_~01.05, 2030_~01.06, ... </span></span>
+<span><span class="co">#&gt; min values  : -9999.00000, -9999.00000, -9999.00000, -9999.00000, -9999.00000, -9999.00000, ... </span></span>
+<span><span class="co">#&gt; max values  :    44.42629,    42.74142,    43.23469,    41.90297,    41.62671,    43.20387, ...</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Our minimum value is listed at -9999, indicating missing information. We will need to drop these values by labeling any negative values as NA’s.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Set pixels with a value less than 0 to NA</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>ken_Tmax_245_2030[ken_Tmax_245_2030 <span class="sc">&lt;</span> <span class="dv">0</span>] <span class="ot">&lt;-</span> <span class="cn">NA</span></span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>ken_Tmax_245_2050[ken_Tmax_245_2050 <span class="sc">&lt;</span> <span class="dv">0</span>] <span class="ot">&lt;-</span> <span class="cn">NA</span></span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>ken_Tmax_585_2030[ken_Tmax_585_2030 <span class="sc">&lt;</span> <span class="dv">0</span>] <span class="ot">&lt;-</span> <span class="cn">NA</span></span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>ken_Tmax_585_2050[ken_Tmax_585_2050 <span class="sc">&lt;</span> <span class="dv">0</span>] <span class="ot">&lt;-</span> <span class="cn">NA</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Set pixels with a value less than 0 to NA</span></span>
+<span>  </span>
+<span><span class="va">ken_Tmax_245_2030</span><span class="op">[</span><span class="va">ken_Tmax_245_2030</span> <span class="op">&lt;</span> <span class="fl">0</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="cn">NA</span></span>
+<span></span>
+<span><span class="va">ken_Tmax_245_2050</span><span class="op">[</span><span class="va">ken_Tmax_245_2050</span> <span class="op">&lt;</span> <span class="fl">0</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="cn">NA</span></span>
+<span></span>
+<span><span class="va">ken_Tmax_585_2030</span><span class="op">[</span><span class="va">ken_Tmax_585_2030</span> <span class="op">&lt;</span> <span class="fl">0</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="cn">NA</span></span>
+<span></span>
+<span><span class="va">ken_Tmax_585_2050</span><span class="op">[</span><span class="va">ken_Tmax_585_2050</span> <span class="op">&lt;</span> <span class="fl">0</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="cn">NA</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</section>
-<section id="how-to-temporally-aggregate-the-data" class="level1">
-<h1>How to Temporally Aggregate the Data</h1>
+</section><section id="how-to-temporally-aggregate-the-data" class="level1"><h1>How to Temporally Aggregate the Data</h1>
 <p>Now we must temporally aggregate our data. First we will manually add date information to our data since the metadata does not include date information. See how we get NA’s when we use the following code.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">time</span>(ken_Tmax_245_2030)</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [1] NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA</span></span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [26] NA NA NA NA NA NA</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rspatial.github.io/terra/reference/time.html">time</a></span><span class="op">(</span><span class="va">ken_Tmax_245_2030</span><span class="op">)</span></span>
+<span><span class="co">#&gt;  [1] NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA</span></span>
+<span><span class="co">#&gt; [26] NA NA NA NA NA NA</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Fortunately, the original .tif files are labeled by their date, so we can manually input the date information using the following code.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="co">#temporally aggregate the scenario data</span></span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lubridate)</span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Attaching package: 'lubridate'</span></span>
-<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; The following objects are masked from 'package:terra':</span></span>
-<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     intersect, union</span></span>
-<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; The following objects are masked from 'package:base':</span></span>
-<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     date, intersect, setdiff, union</span></span>
-<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Convert strings to Date objects for the 2030 and 2050 timeframes</span></span>
-<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a>start2030 <span class="ot">&lt;-</span> lubridate<span class="sc">::</span><span class="fu">ymd</span>(<span class="st">"2030-01-01"</span>)</span>
-<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a>end2030 <span class="ot">&lt;-</span> lubridate<span class="sc">::</span><span class="fu">ymd</span>(<span class="st">"2030-1-31"</span>)</span>
-<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a>start2050 <span class="ot">&lt;-</span> lubridate<span class="sc">::</span><span class="fu">ymd</span>(<span class="st">"2050-01-01"</span>)</span>
-<span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a>end2050 <span class="ot">&lt;-</span> lubridate<span class="sc">::</span><span class="fu">ymd</span>(<span class="st">"2050-1-31"</span>)</span>
-<span id="cb8-21"><a href="#cb8-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-22"><a href="#cb8-22" aria-hidden="true" tabindex="-1"></a><span class="co"># Set time as a daily sequence of the month of January</span></span>
-<span id="cb8-23"><a href="#cb8-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-24"><a href="#cb8-24" aria-hidden="true" tabindex="-1"></a><span class="co">#2-4.5:2030</span></span>
-<span id="cb8-25"><a href="#cb8-25" aria-hidden="true" tabindex="-1"></a><span class="fu">time</span>(ken_Tmax_245_2030) <span class="ot">&lt;-</span> <span class="fu">seq</span>(start2030, end2030, <span class="at">by =</span> <span class="st">"days"</span>)</span>
-<span id="cb8-26"><a href="#cb8-26" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-27"><a href="#cb8-27" aria-hidden="true" tabindex="-1"></a><span class="co">#5-8.5: 2030</span></span>
-<span id="cb8-28"><a href="#cb8-28" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-29"><a href="#cb8-29" aria-hidden="true" tabindex="-1"></a><span class="fu">time</span>(ken_Tmax_585_2030) <span class="ot">&lt;-</span> <span class="fu">seq</span>(start2030, end2030, <span class="at">by =</span> <span class="st">"days"</span>)</span>
-<span id="cb8-30"><a href="#cb8-30" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-31"><a href="#cb8-31" aria-hidden="true" tabindex="-1"></a><span class="co">#2-4.5:2050</span></span>
-<span id="cb8-32"><a href="#cb8-32" aria-hidden="true" tabindex="-1"></a><span class="fu">time</span>(ken_Tmax_245_2050) <span class="ot">&lt;-</span> <span class="fu">seq</span>(start2050, end2050, <span class="at">by =</span> <span class="st">"days"</span>)</span>
-<span id="cb8-33"><a href="#cb8-33" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-34"><a href="#cb8-34" aria-hidden="true" tabindex="-1"></a><span class="co">#5-8.5: 2050</span></span>
-<span id="cb8-35"><a href="#cb8-35" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-36"><a href="#cb8-36" aria-hidden="true" tabindex="-1"></a><span class="fu">time</span>(ken_Tmax_585_2050) <span class="ot">&lt;-</span> <span class="fu">seq</span>(start2050, end2050, <span class="at">by =</span> <span class="st">"days"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span></span>
+<span><span class="co">#temporally aggregate the scenario data</span></span>
+<span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://lubridate.tidyverse.org">lubridate</a></span><span class="op">)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Attaching package: 'lubridate'</span></span>
+<span><span class="co">#&gt; The following objects are masked from 'package:terra':</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt;     intersect, union</span></span>
+<span><span class="co">#&gt; The following objects are masked from 'package:base':</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt;     date, intersect, setdiff, union</span></span>
+<span></span>
+<span><span class="co"># Convert strings to Date objects for the 2030 and 2050 timeframes</span></span>
+<span></span>
+<span><span class="va">start2030</span> <span class="op">&lt;-</span> <span class="fu">lubridate</span><span class="fu">::</span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/ymd.html">ymd</a></span><span class="op">(</span><span class="st">"2030-01-01"</span><span class="op">)</span></span>
+<span><span class="va">end2030</span> <span class="op">&lt;-</span> <span class="fu">lubridate</span><span class="fu">::</span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/ymd.html">ymd</a></span><span class="op">(</span><span class="st">"2030-1-31"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">start2050</span> <span class="op">&lt;-</span> <span class="fu">lubridate</span><span class="fu">::</span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/ymd.html">ymd</a></span><span class="op">(</span><span class="st">"2050-01-01"</span><span class="op">)</span></span>
+<span><span class="va">end2050</span> <span class="op">&lt;-</span> <span class="fu">lubridate</span><span class="fu">::</span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/ymd.html">ymd</a></span><span class="op">(</span><span class="st">"2050-1-31"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Set time as a daily sequence of the month of January</span></span>
+<span></span>
+<span><span class="co">#2-4.5:2030</span></span>
+<span><span class="fu"><a href="https://rspatial.github.io/terra/reference/time.html">time</a></span><span class="op">(</span><span class="va">ken_Tmax_245_2030</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="va">start2030</span>, <span class="va">end2030</span>, by <span class="op">=</span> <span class="st">"days"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">#5-8.5: 2030</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rspatial.github.io/terra/reference/time.html">time</a></span><span class="op">(</span><span class="va">ken_Tmax_585_2030</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="va">start2030</span>, <span class="va">end2030</span>, by <span class="op">=</span> <span class="st">"days"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">#2-4.5:2050</span></span>
+<span><span class="fu"><a href="https://rspatial.github.io/terra/reference/time.html">time</a></span><span class="op">(</span><span class="va">ken_Tmax_245_2050</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="va">start2050</span>, <span class="va">end2050</span>, by <span class="op">=</span> <span class="st">"days"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">#5-8.5: 2050</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rspatial.github.io/terra/reference/time.html">time</a></span><span class="op">(</span><span class="va">ken_Tmax_585_2050</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="va">start2050</span>, <span class="va">end2050</span>, by <span class="op">=</span> <span class="st">"days"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Now we can confirm if the code works.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">time</span>(ken_Tmax_245_2030)</span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [1] "2030-01-01" "2030-01-02" "2030-01-03" "2030-01-04" "2030-01-05"</span></span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [6] "2030-01-06" "2030-01-07" "2030-01-08" "2030-01-09" "2030-01-10"</span></span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [11] "2030-01-11" "2030-01-12" "2030-01-13" "2030-01-14" "2030-01-15"</span></span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [16] "2030-01-16" "2030-01-17" "2030-01-18" "2030-01-19" "2030-01-20"</span></span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [21] "2030-01-21" "2030-01-22" "2030-01-23" "2030-01-24" "2030-01-25"</span></span>
-<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [26] "2030-01-26" "2030-01-27" "2030-01-28" "2030-01-29" "2030-01-30"</span></span>
-<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [31] "2030-01-31"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rspatial.github.io/terra/reference/time.html">time</a></span><span class="op">(</span><span class="va">ken_Tmax_245_2030</span><span class="op">)</span></span>
+<span><span class="co">#&gt;  [1] "2030-01-01" "2030-01-02" "2030-01-03" "2030-01-04" "2030-01-05"</span></span>
+<span><span class="co">#&gt;  [6] "2030-01-06" "2030-01-07" "2030-01-08" "2030-01-09" "2030-01-10"</span></span>
+<span><span class="co">#&gt; [11] "2030-01-11" "2030-01-12" "2030-01-13" "2030-01-14" "2030-01-15"</span></span>
+<span><span class="co">#&gt; [16] "2030-01-16" "2030-01-17" "2030-01-18" "2030-01-19" "2030-01-20"</span></span>
+<span><span class="co">#&gt; [21] "2030-01-21" "2030-01-22" "2030-01-23" "2030-01-24" "2030-01-25"</span></span>
+<span><span class="co">#&gt; [26] "2030-01-26" "2030-01-27" "2030-01-28" "2030-01-29" "2030-01-30"</span></span>
+<span><span class="co">#&gt; [31] "2030-01-31"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Now that we know we have temporal information, we aggregate our data to the monthly level. In this example we will pull the monthly averages.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co">#aggregate into monthly averages</span></span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="co">#2-4.5:2030</span></span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>ken_Tmax_245_2030_yearmonth<span class="ot">&lt;-</span><span class="fu">tapp</span>(ken_Tmax_245_2030, <span class="at">fun=</span>mean, <span class="at">index=</span><span class="st">"yearmonth"</span>)</span>
-<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a><span class="co">#5-8.5:2030</span></span>
-<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>ken_Tmax_585_2030_yearmonth<span class="ot">&lt;-</span><span class="fu">tapp</span>(ken_Tmax_585_2030, <span class="at">fun=</span>mean, <span class="at">index=</span><span class="st">"yearmonth"</span>)</span>
-<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a><span class="co">#2-4.5:2050</span></span>
-<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>ken_Tmax_245_2050_yearmonth<span class="ot">&lt;-</span><span class="fu">tapp</span>(ken_Tmax_245_2050, <span class="at">fun=</span>mean, <span class="at">index=</span><span class="st">"yearmonth"</span>)</span>
-<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a><span class="co">#5-8.5:2050</span></span>
-<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a>ken_Tmax_585_2050_yearmonth<span class="ot">&lt;-</span><span class="fu">tapp</span>(ken_Tmax_585_2050, <span class="at">fun=</span>mean, <span class="at">index=</span><span class="st">"yearmonth"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co">#aggregate into monthly averages</span></span>
+<span></span>
+<span><span class="co">#2-4.5:2030</span></span>
+<span></span>
+<span><span class="va">ken_Tmax_245_2030_yearmonth</span><span class="op">&lt;-</span><span class="fu"><a href="https://rspatial.github.io/terra/reference/tapp.html">tapp</a></span><span class="op">(</span><span class="va">ken_Tmax_245_2030</span>, fun<span class="op">=</span><span class="va">mean</span>, index<span class="op">=</span><span class="st">"yearmonth"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">#5-8.5:2030</span></span>
+<span></span>
+<span><span class="va">ken_Tmax_585_2030_yearmonth</span><span class="op">&lt;-</span><span class="fu"><a href="https://rspatial.github.io/terra/reference/tapp.html">tapp</a></span><span class="op">(</span><span class="va">ken_Tmax_585_2030</span>, fun<span class="op">=</span><span class="va">mean</span>, index<span class="op">=</span><span class="st">"yearmonth"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">#2-4.5:2050</span></span>
+<span></span>
+<span><span class="va">ken_Tmax_245_2050_yearmonth</span><span class="op">&lt;-</span><span class="fu"><a href="https://rspatial.github.io/terra/reference/tapp.html">tapp</a></span><span class="op">(</span><span class="va">ken_Tmax_245_2050</span>, fun<span class="op">=</span><span class="va">mean</span>, index<span class="op">=</span><span class="st">"yearmonth"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">#5-8.5:2050</span></span>
+<span></span>
+<span><span class="va">ken_Tmax_585_2050_yearmonth</span><span class="op">&lt;-</span><span class="fu"><a href="https://rspatial.github.io/terra/reference/tapp.html">tapp</a></span><span class="op">(</span><span class="va">ken_Tmax_585_2050</span>, fun<span class="op">=</span><span class="va">mean</span>, index<span class="op">=</span><span class="st">"yearmonth"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</section>
-<section id="aggregate-to-the-spatial-level" class="level1">
-<h1>Aggregate to the Spatial Level</h1>
+</section><section id="aggregate-to-the-spatial-level" class="level1"><h1>Aggregate to the Spatial Level</h1>
 <p>Now that our data is temporally aggregated, we must aggregate it at the spatial level. Like we have used a <a href="https://tech.popdata.org/dhs-research-hub/posts/2024-02-04-dhs-chirps/#cluster-buffers">DHS cluster buffer zone</a> in the past, now we will transform Demographic and Health Survey (DHS) cluster GPS information into a 10-kilometer buffer zone. We use the same survey as the last post in this series: Kenya 2022.</p>
 <p>First, we read in our DHS GPS data, which you can access on the DHS <a href="https://dhsprogram.com/">website</a>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>ken_DHS_gps<span class="ot">&lt;-</span><span class="fu">st_read</span>(<span class="st">"data/DHS_clusters/KEGE8AFL.shp"</span>)</span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Reading layer `KEGE8AFL' from data source </span></span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   `C:\Users\Rebecca\Documents\Projects\dhs-research-hub\posts\2025-09-05-forecasting-pt3\data\DHS_clusters\KEGE8AFL.shp' </span></span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   using driver `ESRI Shapefile'</span></span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Simple feature collection with 1691 features and 20 fields</span></span>
-<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Geometry type: POINT</span></span>
-<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Dimension:     XY</span></span>
-<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Bounding box:  xmin: 33.96339 ymin: -4.633603 xmax: 41.87537 ymax: 4.930862</span></span>
-<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Geodetic CRS:  WGS 84</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">ken_DHS_gps</span><span class="op">&lt;-</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_read.html">st_read</a></span><span class="op">(</span><span class="st">"data/DHS_clusters/KEGE8AFL.shp"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Reading layer `KEGE8AFL' from data source </span></span>
+<span><span class="co">#&gt;   `C:\Users\lutti013\Documents\Blog\dhs-research-hub\posts\2025-09-05-forecasting-pt3\data\DHS_clusters\KEGE8AFL.shp' </span></span>
+<span><span class="co">#&gt;   using driver `ESRI Shapefile'</span></span>
+<span><span class="co">#&gt; Simple feature collection with 1691 features and 20 fields</span></span>
+<span><span class="co">#&gt; Geometry type: POINT</span></span>
+<span><span class="co">#&gt; Dimension:     XY</span></span>
+<span><span class="co">#&gt; Bounding box:  xmin: 33.96339 ymin: -4.633603 xmax: 41.87537 ymax: 4.930862</span></span>
+<span><span class="co">#&gt; Geodetic CRS:  WGS 84</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Next, we transform this into a 10-kilometer buffer zone. We use the <a href="https://epsg.io/?q=Kenya%20%20kind%3ACRS#google_vignette">UTM 37N reference</a> system because it is best for Kenya.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Project cluster locations to the UTM 37N reference system</span></span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>ken_DHS_gps <span class="ot">&lt;-</span> <span class="fu">st_transform</span>(ken_DHS_gps, <span class="at">crs =</span> <span class="dv">21097</span>)</span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="co">#create buffer zone</span></span>
-<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>ken_DHS_buffer <span class="ot">&lt;-</span> <span class="fu">st_buffer</span>(ken_DHS_gps, <span class="at">dist =</span> <span class="dv">10000</span>)</span>
-<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a><span class="co">#transform it back to ESPG 4326 for degrees of longitude and latitude</span></span>
-<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>ken_DHS_buffer <span class="ot">&lt;-</span> <span class="fu">st_transform</span>(ken_DHS_gps, <span class="at">crs =</span> <span class="dv">4326</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Project cluster locations to the UTM 37N reference system</span></span>
+<span></span>
+<span><span class="va">ken_DHS_gps</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_transform.html">st_transform</a></span><span class="op">(</span><span class="va">ken_DHS_gps</span>, crs <span class="op">=</span> <span class="fl">21097</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">#create buffer zone</span></span>
+<span></span>
+<span><span class="va">ken_DHS_buffer</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r-spatial.github.io/sf/reference/geos_unary.html">st_buffer</a></span><span class="op">(</span><span class="va">ken_DHS_gps</span>, dist <span class="op">=</span> <span class="fl">10000</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">#transform it back to ESPG 4326 for degrees of longitude and latitude</span></span>
+<span></span>
+<span><span class="va">ken_DHS_buffer</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_transform.html">st_transform</a></span><span class="op">(</span><span class="va">ken_DHS_gps</span>, crs <span class="op">=</span> <span class="fl">4326</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Now we will use the extract() function from the terra package to get spatial mean of the Tmax per DHS cluster buffer zone.</p>
 <div class="cell">
-<details class="code-fold">
-<summary>Code</summary>
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co">#2-4.5:2030</span></span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>ken_Tmax_245_2030_spatial_mean <span class="ot">&lt;-</span> terra<span class="sc">::</span><span class="fu">extract</span>(</span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>  ken_Tmax_245_2030_yearmonth, <span class="co"># Extract values for each month </span></span>
-<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>  ken_DHS_buffer,      <span class="co"># Use Kenya 2022 DHS buffer zone</span></span>
-<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">weights =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">fun =</span> <span class="st">"mean"</span>,         <span class="co">#get the spatial mean</span></span>
-<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">na.rm =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">bind=</span><span class="cn">TRUE</span>)</span>
-<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a><span class="co">#convert to a spatial frame</span></span>
-<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>ken_Tmax_245_2030_spatial_mean_sf<span class="ot">&lt;-</span><span class="fu">st_as_sf</span>(ken_Tmax_245_2030_spatial_mean)</span>
-<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a><span class="co">#5-8.5:2030</span></span>
-<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a>ken_Tmax_585_2030_spatial_mean <span class="ot">&lt;-</span> terra<span class="sc">::</span><span class="fu">extract</span>(</span>
-<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a>  ken_Tmax_585_2030_yearmonth, <span class="co"># Extract values for each month </span></span>
-<span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a>  ken_DHS_buffer,      <span class="co"># Use Kenya 2022 DHS buffer zone</span></span>
-<span id="cb13-19"><a href="#cb13-19" aria-hidden="true" tabindex="-1"></a>  <span class="at">weights =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb13-20"><a href="#cb13-20" aria-hidden="true" tabindex="-1"></a>  <span class="at">fun =</span> <span class="st">"mean"</span>,           <span class="co">#get the spatial mean</span></span>
-<span id="cb13-21"><a href="#cb13-21" aria-hidden="true" tabindex="-1"></a>  <span class="at">na.rm =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb13-22"><a href="#cb13-22" aria-hidden="true" tabindex="-1"></a>  <span class="at">bind=</span><span class="cn">TRUE</span>)</span>
-<span id="cb13-23"><a href="#cb13-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-24"><a href="#cb13-24" aria-hidden="true" tabindex="-1"></a><span class="co">#convert to a spatial frame</span></span>
-<span id="cb13-25"><a href="#cb13-25" aria-hidden="true" tabindex="-1"></a>ken_Tmax_585_2030_spatial_mean_sf<span class="ot">&lt;-</span><span class="fu">st_as_sf</span>(ken_Tmax_585_2030_spatial_mean)</span>
-<span id="cb13-26"><a href="#cb13-26" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-27"><a href="#cb13-27" aria-hidden="true" tabindex="-1"></a><span class="co">#2-4.5:2050</span></span>
-<span id="cb13-28"><a href="#cb13-28" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-29"><a href="#cb13-29" aria-hidden="true" tabindex="-1"></a>ken_Tmax_245_2050_spatial_mean <span class="ot">&lt;-</span> terra<span class="sc">::</span><span class="fu">extract</span>(</span>
-<span id="cb13-30"><a href="#cb13-30" aria-hidden="true" tabindex="-1"></a>  ken_Tmax_245_2050_yearmonth, <span class="co"># Extract values for each month </span></span>
-<span id="cb13-31"><a href="#cb13-31" aria-hidden="true" tabindex="-1"></a>  ken_DHS_buffer,      <span class="co"># Use Kenya 2022 DHS buffer zone</span></span>
-<span id="cb13-32"><a href="#cb13-32" aria-hidden="true" tabindex="-1"></a>  <span class="at">weights =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb13-33"><a href="#cb13-33" aria-hidden="true" tabindex="-1"></a>  <span class="at">fun =</span> <span class="st">"mean"</span>,           <span class="co">#get the spatial mean</span></span>
-<span id="cb13-34"><a href="#cb13-34" aria-hidden="true" tabindex="-1"></a>  <span class="at">na.rm =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb13-35"><a href="#cb13-35" aria-hidden="true" tabindex="-1"></a>  <span class="at">bind=</span><span class="cn">TRUE</span>)</span>
-<span id="cb13-36"><a href="#cb13-36" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-37"><a href="#cb13-37" aria-hidden="true" tabindex="-1"></a><span class="co">#convert to a spatial frame</span></span>
-<span id="cb13-38"><a href="#cb13-38" aria-hidden="true" tabindex="-1"></a>ken_Tmax_245_2050_spatial_mean_sf<span class="ot">&lt;-</span><span class="fu">st_as_sf</span>(ken_Tmax_245_2050_spatial_mean)</span>
-<span id="cb13-39"><a href="#cb13-39" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-40"><a href="#cb13-40" aria-hidden="true" tabindex="-1"></a><span class="co">#5-8.5:2050</span></span>
-<span id="cb13-41"><a href="#cb13-41" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-42"><a href="#cb13-42" aria-hidden="true" tabindex="-1"></a>ken_Tmax_585_2050_spatial_mean <span class="ot">&lt;-</span> terra<span class="sc">::</span><span class="fu">extract</span>(</span>
-<span id="cb13-43"><a href="#cb13-43" aria-hidden="true" tabindex="-1"></a>  ken_Tmax_585_2050_yearmonth, <span class="co"># Extract values for each month </span></span>
-<span id="cb13-44"><a href="#cb13-44" aria-hidden="true" tabindex="-1"></a>  ken_DHS_buffer,      <span class="co"># Use Kenya 2022 DHS cluster GPS file</span></span>
-<span id="cb13-45"><a href="#cb13-45" aria-hidden="true" tabindex="-1"></a>  <span class="at">weights =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb13-46"><a href="#cb13-46" aria-hidden="true" tabindex="-1"></a>  <span class="at">fun =</span> <span class="st">"mean"</span>,           <span class="co">#get the spatial mean</span></span>
-<span id="cb13-47"><a href="#cb13-47" aria-hidden="true" tabindex="-1"></a>  <span class="at">na.rm =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb13-48"><a href="#cb13-48" aria-hidden="true" tabindex="-1"></a>  <span class="at">bind=</span><span class="cn">TRUE</span>)</span>
-<span id="cb13-49"><a href="#cb13-49" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-50"><a href="#cb13-50" aria-hidden="true" tabindex="-1"></a><span class="co">#convert to a spatial frame</span></span>
-<span id="cb13-51"><a href="#cb13-51" aria-hidden="true" tabindex="-1"></a>ken_Tmax_585_2050_spatial_mean_sf<span class="ot">&lt;-</span><span class="fu">st_as_sf</span>(ken_Tmax_585_2050_spatial_mean)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb13"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co">#2-4.5:2030</span></span>
+<span></span>
+<span><span class="va">ken_Tmax_245_2030_spatial_mean</span> <span class="op">&lt;-</span> <span class="fu">terra</span><span class="fu">::</span><span class="fu"><a href="https://rspatial.github.io/terra/reference/extract.html">extract</a></span><span class="op">(</span></span>
+<span>  <span class="va">ken_Tmax_245_2030_yearmonth</span>, <span class="co"># Extract values for each month </span></span>
+<span>  <span class="va">ken_DHS_buffer</span>,      <span class="co"># Use Kenya 2022 DHS buffer zone</span></span>
+<span>  weights <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  fun <span class="op">=</span> <span class="st">"mean"</span>,         <span class="co">#get the spatial mean</span></span>
+<span>  na.rm <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  bind<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">#convert to a spatial frame</span></span>
+<span><span class="va">ken_Tmax_245_2030_spatial_mean_sf</span><span class="op">&lt;-</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_as_sf.html">st_as_sf</a></span><span class="op">(</span><span class="va">ken_Tmax_245_2030_spatial_mean</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">#5-8.5:2030</span></span>
+<span></span>
+<span><span class="va">ken_Tmax_585_2030_spatial_mean</span> <span class="op">&lt;-</span> <span class="fu">terra</span><span class="fu">::</span><span class="fu"><a href="https://rspatial.github.io/terra/reference/extract.html">extract</a></span><span class="op">(</span></span>
+<span>  <span class="va">ken_Tmax_585_2030_yearmonth</span>, <span class="co"># Extract values for each month </span></span>
+<span>  <span class="va">ken_DHS_buffer</span>,      <span class="co"># Use Kenya 2022 DHS buffer zone</span></span>
+<span>  weights <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  fun <span class="op">=</span> <span class="st">"mean"</span>,           <span class="co">#get the spatial mean</span></span>
+<span>  na.rm <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  bind<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">#convert to a spatial frame</span></span>
+<span><span class="va">ken_Tmax_585_2030_spatial_mean_sf</span><span class="op">&lt;-</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_as_sf.html">st_as_sf</a></span><span class="op">(</span><span class="va">ken_Tmax_585_2030_spatial_mean</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">#2-4.5:2050</span></span>
+<span></span>
+<span><span class="va">ken_Tmax_245_2050_spatial_mean</span> <span class="op">&lt;-</span> <span class="fu">terra</span><span class="fu">::</span><span class="fu"><a href="https://rspatial.github.io/terra/reference/extract.html">extract</a></span><span class="op">(</span></span>
+<span>  <span class="va">ken_Tmax_245_2050_yearmonth</span>, <span class="co"># Extract values for each month </span></span>
+<span>  <span class="va">ken_DHS_buffer</span>,      <span class="co"># Use Kenya 2022 DHS buffer zone</span></span>
+<span>  weights <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  fun <span class="op">=</span> <span class="st">"mean"</span>,           <span class="co">#get the spatial mean</span></span>
+<span>  na.rm <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  bind<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">#convert to a spatial frame</span></span>
+<span><span class="va">ken_Tmax_245_2050_spatial_mean_sf</span><span class="op">&lt;-</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_as_sf.html">st_as_sf</a></span><span class="op">(</span><span class="va">ken_Tmax_245_2050_spatial_mean</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">#5-8.5:2050</span></span>
+<span></span>
+<span><span class="va">ken_Tmax_585_2050_spatial_mean</span> <span class="op">&lt;-</span> <span class="fu">terra</span><span class="fu">::</span><span class="fu"><a href="https://rspatial.github.io/terra/reference/extract.html">extract</a></span><span class="op">(</span></span>
+<span>  <span class="va">ken_Tmax_585_2050_yearmonth</span>, <span class="co"># Extract values for each month </span></span>
+<span>  <span class="va">ken_DHS_buffer</span>,      <span class="co"># Use Kenya 2022 DHS cluster GPS file</span></span>
+<span>  weights <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  fun <span class="op">=</span> <span class="st">"mean"</span>,           <span class="co">#get the spatial mean</span></span>
+<span>  na.rm <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  bind<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">#convert to a spatial frame</span></span>
+<span><span class="va">ken_Tmax_585_2050_spatial_mean_sf</span><span class="op">&lt;-</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_as_sf.html">st_as_sf</a></span><span class="op">(</span><span class="va">ken_Tmax_585_2050_spatial_mean</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-</section>
-<section id="visualization-demo" class="level1">
-<h1>Visualization Demo</h1>
+</section><section id="visualization-demo" class="level1"><h1>Visualization Demo</h1>
 <p>Now, let’s visualize the scenario data using both maps and graphics. From the above code, we have generated four different vectors of data: one for each scenario in 2030 and 2050. Next we will do some basic recoding and reformatting to ensure our variables are properly labeled before we merge the vectors, which we will need to do in order to visualize these differences on one graph.</p>
 <p>First, we will convert our spatial frames, which we created above, to dataframe. Then we will label our temporal data based on which SSP it came from.</p>
 <div class="cell">
-<details class="code-fold">
-<summary>Code</summary>
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co">#recodes</span></span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a><span class="co">#2-4.5:2030</span></span>
-<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>ken_Tmax_245_2030_spatial_mean_df <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(ken_Tmax_245_2030_spatial_mean)</span>
-<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>ken_Tmax_245_2030_spatial_mean_df<span class="ot">&lt;-</span>ken_Tmax_245_2030_spatial_mean_df<span class="sc">%&gt;%</span></span>
-<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">ym_203001_245=</span>ym_203001)</span>
-<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a><span class="co">#5-8.5:2030</span></span>
-<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a>ken_Tmax_585_2030_spatial_mean_df <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(ken_Tmax_585_2030_spatial_mean)</span>
-<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a>ken_Tmax_585_2030_spatial_mean_df<span class="ot">&lt;-</span>ken_Tmax_585_2030_spatial_mean_df<span class="sc">%&gt;%</span></span>
-<span id="cb14-16"><a href="#cb14-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">ym_203001_585=</span>ym_203001)</span>
-<span id="cb14-17"><a href="#cb14-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-18"><a href="#cb14-18" aria-hidden="true" tabindex="-1"></a><span class="co">#2-4.5:2050</span></span>
-<span id="cb14-19"><a href="#cb14-19" aria-hidden="true" tabindex="-1"></a>ken_Tmax_245_2050_spatial_mean_df <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(ken_Tmax_245_2050_spatial_mean)</span>
-<span id="cb14-20"><a href="#cb14-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-21"><a href="#cb14-21" aria-hidden="true" tabindex="-1"></a>ken_Tmax_245_2050_spatial_mean_df<span class="ot">&lt;-</span>ken_Tmax_245_2050_spatial_mean_df<span class="sc">%&gt;%</span></span>
-<span id="cb14-22"><a href="#cb14-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">ym_205001_245=</span>ym_205001)</span>
-<span id="cb14-23"><a href="#cb14-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-24"><a href="#cb14-24" aria-hidden="true" tabindex="-1"></a><span class="co">#5-8.5:2050</span></span>
-<span id="cb14-25"><a href="#cb14-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-26"><a href="#cb14-26" aria-hidden="true" tabindex="-1"></a>ken_Tmax_585_2050_spatial_mean_df <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(ken_Tmax_585_2050_spatial_mean)</span>
-<span id="cb14-27"><a href="#cb14-27" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-28"><a href="#cb14-28" aria-hidden="true" tabindex="-1"></a>ken_Tmax_585_2050_spatial_mean_df<span class="ot">&lt;-</span>ken_Tmax_585_2050_spatial_mean_df<span class="sc">%&gt;%</span></span>
-<span id="cb14-29"><a href="#cb14-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">ym_205001_585=</span>ym_205001)</span>
-<span id="cb14-30"><a href="#cb14-30" aria-hidden="true" tabindex="-1"></a> </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb14"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co">#recodes</span></span>
+<span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">#2-4.5:2030</span></span>
+<span><span class="va">ken_Tmax_245_2030_spatial_mean_df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rspatial.github.io/terra/reference/as.data.frame.html">as.data.frame</a></span><span class="op">(</span><span class="va">ken_Tmax_245_2030_spatial_mean</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">ken_Tmax_245_2030_spatial_mean_df</span><span class="op">&lt;-</span><span class="va">ken_Tmax_245_2030_spatial_mean_df</span><span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/rename.html">rename</a></span><span class="op">(</span>ym_203001_245<span class="op">=</span><span class="va">ym_203001</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">#5-8.5:2030</span></span>
+<span></span>
+<span><span class="va">ken_Tmax_585_2030_spatial_mean_df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rspatial.github.io/terra/reference/as.data.frame.html">as.data.frame</a></span><span class="op">(</span><span class="va">ken_Tmax_585_2030_spatial_mean</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">ken_Tmax_585_2030_spatial_mean_df</span><span class="op">&lt;-</span><span class="va">ken_Tmax_585_2030_spatial_mean_df</span><span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/rename.html">rename</a></span><span class="op">(</span>ym_203001_585<span class="op">=</span><span class="va">ym_203001</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">#2-4.5:2050</span></span>
+<span><span class="va">ken_Tmax_245_2050_spatial_mean_df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rspatial.github.io/terra/reference/as.data.frame.html">as.data.frame</a></span><span class="op">(</span><span class="va">ken_Tmax_245_2050_spatial_mean</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">ken_Tmax_245_2050_spatial_mean_df</span><span class="op">&lt;-</span><span class="va">ken_Tmax_245_2050_spatial_mean_df</span><span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/rename.html">rename</a></span><span class="op">(</span>ym_205001_245<span class="op">=</span><span class="va">ym_205001</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">#5-8.5:2050</span></span>
+<span></span>
+<span><span class="va">ken_Tmax_585_2050_spatial_mean_df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rspatial.github.io/terra/reference/as.data.frame.html">as.data.frame</a></span><span class="op">(</span><span class="va">ken_Tmax_585_2050_spatial_mean</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">ken_Tmax_585_2050_spatial_mean_df</span><span class="op">&lt;-</span><span class="va">ken_Tmax_585_2050_spatial_mean_df</span><span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/rename.html">rename</a></span><span class="op">(</span>ym_205001_585<span class="op">=</span><span class="va">ym_205001</span><span class="op">)</span></span>
+<span> </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 <p>Now that our data is labeled based on which SSP it came from, we combine all of the scenario data into one dataframe. If we were to skip the step in which we labeled the temporal data per SSP, we could mix up the 2030 and 2050 data.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co">#merge frames</span></span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>combined_SSPs_2030<span class="ot">&lt;-</span><span class="fu">left_join</span>(ken_Tmax_245_2030_spatial_mean_df, ken_Tmax_585_2030_spatial_mean_df)</span>
-<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>combined_SSPs_2050<span class="ot">&lt;-</span><span class="fu">left_join</span>(ken_Tmax_245_2050_spatial_mean_df, ken_Tmax_585_2050_spatial_mean_df)</span>
-<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>combined_SSP_all<span class="ot">&lt;-</span><span class="fu">left_join</span>(combined_SSPs_2030, combined_SSPs_2050)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co">#merge frames</span></span>
+<span></span>
+<span><span class="va">combined_SSPs_2030</span><span class="op">&lt;-</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">left_join</a></span><span class="op">(</span><span class="va">ken_Tmax_245_2030_spatial_mean_df</span>, <span class="va">ken_Tmax_585_2030_spatial_mean_df</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">combined_SSPs_2050</span><span class="op">&lt;-</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">left_join</a></span><span class="op">(</span><span class="va">ken_Tmax_245_2050_spatial_mean_df</span>, <span class="va">ken_Tmax_585_2050_spatial_mean_df</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">combined_SSP_all</span><span class="op">&lt;-</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">left_join</a></span><span class="op">(</span><span class="va">combined_SSPs_2030</span>, <span class="va">combined_SSPs_2050</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>After merging the data together, we will reshape the data to a long format, so our data is at the year-month level and is disaggregated per scenario. This means we have four observations, or rows, per DHS cluster.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co">#pivot the dataframe to make date long</span></span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>combined_SSPs_long <span class="ot">&lt;-</span> combined_SSP_all <span class="sc">%&gt;%</span></span>
-<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(</span>
-<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">cols =</span> <span class="fu">contains</span> (<span class="st">"ym_"</span>),     <span class="co"># specify the date columns as what need to be pivoted</span></span>
-<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">names_to =</span> <span class="st">"Date"</span>,        <span class="co"># new column for date</span></span>
-<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">values_to =</span> <span class="st">"Tmax"</span>           <span class="co"># new column for Tmax</span></span>
-<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a><span class="co">#print dataframe to illustrate the structure</span></span>
-<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a>combined_SSPs_long<span class="sc">%&gt;%</span></span>
-<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(DHSCLUST, Tmax, Date)<span class="sc">%&gt;%</span></span>
-<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>(<span class="at">n=</span><span class="dv">12</span>)</span>
-<span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 12 × 3</span></span>
-<span id="cb16-15"><a href="#cb16-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    DHSCLUST  Tmax Date         </span></span>
-<span id="cb16-16"><a href="#cb16-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;       &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;        </span></span>
-<span id="cb16-17"><a href="#cb16-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  1        1  37.0 ym_203001_245</span></span>
-<span id="cb16-18"><a href="#cb16-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  2        1  37.0 ym_203001_585</span></span>
-<span id="cb16-19"><a href="#cb16-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  3        1  37.4 ym_205001_245</span></span>
-<span id="cb16-20"><a href="#cb16-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  4        1  37.7 ym_205001_585</span></span>
-<span id="cb16-21"><a href="#cb16-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  5        2  36.9 ym_203001_245</span></span>
-<span id="cb16-22"><a href="#cb16-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  6        2  37.0 ym_203001_585</span></span>
-<span id="cb16-23"><a href="#cb16-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  7        2  37.4 ym_205001_245</span></span>
-<span id="cb16-24"><a href="#cb16-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  8        2  37.6 ym_205001_585</span></span>
-<span id="cb16-25"><a href="#cb16-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  9        3  36.9 ym_203001_245</span></span>
-<span id="cb16-26"><a href="#cb16-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10        3  37.0 ym_203001_585</span></span>
-<span id="cb16-27"><a href="#cb16-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 11        3  37.4 ym_205001_245</span></span>
-<span id="cb16-28"><a href="#cb16-28" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 12        3  37.7 ym_205001_585</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co">#pivot the dataframe to make date long</span></span>
+<span></span>
+<span><span class="va">combined_SSPs_long</span> <span class="op">&lt;-</span> <span class="va">combined_SSP_all</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/pivot_longer.html">pivot_longer</a></span><span class="op">(</span></span>
+<span>    cols <span class="op">=</span> <span class="fu"><a href="https://tidyselect.r-lib.org/reference/starts_with.html">contains</a></span> <span class="op">(</span><span class="st">"ym_"</span><span class="op">)</span>,     <span class="co"># specify the date columns as what need to be pivoted</span></span>
+<span>    names_to <span class="op">=</span> <span class="st">"Date"</span>,        <span class="co"># new column for date</span></span>
+<span>    values_to <span class="op">=</span> <span class="st">"Tmax"</span>           <span class="co"># new column for Tmax</span></span>
+<span>  <span class="op">)</span></span>
+<span></span>
+<span><span class="co">#print dataframe to illustrate the structure</span></span>
+<span><span class="va">combined_SSPs_long</span><span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">DHSCLUST</span>, <span class="va">Tmax</span>, <span class="va">Date</span><span class="op">)</span><span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://rspatial.github.io/terra/reference/headtail.html">head</a></span><span class="op">(</span>n<span class="op">=</span><span class="fl">12</span><span class="op">)</span></span>
+<span><span class="co">#&gt; # A tibble: 12 × 3</span></span>
+<span><span class="co">#&gt;    DHSCLUST  Tmax Date         </span></span>
+<span><span class="co">#&gt;       &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;        </span></span>
+<span><span class="co">#&gt;  1        1  37.0 ym_203001_245</span></span>
+<span><span class="co">#&gt;  2        1  37.0 ym_203001_585</span></span>
+<span><span class="co">#&gt;  3        1  37.4 ym_205001_245</span></span>
+<span><span class="co">#&gt;  4        1  37.7 ym_205001_585</span></span>
+<span><span class="co">#&gt;  5        2  36.9 ym_203001_245</span></span>
+<span><span class="co">#&gt;  6        2  37.0 ym_203001_585</span></span>
+<span><span class="co">#&gt;  7        2  37.4 ym_205001_245</span></span>
+<span><span class="co">#&gt;  8        2  37.6 ym_205001_585</span></span>
+<span><span class="co">#&gt;  9        3  36.9 ym_203001_245</span></span>
+<span><span class="co">#&gt; 10        3  37.0 ym_203001_585</span></span>
+<span><span class="co">#&gt; 11        3  37.4 ym_205001_245</span></span>
+<span><span class="co">#&gt; 12        3  37.7 ym_205001_585</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Following the reshaping, we will create a variable to differentiate which scenario the data comes from: 2-4.5 or 5-8.5. Then we will recode the date to remove the SSP labels that we added to the end.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co">#create a dichotomous variable for each scenario</span></span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>combined_SSPs_long <span class="ot">&lt;-</span> combined_SSPs_long <span class="sc">%&gt;%</span></span>
-<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">SSP =</span> <span class="fu">case_when</span>(</span>
-<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">str_detect</span>(Date, <span class="st">"585"</span>) <span class="sc">~</span> <span class="st">"585"</span>,</span>
-<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">str_detect</span>(Date, <span class="st">"245"</span>) <span class="sc">~</span> <span class="st">"245"</span></span>
-<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>  ))</span>
-<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a><span class="co">#recode date</span></span>
-<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a>combined_SSPs_long <span class="ot">&lt;-</span> combined_SSPs_long <span class="sc">%&gt;%</span></span>
-<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">year_month =</span> <span class="fu">str_extract</span>(Date, <span class="st">"</span><span class="sc">\\</span><span class="st">d{6}"</span>))<span class="sc">%&gt;%</span></span>
-<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">year_month =</span> <span class="fu">str_replace</span>(<span class="fu">str_extract</span>(year_month, <span class="st">"</span><span class="sc">\\</span><span class="st">d{6}"</span>), <span class="st">"(</span><span class="sc">\\</span><span class="st">d{4})(</span><span class="sc">\\</span><span class="st">d{2})"</span>, <span class="st">"</span><span class="sc">\\</span><span class="st">1-</span><span class="sc">\\</span><span class="st">2"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co">#create a dichotomous variable for each scenario</span></span>
+<span></span>
+<span><span class="va">combined_SSPs_long</span> <span class="op">&lt;-</span> <span class="va">combined_SSPs_long</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>SSP <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/case_when.html">case_when</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://stringr.tidyverse.org/reference/str_detect.html">str_detect</a></span><span class="op">(</span><span class="va">Date</span>, <span class="st">"585"</span><span class="op">)</span> <span class="op">~</span> <span class="st">"585"</span>,</span>
+<span>    <span class="fu"><a href="https://stringr.tidyverse.org/reference/str_detect.html">str_detect</a></span><span class="op">(</span><span class="va">Date</span>, <span class="st">"245"</span><span class="op">)</span> <span class="op">~</span> <span class="st">"245"</span></span>
+<span>  <span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">#recode date</span></span>
+<span></span>
+<span><span class="va">combined_SSPs_long</span> <span class="op">&lt;-</span> <span class="va">combined_SSPs_long</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>year_month <span class="op">=</span> <span class="fu"><a href="https://stringr.tidyverse.org/reference/str_extract.html">str_extract</a></span><span class="op">(</span><span class="va">Date</span>, <span class="st">"\\d{6}"</span><span class="op">)</span><span class="op">)</span><span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>year_month <span class="op">=</span> <span class="fu"><a href="https://stringr.tidyverse.org/reference/str_replace.html">str_replace</a></span><span class="op">(</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_extract.html">str_extract</a></span><span class="op">(</span><span class="va">year_month</span>, <span class="st">"\\d{6}"</span><span class="op">)</span>, <span class="st">"(\\d{4})(\\d{2})"</span>, <span class="st">"\\1-\\2"</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>In order to create a summary visualization, we need to make some trade-offs. There are 1692 different DHS clusters. In this example, we select the first five DHS cluster buffer zones, and create a line graph showing the differences in the projected Tmax for 2030 and 2050 per SSP.</p>
 <div class="cell" data-layout-align="center">
-<details class="code-fold">
-<summary>Code</summary>
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co">#select the first 5 DHS cluster locations for simplicity</span></span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>combined_SSPs_long_select<span class="ot">&lt;-</span>combined_SSPs_long<span class="sc">%&gt;%</span></span>
-<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(DHSCLUST<span class="sc">&lt;=</span><span class="dv">5</span>)</span>
-<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a><span class="co">#convert DHS cluster to a factor variable</span></span>
-<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>combined_SSPs_long_select<span class="sc">$</span>DHSCLUSTfactor<span class="ot">&lt;-</span><span class="fu">as.factor</span>(combined_SSPs_long_select<span class="sc">$</span>DHSCLUST)</span>
-<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a><span class="co">#ggplot code</span></span>
-<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-14"><a href="#cb18-14" aria-hidden="true" tabindex="-1"></a>SSPplot <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(combined_SSPs_long_select, <span class="fu">aes</span>(<span class="at">x =</span> year_month, <span class="at">y =</span> Tmax, <span class="at">color =</span> DHSCLUSTfactor, <span class="at">group =</span> DHSCLUSTfactor)) <span class="sc">+</span></span>
-<span id="cb18-15"><a href="#cb18-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">size =</span> .<span class="dv">75</span>) <span class="sc">+</span>  </span>
-<span id="cb18-16"><a href="#cb18-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">2</span>, <span class="at">alpha =</span> <span class="fl">0.7</span>) <span class="sc">+</span>  <span class="co"># Optional: add points for clarity</span></span>
-<span id="cb18-17"><a href="#cb18-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> SSP, <span class="at">ncol =</span> <span class="dv">2</span>, <span class="at">labeller =</span> label_both) <span class="sc">+</span></span>
-<span id="cb18-18"><a href="#cb18-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_brewer</span>(<span class="at">palette =</span> <span class="st">"Dark2"</span>) <span class="sc">+</span>  <span class="co"># Higher contrast palette</span></span>
-<span id="cb18-19"><a href="#cb18-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">32</span>, <span class="dv">40</span>, <span class="at">by =</span> <span class="fl">0.05</span>)) <span class="sc">+</span></span>
-<span id="cb18-20"><a href="#cb18-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
-<span id="cb18-21"><a href="#cb18-21" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Scenario Temperature Data by DHS Cluster,January 2030 &amp; 2050"</span>,</span>
-<span id="cb18-22"><a href="#cb18-22" aria-hidden="true" tabindex="-1"></a>    <span class="at">subtitle =</span> <span class="st">"Comparing SSP 2-4.5 vs SSP 5-8.5"</span>,</span>
-<span id="cb18-23"><a href="#cb18-23" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Date"</span>,</span>
-<span id="cb18-24"><a href="#cb18-24" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Temperature (°C)"</span>,</span>
-<span id="cb18-25"><a href="#cb18-25" aria-hidden="true" tabindex="-1"></a>    <span class="at">color =</span> <span class="st">"County"</span></span>
-<span id="cb18-26"><a href="#cb18-26" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
-<span id="cb18-27"><a href="#cb18-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">14</span>) <span class="sc">+</span></span>
-<span id="cb18-28"><a href="#cb18-28" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
-<span id="cb18-29"><a href="#cb18-29" aria-hidden="true" tabindex="-1"></a>    <span class="at">legend.position =</span> <span class="st">"bottom"</span>,</span>
-<span id="cb18-30"><a href="#cb18-30" aria-hidden="true" tabindex="-1"></a>    <span class="at">strip.text =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">"bold"</span>),</span>
-<span id="cb18-31"><a href="#cb18-31" aria-hidden="true" tabindex="-1"></a>    <span class="at">panel.spacing =</span> <span class="fu">unit</span>(<span class="dv">1</span>, <span class="st">"lines"</span>),</span>
-<span id="cb18-32"><a href="#cb18-32" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">45</span>, <span class="at">hjust =</span> <span class="dv">1</span>)</span>
-<span id="cb18-33"><a href="#cb18-33" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb18-34"><a href="#cb18-34" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Warning: Using `size` aesthetic for lines was deprecated in ggplot2 3.4.0.</span></span>
-<span id="cb18-35"><a href="#cb18-35" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ℹ Please use `linewidth` instead.</span></span>
-<span id="cb18-36"><a href="#cb18-36" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-37"><a href="#cb18-37" aria-hidden="true" tabindex="-1"></a>SSPplot</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-<div class="cell-output-display">
+<details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb18"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co">#select the first 5 DHS cluster locations for simplicity</span></span>
+<span></span>
+<span><span class="va">combined_SSPs_long_select</span><span class="op">&lt;-</span><span class="va">combined_SSPs_long</span><span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">DHSCLUST</span><span class="op">&lt;=</span><span class="fl">5</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">#convert DHS cluster to a factor variable</span></span>
+<span></span>
+<span><span class="va">combined_SSPs_long_select</span><span class="op">$</span><span class="va">DHSCLUSTfactor</span><span class="op">&lt;-</span><span class="fu"><a href="https://rspatial.github.io/terra/reference/is.bool.html">as.factor</a></span><span class="op">(</span><span class="va">combined_SSPs_long_select</span><span class="op">$</span><span class="va">DHSCLUST</span><span class="op">)</span></span>
+<span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org">ggplot2</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">#ggplot code</span></span>
+<span></span>
+<span><span class="va">SSPplot</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">combined_SSPs_long_select</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">year_month</span>, y <span class="op">=</span> <span class="va">Tmax</span>, color <span class="op">=</span> <span class="va">DHSCLUSTfactor</span>, group <span class="op">=</span> <span class="va">DHSCLUSTfactor</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_line</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fl">.75</span><span class="op">)</span> <span class="op">+</span>  </span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fl">2</span>, alpha <span class="op">=</span> <span class="fl">0.7</span><span class="op">)</span> <span class="op">+</span>  <span class="co"># Optional: add points for clarity</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/facet_wrap.html">facet_wrap</a></span><span class="op">(</span><span class="op">~</span> <span class="va">SSP</span>, ncol <span class="op">=</span> <span class="fl">2</span>, labeller <span class="op">=</span> <span class="va">label_both</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_brewer.html">scale_color_brewer</a></span><span class="op">(</span>palette <span class="op">=</span> <span class="st">"Dark2"</span><span class="op">)</span> <span class="op">+</span>  <span class="co"># Higher contrast palette</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html">scale_y_continuous</a></span><span class="op">(</span>breaks <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="fl">32</span>, <span class="fl">40</span>, by <span class="op">=</span> <span class="fl">0.05</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span></span>
+<span>    title <span class="op">=</span> <span class="st">"Scenario Temperature Data by DHS Cluster,January 2030 &amp; 2050"</span>,</span>
+<span>    subtitle <span class="op">=</span> <span class="st">"Comparing SSP 2-4.5 vs SSP 5-8.5"</span>,</span>
+<span>    x <span class="op">=</span> <span class="st">"Date"</span>,</span>
+<span>    y <span class="op">=</span> <span class="st">"Temperature (°C)"</span>,</span>
+<span>    color <span class="op">=</span> <span class="st">"County"</span></span>
+<span>  <span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_minimal</a></span><span class="op">(</span>base_size <span class="op">=</span> <span class="fl">14</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span><span class="op">(</span></span>
+<span>    legend.position <span class="op">=</span> <span class="st">"bottom"</span>,</span>
+<span>    strip.text <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_text</a></span><span class="op">(</span>face <span class="op">=</span> <span class="st">"bold"</span><span class="op">)</span>,</span>
+<span>    panel.spacing <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/grid/unit.html">unit</a></span><span class="op">(</span><span class="fl">1</span>, <span class="st">"lines"</span><span class="op">)</span>,</span>
+<span>    axis.text.x <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_text</a></span><span class="op">(</span>angle <span class="op">=</span> <span class="fl">45</span>, hjust <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="co">#&gt; Warning: Using `size` aesthetic for lines was deprecated in ggplot2 3.4.0.</span></span>
+<span><span class="co">#&gt; ℹ Please use `linewidth` instead.</span></span>
+<span></span>
+<span><span class="va">SSPplot</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details><div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="index_files/figure-html/unnamed-chunk-18-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="960"></p>
+<figure class="figure"><p><img src="index_files/figure-html/unnamed-chunk-18-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="960"></p>
 </figure>
 </div>
 </div>
@@ -792,135 +746,117 @@ Note
 <p>This graph shows us cluster-level variation. Cluster 2 and 5 have the lowest projected values, while 1 and 4 have the highest.</p>
 <p>Let’s look at the fifth cluster alone to zoom into the differences in temperature by scenario.</p>
 <div class="cell" data-layout-align="center">
-<details class="code-fold">
-<summary>Code</summary>
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>combined_SSPs_long_select_5<span class="ot">&lt;-</span>combined_SSPs_long<span class="sc">%&gt;%</span></span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(DHSCLUST<span class="sc">==</span><span class="st">"5"</span>)</span>
-<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>SSPplot2<span class="ot">&lt;-</span><span class="fu">ggplot</span>(combined_SSPs_long_select_5,<span class="fu">aes</span>(<span class="at">x =</span> year_month, <span class="at">y =</span> Tmax, <span class="at">color =</span> SSP, <span class="at">group =</span> SSP)) <span class="sc">+</span></span>
-<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">size =</span> <span class="fl">1.2</span>) <span class="sc">+</span></span>
-<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"245"</span> <span class="ot">=</span> <span class="st">"#1b9e77"</span>, <span class="st">"585"</span> <span class="ot">=</span> <span class="st">"#d95f02"</span>)) <span class="sc">+</span>  </span>
-<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">36</span>, <span class="dv">40</span>, <span class="at">by =</span><span class="fl">0.15</span>)) <span class="sc">+</span>  <span class="co"># Even more fine y-axis </span></span>
-<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
-<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Average Temperature Over Time by SSP in DHS CLUSTER #5"</span>,</span>
-<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Date"</span>,</span>
-<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Temperature (°C)"</span>,</span>
-<span id="cb19-13"><a href="#cb19-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">color =</span> <span class="st">"SSP"</span></span>
-<span id="cb19-14"><a href="#cb19-14" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
-<span id="cb19-15"><a href="#cb19-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">14</span>) <span class="sc">+</span></span>
-<span id="cb19-16"><a href="#cb19-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
-<span id="cb19-17"><a href="#cb19-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">legend.position =</span> <span class="st">"bottom"</span>,</span>
-<span id="cb19-18"><a href="#cb19-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">legend.title =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">"bold"</span>),</span>
-<span id="cb19-19"><a href="#cb19-19" aria-hidden="true" tabindex="-1"></a>    <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">"bold"</span>)</span>
-<span id="cb19-20"><a href="#cb19-20" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb19-21"><a href="#cb19-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-22"><a href="#cb19-22" aria-hidden="true" tabindex="-1"></a>SSPplot2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-<div class="cell-output-display">
+<details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb19"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">combined_SSPs_long_select_5</span><span class="op">&lt;-</span><span class="va">combined_SSPs_long</span><span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">DHSCLUST</span><span class="op">==</span><span class="st">"5"</span><span class="op">)</span></span>
+<span></span>
+<span></span>
+<span><span class="va">SSPplot2</span><span class="op">&lt;-</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">combined_SSPs_long_select_5</span>,<span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">year_month</span>, y <span class="op">=</span> <span class="va">Tmax</span>, color <span class="op">=</span> <span class="va">SSP</span>, group <span class="op">=</span> <span class="va">SSP</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_line</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fl">1.2</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_manual.html">scale_color_manual</a></span><span class="op">(</span>values <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"245"</span> <span class="op">=</span> <span class="st">"#1b9e77"</span>, <span class="st">"585"</span> <span class="op">=</span> <span class="st">"#d95f02"</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>  </span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html">scale_y_continuous</a></span><span class="op">(</span>breaks <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="fl">36</span>, <span class="fl">40</span>, by <span class="op">=</span><span class="fl">0.15</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>  <span class="co"># Even more fine y-axis </span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span></span>
+<span>    title <span class="op">=</span> <span class="st">"Average Temperature Over Time by SSP in DHS CLUSTER #5"</span>,</span>
+<span>    x <span class="op">=</span> <span class="st">"Date"</span>,</span>
+<span>    y <span class="op">=</span> <span class="st">"Temperature (°C)"</span>,</span>
+<span>    color <span class="op">=</span> <span class="st">"SSP"</span></span>
+<span>  <span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_minimal</a></span><span class="op">(</span>base_size <span class="op">=</span> <span class="fl">14</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span><span class="op">(</span></span>
+<span>    legend.position <span class="op">=</span> <span class="st">"bottom"</span>,</span>
+<span>    legend.title <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_text</a></span><span class="op">(</span>face <span class="op">=</span> <span class="st">"bold"</span><span class="op">)</span>,</span>
+<span>    plot.title <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_text</a></span><span class="op">(</span>face <span class="op">=</span> <span class="st">"bold"</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span></span>
+<span><span class="va">SSPplot2</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details><div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="index_files/figure-html/unnamed-chunk-19-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="960"></p>
+<figure class="figure"><p><img src="index_files/figure-html/unnamed-chunk-19-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="960"></p>
 </figure>
 </div>
 </div>
 </div>
 <p>Now let’s map out this data. We will create a separate map for each year per scenario. First, let’s create a map for each SSP at 2030.</p>
 <div class="cell" data-layout-align="center">
-<details class="code-fold">
-<summary>Code</summary>
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggspatial)</span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Warning: package 'ggspatial' was built under R version 4.5.1</span></span>
-<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>combined_SSPs_long_spatial<span class="ot">&lt;-</span><span class="fu">left_join</span>(ken_DHS_buffer, combined_SSPs_long)</span>
-<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a><span class="co">#filter for only the 2030 values</span></span>
-<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>combined_SSPs_long_spatial_2030<span class="ot">&lt;-</span>combined_SSPs_long_spatial<span class="sc">%&gt;%</span></span>
-<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(year_month<span class="sc">==</span><span class="st">"2030-01"</span>)</span>
-<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a>map2030<span class="ot">&lt;-</span><span class="fu">ggplot</span>(combined_SSPs_long_spatial_2030) <span class="sc">+</span></span>
-<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="fu">aes</span>(<span class="at">color =</span> Tmax), <span class="at">size =</span> <span class="dv">4</span>, <span class="at">alpha =</span> <span class="fl">0.8</span>) <span class="sc">+</span>  <span class="co"># Use color for points</span></span>
-<span id="cb20-13"><a href="#cb20-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> ken_ADM1_borders, <span class="at">color =</span> <span class="st">"black"</span>, <span class="at">fill =</span> <span class="cn">NA</span>, <span class="at">linewidth =</span> <span class="fl">0.4</span>) <span class="sc">+</span></span>
-<span id="cb20-14"><a href="#cb20-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> SSP, <span class="at">ncol =</span> <span class="dv">2</span>, <span class="at">labeller =</span> label_both) <span class="sc">+</span></span>
-<span id="cb20-15"><a href="#cb20-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_viridis_c</span>(<span class="at">option =</span> <span class="st">"plasma"</span>, <span class="at">direction =</span> <span class="sc">-</span><span class="dv">1</span>) <span class="sc">+</span></span>
-<span id="cb20-16"><a href="#cb20-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
-<span id="cb20-17"><a href="#cb20-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Projected Tmax by DHS Cluster in Kenya in January 2030, SSP 2-4.5 &amp; SSP 5-8.5"</span>,</span>
-<span id="cb20-18"><a href="#cb20-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">subtitle =</span> <span class="st">"SSP"</span>,</span>
-<span id="cb20-19"><a href="#cb20-19" aria-hidden="true" tabindex="-1"></a>    <span class="at">color =</span> <span class="st">"Tmax (°C)"</span></span>
-<span id="cb20-20"><a href="#cb20-20" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
-<span id="cb20-21"><a href="#cb20-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">14</span>) <span class="sc">+</span></span>
-<span id="cb20-22"><a href="#cb20-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
-<span id="cb20-23"><a href="#cb20-23" aria-hidden="true" tabindex="-1"></a>    <span class="at">strip.text =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">"bold"</span>),</span>
-<span id="cb20-24"><a href="#cb20-24" aria-hidden="true" tabindex="-1"></a>    <span class="at">legend.position =</span> <span class="st">"bottom"</span>,</span>
-<span id="cb20-25"><a href="#cb20-25" aria-hidden="true" tabindex="-1"></a>    <span class="at">panel.spacing =</span> <span class="fu">unit</span>(<span class="dv">1</span>, <span class="st">"lines"</span>)</span>
-<span id="cb20-26"><a href="#cb20-26" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb20-27"><a href="#cb20-27" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-28"><a href="#cb20-28" aria-hidden="true" tabindex="-1"></a>map2030</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-<div class="cell-output-display">
+<details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb20"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://paleolimbot.github.io/ggspatial/">ggspatial</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">combined_SSPs_long_spatial</span><span class="op">&lt;-</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">left_join</a></span><span class="op">(</span><span class="va">ken_DHS_buffer</span>, <span class="va">combined_SSPs_long</span><span class="op">)</span></span>
+<span>  </span>
+<span><span class="co">#filter for only the 2030 values</span></span>
+<span><span class="va">combined_SSPs_long_spatial_2030</span><span class="op">&lt;-</span><span class="va">combined_SSPs_long_spatial</span><span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">year_month</span><span class="op">==</span><span class="st">"2030-01"</span><span class="op">)</span></span>
+<span></span>
+<span></span>
+<span><span class="va">map2030</span><span class="op">&lt;-</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">combined_SSPs_long_spatial_2030</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggsf.html">geom_sf</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>color <span class="op">=</span> <span class="va">Tmax</span><span class="op">)</span>, size <span class="op">=</span> <span class="fl">4</span>, alpha <span class="op">=</span> <span class="fl">0.8</span><span class="op">)</span> <span class="op">+</span>  <span class="co"># Use color for points</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggsf.html">geom_sf</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">ken_ADM1_borders</span>, color <span class="op">=</span> <span class="st">"black"</span>, fill <span class="op">=</span> <span class="cn">NA</span>, linewidth <span class="op">=</span> <span class="fl">0.4</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/facet_wrap.html">facet_wrap</a></span><span class="op">(</span><span class="op">~</span> <span class="va">SSP</span>, ncol <span class="op">=</span> <span class="fl">2</span>, labeller <span class="op">=</span> <span class="va">label_both</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_viridis.html">scale_color_viridis_c</a></span><span class="op">(</span>option <span class="op">=</span> <span class="st">"plasma"</span>, direction <span class="op">=</span> <span class="op">-</span><span class="fl">1</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span></span>
+<span>    title <span class="op">=</span> <span class="st">"Projected Tmax by DHS Cluster in Kenya in January 2030, SSP 2-4.5 &amp; SSP 5-8.5"</span>,</span>
+<span>    subtitle <span class="op">=</span> <span class="st">"SSP"</span>,</span>
+<span>    color <span class="op">=</span> <span class="st">"Tmax (°C)"</span></span>
+<span>  <span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_minimal</a></span><span class="op">(</span>base_size <span class="op">=</span> <span class="fl">14</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span><span class="op">(</span></span>
+<span>    strip.text <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_text</a></span><span class="op">(</span>face <span class="op">=</span> <span class="st">"bold"</span><span class="op">)</span>,</span>
+<span>    legend.position <span class="op">=</span> <span class="st">"bottom"</span>,</span>
+<span>    panel.spacing <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/grid/unit.html">unit</a></span><span class="op">(</span><span class="fl">1</span>, <span class="st">"lines"</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span></span>
+<span><span class="va">map2030</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details><div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="index_files/figure-html/unnamed-chunk-20-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="960"></p>
+<figure class="figure"><p><img src="index_files/figure-html/unnamed-chunk-20-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="960"></p>
 </figure>
 </div>
 </div>
 </div>
 <p>Both SSPs predict varied temperatures in the West, and hotter temperatures in the East, at different levels of extremity. Now let’s create a map for each SSP at 2050.</p>
 <div class="cell" data-layout-align="center">
-<details class="code-fold">
-<summary>Code</summary>
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co">#filter for only the 2050 values</span></span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>combined_SSPs_long_spatial_2050<span class="ot">&lt;-</span>combined_SSPs_long_spatial<span class="sc">%&gt;%</span></span>
-<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(year_month<span class="sc">==</span><span class="st">"2050-01"</span>)</span>
-<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>map2050<span class="ot">&lt;-</span><span class="fu">ggplot</span>(combined_SSPs_long_spatial_2050) <span class="sc">+</span></span>
-<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="fu">aes</span>(<span class="at">color =</span> Tmax), <span class="at">size =</span> <span class="dv">4</span>, <span class="at">alpha =</span> <span class="fl">0.8</span>) <span class="sc">+</span>  <span class="co"># Use color for points</span></span>
-<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> ken_ADM1_borders, <span class="at">color =</span> <span class="st">"black"</span>, <span class="at">fill =</span> <span class="cn">NA</span>, <span class="at">linewidth =</span> <span class="fl">0.4</span>) <span class="sc">+</span></span>
-<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>SSP, <span class="at">ncol =</span> <span class="dv">2</span>, <span class="at">labeller =</span> label_both) <span class="sc">+</span></span>
-<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_viridis_c</span>(<span class="at">option =</span> <span class="st">"plasma"</span>, <span class="at">direction =</span> <span class="sc">-</span><span class="dv">1</span>) <span class="sc">+</span></span>
-<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
-<span id="cb21-12"><a href="#cb21-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Projected Tmax by DHS Cluster in Kenya, January 2050, SSP 2-4.5 &amp; SSP 5-8.5"</span>,</span>
-<span id="cb21-13"><a href="#cb21-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">subtitle =</span> <span class="st">"SSP"</span>,</span>
-<span id="cb21-14"><a href="#cb21-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">color =</span> <span class="st">"Tmax (°C)"</span></span>
-<span id="cb21-15"><a href="#cb21-15" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
-<span id="cb21-16"><a href="#cb21-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">14</span>) <span class="sc">+</span></span>
-<span id="cb21-17"><a href="#cb21-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
-<span id="cb21-18"><a href="#cb21-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">strip.text =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">"bold"</span>),</span>
-<span id="cb21-19"><a href="#cb21-19" aria-hidden="true" tabindex="-1"></a>    <span class="at">legend.position =</span> <span class="st">"bottom"</span>,</span>
-<span id="cb21-20"><a href="#cb21-20" aria-hidden="true" tabindex="-1"></a>    <span class="at">panel.spacing =</span> <span class="fu">unit</span>(<span class="dv">1</span>, <span class="st">"lines"</span>)</span>
-<span id="cb21-21"><a href="#cb21-21" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb21-22"><a href="#cb21-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-23"><a href="#cb21-23" aria-hidden="true" tabindex="-1"></a>map2050</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-<div class="cell-output-display">
+<details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb21"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co">#filter for only the 2050 values</span></span>
+<span><span class="va">combined_SSPs_long_spatial_2050</span><span class="op">&lt;-</span><span class="va">combined_SSPs_long_spatial</span><span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">year_month</span><span class="op">==</span><span class="st">"2050-01"</span><span class="op">)</span></span>
+<span></span>
+<span></span>
+<span><span class="va">map2050</span><span class="op">&lt;-</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">combined_SSPs_long_spatial_2050</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggsf.html">geom_sf</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>color <span class="op">=</span> <span class="va">Tmax</span><span class="op">)</span>, size <span class="op">=</span> <span class="fl">4</span>, alpha <span class="op">=</span> <span class="fl">0.8</span><span class="op">)</span> <span class="op">+</span>  <span class="co"># Use color for points</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggsf.html">geom_sf</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">ken_ADM1_borders</span>, color <span class="op">=</span> <span class="st">"black"</span>, fill <span class="op">=</span> <span class="cn">NA</span>, linewidth <span class="op">=</span> <span class="fl">0.4</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/facet_wrap.html">facet_wrap</a></span><span class="op">(</span><span class="op">~</span><span class="va">SSP</span>, ncol <span class="op">=</span> <span class="fl">2</span>, labeller <span class="op">=</span> <span class="va">label_both</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_viridis.html">scale_color_viridis_c</a></span><span class="op">(</span>option <span class="op">=</span> <span class="st">"plasma"</span>, direction <span class="op">=</span> <span class="op">-</span><span class="fl">1</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span></span>
+<span>    title <span class="op">=</span> <span class="st">"Projected Tmax by DHS Cluster in Kenya, January 2050, SSP 2-4.5 &amp; SSP 5-8.5"</span>,</span>
+<span>    subtitle <span class="op">=</span> <span class="st">"SSP"</span>,</span>
+<span>    color <span class="op">=</span> <span class="st">"Tmax (°C)"</span></span>
+<span>  <span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_minimal</a></span><span class="op">(</span>base_size <span class="op">=</span> <span class="fl">14</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span><span class="op">(</span></span>
+<span>    strip.text <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_text</a></span><span class="op">(</span>face <span class="op">=</span> <span class="st">"bold"</span><span class="op">)</span>,</span>
+<span>    legend.position <span class="op">=</span> <span class="st">"bottom"</span>,</span>
+<span>    panel.spacing <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/grid/unit.html">unit</a></span><span class="op">(</span><span class="fl">1</span>, <span class="st">"lines"</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span></span>
+<span><span class="va">map2050</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details><div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="index_files/figure-html/unnamed-chunk-21-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="960"></p>
+<figure class="figure"><p><img src="index_files/figure-html/unnamed-chunk-21-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="960"></p>
 </figure>
 </div>
 </div>
 </div>
 <p>At first glance, the geographic patterns and changes in temperature may not seem very different, but even slight increases will certainly have major and cascading impacts on health and agriculture if no steps are taken to adapt. The agricultural sector is very vulnerable to temperature variations that can alter growing seasons, reduce crop yields, and threaten food security (<a href="https://www.ipcc.ch/report/ar6/wg2/downloads/report/IPCC_AR6_WGII_TechnicalSummary.pdf">IPCC report</a>) - under severe climate scenarios without adaptation, crop yield losses could range from 7% to 23%<span class="citation" data-cites="yuan2024impacts"><sup><a href="#ref-yuan2024impacts" role="doc-biblioref">1</a></sup></span>. Human health is also at risk. Increased temperatures can directly cause heat stress, adverse pregnancy outcomes and poor mental health, while indirectly heat increases food insecurity or risk of infectious diseases that in turn affect health outcomes<span class="citation" data-cites="ebi2021hot"><sup><a href="#ref-ebi2021hot" role="doc-biblioref">2</a></sup></span>. Overall, climate adaptation measures will be required to reduce the impacts of increasing temperatures. Climate scenarios can help identify where and how soon this intervention will be required.</p>
-</section>
-<section id="conclusion" class="level1">
-<h1>Conclusion</h1>
+</section><section id="conclusion" class="level1"><h1>Conclusion</h1>
 <p>This post introduced you to one source of downscaled climate scenario data, CHC-CMIP6. We downloaded the data, cropped it to a specific geographic area, then aggregated it to a specific time frame. Lastly, we demonstrated how to create graphics that visualize this data. Our next post will go a step further by combining this data on future temperature conditions with child health outcomes, to explore if there is an association. We will again use CHC-CMIP6 scenario data and combine it with the 2022 DHS data from Kenya to model future levels of child malnutrition. While our previous post showed how short-term projections can inform early warning systems for more immediate action, using our scenarios can help with longer term planning, policy development and resource allocation to develop the infrastructure investments and nutrition sensitive programs that can improve health and resilience.</p>
 
 
 
-</section>
-
-<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" data-line-spacing="2" role="list">
+</section><div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" data-line-spacing="2" role="list">
 <div id="ref-yuan2024impacts" class="csl-entry" role="listitem">
 1. Yuan, X., Li, S., Chen, J., Yu, H., Yang, T., Wang, C., Huang, S., Chen, H., &amp; Ao, X. (2024). Impacts of global climate change on agricultural production: A comprehensive review. <em>Agronomy</em>, <em>14</em>(7), 1360.
 </div>
 <div id="ref-ebi2021hot" class="csl-entry" role="listitem">
 2. Ebi, K. L., Capon, A., Berry, P., Broderick, C., Dear, R. de, Havenith, G., Honda, Y., Kovats, R. S., Ma, W., Malik, A., et al. (2021). Hot weather and heat extremes: Health risks. <em>The Lancet</em>, <em>398</em>(10301), 698–708.
 </div>
-</div></section></div></main> <!-- /main -->
-<script id="quarto-html-after-body" type="application/javascript">
+</div></section></div></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
     const mode = bsSheetEl.getAttribute("data-mode");
@@ -1002,6 +938,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   });
   clipboard.on('success', onCopySuccess);
   if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
     const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
       text: getTextToCopy,
       container: window.document.getElementById('quarto-embedded-source-code-modal')
@@ -1112,6 +1050,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       if (window.Quarto?.typesetMath) {
         window.Quarto.typesetMath(note);
       }
+      // TODO in 1.5, we should make sure this works without a callout special case
       if (note.classList.contains("callout")) {
         return note.outerHTML;
       } else {
@@ -1338,8 +1277,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 });
 </script>
 </div> <!-- /content -->
-<footer class="footer">
-  <div class="nav-footer">
+<footer class="footer"><div class="nav-footer">
     <div class="nav-footer-left">
       &nbsp;
     </div>   
@@ -1351,8 +1289,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     </div>
   </div>
 </footer>
-
-
 
 
 </body></html>

@@ -10,7 +10,26 @@
 <atom:link href="https://ipums.github.io/dhs-research-hub/index.xml" rel="self" type="application/rss+xml"/>
 <description>Understand population health in its environmental context</description>
 <generator>quarto-1.5.57</generator>
-<lastBuildDate>Wed, 06 Aug 2025 05:00:00 GMT</lastBuildDate>
+<lastBuildDate>Fri, 05 Sep 2025 05:00:00 GMT</lastBuildDate>
+<item>
+  <title>Harnessing CHC-CMIP6 Climate Scenario Data to Explore the Future</title>
+  <dc:creator>Rebecca Luttinen</dc:creator>
+  <dc:creator>Jessie Pinchoff</dc:creator>
+  <link>https://ipums.github.io/dhs-research-hub/posts/2025-09-05-forecasting-pt3/</link>
+  <description><![CDATA[ Returning to our series on future estimation, we provide an overview of a data source for future climate scenarios. ]]></description>
+  <category>Climate</category>
+  <category>Scenarios</category>
+  <category>Temperature</category>
+  <category>R</category>
+  <category>CHIRTS</category>
+  <category>Comparison</category>
+  <category>GGSPATIAL</category>
+  <category>Terra</category>
+  <category>SF</category>
+  <guid>https://ipums.github.io/dhs-research-hub/posts/2025-09-05-forecasting-pt3/</guid>
+  <pubDate>Fri, 05 Sep 2025 05:00:00 GMT</pubDate>
+  <media:content url="https://ipums.github.io/dhs-research-hub/posts/2025-09-05-forecasting-pt3/images/clipboard-1796866763.png" medium="image" type="image/png" height="111" width="144"/>
+</item>
 <item>
   <title>Measuring Dietary Diversity using DHS data</title>
   <dc:creator>Devon Kristiansen</dc:creator>
@@ -336,19 +355,6 @@
   <category>Research concepts</category>
   <guid>https://ipums.github.io/dhs-research-hub/posts/2024-02-03-climate-theory/</guid>
   <pubDate>Sat, 03 Feb 2024 06:00:00 GMT</pubDate>
-</item>
-<item>
-  <title>Obtaining Data from IPUMS DHS</title>
-  <dc:creator>Finn Roberts</dc:creator>
-  <dc:creator>Matt Gunther</dc:creator>
-  <link>https://ipums.github.io/dhs-research-hub/posts/2024-02-02-download-dhs-data/</link>
-  <description><![CDATA[ Identify and download data from the IPUMS DHS website and load it into R ]]></description>
-  <category>Tips</category>
-  <category>Importing data</category>
-  <category>R</category>
-  <guid>https://ipums.github.io/dhs-research-hub/posts/2024-02-02-download-dhs-data/</guid>
-  <pubDate>Fri, 02 Feb 2024 06:00:00 GMT</pubDate>
-  <media:content url="https://ipums.github.io/dhs-research-hub/images/dhs_logo_navy.png" medium="image" type="image/png" height="41" width="144"/>
 </item>
 </channel>
 </rss>

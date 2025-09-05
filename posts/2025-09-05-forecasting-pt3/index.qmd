@@ -1,9 +1,4 @@
 ---
-title: "index"
-format: html
----
-
----
 title:
  "Harnessing CHC-CMIP6 Climate Scenario Data to Explore the Future"
 description: |
@@ -33,15 +28,9 @@ open-graph:
      Harnessing CHC-CMIP6 Climate Scenario Data to Explore the Future
   description: |
     Returning to our series on future estimation, we provide an overview of a data source for future climate scenarios.
-  twitter-card:
-  title: |
-    Harnessing CHC-CMIP6 Climate Scenario Data to Explore the Future
-  description: |
-     Returning to our series on future estimation, we provide an overview of a data source for future climate scenarios.
-image: images/clipboard-1796866763.png
 ---
 
-We now return to our series on using methods of future estimation in spatial health research. The third post in this series introduces [CHC-CMIP6 data](https://www.chc.ucsb.edu/data/chc-cmip6) by the Climate Hazards Center at UC Santa Barbara. We will demonstrate how you can read these data into R to create informative visualizations.  Kenya will be our example context, continuing from our [previous post](https://tech.popdata.org/dhs-research-hub/posts/2025-06-03-forecasting-pt2/) in this series
+We now return to our series on using methods of future estimation in spatial health research. The third post in this series introduces [CHC-CMIP6 data](https://www.chc.ucsb.edu/data/chc-cmip6) by the Climate Hazards Center at UC Santa Barbara. We will demonstrate how you can read these data into R to create informative visualizations.  Kenya will be our example context, continuing from our [previous post](https://tech.popdata.org/dhs-research-hub/posts/2025-06-03-forecasting-pt2/) in this series.
 
 # **Long-term Climate Projections**
 
@@ -53,7 +42,7 @@ The Intergovernmental Panel on Climate Change (IPCC) is the UN agency that studi
 
 To understand how climate change may shift in the long-term, the IPCC and researchers around the world use the Shared Socioeconomic Pathways (SSPs) to understand our possible future worlds. For example, SSP 5-8.5 assumes a world where we fail to cut emissions or switch to clean energy, the population grows, and emissions increase rapidly. SSP 2-4.5 is considered the “middle of the road” scenario, a future where greenhouse gas emissions hover around current levels and perhaps start declining but don’t reach net-zero by 2100. The SSP’s consider challenges to mitigation (bringing down emissions) and adaptation (taking steps to reduce exposure and harm). Using the SSPs, scientists can explore how climate and demographic patterns will shift under each possible future scenario.
 
-The figure below summarizes each single SSP, which is considered the starting point. Read more at the link below the figure to understand the different kinds of assumptions applied to each SSP (i.e. the-4.5 in SSP 2-4.5).
+The figure below summarizes each single SSP, which is considered the starting point. Read more at the link below the figure to understand the different kinds of assumptions that can be applied to each SSP (i.e. the '-4.5' that comes after '2' in SSP 2-4.5).
 
 ::: colum-body.outset
 ![](images/clipboard-1796866763.png)
