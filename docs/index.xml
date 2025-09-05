@@ -9,7 +9,7 @@
 <link>https://ipums.github.io/dhs-research-hub/</link>
 <atom:link href="https://ipums.github.io/dhs-research-hub/index.xml" rel="self" type="application/rss+xml"/>
 <description>Understand population health in its environmental context</description>
-<generator>quarto-1.6.42</generator>
+<generator>quarto-1.5.57</generator>
 <lastBuildDate>Wed, 06 Aug 2025 05:00:00 GMT</lastBuildDate>
 <item>
   <title>Measuring Dietary Diversity using DHS data</title>
@@ -252,7 +252,7 @@
   <category>R</category>
   <guid>https://ipums.github.io/dhs-research-hub/posts/2024-05-31-ts-join/</guid>
   <pubDate>Fri, 31 May 2024 05:00:00 GMT</pubDate>
-  <media:content url="https://ipums.github.io/dhs-research-hub/posts/2024-05-31-ts-join/index_files/figure-html/listing-img-1.png" medium="image" type="image/png"/>
+  <media:content url="https://ipums.github.io/dhs-research-hub/posts/2024-05-31-ts-join/index_files/figure-html/listing-img-1.png" medium="image" type="image/png" height="115" width="144"/>
 </item>
 <item>
   <title>Flexible Workflows with CHIRTS Temperature Data</title>
