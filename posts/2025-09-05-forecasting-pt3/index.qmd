@@ -50,7 +50,7 @@ The figure below summarizes each single SSP, which is considered the starting po
 *Figure: The five SSPs and the associated challenges to mitigation and adaptation.* ([*https://climatedata.ca/resource/understanding-shared-socio-economic-pathways-ssps/*](https://climatedata.ca/resource/understanding-shared-socio-economic-pathways-ssps/)*)*
 :::
 
-# The Couple Model Intercomparison Project Phase 6 (CMIP-6)
+# The Coupled Model Intercomparison Project Phase 6 (CMIP-6)
 
 The Coupled Model Intercomparison Project Phase 6 (CMIP6) is a global collaboration among climate modeling centers. CMIP6 simulates the earth’s climate system, including the atmosphere, oceans and land surface, across each SSP. Each model starts by running historical data from the past 100-150 years, to see if they can reproduce past climate trends. Then, they feed the model different possible futures through the SSPs. Lastly, the models simulate the future climate, often up to the year 2100 or even 2300, and simulate how temperatures may rise, rainfall patterns may change, or extreme events may increase. Because many research teams around the world are running these models independently, CMIP6 can explore dozens of different models using the same standardized scenarios for comparability.
 
