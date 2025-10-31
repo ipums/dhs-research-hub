@@ -1,0 +1,1498 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.7.32">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Rebecca Luttinen">
+<meta name="author" content="Jessie Pinchoff">
+<meta name="dcterms.date" content="2025-10-24">
+<meta name="description" content="In the final post in our series on future estimation we create a model to predict child malnutrition and plug in projected climate scenario data to predict a future level of child malnutrition.">
+
+<title>Using Historical and Projected Climate Data to Forecast Child Malnutrition – IPUMS DHS Spatial Analysis and Health Research Hub</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<link href="../../images/favicon/favicon-32x32.ico" rel="icon">
+<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-1afa9fee27de95cfb43398628944a48b.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-b14f6b24ab46a53cea26719e819bc451.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/quarto-contrib/fontawesome6-0.1.0/all.css" rel="stylesheet">
+<link href="../../site_libs/quarto-contrib/fontawesome6-0.1.0/latex-fontsize.css" rel="stylesheet">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-0WLH5S9VD5"></script>
+
+<script type="text/javascript">
+
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-0WLH5S9VD5', { 'anonymize_ip': true});
+</script>
+
+
+<meta property="og:title" content="Using Historical and Projected Climate Data to Forecast Child Malnutrition">
+<meta property="og:description" content="In the final post in our series on future estimation we create a model to predict child malnutrition and plug in projected climate scenario data to predict a future level of child malnutrition.">
+<meta property="og:image" content="https://ipums.github.io/dhs-research-hub/posts/2025-10-24-forecasting-pt4/images/dhs_logo_navy_pad.png">
+<meta property="og:site_name" content="IPUMS DHS Spatial Analysis and Health Research Hub">
+<meta name="twitter:title" content="IPUMS DHS Spatial Analysis and Health Research Hub">
+<meta name="twitter:description" content="Understand population health in its environmental context">
+<meta name="twitter:image" content="https://ipums.github.io/dhs-research-hub/posts/2025-10-24-forecasting-pt4/images/dhs_logo_navy_pad.png">
+<meta name="twitter:card" content="summary_large_image">
+</head>
+
+<body class="floating nav-fixed slimcontent quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top quarto-banner">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a href="https://www.idhsdata.org/idhs/" class="navbar-brand navbar-brand-logo">
+    <img src="../../images/dhs_logo_white.png" alt="" class="navbar-logo">
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../index.html"> 
+<span class="menu-text">Spatial Analysis and Health Research Hub</span></a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../index.html"> 
+<span class="menu-text">Posts</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-getting-started" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Getting Started</span>
+    </a>
+    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="nav-menu-getting-started">    
+        <li>
+    <a class="dropdown-item" href="../../posts/2024-02-01-getting-started-with-r/index.html">
+ <span class="dropdown-text">An Introduction to R</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../posts/2024-02-02-download-dhs-data/index.html">
+ <span class="dropdown-text">Obtaining IPUMS DHS Data</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-community" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Community</span>
+    </a>
+    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="nav-menu-community">    
+        <li>
+    <a class="dropdown-item" href="https://forum.ipums.org">
+ <span class="dropdown-text">IPUMS Forum</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../CODE_OF_CONDUCT.html">
+ <span class="dropdown-text">Code of Conduct</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../LICENSE.html">
+ <span class="dropdown-text">License</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="../../about.html"> 
+<span class="menu-text">About</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="https://github.com/ipums/dhs-research-hub"> 
+<span class="menu-text"><i class="fa-brands fa-github" aria-label="github"></i></span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../index.xml"> 
+<span class="menu-text"><i class="fa-solid fa-rss" aria-label="rss"></i></span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="https://twitter.com/ipumsGH"> 
+<span class="menu-text"><i class="fa-brands fa-x-twitter" aria-label="x-twitter"></i></span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="https://forum.ipums.org"> 
+<span class="menu-text"><i class="fa-solid fa-users" aria-label="users"></i></span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="https://www.ipums.org/"> 
+<span class="menu-text"><i class="fa-solid fa-globe" aria-label="globe"></i></span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<header id="title-block-header" class="quarto-title-block default toc-left page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body">
+      <h1 class="title">Using Historical and Projected Climate Data to Forecast Child Malnutrition</h1>
+                  <div>
+        <div class="description">
+          <p>In the final post in our series on future estimation we create a model to predict child malnutrition and plug in projected climate scenario data to predict a future level of child malnutrition.</p>
+        </div>
+      </div>
+                          <div class="quarto-categories">
+                <div class="quarto-category">Climate</div>
+                <div class="quarto-category">Scenarios</div>
+                <div class="quarto-category">Temperature</div>
+                <div class="quarto-category">R</div>
+                <div class="quarto-category">Nutrition</div>
+                <div class="quarto-category">Forecasts</div>
+              </div>
+                  </div>
+  </div>
+    
+  <div class="quarto-title-meta-author">
+    <div class="quarto-title-meta-heading">Authors</div>
+    <div class="quarto-title-meta-heading">Affiliations</div>
+    
+      <div class="quarto-title-meta-contents">
+      <p class="author">Rebecca Luttinen </p>
+    </div>
+    <div class="quarto-title-meta-contents">
+          <p class="affiliation">
+              IPUMS Global Health Data Analyst
+            </p>
+        </div>
+      <div class="quarto-title-meta-contents">
+      <p class="author">Jessie Pinchoff </p>
+    </div>
+    <div class="quarto-title-meta-contents">
+          <p class="affiliation">
+              IPUMS Researcher
+            </p>
+        </div>
+    </div>
+
+  <div class="quarto-title-meta">
+
+        
+      <div>
+      <div class="quarto-title-meta-heading">Published</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">October 24, 2025</p>
+      </div>
+    </div>
+    
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <nav id="TOC" role="doc-toc" class="toc-active" data-toc-expanded="1">
+    <h2 id="toc-title">Contents</h2>
+   
+  <ul>
+  <li><a href="#refresher-what-is-a-forecast" id="toc-refresher-what-is-a-forecast" class="nav-link active" data-scroll-target="#refresher-what-is-a-forecast">Refresher: What is a forecast?</a>
+  <ul class="collapse">
+  <li><a href="#tying-in-climate-scenario-data" id="toc-tying-in-climate-scenario-data" class="nav-link" data-scroll-target="#tying-in-climate-scenario-data"><strong>Tying in Climate Scenario Data</strong></a></li>
+  </ul></li>
+  <li><a href="#building-a-forecast" id="toc-building-a-forecast" class="nav-link" data-scroll-target="#building-a-forecast">Building a Forecast</a>
+  <ul class="collapse">
+  <li><a href="#data-harmonization" id="toc-data-harmonization" class="nav-link" data-scroll-target="#data-harmonization"><strong>Data Harmonization</strong></a></li>
+  <li><a href="#bivariate-analysis" id="toc-bivariate-analysis" class="nav-link" data-scroll-target="#bivariate-analysis">Bivariate Analysis</a></li>
+  <li><a href="#multivariate-multilevel-modeling" id="toc-multivariate-multilevel-modeling" class="nav-link" data-scroll-target="#multivariate-multilevel-modeling">Multivariate Multilevel Modeling</a></li>
+  <li><a href="#integrating-climate-scenario-data-into-our-workflow" id="toc-integrating-climate-scenario-data-into-our-workflow" class="nav-link" data-scroll-target="#integrating-climate-scenario-data-into-our-workflow">Integrating Climate Scenario Data into our Workflow</a></li>
+  <li><a href="#how-much-hotter-is-2050-than-2022" id="toc-how-much-hotter-is-2050-than-2022" class="nav-link" data-scroll-target="#how-much-hotter-is-2050-than-2022">How Much Hotter Is 2050 than 2022?</a></li>
+  </ul></li>
+  <li><a href="#generate-the-forecasts" id="toc-generate-the-forecasts" class="nav-link" data-scroll-target="#generate-the-forecasts">Generate the Forecasts</a></li>
+  <li><a href="#comparing-our-observed-and-forecasted-values" id="toc-comparing-our-observed-and-forecasted-values" class="nav-link" data-scroll-target="#comparing-our-observed-and-forecasted-values">Comparing our Observed and Forecasted Values</a></li>
+  <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion">Conclusion</a></li>
+  <li><a href="#looking-ahead" id="toc-looking-ahead" class="nav-link" data-scroll-target="#looking-ahead">Looking ahead</a></li>
+  </ul>
+</nav>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
+    </div>
+<!-- main -->
+<main class="content quarto-banner-title-block page-columns page-full" id="quarto-document-content">
+
+
+
+
+
+<p>This post concludes our series on how to use future estimation in child health research. The previous posts introduced proper terminology, showcased how to use Demographic and Health Survey (DHS) data to project a population/vital rates, and introduced a source of climate scenario data. Now we will apply what we have learned from this series and use it to create a forecast of child malnutrition. Information such as this can be used to inform humanitarian intervention which can take preventative action against future child malnutrition.</p>
+<section id="refresher-what-is-a-forecast" class="level1">
+<h1>Refresher: What is a forecast?</h1>
+<p>Our <a href="https://tech.popdata.org/dhs-research-hub/posts/2025-04-23-forecasting-pt1/">first post</a> in this series parsed some of the terminology used when using methods of future estimation. We defined forecasts as “short-term, numeric model estimates of physical phenomena which can have accuracy assessments embedded in them.” To create a forecast of something, analysts and researchers develop a quantitative model of that outcome using both historical and current data. For example, if a model predicts the number of children with acute malnutrition within a given region, a forecast of that model would be the number of children with acute malnutrition that the model predicts into a future timeframe. Predictions can be short term (weeks to months in the future) or long-term (out to the year 2050 or 2100). For the far future, we use different scenarios to give a range of possible outcomes, while in the short-term we can likely assume most conditions will stay the same.</p>
+<section id="tying-in-climate-scenario-data" class="level2">
+<h2 class="anchored" data-anchor-id="tying-in-climate-scenario-data"><strong>Tying in Climate Scenario Data</strong></h2>
+<p>In the <a href="https://tech.popdata.org/dhs-research-hub/posts/2025-09-05-forecasting-pt3/">third post in this series</a>, we introduced climate scenarios. Data from a climate scenario can be used as an input in a quantitative model to generate a forecast, which was described in the <a href="https://tech.popdata.org/dhs-research-hub/posts/2025-04-23-forecasting-pt1/">first post</a>, given the specific climate conditions in the scenario. Before we can use the climate scenario data as an input in our model, we need to build the forecasting model with historical climate data. Below we demonstrate a workflow that can be used to accomplish this.</p>
+</section>
+</section>
+<section id="building-a-forecast" class="level1 page-columns page-full">
+<h1>Building a Forecast</h1>
+<section id="data-harmonization" class="level2 page-columns page-full">
+<h2 class="anchored" data-anchor-id="data-harmonization"><strong>Data Harmonization</strong></h2>
+<p>First, this post introduces how to make a quantitative model from Kenya 2022 DHS data. Second, we plug climate scenario data into our the model and generate forecasts.</p>
+<p>First, we will load the libraries we will employ for this analysis.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(haven)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sf)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(terra)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(stats)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>As we have demonstrated how to format DHS and climate data in earlier posts (i.e <a href="https://tech.popdata.org/dhs-research-hub/posts/2024-02-04-dhs-chirps/">here</a>). We will skip over how to format climate and DHS data together, and get right into temporally harmonizing these data sources and modeling. First, we will read in a .Rda file, which is an R data file. This file contains already formatted child health/ household information from the 2022 Kenya DHS survey, as well as monthly average maximum temperature for a 10 kilometer buffer zone around each DHS cluster from <a href="https://www.chc.ucsb.edu/data/chirtsdaily">CHIRTS</a>. If you are not familiar with how to harmonize climate and DHS data, read the post linked at the start of this paragraph .</p>
+
+<div class="no-row-height column-margin column-container"><div class="">
+<p>The DHS is currently reviewing applications for data access. Apply for and access DHS data <a href="https://www.idhsdata.org/idhs/">here</a>.</p>
+</div></div><div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="co">#load DHS data</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="st">"data/DHS/childdatafilter.Rda"</span>)</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="co">#load climate data</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="st">"data/ken_chirts/ken_chirts_long_filter_bp.Rda"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Now, that we have loaded our child health and climate information, we must make sure our data has the proper temporal format. In this blog post we will follow an <a href="https://www.unocha.org/anticipatory-action">anticipatory action framework</a>, which involves acting ahead of predicted hazards to reduce the impact at various time-frames, such as 1, 3, 6, 9 or 12 months in advance. For the purpose of this blog post, we use the average temperature information for 1-3 months prior to the date of the DHS survey.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>Note</strong>: In this example, we have we have named our DHS cluster variable to “ID” in both our climate and child health datasets. This is different from IPUMS DHS, and the raw variable names provided by the DHS.</p>
+</div>
+</div>
+<p>First, we will merge our child health and climate information by the DHS cluster variable, ID to get all of our information into one dataset.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co">#merge with DHS </span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>surveytempreframe <span class="ot">&lt;-</span> <span class="fu">merge</span>(childdatafilter, ken_chirts_long_filter, <span class="at">by=</span><span class="st">"ID"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Then we can use this information to create new variables for the temperature information 1-3 months before the survey date.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="co">#create new variables for 1-3 months before survey</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>surveytempreframe<span class="sc">$</span>presurveytemp1<span class="ot">&lt;-</span><span class="fu">ifelse</span>(surveytempreframe<span class="sc">$</span>CHIRTSCMC<span class="sc">==</span> (surveytempreframe<span class="sc">$</span>surveydate<span class="dv">-1</span>), surveytempreframe<span class="sc">$</span>AV_TEMP, <span class="cn">NA</span>)</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>surveytempreframe<span class="sc">$</span>presurveytemp2<span class="ot">&lt;-</span><span class="fu">ifelse</span>(surveytempreframe<span class="sc">$</span>CHIRTSCMC<span class="sc">==</span> (surveytempreframe<span class="sc">$</span>surveydate<span class="dv">-2</span>), surveytempreframe<span class="sc">$</span>AV_TEMP, <span class="cn">NA</span>)</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>surveytempreframe<span class="sc">$</span>presurveytemp3<span class="ot">&lt;-</span><span class="fu">ifelse</span>(surveytempreframe<span class="sc">$</span>CHIRTSCMC<span class="sc">==</span> (surveytempreframe<span class="sc">$</span>surveydate<span class="dv">-3</span>), surveytempreframe<span class="sc">$</span>AV_TEMP, <span class="cn">NA</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>In addition to geographic variation, there is temporal variation in this dataset, however, and we only need the temporal information pertinent to the DHS survey. We can restructure our dataset to only keep the temporal information necessary for our analysis. We can uses the contains() function to make our new variables into a new single variable in a long format, as each of the new variables contains the prefix “surveytemp.” The old variable names we have created, will be stored in a new column called “monthbeforesurvey” and the monthly average maximum value in Celsius will be stored in a new column called “temperature.”</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="co">#pivot long</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>surveytempreframe2<span class="ot">&lt;-</span>surveytempreframe <span class="sc">%&gt;%</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">cols =</span> <span class="fu">contains</span>(<span class="st">"surveytemp"</span>),</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">names_to =</span> <span class="st">"monthbeforesurvey"</span>,</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">names_prefix =</span> <span class="st">"temp"</span>,</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">values_to =</span> <span class="st">"temperature"</span>,</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">values_drop_na =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>We just used pivot_longer, to get our climate information to be in a long format. There is one more step necessary to be able to merge this information with our DHS data. We still need our climate information to be in a wide format, meaning we need separate variables for each month. We can use the pivot_wider() function to accomplish this. Here we signify three ID columns that we do not want to be merged into the wide format. Caseid is a unique identifier for each woman surveyed by the DHS. We also use the birthorder column to make sure we are getting each individual birth, because women can report up to five births prior to the DHS survey. And lastly, we use the DHS cluster variable.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="co">#pivot wider</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>ken_chirts_wide2 <span class="ot">&lt;-</span> surveytempreframe2 <span class="sc">%&gt;%</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">id_cols =</span> <span class="fu">c</span>(caseid, birthorder, ID), <span class="at">names_from =</span> monthbeforesurvey, <span class="at">values_from =</span> temperature)</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="co">#merge with DHS again</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>tempandDHSwithsurvey <span class="ot">&lt;-</span> <span class="fu">merge</span>(childdatafilter, ken_chirts_wide2, <span class="at">by=</span> <span class="fu">c</span>(<span class="st">'caseid'</span>, <span class="st">'birthorder'</span>, <span class="st">'ID'</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Now that we have a full dataset, we can begin modeling. First, we will drop the NA’s from our dataset.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="co">#drop children without accurate age information</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>tempandDHSwithsurveyfilter<span class="ot">&lt;-</span>tempandDHSwithsurvey<span class="sc">%&gt;%</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(curchildage<span class="sc">!=</span><span class="st">'NA'</span>)</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="co">#drop children without accurate sex information</span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>tempandDHSwithsurveyfilter<span class="ot">&lt;-</span>tempandDHSwithsurvey<span class="sc">%&gt;%</span></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(childsex<span class="sc">!=</span><span class="st">'NA'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="bivariate-analysis" class="level2">
+<h2 class="anchored" data-anchor-id="bivariate-analysis">Bivariate Analysis</h2>
+<p>Then we can test for bivariate associations between our temperature values and our outcome: weight-for-age. Below, we do this for each month separately.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="co">#correlation tests</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="co">#1 month before survey</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="fu">cor.test</span>(tempandDHSwithsurveyfilter<span class="sc">$</span>w4age, tempandDHSwithsurveyfilter<span class="sc">$</span>presurveytemp1 )</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Pearson's product-moment correlation</span></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; data:  tempandDHSwithsurveyfilter$w4age and tempandDHSwithsurveyfilter$presurveytemp1</span></span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; t = -13.697, df = 14192, p-value &lt; 2.2e-16</span></span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; alternative hypothesis: true correlation is not equal to 0</span></span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 95 percent confidence interval:</span></span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  -0.13043032 -0.09795672</span></span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; sample estimates:</span></span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;       cor </span></span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; -0.114224</span></span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a><span class="co">#2 months before survey</span></span>
+<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a><span class="fu">cor.test</span>(tempandDHSwithsurveyfilter<span class="sc">$</span>w4age, tempandDHSwithsurveyfilter<span class="sc">$</span>presurveytemp2 )</span>
+<span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb8-21"><a href="#cb8-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Pearson's product-moment correlation</span></span>
+<span id="cb8-22"><a href="#cb8-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb8-23"><a href="#cb8-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; data:  tempandDHSwithsurveyfilter$w4age and tempandDHSwithsurveyfilter$presurveytemp2</span></span>
+<span id="cb8-24"><a href="#cb8-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; t = -13.917, df = 14192, p-value &lt; 2.2e-16</span></span>
+<span id="cb8-25"><a href="#cb8-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; alternative hypothesis: true correlation is not equal to 0</span></span>
+<span id="cb8-26"><a href="#cb8-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 95 percent confidence interval:</span></span>
+<span id="cb8-27"><a href="#cb8-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  -0.13223468 -0.09977481</span></span>
+<span id="cb8-28"><a href="#cb8-28" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; sample estimates:</span></span>
+<span id="cb8-29"><a href="#cb8-29" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;        cor </span></span>
+<span id="cb8-30"><a href="#cb8-30" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; -0.1160357</span></span>
+<span id="cb8-31"><a href="#cb8-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-32"><a href="#cb8-32" aria-hidden="true" tabindex="-1"></a><span class="co">#3 months before survey</span></span>
+<span id="cb8-33"><a href="#cb8-33" aria-hidden="true" tabindex="-1"></a><span class="fu">cor.test</span>(tempandDHSwithsurveyfilter<span class="sc">$</span>w4age, tempandDHSwithsurveyfilter<span class="sc">$</span>presurveytemp3 )</span>
+<span id="cb8-34"><a href="#cb8-34" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb8-35"><a href="#cb8-35" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Pearson's product-moment correlation</span></span>
+<span id="cb8-36"><a href="#cb8-36" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb8-37"><a href="#cb8-37" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; data:  tempandDHSwithsurveyfilter$w4age and tempandDHSwithsurveyfilter$presurveytemp3</span></span>
+<span id="cb8-38"><a href="#cb8-38" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; t = -13.834, df = 14192, p-value &lt; 2.2e-16</span></span>
+<span id="cb8-39"><a href="#cb8-39" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; alternative hypothesis: true correlation is not equal to 0</span></span>
+<span id="cb8-40"><a href="#cb8-40" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 95 percent confidence interval:</span></span>
+<span id="cb8-41"><a href="#cb8-41" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  -0.13155195 -0.09908686</span></span>
+<span id="cb8-42"><a href="#cb8-42" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; sample estimates:</span></span>
+<span id="cb8-43"><a href="#cb8-43" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;        cor </span></span>
+<span id="cb8-44"><a href="#cb8-44" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; -0.1153502</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>The correlation between child weight-for-age and the monthly average daily maximum temperature per DHS cluster is significant for each month 1-3 months before the survey.</p>
+<p>Next, we create variable that is the average of these 1-3 months.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>tempandDHSwithsurveyfilter<span class="sc">$</span>avtemppresurvey<span class="ot">&lt;-</span>((tempandDHSwithsurveyfilter<span class="sc">$</span>presurveytemp1<span class="sc">+</span> tempandDHSwithsurveyfilter<span class="sc">$</span>presurveytemp2<span class="sc">+</span> tempandDHSwithsurveyfilter<span class="sc">$</span>presurveytemp3)<span class="sc">/</span><span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="multivariate-multilevel-modeling" class="level2">
+<h2 class="anchored" data-anchor-id="multivariate-multilevel-modeling">Multivariate Multilevel Modeling</h2>
+<p>Now we will build a multivariate model that takes into account the multilevel structure of our dataset. We use various variables that are known to influence child health outcomes such as: household urban/ rural status, maternal educational attainment, child age, child sex, maternal marital status, and whether the household has a finished floor or not.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Research questions that require multi-level analysis involve outcomes that are clustered by time or space. This perspective requires consideration at the person-level and some other structural level. Multi-level data can include 2 or more levels. DHS surveys include information at the household, cluster, regional, and national levels. Read more <a href="https://dhsprogram.com/publications/publication-mr27-methodological-reports.cfm">here</a>.</p>
+<p>Why use a multilevel model instead of ordinary least squares (OLS) regression? If data are clustered at a structural level, we cannot assume <strong>independence of observations</strong>, a key assumption of OLS.</p>
+</div>
+</div>
+<p>Multilevel modeling can be accomplished in R using the lme4 package. The last part of the code (1|ID) is how we allow the intercept to vary per DHS cluster, which is the ID variable.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lme4)</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>wastingmlm <span class="ot">&lt;-</span> <span class="fu">lmer</span>(w4age <span class="sc">~</span> urban <span class="sc">+</span> educationlevel <span class="sc">+</span> curchildage<span class="sc">+</span> childsex <span class="sc">+</span> married <span class="sc">+</span> AGE <span class="sc">+</span> floor <span class="sc">+</span> avtemppresurvey <span class="sc">+</span> (<span class="dv">1</span> <span class="sc">|</span> ID), <span class="at">data =</span> tempandDHSwithsurveyfilter)</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(wastingmlm)</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Linear mixed model fit by REML ['lmerMod']</span></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Formula: w4age ~ urban + educationlevel + curchildage + childsex + married +  </span></span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     AGE + floor + avtemppresurvey + (1 | ID)</span></span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    Data: tempandDHSwithsurveyfilter</span></span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; REML criterion at convergence: 41734.9</span></span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Scaled residuals: </span></span>
+<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     Min      1Q  Median      3Q     Max </span></span>
+<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; -4.5910 -0.6247  0.0046  0.6229  4.9335 </span></span>
+<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb10-18"><a href="#cb10-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Random effects:</span></span>
+<span id="cb10-19"><a href="#cb10-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Groups   Name        Variance Std.Dev.</span></span>
+<span id="cb10-20"><a href="#cb10-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  ID       (Intercept) 0.08981  0.2997  </span></span>
+<span id="cb10-21"><a href="#cb10-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Residual             1.06497  1.0320  </span></span>
+<span id="cb10-22"><a href="#cb10-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Number of obs: 14077, groups:  ID, 1670</span></span>
+<span id="cb10-23"><a href="#cb10-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb10-24"><a href="#cb10-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Fixed effects:</span></span>
+<span id="cb10-25"><a href="#cb10-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;                             Estimate Std. Error t value</span></span>
+<span id="cb10-26"><a href="#cb10-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; (Intercept)                -0.027917   0.114754  -0.243</span></span>
+<span id="cb10-27"><a href="#cb10-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; urbanurban                  0.114733   0.031287   3.667</span></span>
+<span id="cb10-28"><a href="#cb10-28" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; educationlevelno education -0.700616   0.041547 -16.863</span></span>
+<span id="cb10-29"><a href="#cb10-29" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; educationlevelprimary      -0.374286   0.033177 -11.282</span></span>
+<span id="cb10-30"><a href="#cb10-30" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; educationlevelsecondary    -0.215657   0.032811  -6.573</span></span>
+<span id="cb10-31"><a href="#cb10-31" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; curchildage                -0.134463   0.006419 -20.949</span></span>
+<span id="cb10-32"><a href="#cb10-32" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; childsexmale               -0.116956   0.019824  -5.900</span></span>
+<span id="cb10-33"><a href="#cb10-33" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; marriedmarried/ cohabiting  0.061776   0.038015   1.625</span></span>
+<span id="cb10-34"><a href="#cb10-34" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; marriednot married          0.045038   0.050275   0.896</span></span>
+<span id="cb10-35"><a href="#cb10-35" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; marriedwidowed             -0.079050   0.073061  -1.082</span></span>
+<span id="cb10-36"><a href="#cb10-36" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; AGE                         0.007984   0.001493   5.348</span></span>
+<span id="cb10-37"><a href="#cb10-37" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; floorunfinished            -0.239385   0.022700 -10.546</span></span>
+<span id="cb10-38"><a href="#cb10-38" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; avtemppresurvey            -0.006765   0.003139  -2.155</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>An alternative way to present our results, can be accomplished with the modelsummary() pacakge.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(modelsummary)</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Warning: package 'modelsummary' was built under R version 4.5.1</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="fu">modelsummary</span>(wastingmlm, <span class="at">stars =</span> <span class="cn">TRUE</span>, <span class="at">title =</span> <span class="st">'Multilevel Regression Model Results'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<!-- preamble start -->
+
+    <script>
+
+      function styleCell_e2kvrvyri9h7u13gk29a(i, j, css_id) {
+          var table = document.getElementById("tinytable_e2kvrvyri9h7u13gk29a");
+          var cell = table.querySelector(`[data-row="${i}"][data-col="${j}"]`);
+          if (cell) {
+              console.log(`Styling cell at (${i}, ${j}) with class ${css_id}`);
+              cell.classList.add(css_id);
+          } else {
+              console.warn(`Cell at (${i}, ${j}) not found.`);
+          }
+      }
+      function spanCell_e2kvrvyri9h7u13gk29a(i, j, rowspan, colspan) {
+        var table = document.getElementById("tinytable_e2kvrvyri9h7u13gk29a");
+        const targetCell = table.querySelector(`[data-row="${i}"][data-col="${j}"]`);
+        if (!targetCell) {
+          console.warn(`Cell at (${i}, ${j}) not found.`);
+        }
+
+        // Get all cells that need to be removed
+        const cellsToRemove = [];
+        for (let r = 0; r < rowspan; r++) {
+          for (let c = 0; c < colspan; c++) {
+            if (r === 0 && c === 0) continue; // Skip the target cell
+            const cell = table.querySelector(`[data-row="${i + r}"][data-col="${j + c}"]`);
+            if (cell) {
+              cellsToRemove.push(cell);
+            }
+          }
+        }
+
+        // Remove all cells
+        cellsToRemove.forEach(cell => cell.remove());
+
+        // Set rowspan and colspan of the target cell if it exists
+        if (targetCell) {
+          targetCell.rowSpan = rowspan;
+          targetCell.colSpan = colspan;
+        }
+      }
+      // tinytable span after
+      window.addEventListener('load', function () {
+          var cellsToStyle = [
+            // tinytable style arrays after
+          { positions: [ { i: '35', j: 1 },  ], css_id: 'tinytable_css_6jkntytksz35gh5w5vla',}, 
+          { positions: [ { i: '28', j: 1 },  ], css_id: 'tinytable_css_fsg5kgamt2dtjlpjsvez',}, 
+          { positions: [ { i: '1', j: 1 }, { i: '2', j: 1 }, { i: '3', j: 1 }, { i: '4', j: 1 }, { i: '5', j: 1 }, { i: '6', j: 1 }, { i: '7', j: 1 }, { i: '8', j: 1 }, { i: '9', j: 1 }, { i: '10', j: 1 }, { i: '11', j: 1 }, { i: '12', j: 1 }, { i: '13', j: 1 }, { i: '14', j: 1 }, { i: '15', j: 1 }, { i: '16', j: 1 }, { i: '17', j: 1 }, { i: '18', j: 1 }, { i: '19', j: 1 }, { i: '20', j: 1 }, { i: '21', j: 1 }, { i: '22', j: 1 }, { i: '23', j: 1 }, { i: '24', j: 1 }, { i: '25', j: 1 }, { i: '26', j: 1 }, { i: '27', j: 1 }, { i: '32', j: 1 }, { i: '29', j: 1 }, { i: '30', j: 1 }, { i: '31', j: 1 }, { i: '33', j: 1 }, { i: '34', j: 1 },  ], css_id: 'tinytable_css_xz1f6fdwrcr9knymdtth',}, 
+          { positions: [ { i: '0', j: 1 },  ], css_id: 'tinytable_css_tea5hqpxycit58v4vmag',}, 
+          { positions: [ { i: '35', j: 0 },  ], css_id: 'tinytable_css_8dssn9og0cvyjyoj90pv',}, 
+          { positions: [ { i: '28', j: 0 },  ], css_id: 'tinytable_css_fe79rmxbo321ou3tiiv1',}, 
+          { positions: [ { i: '1', j: 0 }, { i: '2', j: 0 }, { i: '3', j: 0 }, { i: '4', j: 0 }, { i: '5', j: 0 }, { i: '6', j: 0 }, { i: '7', j: 0 }, { i: '8', j: 0 }, { i: '9', j: 0 }, { i: '10', j: 0 }, { i: '11', j: 0 }, { i: '12', j: 0 }, { i: '13', j: 0 }, { i: '14', j: 0 }, { i: '15', j: 0 }, { i: '16', j: 0 }, { i: '17', j: 0 }, { i: '18', j: 0 }, { i: '19', j: 0 }, { i: '20', j: 0 }, { i: '21', j: 0 }, { i: '22', j: 0 }, { i: '23', j: 0 }, { i: '24', j: 0 }, { i: '25', j: 0 }, { i: '26', j: 0 }, { i: '27', j: 0 }, { i: '32', j: 0 }, { i: '29', j: 0 }, { i: '30', j: 0 }, { i: '31', j: 0 }, { i: '33', j: 0 }, { i: '34', j: 0 },  ], css_id: 'tinytable_css_4go0tzs6p1u7toyqnx9i',}, 
+          { positions: [ { i: '0', j: 0 },  ], css_id: 'tinytable_css_x53naawvtd515ft1cpcz',}, 
+          ];
+
+          // Loop over the arrays to style the cells
+          cellsToStyle.forEach(function (group) {
+              group.positions.forEach(function (cell) {
+                  styleCell_e2kvrvyri9h7u13gk29a(cell.i, cell.j, group.css_id);
+              });
+          });
+      });
+    </script>
+
+    <style>
+      /* tinytable css entries after */
+      .table td.tinytable_css_6jkntytksz35gh5w5vla, .table th.tinytable_css_6jkntytksz35gh5w5vla { text-align: center; border-bottom: solid #d3d8dc 0.1em; }
+      .table td.tinytable_css_fsg5kgamt2dtjlpjsvez, .table th.tinytable_css_fsg5kgamt2dtjlpjsvez { text-align: center; border-bottom: solid black 0.05em; }
+      .table td.tinytable_css_xz1f6fdwrcr9knymdtth, .table th.tinytable_css_xz1f6fdwrcr9knymdtth { text-align: center; }
+      .table td.tinytable_css_tea5hqpxycit58v4vmag, .table th.tinytable_css_tea5hqpxycit58v4vmag { text-align: center; border-top: solid #d3d8dc 0.1em; border-bottom: solid #d3d8dc 0.05em; }
+      .table td.tinytable_css_8dssn9og0cvyjyoj90pv, .table th.tinytable_css_8dssn9og0cvyjyoj90pv { text-align: left; border-bottom: solid #d3d8dc 0.1em; }
+      .table td.tinytable_css_fe79rmxbo321ou3tiiv1, .table th.tinytable_css_fe79rmxbo321ou3tiiv1 { text-align: left; border-bottom: solid black 0.05em; }
+      .table td.tinytable_css_4go0tzs6p1u7toyqnx9i, .table th.tinytable_css_4go0tzs6p1u7toyqnx9i { text-align: left; }
+      .table td.tinytable_css_x53naawvtd515ft1cpcz, .table th.tinytable_css_x53naawvtd515ft1cpcz { text-align: left; border-top: solid #d3d8dc 0.1em; border-bottom: solid #d3d8dc 0.05em; }
+    </style>
+    <div class="container">
+      <table class="table table-borderless" id="tinytable_e2kvrvyri9h7u13gk29a" style="width: auto; margin-left: auto; margin-right: auto;" data-quarto-disable-processing="true">
+        <thead>
+        </thead><caption>Multilevel Regression Model Results</caption>
+              <tbody><tr>
+                <th scope="col" data-row="0" data-col="0"> </th>
+                <th scope="col" data-row="0" data-col="1">(1)</th>
+              </tr>
+        
+        </tbody><tfoot><tr><td colspan="2">+ p &lt; 0.1, * p &lt; 0.05, ** p &lt; 0.01, *** p &lt; 0.001</td></tr></tfoot>
+        <tbody>
+                <tr>
+                  <td data-row="1" data-col="0">(Intercept)</td>
+                  <td data-row="1" data-col="1">-0.028</td>
+                </tr>
+                <tr>
+                  <td data-row="2" data-col="0"></td>
+                  <td data-row="2" data-col="1">(0.115)</td>
+                </tr>
+                <tr>
+                  <td data-row="3" data-col="0">urbanurban</td>
+                  <td data-row="3" data-col="1">0.115***</td>
+                </tr>
+                <tr>
+                  <td data-row="4" data-col="0"></td>
+                  <td data-row="4" data-col="1">(0.031)</td>
+                </tr>
+                <tr>
+                  <td data-row="5" data-col="0">educationlevelno education</td>
+                  <td data-row="5" data-col="1">-0.701***</td>
+                </tr>
+                <tr>
+                  <td data-row="6" data-col="0"></td>
+                  <td data-row="6" data-col="1">(0.042)</td>
+                </tr>
+                <tr>
+                  <td data-row="7" data-col="0">educationlevelprimary</td>
+                  <td data-row="7" data-col="1">-0.374***</td>
+                </tr>
+                <tr>
+                  <td data-row="8" data-col="0"></td>
+                  <td data-row="8" data-col="1">(0.033)</td>
+                </tr>
+                <tr>
+                  <td data-row="9" data-col="0">educationlevelsecondary</td>
+                  <td data-row="9" data-col="1">-0.216***</td>
+                </tr>
+                <tr>
+                  <td data-row="10" data-col="0"></td>
+                  <td data-row="10" data-col="1">(0.033)</td>
+                </tr>
+                <tr>
+                  <td data-row="11" data-col="0">curchildage</td>
+                  <td data-row="11" data-col="1">-0.134***</td>
+                </tr>
+                <tr>
+                  <td data-row="12" data-col="0"></td>
+                  <td data-row="12" data-col="1">(0.006)</td>
+                </tr>
+                <tr>
+                  <td data-row="13" data-col="0">childsexmale</td>
+                  <td data-row="13" data-col="1">-0.117***</td>
+                </tr>
+                <tr>
+                  <td data-row="14" data-col="0"></td>
+                  <td data-row="14" data-col="1">(0.020)</td>
+                </tr>
+                <tr>
+                  <td data-row="15" data-col="0">marriedmarried/ cohabiting</td>
+                  <td data-row="15" data-col="1">0.062</td>
+                </tr>
+                <tr>
+                  <td data-row="16" data-col="0"></td>
+                  <td data-row="16" data-col="1">(0.038)</td>
+                </tr>
+                <tr>
+                  <td data-row="17" data-col="0">marriednot married</td>
+                  <td data-row="17" data-col="1">0.045</td>
+                </tr>
+                <tr>
+                  <td data-row="18" data-col="0"></td>
+                  <td data-row="18" data-col="1">(0.050)</td>
+                </tr>
+                <tr>
+                  <td data-row="19" data-col="0">marriedwidowed</td>
+                  <td data-row="19" data-col="1">-0.079</td>
+                </tr>
+                <tr>
+                  <td data-row="20" data-col="0"></td>
+                  <td data-row="20" data-col="1">(0.073)</td>
+                </tr>
+                <tr>
+                  <td data-row="21" data-col="0">AGE</td>
+                  <td data-row="21" data-col="1">0.008***</td>
+                </tr>
+                <tr>
+                  <td data-row="22" data-col="0"></td>
+                  <td data-row="22" data-col="1">(0.001)</td>
+                </tr>
+                <tr>
+                  <td data-row="23" data-col="0">floorunfinished</td>
+                  <td data-row="23" data-col="1">-0.239***</td>
+                </tr>
+                <tr>
+                  <td data-row="24" data-col="0"></td>
+                  <td data-row="24" data-col="1">(0.023)</td>
+                </tr>
+                <tr>
+                  <td data-row="25" data-col="0">avtemppresurvey</td>
+                  <td data-row="25" data-col="1">-0.007*</td>
+                </tr>
+                <tr>
+                  <td data-row="26" data-col="0"></td>
+                  <td data-row="26" data-col="1">(0.003)</td>
+                </tr>
+                <tr>
+                  <td data-row="27" data-col="0">SD (Intercept ID)</td>
+                  <td data-row="27" data-col="1">0.300</td>
+                </tr>
+                <tr>
+                  <td data-row="28" data-col="0">SD (Observations)</td>
+                  <td data-row="28" data-col="1">1.032</td>
+                </tr>
+                <tr>
+                  <td data-row="29" data-col="0">Num.Obs.</td>
+                  <td data-row="29" data-col="1">14077</td>
+                </tr>
+                <tr>
+                  <td data-row="30" data-col="0">R2 Marg.</td>
+                  <td data-row="30" data-col="1">0.106</td>
+                </tr>
+                <tr>
+                  <td data-row="31" data-col="0">R2 Cond.</td>
+                  <td data-row="31" data-col="1">0.175</td>
+                </tr>
+                <tr>
+                  <td data-row="32" data-col="0">AIC</td>
+                  <td data-row="32" data-col="1">41764.9</td>
+                </tr>
+                <tr>
+                  <td data-row="33" data-col="0">BIC</td>
+                  <td data-row="33" data-col="1">41878.2</td>
+                </tr>
+                <tr>
+                  <td data-row="34" data-col="0">ICC</td>
+                  <td data-row="34" data-col="1">0.1</td>
+                </tr>
+                <tr>
+                  <td data-row="35" data-col="0">RMSE</td>
+                  <td data-row="35" data-col="1">1.01</td>
+                </tr>
+        </tbody>
+      </table>
+    </div>
+<!-- hack to avoid NA insertion in last line -->
+</div>
+</div>
+<p>Our multivariate, linear model, with a random intercept for each DHS cluster shows a negative, significant relationship between the average maximum temperature for 1-3 months prior to a survey and child weight-for-age z-score.</p>
+<p>Now that we have built a model predicting child weight-for-age z-score, we will use this model with the climate scenario data to make a forecast of the count of children experiencing wasting per DHS cluster in the year of 2050.</p>
+</section>
+<section id="integrating-climate-scenario-data-into-our-workflow" class="level2">
+<h2 class="anchored" data-anchor-id="integrating-climate-scenario-data-into-our-workflow">Integrating Climate Scenario Data into our Workflow</h2>
+<p>We will begin this process by reading in the climate scenario data. For this example, we will use SSP5-8.5. Read more about this SSP and how to download and format it in order to use it with DHS data in <a href="https://tech.popdata.org/dhs-research-hub/posts/2025-09-05-forecasting-pt3/">the post before this one.</a></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co">#read in climate scenario data</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="st">"C:/Users/Rebecca/Downloads/ken_Tmax_585_2050_spatial_mean_sf.Rda"</span>)</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="st">"C:/Users/Rebecca/Downloads/ken_Tmax_585_2049_spatial_mean_sf.Rda"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>We grab only a subset of months from 2049 because we are creating a forecast for 2050, not 2049. The reason we need information is because we are using an anticipatory action framework, which involves studying how climate trends prior to 2050 influence child malnutrition in 2050.</p>
+<p>The months we need from 2049 are stored in columns 21:23 in this example. Second, as we mentioned earlier, we have renamed our DHS cluster variable to be ID, so we will rename it here as well to streamline any further merging.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co">#make a subset of the 2049 since we only need a few months of data from this year</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>ken_Tmax_585_2049<span class="ot">&lt;-</span><span class="fu">select</span>(ken_Tmax_585_2049_spatial_mean_sf, <span class="dv">21</span><span class="sc">:</span><span class="dv">23</span>)</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>climatescenariodata<span class="ot">&lt;-</span><span class="fu">st_join</span>(ken_Tmax_585_2050_spatial_mean_sf, ken_Tmax_585_2049)</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a><span class="co">#rename DHS cluster to ID for merging</span></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>climatescenariodata<span class="ot">&lt;-</span>climatescenariodata<span class="sc">%&gt;%</span></span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="st">'ID'</span><span class="ot">=</span> <span class="st">'DHSCLUST'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Now we will need to create dataframe that is the same structure as the dataframe that we used to create our model. We will need to reorganize our climate scenario data to be 1-3 month averages prior to the month that the DHS survey was administered. We can do this by calculating the month of the DHS using information from our <a href="https://dhsprogram.com/data/Guide-to-DHS-Statistics/Organization_of_DHS_Data.htm">century-month-code</a> variable.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="co">#use the century-month code formula to calculate the month</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>tempandDHSwithsurveyfilter<span class="sc">$</span>surveymonth<span class="ot">&lt;-</span>(tempandDHSwithsurveyfilter<span class="sc">$</span>surveydate<span class="sc">-</span>(<span class="dv">12</span><span class="sc">*</span>(<span class="dv">2022-1900</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Next, we will create a new dataframe for the year of 2050. We will manipulate our original dataframe in order to accomplish this. We will hold all of our DHS variables constant, meaning we will use the same values as the original dataframe.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="co">#make a subset of the a dataframe with predictors for analysis </span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>build2050frame<span class="ot">&lt;-</span><span class="fu">select</span>(tempandDHSwithsurveyfilter, caseid, birthorder, ID, urban, married, curchildage, childsex, educationlevel, AGE, floor)</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a><span class="co">#add value for year as 2050 and value for outcome as NA</span></span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>build2050frame<span class="sc">$</span>year <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="dv">2050</span>, <span class="fu">nrow</span>(build2050frame))</span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>build2050frame<span class="sc">$</span>w4age <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="cn">NA</span>, <span class="fu">nrow</span>(build2050frame))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>We will swap our historical climate information for the climate scenario information, however.</p>
+<p>Next, we need to merge our climate scenario information with this new dataframe for 2050. Our climate scenario information is integral to generating a forecast because all of our other variables besides DHS cluster are equal to ‘NA.’</p>
+<p>First, we select a subset of our cliamte scenario data that only includes the year-months that we need. In this example, these variables are in columns 21:35.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>climatescenarioselect<span class="ot">&lt;-</span><span class="fu">select</span>(climatescenariodata, ID, <span class="dv">21</span><span class="sc">:</span><span class="dv">35</span>)</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="co">#drop geometry </span></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>climatescenarioselect_df <span class="ot">&lt;-</span> climatescenarioselect<span class="sc">%&gt;%</span> </span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_drop_geometry</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>At this point, we have built a dataframe that contains the DHS cluster column and the projecte average monthly maximum temperature for select months in 2049 and 2050. We have to restructure this to be in the 1-3 month prior to the survey date format, as we did above with the historical information.</p>
+<p>We can start by using pivot_longer to make this our projected temperature data into the long format. In this example, we create a scenario_DATE variable with stores the full date in mm-dd-yyyy format. Then we can calculate the CMC for this variable.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co">#make data long</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>climatescenario_long <span class="ot">&lt;-</span> climatescenarioselect_df<span class="sc">%&gt;%</span></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">cols =</span> <span class="sc">-</span>ID, <span class="co"># Do not pivot the ID col</span></span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">names_to =</span> <span class="st">"scenario_DATE"</span>, <span class="co"># Rename output columns</span></span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">values_to =</span> <span class="st">"AV_TEMP"</span></span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">scenario_DATE=</span> <span class="fu">str_replace</span>(scenario_DATE, <span class="st">"ym_"</span>, <span class="st">""</span>),</span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">scenario_DATE =</span> <span class="fu">ym</span>(scenario_DATE))</span>
+<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a><span class="co">#calculate the CMC</span></span>
+<span id="cb17-15"><a href="#cb17-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-16"><a href="#cb17-16" aria-hidden="true" tabindex="-1"></a>climatescenario_long<span class="ot">&lt;-</span>climatescenario_long<span class="sc">%&gt;%</span></span>
+<span id="cb17-17"><a href="#cb17-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">scenarioCMC=</span>(<span class="fu">year</span>(scenario_DATE) <span class="sc">-</span> <span class="dv">1900</span>) <span class="sc">*</span> <span class="dv">12</span> <span class="sc">+</span> <span class="fu">month</span>(scenario_DATE))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Now we will change our DHS survey date variable, to make it as if it were collected in the year of 2050. We can do this by editing the CMC to match that of 2050. First, we extract the exact survey dates from our dataset. This variable is in CMC format.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="co">#first see what the unique values of the survey date are</span></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a><span class="fu">unique</span>(tempandDHSwithsurveyfilter<span class="sc">$</span>surveydate)</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 1468 1469 1470 1471 1467 1466</span></span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a><span class="co">#another way to check this is by creating a month variable</span></span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a><span class="co">#calculate the month from  the cmc</span></span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a>tempandDHSwithsurveyfilter<span class="ot">&lt;-</span>tempandDHSwithsurveyfilter<span class="sc">%&gt;%</span></span>
+<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">month=</span> surveydate<span class="sc">-</span> <span class="dv">12</span> <span class="sc">*</span>(<span class="dv">2022-1900</span>))</span>
+<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-14"><a href="#cb18-14" aria-hidden="true" tabindex="-1"></a><span class="fu">unique</span>(tempandDHSwithsurveyfilter<span class="sc">$</span>month)</span>
+<span id="cb18-15"><a href="#cb18-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 4 5 6 7 3 2</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Now that we know what the exact dates/ months are. We can write code to create a ‘future’ survey date.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="co">#now use case_when to get the CMC for these specific months in 2049-2050</span></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>tempandDHSwithsurveyfilter<span class="ot">&lt;-</span>tempandDHSwithsurveyfilter<span class="sc">%&gt;%</span></span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">futuresurveydate=</span> <span class="fu">case_when</span>(month<span class="sc">==</span><span class="dv">2</span><span class="sc">~</span> <span class="dv">1802</span>,</span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>                          month<span class="sc">==</span><span class="dv">3</span><span class="sc">~</span> <span class="dv">1803</span>,</span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>                          month<span class="sc">==</span><span class="dv">4</span><span class="sc">~</span> <span class="dv">1804</span>,</span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>                          month<span class="sc">==</span><span class="dv">5</span><span class="sc">~</span> <span class="dv">1805</span>,</span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>                          month<span class="sc">==</span><span class="dv">6</span><span class="sc">~</span> <span class="dv">1806</span>,</span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a>                          month<span class="sc">==</span><span class="dv">7</span><span class="sc">~</span> <span class="dv">1807</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Now that we have a future survey date in our dataset, we can lag our climate scenario information.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="co">#merge with DHS </span></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>climatescenarioreframe <span class="ot">&lt;-</span> <span class="fu">merge</span>(tempandDHSwithsurveyfilter, climatescenario_long, <span class="at">by=</span><span class="st">"ID"</span>)</span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a><span class="co">#create new variables for 1-3 months before future survey date</span></span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>climatescenarioreframe<span class="sc">$</span>prefuturesurveytemp1<span class="ot">&lt;-</span><span class="fu">ifelse</span>(climatescenarioreframe<span class="sc">$</span>scenarioCMC<span class="sc">==</span> (climatescenarioreframe<span class="sc">$</span>futuresurveydate<span class="dv">-1</span>), climatescenarioreframe<span class="sc">$</span>AV_TEMP, <span class="cn">NA</span>)</span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a>climatescenarioreframe<span class="sc">$</span>prefuturesurveytemp2<span class="ot">&lt;-</span><span class="fu">ifelse</span>(climatescenarioreframe<span class="sc">$</span>scenarioCMC<span class="sc">==</span> (climatescenarioreframe<span class="sc">$</span>futuresurveydate<span class="dv">-2</span>), climatescenarioreframe<span class="sc">$</span>AV_TEMP, <span class="cn">NA</span>)</span>
+<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-13"><a href="#cb20-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-14"><a href="#cb20-14" aria-hidden="true" tabindex="-1"></a>climatescenarioreframe<span class="sc">$</span>prefuturesurveytemp3<span class="ot">&lt;-</span><span class="fu">ifelse</span>(climatescenarioreframe<span class="sc">$</span>scenarioCMC<span class="sc">==</span> (climatescenarioreframe<span class="sc">$</span>futuresurveydate<span class="dv">-3</span>), climatescenarioreframe<span class="sc">$</span>AV_TEMP, <span class="cn">NA</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Now we will restructure the dataset one last time and merge it with the dataframe for 2050 that we have created.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co">#pivot long</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>climatescenarioreframe2<span class="ot">&lt;-</span>climatescenarioreframe <span class="sc">%&gt;%</span></span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(</span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">cols =</span> <span class="fu">contains</span>(<span class="st">"futuresurveytemp"</span>),</span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">names_to =</span> <span class="st">"cmcinreftosurvey"</span>,</span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">names_prefix =</span> <span class="st">"temp"</span>,</span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">values_to =</span> <span class="st">"temperature"</span>,</span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">values_drop_na =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a><span class="co">#pivot wider</span></span>
+<span id="cb21-12"><a href="#cb21-12" aria-hidden="true" tabindex="-1"></a>scenario_wide2 <span class="ot">&lt;-</span> climatescenarioreframe2<span class="sc">%&gt;%</span></span>
+<span id="cb21-13"><a href="#cb21-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">id_cols =</span> <span class="fu">c</span>(caseid, ID, birthorder), <span class="at">names_from =</span> cmcinreftosurvey, <span class="at">values_from =</span> temperature)</span>
+<span id="cb21-14"><a href="#cb21-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-15"><a href="#cb21-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-16"><a href="#cb21-16" aria-hidden="true" tabindex="-1"></a><span class="co">#merge with 2050 df </span></span>
+<span id="cb21-17"><a href="#cb21-17" aria-hidden="true" tabindex="-1"></a>df_2050_scenariodata<span class="ot">&lt;-</span> <span class="fu">left_join</span>(build2050frame, scenario_wide2, <span class="at">by=</span> <span class="fu">c</span>(<span class="st">'caseid'</span>, <span class="st">'birthorder'</span>, <span class="st">'ID'</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Next, since we worked with the average maximum temperature for 1-3 months prior to a survey. We need to create an average variable of our climate scenario data.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co">#calculate the average temperature for 1-3 months prior to survey</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>df_2050_scenariodata<span class="sc">$</span>avtemppresurvey<span class="ot">&lt;-</span>((df_2050_scenariodata<span class="sc">$</span>prefuturesurveytemp1<span class="sc">+</span> df_2050_scenariodata<span class="sc">$</span>prefuturesurveytemp2<span class="sc">+</span> df_2050_scenariodata<span class="sc">$</span>prefuturesurveytemp3)<span class="sc">/</span><span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="how-much-hotter-is-2050-than-2022" class="level2 page-columns page-full">
+<h2 class="anchored" data-anchor-id="how-much-hotter-is-2050-than-2022">How Much Hotter Is 2050 than 2022?</h2>
+<p>Before we generate our weight-for-age forecasts, let’s visualize how much hotter the temperature in projected to be in 2050 is than the observed temperature in 2022. For the sake of comparison, let’s visualize the difference between the average monthly maximum temperature in January 2022 and January 2050.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="co">#2022</span></span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>Jan2022<span class="ot">&lt;-</span>ken_chirts_long_filter<span class="sc">%&gt;%</span></span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(CHIRTSCMC<span class="sc">==</span><span class="dv">1465</span>)<span class="sc">%&gt;%</span></span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="st">'AV_TEMP_2022'</span><span class="ot">=</span><span class="st">'AV_TEMP'</span>)</span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a><span class="co">#2050</span></span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>Jan2050<span class="ot">&lt;-</span>climatescenario_long<span class="sc">%&gt;%</span></span>
+<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(scenarioCMC<span class="sc">==</span><span class="dv">1801</span>)<span class="sc">%&gt;%</span></span>
+<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="st">'AV_TEMP_2050'</span><span class="ot">=</span><span class="st">'AV_TEMP'</span>)</span>
+<span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-12"><a href="#cb23-12" aria-hidden="true" tabindex="-1"></a><span class="co">#merge them </span></span>
+<span id="cb23-13"><a href="#cb23-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-14"><a href="#cb23-14" aria-hidden="true" tabindex="-1"></a>temptogether<span class="ot">&lt;-</span><span class="fu">left_join</span>(Jan2022, Jan2050)</span>
+<span id="cb23-15"><a href="#cb23-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Joining with `by = join_by(ID)`</span></span>
+<span id="cb23-16"><a href="#cb23-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-17"><a href="#cb23-17" aria-hidden="true" tabindex="-1"></a><span class="co">#add the geometry back in</span></span>
+<span id="cb23-18"><a href="#cb23-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-19"><a href="#cb23-19" aria-hidden="true" tabindex="-1"></a>justgps<span class="ot">&lt;-</span><span class="fu">select</span>(ken_Tmax_585_2049_spatial_mean_sf, <span class="at">ID=</span>DHSCLUST, geometry)</span>
+<span id="cb23-20"><a href="#cb23-20" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb23-21"><a href="#cb23-21" aria-hidden="true" tabindex="-1"></a>temp20222050wgeo<span class="ot">&lt;-</span><span class="fu">left_join</span>(temptogether, justgps)</span>
+<span id="cb23-22"><a href="#cb23-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Joining with `by = join_by(ID)`</span></span>
+<span id="cb23-23"><a href="#cb23-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-24"><a href="#cb23-24" aria-hidden="true" tabindex="-1"></a><span class="co">#convert to spatial frame</span></span>
+<span id="cb23-25"><a href="#cb23-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-26"><a href="#cb23-26" aria-hidden="true" tabindex="-1"></a>temptogetherwgeo<span class="ot">&lt;-</span><span class="fu">st_sf</span>(temp20222050wgeo)</span>
+<span id="cb23-27"><a href="#cb23-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-28"><a href="#cb23-28" aria-hidden="true" tabindex="-1"></a><span class="co">#calculate the difference between them</span></span>
+<span id="cb23-29"><a href="#cb23-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-30"><a href="#cb23-30" aria-hidden="true" tabindex="-1"></a>temp20222050wgeo<span class="sc">$</span>delta<span class="ot">&lt;-</span>temp20222050wgeo<span class="sc">$</span>AV_TEMP_2050<span class="sc">-</span>temp20222050wgeo<span class="sc">$</span>AV_TEMP_2022</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Next, we read in an administrative boundary file for Kenya, and use both ggplot() and a package inspired by the filmmaker <a href="https://www.imdb.com/name/nm0027572/">Wes Anderson</a>, that allows you to use a color palette reminiscent of the colors you see in his films. Read more about this package <a href="https://github.com/karthik/wesanderson">here</a>.</p>
+<div class="cell page-columns page-full" data-layout-align="center">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co">#read into kenya borders</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>ken_borders<span class="ot">&lt;-</span><span class="fu">st_read</span>(<span class="st">"data/geo_ke1989_2014/geo_ke1989_2014.shp"</span>)</span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Reading layer `geo_ke1989_2014' from data source </span></span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   `C:\Users\Rebecca\Documents\Projects\dhs-research-hub\posts\2025-10-24-forecasting-pt4\data\geo_ke1989_2014\geo_ke1989_2014.shp' </span></span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   using driver `ESRI Shapefile'</span></span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Simple feature collection with 9 features and 3 fields</span></span>
+<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Geometry type: MULTIPOLYGON</span></span>
+<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Dimension:     XY</span></span>
+<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Bounding box:  xmin: 33.90983 ymin: -4.680056 xmax: 41.90684 ymax: 5.033421</span></span>
+<span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Geodetic CRS:  WGS 84</span></span>
+<span id="cb24-12"><a href="#cb24-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-13"><a href="#cb24-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-14"><a href="#cb24-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Load the wesanderson package </span></span>
+<span id="cb24-15"><a href="#cb24-15" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(wesanderson)</span>
+<span id="cb24-16"><a href="#cb24-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Warning: package 'wesanderson' was built under R version 4.5.1</span></span>
+<span id="cb24-17"><a href="#cb24-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-18"><a href="#cb24-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-19"><a href="#cb24-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a reversed continuous gradient from Zissou1, a reference to the 'The Life Aquatic'</span></span>
+<span id="cb24-20"><a href="#cb24-20" aria-hidden="true" tabindex="-1"></a>gb_palette <span class="ot">&lt;-</span> <span class="fu">colorRampPalette</span>(wesanderson<span class="sc">::</span><span class="fu">wes_palette</span>(<span class="st">"Zissou1"</span>, <span class="at">type =</span> <span class="st">"continuous"</span>))(<span class="dv">100</span>)</span>
+<span id="cb24-21"><a href="#cb24-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-22"><a href="#cb24-22" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(temp20222050wgeo) <span class="sc">+</span></span>
+<span id="cb24-23"><a href="#cb24-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="fu">aes</span>(<span class="at">geometry =</span> geometry, <span class="at">color =</span> delta), <span class="at">size =</span> <span class="dv">5</span>, <span class="at">alpha =</span> <span class="fl">0.8</span>) <span class="sc">+</span></span>
+<span id="cb24-24"><a href="#cb24-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> ken_borders, <span class="at">color =</span> <span class="st">"black"</span>, <span class="at">fill =</span> <span class="cn">NA</span>, <span class="at">linewidth =</span> <span class="fl">0.4</span>) <span class="sc">+</span></span>
+<span id="cb24-25"><a href="#cb24-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_gradientn</span>(<span class="at">colors =</span> gb_palette) <span class="sc">+</span></span>
+<span id="cb24-26"><a href="#cb24-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb24-27"><a href="#cb24-27" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Delta between Monthly Average Maximum Temperature </span><span class="sc">\n</span><span class="st">Predicted in January 2050 and Observed in January 2022"</span>,</span>
+<span id="cb24-28"><a href="#cb24-28" aria-hidden="true" tabindex="-1"></a>    <span class="at">color =</span> <span class="st">"Delta (°C)"</span></span>
+<span id="cb24-29"><a href="#cb24-29" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb24-30"><a href="#cb24-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">20</span>)<span class="sc">+</span></span>
+<span id="cb24-31"><a href="#cb24-31" aria-hidden="true" tabindex="-1"></a><span class="fu">theme</span>(</span>
+<span id="cb24-32"><a href="#cb24-32" aria-hidden="true" tabindex="-1"></a>  <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">14</span>)</span>
+<span id="cb24-33"><a href="#cb24-33" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display page-columns page-full">
+<div class="quarto-figure quarto-figure-center page-columns page-full">
+<figure class="figure page-columns page-full">
+<p class="page-columns page-full"><img src="index_files/figure-html/unnamed-chunk-23-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img column-page" style="width:100.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="generate-the-forecasts" class="level1">
+<h1>Generate the Forecasts</h1>
+<p>Now we have our dataframe for 2050, we can generate the fitted values of our outcome, weight-for-age, for 2050. We can use the predict() function to run the model we have built earlier with the dataframe we have created in which we substituted out our historical climate data for climate scenario data.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="co">#generate the predictions</span></span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>forecasts_2050 <span class="ot">&lt;-</span><span class="fu">predict</span>(wastingmlm, <span class="at">newdata =</span> df_2050_scenariodata, <span class="at">allow.new.levels =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="comparing-our-observed-and-forecasted-values" class="level1 page-columns page-full">
+<h1>Comparing our Observed and Forecasted Values</h1>
+<p>Now let’s compare our forecasted weight-for-age z-scores for 2050 using SSP5-8.5, with our observed weight-for-age z-scores in 2022.</p>
+<p>To visualize the differences, we will calculate the observed average weight-for-age z-score per DHS cluster in 2022, alongside the predicted one for 2050, given the SSP5-8.5 assumptions.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Combine actual and predicted values</span></span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>forecasts_and_observed <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">Predictedw4age=</span>forecasts_2050, <span class="at">caseid=</span>df_2050_scenariodata<span class="sc">$</span>caseid, <span class="at">ID=</span>df_2050_scenariodata<span class="sc">$</span>ID, <span class="at">observedw4age=</span>tempandDHSwithsurveyfilter<span class="sc">$</span>w4age)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Now let’s plot the distribution of our observed and predicted weight-for-age scores.</p>
+<div class="cell page-columns page-full" data-layout-align="center">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Reshape to long format</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>forecasts_and_observed_long <span class="ot">&lt;-</span> forecasts_and_observed <span class="sc">%&gt;%</span></span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="fu">c</span>(Predictedw4age, observedw4age), <span class="at">names_to =</span> <span class="st">"predicted_observed"</span>, <span class="at">values_to =</span> <span class="st">"value"</span>)</span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>forecasts_and_observed_long <span class="ot">&lt;-</span> forecasts_and_observed_long <span class="sc">%&gt;%</span></span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(value))</span>
+<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Histogram with facet_wrap</span></span>
+<span id="cb27-10"><a href="#cb27-10" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(forecasts_and_observed_long, <span class="fu">aes</span>(<span class="at">x =</span> value)) <span class="sc">+</span></span>
+<span id="cb27-11"><a href="#cb27-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">binwidth =</span> <span class="fl">0.5</span>, <span class="at">fill =</span> <span class="st">"skyblue"</span>, <span class="at">color =</span> <span class="st">"white"</span>) <span class="sc">+</span></span>
+<span id="cb27-12"><a href="#cb27-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> predicted_observed, <span class="at">scales =</span> <span class="st">"fixed"</span>, <span class="at">labeller =</span> <span class="fu">labeller</span>(<span class="at">predicted_observed =</span> <span class="fu">c</span>(</span>
+<span id="cb27-13"><a href="#cb27-13" aria-hidden="true" tabindex="-1"></a>    <span class="st">"observedw4age"</span> <span class="ot">=</span> <span class="st">"Observed values, 2022"</span>,</span>
+<span id="cb27-14"><a href="#cb27-14" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Predictedw4age"</span> <span class="ot">=</span> <span class="st">"Forecasted values, 2050, SSP5-8.5"</span></span>
+<span id="cb27-15"><a href="#cb27-15" aria-hidden="true" tabindex="-1"></a>  ))) <span class="sc">+</span></span>
+<span id="cb27-16"><a href="#cb27-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb27-17"><a href="#cb27-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Distribution of weight-for-age z-scores "</span>,</span>
+<span id="cb27-18"><a href="#cb27-18" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Weight-for-age z-score"</span>,</span>
+<span id="cb27-19"><a href="#cb27-19" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Count"</span>)<span class="sc">+</span></span>
+<span id="cb27-20"><a href="#cb27-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">20</span>)<span class="sc">+</span></span>
+<span id="cb27-21"><a href="#cb27-21" aria-hidden="true" tabindex="-1"></a><span class="fu">theme</span>(</span>
+<span id="cb27-22"><a href="#cb27-22" aria-hidden="true" tabindex="-1"></a>  <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">14</span>)</span>
+<span id="cb27-23"><a href="#cb27-23" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display page-columns page-full">
+<div class="quarto-figure quarto-figure-center page-columns page-full">
+<figure class="figure page-columns page-full">
+<p class="page-columns page-full"><img src="index_files/figure-html/unnamed-chunk-26-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img column-page" style="width:100.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Our forecasts are mainly concentrated below zero, meaning that our forecasted sample is predicted to have a higher concentration of lower weight-for-age z-scores than our observed sample from 2022.</p>
+<p>Our historical model confirmed that monthly average maximum temperature per DHS cluster 1-3 months before the survey is associated with a lower weight-for-age z-score. In addition to this, the predicted temperature data for SSP5-8.5 in 2050 is higher than the observed temperature data in 2022, on average. Therefore, it is reasonable to assume that the forecasted weight-for-age values would be more negative than those that we observed.</p>
+</section>
+<section id="conclusion" class="level1">
+<h1>Conclusion</h1>
+<p>This post is the last of our series on climate and population projections. Together the posts in this series introduced proper terminology when using future estimation, demonstrated how to carry out demographic methods like calcualting vital rates and population projections, and showed how climate data can be integrated into these workflows. This series used data from the Kenya 2022 DHS, however, these methods can be integrated in different regions with different data sources as well. In this final post, we found the child population surveyed by the Kenya 2022 DHS would experience lower weight-for-age z-scores on average if they were surveyed in 2050, given SSP5-8.5 assumptions. This information can be utilized to mitigate the future risks of increased child malnutrition as temperatures continue to rise in Kenya.</p>
+</section>
+<section id="looking-ahead" class="level1">
+<h1>Looking ahead</h1>
+<p>Our next blog post will be the second post in our series on dietary diversity, a topic that definitely has implications on child health. When a child has regular access to nutritious foods, their risk of experiencing indicators of malnutrition, such as wasting or stunting, is greatly reduced.</p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
+          }
+        }
+        return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/ipums\.github\.io\/dhs-research-hub");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+      &nbsp;
+    </div>   
+    <div class="nav-footer-center">
+<p>Developed by <a href="https://www.ipums.org">IPUMS</a> at the University of Minnesota<br>Licensed under the <a href="https://www.mozilla.org/en-US/MPL/2.0/">Mozilla Public License Version 2.0</a></p>
+</div>
+    <div class="nav-footer-right">
+      &nbsp;
+    </div>
+  </div>
+</footer>
+
+
+
+
+</body></html>

@@ -9,8 +9,23 @@
 <link>https://ipums.github.io/dhs-research-hub/</link>
 <atom:link href="https://ipums.github.io/dhs-research-hub/index.xml" rel="self" type="application/rss+xml"/>
 <description>Understand population health in its environmental context</description>
-<generator>quarto-1.5.57</generator>
-<lastBuildDate>Fri, 05 Sep 2025 05:00:00 GMT</lastBuildDate>
+<generator>quarto-1.7.32</generator>
+<lastBuildDate>Fri, 24 Oct 2025 05:00:00 GMT</lastBuildDate>
+<item>
+  <title>Using Historical and Projected Climate Data to Forecast Child Malnutrition</title>
+  <dc:creator>Rebecca Luttinen</dc:creator>
+  <dc:creator>Jessie Pinchoff</dc:creator>
+  <link>https://ipums.github.io/dhs-research-hub/posts/2025-10-24-forecasting-pt4/</link>
+  <description><![CDATA[ In the final post in our series on future estimation we create a model to predict child malnutrition and plug in projected climate scenario data to predict a future level of child malnutrition. ]]></description>
+  <category>Climate</category>
+  <category>Scenarios</category>
+  <category>Temperature</category>
+  <category>R</category>
+  <category>Nutrition</category>
+  <category>Forecasts</category>
+  <guid>https://ipums.github.io/dhs-research-hub/posts/2025-10-24-forecasting-pt4/</guid>
+  <pubDate>Fri, 24 Oct 2025 05:00:00 GMT</pubDate>
+</item>
 <item>
   <title>Harnessing CHC-CMIP6 Climate Scenario Data to Explore the Future</title>
   <dc:creator>Rebecca Luttinen</dc:creator>
@@ -341,20 +356,6 @@
   <guid>https://ipums.github.io/dhs-research-hub/posts/2024-02-04-dhs-chirps/</guid>
   <pubDate>Sun, 04 Feb 2024 06:00:00 GMT</pubDate>
   <media:content url="https://ipums.github.io/dhs-research-hub/posts/2024-02-04-dhs-chirps/index_files/figure-html/listing-img-1.png" medium="image" type="image/png"/>
-</item>
-<item>
-  <title>Developing Robust Conceptual Models in Research on Extreme Weather and Health</title>
-  <dc:creator>Elizabeth Heger Boyle</dc:creator>
-  <dc:creator>Kathryn Grace</dc:creator>
-  <dc:creator>Audrey Dorélien</dc:creator>
-  <dc:creator>Devon Kristiansen</dc:creator>
-  <link>https://ipums.github.io/dhs-research-hub/posts/2024-02-03-climate-theory/</link>
-  <description><![CDATA[ Introducing the theoretical foundations for effective research on weather extremes and health ]]></description>
-  <category>Extreme weather</category>
-  <category>Methodology</category>
-  <category>Research concepts</category>
-  <guid>https://ipums.github.io/dhs-research-hub/posts/2024-02-03-climate-theory/</guid>
-  <pubDate>Sat, 03 Feb 2024 06:00:00 GMT</pubDate>
 </item>
 </channel>
 </rss>
