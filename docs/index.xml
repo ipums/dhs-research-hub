@@ -10,7 +10,21 @@
 <atom:link href="https://ipums.github.io/dhs-research-hub/index.xml" rel="self" type="application/rss+xml"/>
 <description>Understand population health in its environmental context</description>
 <generator>quarto-1.7.32</generator>
-<lastBuildDate>Fri, 24 Oct 2025 05:00:00 GMT</lastBuildDate>
+<lastBuildDate>Fri, 21 Nov 2025 06:00:00 GMT</lastBuildDate>
+<item>
+  <title>Multilevel Dietary Diversity using DHS data</title>
+  <dc:creator>Devon Kristiansen</dc:creator>
+  <link>https://ipums.github.io/dhs-research-hub/posts/2025-11-21-diet-diversity-ndvi/</link>
+  <description><![CDATA[ A follow-up post on using a comparable measure of dietary diversity in a multilevel model including NDVI contextual information in the model. ]]></description>
+  <category>Nutrition</category>
+  <category>Integrated geography</category>
+  <category>Comparable indicators</category>
+  <category>Multilevel models</category>
+  <category>terra</category>
+  <category>sf</category>
+  <guid>https://ipums.github.io/dhs-research-hub/posts/2025-11-21-diet-diversity-ndvi/</guid>
+  <pubDate>Fri, 21 Nov 2025 06:00:00 GMT</pubDate>
+</item>
 <item>
   <title>Using Historical and Projected Climate Data to Forecast Child Malnutrition</title>
   <dc:creator>Rebecca Luttinen</dc:creator>
@@ -338,24 +352,6 @@
   <guid>https://ipums.github.io/dhs-research-hub/posts/2024-02-23-rainfall-insights/</guid>
   <pubDate>Thu, 07 Mar 2024 06:00:00 GMT</pubDate>
   <media:content url="https://ipums.github.io/dhs-research-hub/posts/2024-02-23-rainfall-insights/images/storm-clouds-over-wheat-field-danger-weather-with-dark-sky-over-fields-SBI-300870591.jpg" medium="image" type="image/jpeg"/>
-</item>
-<item>
-  <title>Attaching CHIRPS Precipitation Data to DHS Surveys</title>
-  <dc:creator>Finn Roberts</dc:creator>
-  <dc:creator>Matt Gunther</dc:creator>
-  <link>https://ipums.github.io/dhs-research-hub/posts/2024-02-04-dhs-chirps/</link>
-  <description><![CDATA[ Remotely sensed precipitation data can provide important context for understanding the health outcomes reported in the DHS ]]></description>
-  <category>CHIRPS</category>
-  <category>Precipitation</category>
-  <category>Extreme weather</category>
-  <category>Agriculture</category>
-  <category>terra</category>
-  <category>sf</category>
-  <category>ggspatial</category>
-  <category>R</category>
-  <guid>https://ipums.github.io/dhs-research-hub/posts/2024-02-04-dhs-chirps/</guid>
-  <pubDate>Sun, 04 Feb 2024 06:00:00 GMT</pubDate>
-  <media:content url="https://ipums.github.io/dhs-research-hub/posts/2024-02-04-dhs-chirps/index_files/figure-html/listing-img-1.png" medium="image" type="image/png"/>
 </item>
 </channel>
 </rss>

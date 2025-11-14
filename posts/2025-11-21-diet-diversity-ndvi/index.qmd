@@ -1,0 +1,499 @@
+---
+title: "Multilevel Dietary Diversity using DHS data"
+description: "A follow-up post on using a comparable measure of dietary diversity in a multilevel model including NDVI contextual information in the model."
+format: html
+author: 
+  - name: "Devon Kristiansen"
+    affiliation: "IPUMS Global Health Research Manager"
+    
+date: 11-21-2025
+categories:
+  - Nutrition
+  - Integrated geography
+  - Comparable indicators
+  - Multilevel models
+  - terra
+  - sf
+---
+
+This post is a follow-up to [our earlier blog](https://tech.popdata.org/dhs-research-hub/posts/2025-08-06-intro-diet-diversity/) on measuring dietary diversity using Demographic and Health Surveys (DHS) data over time. First we will attach Normalized Difference Vegetation Index data to the individual level child records. Second, we will analyze the association between NDVI and dietary diversity using a multilevel model.
+
+# Setting up the Data
+
+## NDVI data
+
+We covered how to read in an [IPUMS DHS](https://www.idhsdata.org/idhs/) data file and calculate dietary diversity using World Health Organization definitions in [our previous post on dietary diversity](https://tech.popdata.org/dhs-research-hub/posts/2025-08-06-intro-diet-diversity/), and we discuss in multiple previous posts ([iterative worklows using NDVI](https://tech.popdata.org/dhs-research-hub/posts/2024-08-01-ndvi-data/); [aggregation methods](https://tech.popdata.org/dhs-research-hub/posts/2024-08-16-ndvi-data-2/)) how to download and summarize NDVI data from NASA. The code below (hidden until you click "Code") is included as a refresher.
+
+```{r, message=FALSE, warning=FALSE}
+#| code-fold: true
+# Load necessary packages
+library(ipumsr)
+library(sf)
+library(dplyr)
+library(tidyr)
+library(zoo)
+library(lubridate)
+library(terra)
+library(fs)
+library(stringr)
+library(purrr)
+
+#Read in GPS data ----
+ke2003_gps <- st_read("data/gps_clusters/KEGE43FL.shp")
+ke2008_gps <- st_read("data/gps_clusters/KEGE52FL.shp")
+ke2014_gps <- st_read("data/gps_clusters/KEGE71FL.shp")
+
+#Combine all three survey GPS points into one shapefile
+ke_all_gps <- bind_rows(ke2003_gps, ke2008_gps, ke2014_gps)
+
+#Remove empty geographies
+ke_all_gps <- ke_all_gps |> filter(LATNUM != 0, LONGNUM != 0)
+
+#Read in border data ----
+ke_borders <- ipumsr::read_ipums_sf("data/boundaries/geo_ke1989_2014.zip") |> 
+  st_make_valid() |> # Fix minor border inconsistencies
+  st_union()
+
+#Create buffers around GPS data ----
+ke_all_gps <- st_transform(ke_all_gps, crs = 32630)
+ke_all_gps10 <- st_buffer(
+  ke_all_gps,
+  dist = if_else(ke_all_gps$URBAN_RURA == "U", 2000, 10000)
+)
+
+#Read in HDF files ----
+hdf_files <- list.files("data_local", full.names = TRUE, pattern = "\\.hdf$")
+tile_codes <- unique(str_extract(hdf_files, "h[0-9]{2}v[0-9]{2}"))
+
+#Convert HDF files into TIF in a loop
+for (f in hdf_files) {
+  s <- sds(f)[1]  # pick subdataset index or name
+  out_tif <- gsub(".hdf$", ".tif", basename(f))
+  writeRaster(s, file.path("data_local/", out_tif), overwrite = TRUE)
+}
+
+#Create new list of TIF files
+tif_files <- list.files("data_local", full.names = TRUE, pattern = "\\.tif$")
+
+tiles <- map(
+  tile_codes,
+  function(code) tif_files[str_detect(tif_files, code)]
+)
+
+# Load NDVI TIF files for each set of files corresponding to a particular tile
+ndvi_tiles <- map(
+  tiles, 
+  function(x) rast(x)
+)
+
+# Obtain CRS of NDVI raster data
+ ndvi_crs <- crs(ndvi_tiles[[1]])
+
+# Transform borders and GPS to same CRS as NDVI
+ ke_borders <- st_transform(ke_borders, crs = ndvi_crs)
+ ke_all_gps10 <- st_transform(ke_all_gps10, crs = ndvi_crs)
+
+ndvi_tiles <- map(
+  ndvi_tiles, 
+  function(x) crop(x, ke_borders)
+)
+
+ke_ndvi <- reduce(ndvi_tiles, mosaic)
+
+#Rescale NDVI values
+ke_ndvi <- ke_ndvi / 100000000
+
+# Reclassify out-of-range data to NA
+m <- matrix(c(-Inf, -1, NA), nrow = 1)
+ke_ndvi <- classify(ke_ndvi, m)
+
+# Extract 7-digit sequence following an "A"
+timestamps <- unique(stringr::str_extract(tif_files, "(?<=A)[0-9]{7}"))
+
+time(ke_ndvi) <- unique(lubridate::parse_date_time(timestamps, "yj"))
+
+#change incremented values into start dates array
+raster_times <- time(ke_ndvi)
+
+#Extract values for each buffer for every time point
+ke_mean_ndvi <- extract(
+  ke_ndvi,
+  ke_all_gps10,
+  weights = TRUE,
+  fun = mean,
+  na.rm = TRUE, # Exclude missing raster values in average
+  bind = TRUE
+)
+
+
+```
+
+There are two things to note for how the code above differs from our previous posts on NDVI. First, we convert the HDF into TIFF files. We have 140 HDF files to load in across the three DHS survey years, but RStudio can only have 32 HDF files open at a time (due to a [set limit in the HDF4 library](https://gdal.org/en/stable/drivers/raster/hdf4.html#driver-building)). So we loop through the file list of HDF files downloaded from NASA's website and convert the first layer (the NDVI layer) to a TIFF file and name it exactly the same, except for the .tif file extension.
+
+Second, the NDVI data are in a sinusoidal projection, and both our GPS data points and Kenya border vector data are in WGS 1984 Datum, an ellipsoidal projection. We convert both the border shapefile and GPS point buffers into sinusoidal projection to match the NDVI data. The reason we convert the polygons and points to the NDVI project rather than the other way around is that polygons and points can be readily transformed into different projections by calculating equivalent coordinates, while transforming raster data requires complex interpolation of different cell sizes and shapes.
+
+::: column-margin
+In brief, the reason there are different ways of describing Earth's surface is that Earth is not a perfect sphere. Sinusoidal projections are a more efficient way to store large amounts of raster data.
+
+See the following paper for more detail:
+
+Seong, J. C., Mulcahy, K. A., & Usery, E. L. (2002). The sinusoidal projection: A new importance in relation to global image data. The Professional Geographer, 54(2), 218-225.
+
+Ellipsoidal representations are more accurate but computationally intensive ([see the Chapter 9 summary](https://mgimond.github.io/Spatial/chp09_0.html))
+:::
+
+After running the code hidden above, we have an NDVI dataset for the entire country of Kenya for 2003, 2008, and 2014 during the periods of time when DHS interviews occurred (see the table below).
+
+|   | DHS Kenya 2003 | DHS Kenya 2008 | DHS Kenya 2014 |
+|-------------------|:----------------:|:----------------:|:----------------:|
+| **Interview dates** | April to September | November 2008 to March 2009 | May to October |
+
+Each row in the dataframe we have created is a summarized NDVI value for a 2k or 10k buffer, for urban and rural DHS cluster points respectively, over a 16-day period. Although we recently [introduced VIIRS as a more recent data source for NDVI data](https://tech.popdata.org/dhs-research-hub/posts/2025-03-31-viirs/), we use data from MODIS because we use data from 2003 and 2008. VIIRS did not start collecting data until 2012. We also chose to use the 16-day NDVI value over the monthly NDVI values because the diet diversity questions use a reference window of 24 hours, so we want to use NDVI data with more temporal immediacy than other NDVI products with a larger time window.
+
+## DHS data
+
+Using the code hidden below, we create an IPUMS DHS dataframe containing only youngest surviving children between the ages of 6 and 23 months for the DHS Kenya surveys from 2003, 2008, and 2014. The code also creates a comparable variable that represents a count of food groups they consumed in the past 24 hours, with possible values between zero and seven.
+
+```{r}
+#| code-fold: true
+#Read in IPUMS DHS data ----
+dhs_microdata <- read_ipums_micro(
+  ddi = "data/dhs/idhs_00058.xml",
+  data_file = "data/dhs/idhs_00058.dat.gz",
+  verbose = FALSE
+)
+
+#Keep only children under 2 years old
+dhs_microdata <- dhs_microdata %>% 
+  dplyr::filter(KIDCURAGE < 2)
+#Keep only children who live with their mother
+dhs_microdata <- dhs_microdata %>% 
+  dplyr::filter(KIDLIVESWITH == 10)
+#Drop children who are not alive
+dhs_microdata <- dhs_microdata %>% 
+  dplyr::filter(KIDALIVE == 1)
+#Restrict to youngest born children
+dhs_microdata <- dhs_microdata %>%
+  group_by(SAMPLE, CASEID) %>%
+  filter(row_number() == 1 | CASEID != lag(CASEID))
+
+##Create indicators for whether the youngest child 
+##consumed something from each of  7 food groups 
+##in the past 24 hours
+
+#Breastmilk
+dhs_microdata <- dhs_microdata %>% 
+  mutate(breastmilk = case_when(BRSFEDUR==95 ~ 1))
+
+#Grains, cereals, tubers, porridge, and teff products
+dhs_microdata <- dhs_microdata %>% 
+  mutate(grains = case_when(MAFEDCEREAL24H==1 | MAFEDGRAIN24H==1 | MAFEDTUBER24H==1 | MAFEDPORR24H==1 ~ 1))
+
+#Legumes and nuts
+dhs_microdata <- dhs_microdata %>% 
+  mutate(nuts_legumes = case_when(MAFEDLEGUM24H==1 ~ 1))
+
+#Dairy products (infant formula, milk, yogurt, cheese)
+dhs_microdata <- dhs_microdata %>% 
+  mutate(dairy = case_when(MAFEDFORM24H==1 | MAFEDGENMILK24H==1 | MAFEDCHEESE24H==1 | MAFEDYOGURT24H==1 ~ 1))
+
+#Vitamin A rich fruits and vegetables
+dhs_microdata <- dhs_microdata %>% 
+  mutate(vita = case_when(MAFEDYELVEG24H==1 | MAFEDGRNVEG24H==1 | MAFEDVITAFRUIT24H==1 ~ 1))
+
+#Other fruits and vegetables
+dhs_microdata <- dhs_microdata %>% 
+  mutate(othfrtveg = case_when(MAFEDOFRTVEG24H==1 ~ 1))
+
+#Create a variable that equals 1 if the child consumed 
+#any animal protein or egg in the past 24 hours
+dhs_microdata <- dhs_microdata %>% 
+  mutate(meateggs = case_when(MAFEDEGG24H==1 | MAFEDMEAT24H==1 | MAFEDORGAN24H==1 | MAFEDFISH24H==1 | MAFEDPROTEIN24H == 1 ~ 1))
+
+#Calculate the number of food groups the child consumed in the past 24 hours
+dhs_microdata <- dhs_microdata %>%
+  mutate(foodgroups_com = rowSums(across(c(breastmilk, grains, nuts_legumes, dairy, meateggs, vita, othfrtveg)), 
+                              na.rm = TRUE))
+
+```
+
+To create a dataset for our proposed analysis, we need to attach the NDVI data to the DHS data by both cluster ID (DHSID) and the interview date, which will differ by household.
+
+First, we'll create a single interview date variable in POSIXct format out of the separate interview year (INTYEAR), month (MONTHINT), and day (INTDAY) variables from IPUMS DHS.
+
+```{r}
+#Create POSIXct date variable ----
+dhs_microdata$interview_date <- make_datetime(
+  year = dhs_microdata$INTYEAR,
+  month = dhs_microdata$MONTHINT,
+  day = dhs_microdata$INTDAY
+)
+```
+
+::: column-margin
+POSIXct is a way of storing date and time data efficiently in R. Its value is the number of seconds since January 1st, 1970.
+:::
+
+## Preparing to merge NDVI and DHS data
+
+Next, we'll take some steps to make sure that the numerical suffixes of the NDVI columns and the start and end dates match so that each numerical value corresponds to the same 16-day period. These values were stored above (in the hidden code) as the object `raster_times`.
+
+```{r}
+#Create columns ending in 1-35 containing the raster times of start dates
+ke_mean_ndvi_df <- st_as_sf(ke_mean_ndvi)
+ke_mean_ndvi_df <- bind_cols(
+  ke_mean_ndvi_df,
+  setNames(
+    lapply(raster_times, function(d) rep(d, nrow(ke_mean_ndvi_df))),
+    paste0("start_date_", seq_along(raster_times))
+  )
+)
+
+#Show names of start_date columns
+cols <- grep("start_date_", names(ke_mean_ndvi_df), value = TRUE)
+cols
+
+#Show names of NDVI columns
+cols_ndvi <- grep("X250m", names(ke_mean_ndvi_df), value = TRUE)
+cols_ndvi
+
+```
+
+The automatic indexing of the NDVI columns started without a number, and the second NDVI column ends in 1. So we will add a zero to the first column of NDVI data (the earliest 16-day time period of interview dates), and then add 1 to the numerical suffix of the entire series to align with the start_date series of columns, so that a variable suffix of "1" corresponds to April 7, 2003 to April 22, 2003.
+
+```{r}
+#rename NDVI column without numerical suffix
+ke_mean_ndvi_df <- ke_mean_ndvi_df %>% 
+  st_drop_geometry() %>%
+  rename(X250m.16.days.NDVI.0 = X250m.16.days.NDVI)
+
+#increment NDVI columns to match with start_date columns
+prefix <- "X250m.16.days.NDVI."
+ke_mean_ndvi_df2 <- ke_mean_ndvi_df %>%
+  rename_with(
+    ~ sapply(., function(nm) {
+      if (grepl(paste0("^", prefix, "\\d+$"), nm)) {
+        num <- as.integer(sub(paste0("^", prefix, "(\\d+)$"), "\\1", nm))
+        paste0(prefix, num + 1)
+      } else {
+        nm
+      }
+    }),
+    .cols = starts_with(prefix)
+  )
+names(ke_mean_ndvi_df2) <- sub("X250m.16.days.NDVI.", "NDVI_", names(ke_mean_ndvi_df2))
+```
+
+We can now pivot the data longer so that instead of columns of NDVI data and start date data for each time period, we end up with each row representing a 16-day period that the NDVI data represents corresponding to each DHS cluster point across the three surveys, with only one column for start date and one column for NDVI. We'll also create the end date column that is 15 days later than the start date to capture the full 16 day period.
+
+We only need the DHSID, start and end dates of the NDVI data periods, and NDVI data to attach to the DHS microdata, so we'll create a dataframe called `ke_ndvi_long_select` with only those columns to keep things tidy.
+
+```{r}
+#Reformat data to long with start date, end date, and NDVI as one column each
+ke_mean_ndvi_long <- ke_mean_ndvi_df2 %>%
+  pivot_longer(
+    cols = starts_with(c("NDVI_", "start_date_")),
+    names_to = c(".value", "period"),
+    names_pattern = "(start_date|NDVI)_(.*)"
+  )
+#Create an end date based on start_date
+ke_mean_ndvi_long <- ke_mean_ndvi_long %>%
+  mutate(end_date = start_date + days(15))
+
+#Create a dataframe with only the necessary data for merging
+ke_ndvi_long_select <- ke_mean_ndvi_long %>%
+  select(DHSID,NDVI,start_date,end_date)
+```
+
+::: column-margin
+Note if you just add 15 to the start date without enclosing it in the `days()` function, you only add 15 seconds.
+:::
+
+## Merging the NDVI and DHS data
+
+Because we are matching an interview date to a range of dates, we can't use the common `inner_join()` function one would usually use to merge dataframes. Instead, we'll load a library called data.table and make sure that our two dataframes (`ke_ndvi_long_select` and `dhs_microdata`) are set as data tables.
+
+```{r, message=FALSE}
+library(data.table)
+
+setDT(dhs_microdata)
+setDT(ke_ndvi_long_select)
+```
+
+Then we'll merge the dataframes using both the DHS cluster ID and the date ranges. We want an exact match on DHSID, so we need to list that matching requirement in the "by" argument. We list the dataframe `dhs_microdata` first, so we use the date variable from that dataframe (interview_date) in our logical statements first. The argument "allow.cartesian" allows for multiple matches of NDVI data to DHS observations.
+
+```{r}
+dhs_ndvi <- merge(
+  dhs_microdata,
+  ke_ndvi_long_select,  
+  by = "DHSID",
+  allow.cartesian = TRUE
+)[interview_date >= start_date & interview_date <= end_date]
+```
+
+Now that we have a full dataset, we will summarize the data to get oriented. Let's look at the mean number of food groups consumed by young children by 1st level administrative region (harmonized over time) and DHS sample. The gt and gtsummary packages help us easily create summary tables, and will help us display regression results. The haven package assists in variable label display in the tables. We also weight the mean estimates by the person-level normalized weight PERWEIGHT.
+
+```{r}
+#Read in necessary packages
+library(gtsummary)
+library(gt)
+library(haven)
+
+#Create a table of regional differences over time 
+table_means <- dhs_ndvi %>%
+  group_by(GEO_KE1989_2014, YEAR) %>%
+  summarize(mean_indicator = weighted.mean(foodgroups_com, na.rm = TRUE, w = PERWEIGHT), .groups = "drop") %>%
+  pivot_wider(names_from = YEAR, values_from = mean_indicator)
+
+table_means <- table_means %>%
+  mutate(across(where(is.labelled), as_factor))
+
+# Format the table_means we calculate and display using gt
+table_means %>%
+  gt() %>%
+  fmt_number(
+    columns = -GEO_KE1989_2014,
+    decimals = 2
+  )
+```
+
+You might notice that the average values for the comparable food groups count is significantly lower in Kenya 2014. A quick review of the [Universe tab on the IPUMS DHS webpage](https://www.idhsdata.org/idhs-action/variables/MAFEDGRAIN24H#universe_section) regarding any of the variables beginning with "MAFED" reveals that in Kenya 2014, only certain households were selected for the "long questionnaire", which included the young children feeding questions. We'll need to filter out all not in universe (NIU) observations to get a comparable mean. The variable universe will be consistent across the food consumption variables in the same survey year.
+
+```{r}
+#NIU values are coded as 9 in this variable
+dhs_ndvi <- dhs_ndvi %>%
+  filter(MAFEDGRAIN24H != 9)
+
+#Calculate and display the table again
+table_means <- dhs_ndvi %>%
+  group_by(GEO_KE1989_2014, YEAR) %>%
+  summarize(mean_indicator = weighted.mean(foodgroups_com, na.rm = TRUE, w = PERWEIGHT), .groups = "drop") %>%
+  pivot_wider(names_from = YEAR, values_from = mean_indicator)
+
+table_means <- table_means %>%
+  mutate(across(where(is.labelled), as_factor))
+
+# Format the table_means we calculate and display using gt
+table_means %>%
+  gt() %>%
+  fmt_number(
+    columns = -GEO_KE1989_2014,
+    decimals = 2
+  )
+
+```
+
+These updated means for Kenya 2014 are looking a lot more reasonable now that we've addressed the comparability issue.
+
+# Creating the Multilevel model
+
+Now we can finally get to the multilevel model. Because the dependent variable is a discrete count that cannot be less than zero and observations are clustered spatially, it may be appropriate to use a Poisson model with random effects for DHS cluster, so we indicate a Poisson estimation in the "family" argument.
+
+We include a number of other independent variables to explain variation in the outcome variable. Urban status represents infrastructural context for access to food from markets, the mother's education level as a proxy for how informed she may be about dietary needs of young children, the wealth quintile of the household which represents how well the household is able to afford food, and whether the child is older or younger than 12 months old to differentiate older children who can consume more complex foods.
+
+```{r, message=FALSE}
+#Load in multilevel model and model results display packages
+library(broom.mixed)
+library(lme4)
+library(lmerTest)
+library(Matrix)
+
+#This indicates to the model that these are categorical #variables, and will retain value labels for our model #results table later
+dhs_ndvi$EDUCLVL <- as_factor(dhs_ndvi$EDUCLVL)
+dhs_ndvi$WEALTHQ <- as_factor(dhs_ndvi$WEALTHQ)
+
+#Estimating a Poisson model with random effects
+multilevel_model <- glmer(
+  foodgroups_com ~ NDVI + URBAN + WEALTHQ + KIDCURAGE + factor(YEAR) + EDUCLVL + (1 | DHSID), 
+  data = dhs_ndvi,
+  family = poisson(link = "log")
+)
+
+#Displaying the model results
+multilevel_model %>% 
+  gtsummary::tbl_regression(
+    conf.int = TRUE, 
+    show_single_row = where(is.logical),
+    tidy_fun = broom.mixed::tidy,
+    label = list(
+      `DHSID.sd__(Intercept)` = "Random Effects: DHS Cluster (SD)"
+    )
+  ) %>% 
+  modify_spanning_header(everything() ~ "# Model 1: Random Effects by DHS Cluster") %>% 
+  add_significance_stars()
+
+
+```
+
+This model returns a random intercept variance of zero, meaning that our model is over-specified. We are estimating the variance of both NDVI, which is a cluster-level variable, and the DHS cluster. Let's try random effects at the region level instead.
+
+```{r}
+multilevel_model2 <- glmer(
+  foodgroups_com ~ NDVI + URBAN + factor(WEALTHQ) + KIDCURAGE +
+    factor(EDUCLVL) + factor(YEAR) + (1 | GEO_KE1989_2014), 
+  data = dhs_ndvi,
+  family = poisson(link = "log")
+)
+
+multilevel_model2 %>% 
+  gtsummary::tbl_regression(
+    conf.int = TRUE, 
+    show_single_row = where(is.logical),
+    tidy_fun = broom.mixed::tidy,
+    label = list(
+      `GEO_KE1989_2014.sd__(Intercept)` = "Random Effects: Region (SD)",
+      `factor(YEAR)` = "Sample year",
+      `factor(EDUCLVL)` = "Mother's education",
+      `factor(WEALTHQ)` = "Household wealth quintile"
+    )
+  ) %>% 
+  modify_spanning_header(everything() ~ "# Model 2: Random Effects by Region") %>% 
+  add_significance_stars()
+```
+
+## Interpreting the Model
+
+We need to exponentiate the coefficients of a Poisson model because the coefficients are in log scale.
+
+```{r}
+#Exponentiating the coefficient for NDVI
+exp(fixef(multilevel_model2)["NDVI"])
+```
+
+Because NDVI is a measure between -1 and 1, it is not very useful to interpret the results in terms of a change in NDVI by 1 unit. We can choose a smaller increment to interpret the results, for example, a change in NDVI of 0.1.
+
+```{r}
+#NDVI ranges between 0 and 1
+summary(dhs_ndvi$NDVI)
+
+#Exponentiating the increment in NDVI by 0.1 instead of 1
+exp(fixef(multilevel_model2)["NDVI"]*0.1)
+
+```
+
+From this result, we might interpret this as a 2.6% higher expected count of food groups consumed associated with a 0.1 increase in the NDVI index. We would expect that better vegetation greenness and health (ideally due to better agricultural productivity) would be positively associated with dietary diversity, both for subsistence growers but also more abundance makes food prices more affordable for families not participating in agricultural production.
+
+How does this compare to the other factors we estimated?
+
+```{r, warning=FALSE, message=FALSE}
+library(ggplot2)
+
+# Tidy model output (exponentiate coefficients)
+model_tidy <- tidy(multilevel_model2, effects = "fixed", conf.int = TRUE, exponentiate = TRUE)
+
+model_tidy %>%
+  mutate(term = reorder(term, estimate)) %>%
+  ggplot(aes(x = estimate, y = term)) +
+  geom_point(size = 3) +
+  geom_errorbarh(aes(xmin = conf.low, xmax = conf.high), height = 0.2) +
+  geom_vline(xintercept = 1, linetype = "dashed", color = "gray40") +
+  scale_x_log10() +
+  labs(x = "Incidence Rate Ratio (IRR)", y = "", title = "Exponentiated Effects by Predictor") +
+  theme_minimal(base_size = 13)
+```
+
+Once we exponentiate the other independent variables in the model, mother's education and household wealth are appear to be important factors by effect size. The child being above 12 months in age is also an important factor, as they are better able to consume more complex foods as they age.
+
+# Looking ahead
+
+NDVI isn't our only option when working with vegetative and land cover spatial data. Our next post will compare different types of spatial vegetative data and how you might choose which one is best suited for your research purpose.
