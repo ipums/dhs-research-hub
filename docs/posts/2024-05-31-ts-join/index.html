@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.7.32">
+<meta name="generator" content="quarto-1.8.25">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -71,14 +71,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="../../images/favicon/favicon-32x32.ico" rel="icon">
 <script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
 <script src="../../site_libs/quarto-html/popper.min.js"></script>
 <script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-1afa9fee27de95cfb43398628944a48b.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-be0d74190db5c030392493894a628b9f.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap-b14f6b24ab46a53cea26719e819bc451.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-b72def720c12fc22be66127d2101a337.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <link href="../../site_libs/quarto-contrib/fontawesome6-0.1.0/all.css" rel="stylesheet">
 <link href="../../site_libs/quarto-contrib/fontawesome6-0.1.0/latex-fontsize.css" rel="stylesheet">
 <script id="quarto-search-options" type="application/json">{
@@ -140,7 +141,8 @@ gtag('config', 'G-0WLH5S9VD5', { 'anonymize_ip': true});
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
     <a href="https://www.idhsdata.org/idhs/" class="navbar-brand navbar-brand-logo">
-    <img src="../../images/dhs_logo_white.png" alt="" class="navbar-logo">
+    <img src="../../images/dhs_logo_white.png" alt="" class="navbar-logo light-content">
+    <img src="../../images/dhs_logo_white.png" alt="" class="navbar-logo dark-content">
     </a>
   </div>
             <div id="quarto-search" class="" title="Search"></div>
@@ -333,11 +335,11 @@ gtag('config', 'G-0WLH5S9VD5', { 'anonymize_ip': true});
 <p>This post will build on our <a href="../2024-04-15-chirts-metrics/">previous post</a> where we built several monthly temperature metrics. If you haven’t had the chance to read through that post yet, we encourage you to start there.</p>
 <p>Before getting started, we’ll load the necessary packages for this post:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ipumsr)</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ipumsr)</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sf)</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyr)</span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(terra)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(terra)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <section id="data" class="level1">
 <h1>Data</h1>
@@ -356,7 +358,7 @@ gtag('config', 'G-0WLH5S9VD5', { 'anonymize_ip': true});
 <p>Check out our <a href="../2024-02-02-download-dhs-data/">walkthrough</a> for downloading IPUMS DHS data if you need help producing a similar extract.</p>
 <p>We’ll load our data using <code>{ipumsr}</code>:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>ml_dhs <span class="ot">&lt;-</span> <span class="fu">read_ipums_micro</span>(<span class="st">"data/idhs_00021.xml"</span>)</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>ml_dhs <span class="ot">&lt;-</span> <span class="fu">read_ipums_micro</span>(<span class="st">"data/idhs_00021.xml"</span>)</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Use of data from IPUMS DHS is subject to conditions including that users should cite the data appropriately. Use command `ipums_conditions()` for more details.</span></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>ml_dhs</span>
@@ -379,7 +381,7 @@ gtag('config', 'G-0WLH5S9VD5', { 'anonymize_ip': true});
 <span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; #   BIDX &lt;int&gt;, PERWEIGHT &lt;dbl&gt;, KIDWT &lt;dbl&gt;, AWFACTT &lt;dbl&gt;, AWFACTU &lt;dbl&gt;,</span></span>
 <span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; #   AWFACTR &lt;dbl&gt;, AWFACTE &lt;dbl&gt;, AWFACTW &lt;dbl&gt;, DVWEIGHT &lt;dbl&gt;,</span></span>
 <span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; #   URBAN &lt;int+lbl&gt;, GEO_ML1987_2018 &lt;int+lbl&gt;, GEO_ML1995_2018 &lt;int+lbl&gt;,</span></span>
-<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; #   GEO_ML2012 &lt;int+lbl&gt;, AGE &lt;int&gt;, AGE5YEAR &lt;int+lbl&gt;, RESIDENT &lt;int+lbl&gt;, …</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; #   GEO_ML2012 &lt;int+lbl&gt;, AGE &lt;int&gt;, AGE5YEAR &lt;int+lbl&gt;, RESIDENT &lt;int+lbl&gt;, …</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section id="dhs-boundaries" class="level2">
@@ -388,7 +390,7 @@ gtag('config', 'G-0WLH5S9VD5', { 'anonymize_ip': true});
 <div class="cell">
 <details class="code-fold">
 <summary>Border preparation</summary>
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>ml_borders <span class="ot">&lt;-</span> <span class="fu">read_ipums_sf</span>(<span class="st">"data/gps/geo_ml1995_2018.zip"</span>)</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>ml_borders <span class="ot">&lt;-</span> <span class="fu">read_ipums_sf</span>(<span class="st">"data/gps/geo_ml1995_2018.zip"</span>)</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Validate internal borders</span></span>
 <span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>ml_borders_neat <span class="ot">&lt;-</span> <span class="fu">st_make_valid</span>(ml_borders)</span>
@@ -403,7 +405,7 @@ gtag('config', 'G-0WLH5S9VD5', { 'anonymize_ip': true});
 <span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>ml_borders_buffer <span class="ot">&lt;-</span> ml_borders_out <span class="sc">|&gt;</span> </span>
 <span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_transform</span>(<span class="at">crs =</span> <span class="dv">32629</span>) <span class="sc">|&gt;</span> </span>
 <span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_buffer</span>(<span class="at">dist =</span> <span class="dv">10000</span>) <span class="sc">|&gt;</span></span>
-<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_transform</span>(<span class="at">crs =</span> <span class="dv">4326</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_transform</span>(<span class="at">crs =</span> <span class="dv">4326</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 </div>
 </section>
@@ -412,14 +414,14 @@ gtag('config', 'G-0WLH5S9VD5', { 'anonymize_ip': true});
 <p>We can download the enumeration cluster coordinates from the <a href="https://www.dhsprogram.com/">DHS Program</a>. We first described this process in our <a href="../2024-02-04-dhs-chirps/#dhs-cluster-coordinates">CHIRPS post</a>. Simply follow the same instructions, substituting Mali where we previously used Burkina Faso.</p>
 <p>You should obtain a file called <code>MLGE6BFL.zip</code>, which can be loaded with <code>read_ipums_sf()</code>:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>ml_clust <span class="ot">&lt;-</span> <span class="fu">read_ipums_sf</span>(<span class="st">"data/MLGE6BFL.zip"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>ml_clust <span class="ot">&lt;-</span> <span class="fu">read_ipums_sf</span>(<span class="st">"data/MLGE6BFL.zip"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>As we’ve done <a href="../2024-02-04-dhs-chirps/#cluster-buffers">in the past</a>, we’ll buffer our cluster coordinates so we capture the environmental effects of the general region around each survey location</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>ml_clust_buffer <span class="ot">&lt;-</span> ml_clust <span class="sc">|&gt;</span> </span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>ml_clust_buffer <span class="ot">&lt;-</span> ml_clust <span class="sc">|&gt;</span> </span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_transform</span>(<span class="at">crs =</span> <span class="dv">32629</span>) <span class="sc">|&gt;</span> </span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_buffer</span>(<span class="at">dist =</span> <span class="dv">10000</span>) <span class="sc">|&gt;</span></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_transform</span>(<span class="at">crs =</span> <span class="dv">4326</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_transform</span>(<span class="at">crs =</span> <span class="dv">4326</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section id="chirts" class="level2">
@@ -432,7 +434,7 @@ gtag('config', 'G-0WLH5S9VD5', { 'anonymize_ip': true});
 <p>That means that for our 2012 Mali sample, we’ll actually need CHIRTS data for 2007-2012.</p>
 <p>Fortunately, the pipeline we set up in our previous post can be easily scaled to accommodate additional years of data. Recall that we built a dedicated function to calculate monthly heatwave proportions:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>prop_heatwave <span class="ot">&lt;-</span> <span class="cf">function</span>(temps, thresh, n_seq) {</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>prop_heatwave <span class="ot">&lt;-</span> <span class="cf">function</span>(temps, thresh, n_seq) {</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Convert to RLE of days above threshold</span></span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  bin_rle <span class="ot">&lt;-</span> <span class="fu">rle</span>(temps <span class="sc">&gt;=</span> thresh)</span>
 <span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  </span>
@@ -441,31 +443,31 @@ gtag('config', 'G-0WLH5S9VD5', { 'anonymize_ip': true});
 <span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>  </span>
 <span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Count heatwave days and divide by total number of days</span></span>
 <span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">sum</span>(bin_rle<span class="sc">$</span>lengths[is_heatwave]) <span class="sc">/</span> <span class="fu">length</span>(temps)</span>
-<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>All we need to do, then, is apply this function to input CHIRTS data for 2007 to 2012, rather than just for 2012. To do so, we’ve downloaded all 6 years of data manually as <a href="../2024-04-15-chirts-metrics/#manual-download">described previously</a> and placed each file in a <code>data/chirts</code> directory.</p>
 <p>We can load them by first obtaining the file path to each file with <code>list.files()</code>. Then, we use the familiar <code>rast()</code> to load all 6 files into a single <code>SpatRaster</code>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>chirts_files <span class="ot">&lt;-</span> <span class="fu">list.files</span>(<span class="st">"data/chirts"</span>, <span class="at">full.names =</span> <span class="cn">TRUE</span>)</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>chirts_files <span class="ot">&lt;-</span> <span class="fu">list.files</span>(<span class="st">"data/chirts"</span>, <span class="at">full.names =</span> <span class="cn">TRUE</span>)</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>ml_chirts <span class="ot">&lt;-</span> <span class="fu">rast</span>(chirts_files)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>ml_chirts <span class="ot">&lt;-</span> <span class="fu">rast</span>(chirts_files)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>As we did last time, we’ll crop the CHIRTS raster to the region directly around Mali:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>ml_chirts <span class="ot">&lt;-</span> <span class="fu">crop</span>(ml_chirts, ml_borders_buffer, <span class="at">snap =</span> <span class="st">"out"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>ml_chirts <span class="ot">&lt;-</span> <span class="fu">crop</span>(ml_chirts, ml_borders_buffer, <span class="at">snap =</span> <span class="st">"out"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Now we can use the <code>tapp()</code> function introduced in our previous post to calculate monthly heatwave proportions for each month/year combination. The only difference here is that we use <code>index = "yearmonths"</code> instead of <code>index = "months"</code> since we have multiple years of data. This ensures that we don’t aggregate months together across years.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate monthly proportion of heatwave days</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate monthly proportion of heatwave days</span></span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>ml_chirts_heatwave <span class="ot">&lt;-</span> <span class="fu">tapp</span>(</span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  ml_chirts,</span>
 <span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  <span class="cf">function</span>(x) <span class="fu">prop_heatwave</span>(x, <span class="at">thresh =</span> <span class="dv">35</span>, <span class="at">n_seq =</span> <span class="dv">3</span>),</span>
 <span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">index =</span> <span class="st">"yearmonths"</span> <span class="co"># New index to account for multiple years</span></span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>As expected, we now have a <code>SpatRaster</code> with 72 layers: one for each month/year combination from 2007-2012. Each layer contains the proportion of days that met our heatwave threshold of 3+ consecutive days exceeding 35°C.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>ml_chirts_heatwave</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>ml_chirts_heatwave</span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; class       : SpatRaster </span></span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; dimensions  : 301, 335, 72  (nrow, ncol, nlyr)</span></span>
 <span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; resolution  : 0.05, 0.05  (x, y)</span></span>
@@ -473,7 +475,7 @@ gtag('config', 'G-0WLH5S9VD5', { 'anonymize_ip': true});
 <span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; coord. ref. : lon/lat WGS 84 </span></span>
 <span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; source      : ml_chirts_heatwave.nc </span></span>
 <span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; names       : ml_ch~ave_1, ml_ch~ave_2, ml_ch~ave_3, ml_ch~ave_4, ml_ch~ave_5, ml_ch~ave_6, ... </span></span>
-<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; time (ymnts): 2007-Jan to 2012-Dec</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; time (ymnts): 2007-Jan to 2012-Dec</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="callout callout-style-default callout-caution callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -488,14 +490,14 @@ Caution
 <p>This post was built using terra 1.7-78. Older versions of terra contain a <a href="https://github.com/rspatial/terra/issues/1483">bug</a> that may produce incorrect time units when <code>index = "yearmonths"</code>.</p>
 <p>If you’re running an older version of terra, we suggest updating the package with <code>install.packages("terra")</code>. Otherwise, you may be able to temporarily avoid the issue by manually setting the correct time values:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Manual update of offset date values</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Manual update of offset date values</span></span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>year_months <span class="ot">&lt;-</span> <span class="fu">seq</span>(</span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  lubridate<span class="sc">::</span><span class="fu">ym</span>(<span class="st">"2007-01"</span>), </span>
 <span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>  lubridate<span class="sc">::</span><span class="fu">ym</span>(<span class="st">"2012-12"</span>), </span>
 <span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">by =</span> <span class="st">"months"</span></span>
 <span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>)</span>
 <span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a><span class="fu">time</span>(ml_chirts_heatwave) <span class="ot">&lt;-</span> year_months</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a><span class="fu">time</span>(ml_chirts_heatwave) <span class="ot">&lt;-</span> year_months</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </div>
 </div>
@@ -509,11 +511,11 @@ Caution
 <h2 class="anchored" data-anchor-id="reconcile-date-representations">Reconcile date representations</h2>
 <p>To deal with the temporal component of the join, we’ll need to identify the relevant months of data for each child in our DHS sample. Each child’s birth date recorded in the <code>KIDDOBCMC</code> variable:</p>
 <div class="cell" data-out.lines="3">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>ml_dhs<span class="sc">$</span>KIDDOBCMC</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>ml_dhs<span class="sc">$</span>KIDDOBCMC</span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     [1] 1311 1301 1316 1356 1305 1337 1301 1318 1337 1313 1354 1313 1326 1312</span></span>
 <span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    [15] 1330 1316 1354 1311 1335 1338 1305 1321 1305 1347 1315 1354 1309 1323</span></span>
 <span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    [29] 1324 1349 1315 1297 1334 1317 1336 1334 1338 1304 1323 1307 1354 1311</span></span>
-<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>....</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>....</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>You might have expected that these would be dates, but we actually have a series of 4-digit numbers. This is because dates are encoded as <strong>century month codes</strong> in the DHS. A century month code (CMC) encodes time as the number of months that have elapsed since 1900. CMCs are useful for calculating intervals of time, because they can be easily added and subtracted.</p>
 <p>However, the time encoded in our CHIRTS heatwave data aren’t encoded in CMC format, so we’ll need to reconcile these two time representations.</p>
@@ -525,33 +527,33 @@ Caution
 <div class="no-row-height column-margin column-container"><div class="">
 <p>You can view the description for any variable in your extract using the <code>ipums_var_desc()</code> function from ipumsr.</p>
 </div></div><div class="cell">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>cmc_to_ym <span class="ot">&lt;-</span> <span class="cf">function</span>(cmc) {</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>cmc_to_ym <span class="ot">&lt;-</span> <span class="cf">function</span>(cmc) {</span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  year <span class="ot">&lt;-</span> <span class="fu">floor</span>((cmc <span class="sc">-</span> <span class="dv">1</span>) <span class="sc">/</span> <span class="dv">12</span>) <span class="sc">+</span> <span class="dv">1900</span></span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>  month <span class="ot">&lt;-</span> cmc <span class="sc">-</span> ((year <span class="sc">-</span> <span class="dv">1900</span>) <span class="sc">*</span> <span class="dv">12</span>)</span>
 <span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>  </span>
 <span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>  year_month <span class="ot">&lt;-</span> <span class="fu">paste</span>(year, month, <span class="at">sep =</span> <span class="st">"-"</span>)</span>
 <span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>  </span>
 <span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>  lubridate<span class="sc">::</span><span class="fu">ym</span>(year_month)</span>
-<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Similarly, we’ll create a function that goes in the reverse direction:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>ym_to_cmc <span class="ot">&lt;-</span> <span class="cf">function</span>(date) {</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>ym_to_cmc <span class="ot">&lt;-</span> <span class="cf">function</span>(date) {</span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  year <span class="ot">&lt;-</span> lubridate<span class="sc">::</span><span class="fu">year</span>(date)</span>
 <span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>  month <span class="ot">&lt;-</span> lubridate<span class="sc">::</span><span class="fu">month</span>(date)</span>
 <span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>  </span>
 <span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>  (year <span class="sc">-</span> <span class="dv">1900</span>) <span class="sc">*</span> <span class="dv">12</span> <span class="sc">+</span> month</span>
-<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>For instance, a CMC of 1307 turns out to be the same as November, 2008:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cmc_to_ym</span>(<span class="dv">1307</span>)</span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] "2008-11-01"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cmc_to_ym</span>(<span class="dv">1307</span>)</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] "2008-11-01"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>And vice versa:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ym_to_cmc</span>(<span class="st">"2008-11-01"</span>)</span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 1307</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ym_to_cmc</span>(<span class="st">"2008-11-01"</span>)</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 1307</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Now we have an easy way to reconcile the temporal information in our two data sources.</p>
 </section>
@@ -560,7 +562,7 @@ Caution
 <h2 class="anchored" data-anchor-id="attaching-heatwaves-to-dhs-clusters">Attaching heatwaves to DHS clusters</h2>
 <p>To extract the average heatwave proportions for each DHS enumeration cluster, we’ll use terra’s <code>extract()</code>, which we’ve introduced <a href="../2024-02-04-dhs-chirps/#aggregating-rainfall-within-cluster-regions">previously</a>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Extract mean heatwave proportions for each DHS cluster region</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Extract mean heatwave proportions for each DHS cluster region</span></span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>chirts_clust <span class="ot">&lt;-</span> <span class="fu">extract</span>(</span>
 <span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>  ml_chirts_heatwave, </span>
 <span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>  ml_clust_buffer, </span>
@@ -589,7 +591,7 @@ Caution
 <span id="cb17-27"><a href="#cb17-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; #   ml_chirts_heatwave_8 &lt;dbl&gt;, ml_chirts_heatwave_9 &lt;dbl&gt;,</span></span>
 <span id="cb17-28"><a href="#cb17-28" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; #   ml_chirts_heatwave_10 &lt;dbl&gt;, ml_chirts_heatwave_11 &lt;dbl&gt;,</span></span>
 <span id="cb17-29"><a href="#cb17-29" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; #   ml_chirts_heatwave_12 &lt;dbl&gt;, ml_chirts_heatwave_13 &lt;dbl&gt;,</span></span>
-<span id="cb17-30"><a href="#cb17-30" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; #   ml_chirts_heatwave_14 &lt;dbl&gt;, ml_chirts_heatwave_15 &lt;dbl&gt;, …</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb17-30"><a href="#cb17-30" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; #   ml_chirts_heatwave_14 &lt;dbl&gt;, ml_chirts_heatwave_15 &lt;dbl&gt;, …</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <section id="wide-vs.-long-format" class="level3 page-columns page-full">
 <h3 class="anchored" data-anchor-id="wide-vs.-long-format">Wide vs.&nbsp;long format</h3>
@@ -601,7 +603,7 @@ Caution
 </div></div><p>First, we’ll rename the columns in our extracted data. Currently, they’re listed in incremental order, which isn’t very intuitive. Instead, we’ll rename them using the CMC code of the month that each column represents. We can use our helper function to convert these dates to CMC format.</p>
 <p>We’ll also update the <code>"ID"</code> column to be named <code>"DHSID"</code> for consistency with the name used in the DHS survey to represent the enumeration cluster ID:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Sequence of months for the time range in our data</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Sequence of months for the time range in our data</span></span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>year_months <span class="ot">&lt;-</span> <span class="fu">seq</span>(</span>
 <span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>  lubridate<span class="sc">::</span><span class="fu">ym</span>(<span class="st">"2007-01"</span>), </span>
 <span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>  lubridate<span class="sc">::</span><span class="fu">ym</span>(<span class="st">"2012-12"</span>), </span>
@@ -609,11 +611,11 @@ Caution
 <span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>)</span>
 <span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Change layer names</span></span>
-<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(chirts_clust) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"DHSID"</span>, <span class="fu">ym_to_cmc</span>(year_months))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(chirts_clust) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"DHSID"</span>, <span class="fu">ym_to_cmc</span>(year_months))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Next, we need to convert the incremental ID numbers for each cluster to their corresponding DHSID code. The ID values in <code>chirts_clust</code> represent the clusters extracted from <code>ml_clust</code> in index order. Thus, we simply need to reassign the incremental ID codes in <code>chirts_clust</code> with the IDs in <code>ml_clust</code>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Convert index numbers to corresponding DHSID codes</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Convert index numbers to corresponding DHSID codes</span></span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>chirts_clust<span class="sc">$</span>DHSID <span class="ot">&lt;-</span> ml_clust<span class="sc">$</span>DHSID</span>
 <span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>chirts_clust</span>
@@ -636,12 +638,12 @@ Caution
 <span id="cb19-21"><a href="#cb19-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; #   `1304` &lt;dbl&gt;, `1305` &lt;dbl&gt;, `1306` &lt;dbl&gt;, `1307` &lt;dbl&gt;, `1308` &lt;dbl&gt;,</span></span>
 <span id="cb19-22"><a href="#cb19-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; #   `1309` &lt;dbl&gt;, `1310` &lt;dbl&gt;, `1311` &lt;dbl&gt;, `1312` &lt;dbl&gt;, `1313` &lt;dbl&gt;,</span></span>
 <span id="cb19-23"><a href="#cb19-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; #   `1314` &lt;dbl&gt;, `1315` &lt;dbl&gt;, `1316` &lt;dbl&gt;, `1317` &lt;dbl&gt;, `1318` &lt;dbl&gt;,</span></span>
-<span id="cb19-24"><a href="#cb19-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; #   `1319` &lt;dbl&gt;, `1320` &lt;dbl&gt;, `1321` &lt;dbl&gt;, `1322` &lt;dbl&gt;, `1323` &lt;dbl&gt;, …</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb19-24"><a href="#cb19-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; #   `1319` &lt;dbl&gt;, `1320` &lt;dbl&gt;, `1321` &lt;dbl&gt;, `1322` &lt;dbl&gt;, `1323` &lt;dbl&gt;, …</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Now we’re ready to convert to long format data. <code>pivot_longer()</code> will convert a set of columns in our wide data to two columns in our long data. The names of these columns will be stored in one of the output columns, and their associated values will be stored in the other.</p>
 <p>Below, we indicate that we want to pivot all columns <em>except</em> the DHSID column (the data are already long on <code>DHSID</code>). We also indicate that we want the new column of <em>names</em> to be called <code>"CHIRTSCMC"</code> and the new column of <em>values</em> to be called <code>"PROPHEATWAVE"</code>. Finally, we use the <code>names_transform</code> argument to convert all the names to numeric format, so they will be interpretable as CMCs.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Convert to long format for each cluster/month combination</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Convert to long format for each cluster/month combination</span></span>
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>chirts_clust <span class="ot">&lt;-</span> <span class="fu">pivot_longer</span>(</span>
 <span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>  chirts_clust,</span>
 <span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">cols =</span> <span class="sc">-</span>DHSID,</span>
@@ -664,7 +666,7 @@ Caution
 <span id="cb20-21"><a href="#cb20-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  8 ML201200000001      1292        0    </span></span>
 <span id="cb20-22"><a href="#cb20-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  9 ML201200000001      1293        0.318</span></span>
 <span id="cb20-23"><a href="#cb20-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10 ML201200000001      1294        1    </span></span>
-<span id="cb20-24"><a href="#cb20-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # ℹ 29,726 more rows</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb20-24"><a href="#cb20-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # ℹ 29,726 more rows</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>As you can see, each row now corresponds to a cluster/month combination, and the corresponding heatwave value is stored in the <code>PROPHEATWAVE</code> column.</p>
 </section>
@@ -676,13 +678,13 @@ Caution
 <h3 class="anchored" data-anchor-id="dhs-survey-data-preparation">DHS survey data preparation</h3>
 <p>First, we’ll make a new column that stores a unique ID for each child in the sample by combining the ID for each woman and the index for each of her births. This will make it easier to ensure that we join data independently for each child in the sample:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># str_squish() removes excess whitespace in the ID strings</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># str_squish() removes excess whitespace in the ID strings</span></span>
 <span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>ml_dhs <span class="ot">&lt;-</span> ml_dhs <span class="sc">|&gt;</span> </span>
-<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">KIDID =</span> stringr<span class="sc">::</span><span class="fu">str_squish</span>(<span class="fu">paste</span>(IDHSPID, BIDX)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">KIDID =</span> stringr<span class="sc">::</span><span class="fu">str_squish</span>(<span class="fu">paste</span>(IDHSPID, BIDX)))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>We’ll also want to make sure to recode several of our variables that include missing values. We can check the missing value codes for a variable using <code>ipums_val_labels()</code>. For instance, for our key outcome variable, <code>BIRTHWT</code>, we see that all values over <code>9996</code> are missing in some way:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ipums_val_labels</span>(ml_dhs<span class="sc">$</span>BIRTHWT)</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ipums_val_labels</span>(ml_dhs<span class="sc">$</span>BIRTHWT)</span>
 <span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 5 × 2</span></span>
 <span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     val lbl                  </span></span>
 <span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   &lt;int&gt; &lt;chr&gt;                </span></span>
@@ -690,22 +692,22 @@ Caution
 <span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2  9996 Not weighed at birth </span></span>
 <span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3  9997 Don't know           </span></span>
 <span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4  9998 Missing              </span></span>
-<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5  9999 NIU (not in universe)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5  9999 NIU (not in universe)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Looking at these values, you may be surprised to see 4-digit weights. To investigate further, we can display detailed variable information with <code>ipums_var_desc()</code>:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ipums_var_desc</span>(ml_dhs<span class="sc">$</span>BIRTHWT)</span>
-<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] "For children born in the three to five years before the survey, BIRTHWT (M19) reports the child's birthweight in kilos with three implied decimal places (or, alternatively stated, in grams with no decimal places). Children who were not weighed are coded 9996."</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ipums_var_desc</span>(ml_dhs<span class="sc">$</span>BIRTHWT)</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] "For children born in the three to five years before the survey, BIRTHWT (M19) reports the child's birthweight in kilos with three implied decimal places (or, alternatively stated, in grams with no decimal places). Children who were not weighed are coded 9996."</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Note that the description mentions that there are 3 implied decimal places. So, we’ll recode <code>BIRTHWT</code> to be <code>NA</code> in the cases where the value is more than <code>9996</code>, and we’ll divide by 1000 otherwise. We’ll do a similar process with a few other variables as well:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>ml_dhs <span class="ot">&lt;-</span> ml_dhs <span class="sc">|&gt;</span> </span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>ml_dhs <span class="ot">&lt;-</span> ml_dhs <span class="sc">|&gt;</span> </span>
 <span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
 <span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">BIRTHWT =</span> <span class="fu">if_else</span>(BIRTHWT <span class="sc">&gt;=</span> <span class="dv">9996</span>, <span class="cn">NA</span>, BIRTHWT <span class="sc">/</span> <span class="dv">1000</span>),</span>
 <span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">HEIGHTFEM =</span> <span class="fu">if_else</span>(HEIGHTFEM <span class="sc">&gt;=</span> <span class="dv">9994</span>, <span class="cn">NA</span>, HEIGHTFEM <span class="sc">/</span> <span class="dv">10</span>),</span>
 <span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">EDUCLVL =</span> <span class="fu">if_else</span>(EDUCLVL <span class="sc">==</span> <span class="dv">8</span>, <span class="cn">NA</span>, EDUCLVL),</span>
 <span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">BIRTHWTREF =</span> <span class="fu">if_else</span>(BIRTHWTREF <span class="sc">&gt;=</span> <span class="dv">7</span>, <span class="cn">NA</span>, BIRTHWTREF)</span>
-<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="callout callout-style-default callout-caution callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -713,7 +715,7 @@ Caution
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Censoring
+<span class="screen-reader-only">Caution</span>Censoring
 </div>
 </div>
 <div class="callout-body-container callout-body">
@@ -726,17 +728,17 @@ Censoring
 <p>IPUMS DHS includes the <code>RESIDEINTYR</code> variable to indicate how long survey respondents have lived at their current location.</p>
 <p>Unfortunately, this variable wasn’t collected for the Mali 2012 sample. However, we do have a record of whether a respondent is a visitor to the location or not. At a minimum, we’ll remove records for those who are listed as visitors, since we can’t be confident that they experienced the environmental data for the cluster their response was recorded in.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>ml_dhs <span class="ot">&lt;-</span> ml_dhs <span class="sc">|&gt;</span> </span>
-<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(RESIDENT <span class="sc">==</span> <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>ml_dhs <span class="ot">&lt;-</span> ml_dhs <span class="sc">|&gt;</span> </span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(RESIDENT <span class="sc">==</span> <span class="dv">1</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section id="data-types" class="level4">
 <h4 class="anchored" data-anchor-id="data-types">Data types</h4>
 <p>Finally, we want to recode our variables to the appropriate data type. In our case, we just need to convert all labeled variables to factors. <code>BIDX</code> is unlabeled, but represents a factor, so we’ll explicitly convert that variable as well:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>ml_dhs <span class="ot">&lt;-</span> ml_dhs <span class="sc">|&gt;</span> </span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>ml_dhs <span class="ot">&lt;-</span> ml_dhs <span class="sc">|&gt;</span> </span>
 <span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">BIDX =</span> <span class="fu">as_factor</span>(BIDX)) <span class="sc">|&gt;</span> </span>
-<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_factor</span>() <span class="co"># Convert all remaining labeled columns to factors</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_factor</span>() <span class="co"># Convert all remaining labeled columns to factors</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 </section>
@@ -744,23 +746,23 @@ Censoring
 <h3 class="anchored" data-anchor-id="attaching-data-sources">Attaching data sources</h3>
 <p>At its simplest, we could join our prepared DHS survey data with our extracted heatwave data by matching records based on their cluster and birth month. We can use <code>left_join()</code> from <code>{dplyr}</code> to do so. This will retain all records in our DHS survey sample and attach temperature values where the birth date (<code>KIDDOBCMC</code>) is equal to the month of temperature data in <code>chirts_clust</code>:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Join temperature exposure for each child during the month of their birth</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Join temperature exposure for each child during the month of their birth</span></span>
 <span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="fu">left_join</span>(</span>
 <span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>  ml_dhs,</span>
 <span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>  chirts_clust,</span>
 <span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">by =</span> <span class="fu">c</span>(<span class="st">"DHSID"</span>, <span class="st">"KIDDOBCMC"</span> <span class="ot">=</span> <span class="st">"CHIRTSCMC"</span>)</span>
-<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>However, this only attaches a single month of temperature data for each child. What we’d rather have is a time series of values covering the time between conception and birth.</p>
 <p>To accomplish this, we can define a new variable, <code>KIDCONCEPTCMC</code>, which contains the CMC of the month 9 months before the birth date.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Make unique ID for each kid using woman's ID and Birth index</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Make unique ID for each kid using woman's ID and Birth index</span></span>
 <span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>ml_dhs <span class="ot">&lt;-</span> ml_dhs <span class="sc">|&gt;</span>  </span>
-<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">KIDCONCEPTCMC =</span> KIDDOBCMC <span class="sc">-</span> <span class="dv">9</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">KIDCONCEPTCMC =</span> KIDDOBCMC <span class="sc">-</span> <span class="dv">9</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Now, we want to join <em>all 9</em> of the relevant monthly temperature records to each child’s DHS survey record. That is, we want to match records that have the same <code>DHSID</code>, a <strong>birthdate</strong> that is <em>after</em> the CHIRTS data that will be joined, and a <strong>conception date</strong> that is <em>before</em> the CHIRTS data that will be joined. We can use <code>join_by()</code> from <code>{dplyr}</code> to specify these more complex criteria:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Join 9 months of CHIRTS data to each child record</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Join 9 months of CHIRTS data to each child record</span></span>
 <span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>ml_dhs_chirts <span class="ot">&lt;-</span> <span class="fu">left_join</span>(</span>
 <span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>  ml_dhs,</span>
 <span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>  chirts_clust,</span>
@@ -769,11 +771,11 @@ Censoring
 <span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a>    KIDDOBCMC <span class="sc">&gt;</span> CHIRTSCMC, <span class="co"># DOB needs to be after all joined temp. data</span></span>
 <span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a>    KIDCONCEPTCMC <span class="sc">&lt;=</span> CHIRTSCMC <span class="co"># Conception date needs to be before all joined temp. data</span></span>
 <span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb29-10"><a href="#cb29-10" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb29-10"><a href="#cb29-10" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>We should end up with a dataset that contains 9 records for each child: one for each month between their conception and birth. We can confirm by counting the records for each <code>KIDID</code>:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Each kid should have 9 rows now</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Each kid should have 9 rows now</span></span>
 <span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>ml_dhs_chirts <span class="sc">|&gt;</span> </span>
 <span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(KIDID)</span>
 <span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 10,300 × 2</span></span>
@@ -789,11 +791,11 @@ Censoring
 <span id="cb30-14"><a href="#cb30-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  8 46605 1 50 2 1      9</span></span>
 <span id="cb30-15"><a href="#cb30-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  9 46605 1 75 12 1     9</span></span>
 <span id="cb30-16"><a href="#cb30-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10 46605 1 75 12 2     9</span></span>
-<span id="cb30-17"><a href="#cb30-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # ℹ 10,290 more rows</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb30-17"><a href="#cb30-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # ℹ 10,290 more rows</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>We can pull out a few columns for an individual child to make it more clear how things are being joined:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Example of what our data look like for one kid:</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Example of what our data look like for one kid:</span></span>
 <span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>ml_dhs_chirts <span class="sc">|&gt;</span> </span>
 <span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(KIDID <span class="sc">==</span> <span class="st">"46605 1 4 2 1"</span>) <span class="sc">|&gt;</span> </span>
 <span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(KIDID, DHSID, KIDDOBCMC, CHIRTSCMC, PROPHEATWAVE)</span>
@@ -808,12 +810,12 @@ Censoring
 <span id="cb31-13"><a href="#cb31-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 6 46605 1 4 2 1 ML201200000001      1311      1307       0.624 </span></span>
 <span id="cb31-14"><a href="#cb31-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 7 46605 1 4 2 1 ML201200000001      1311      1308       0     </span></span>
 <span id="cb31-15"><a href="#cb31-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 8 46605 1 4 2 1 ML201200000001      1311      1309       0.0968</span></span>
-<span id="cb31-16"><a href="#cb31-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 9 46605 1 4 2 1 ML201200000001      1311      1310       0.741</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb31-16"><a href="#cb31-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 9 46605 1 4 2 1 ML201200000001      1311      1310       0.741</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>As we can see, an individual child (<code>KIDID</code>) is associated with heatwave data (<code>PROPHEATWAVE</code>) for each of the 9 CHIRTS months (<code>CHIRTSCMC</code>) prior to their birth date (<code>KIDDOBCMC</code>).</p>
 <p>For a different child we’ll get a similar output, but because this child has a different birth date, the specific <code>PROPHEATWAVE</code> values will be different, even if the cluster ID is the same:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>ml_dhs_chirts <span class="sc">|&gt;</span> </span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>ml_dhs_chirts <span class="sc">|&gt;</span> </span>
 <span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(KIDID <span class="sc">==</span> <span class="st">"46605 1255 2 2"</span>) <span class="sc">|&gt;</span> </span>
 <span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(KIDID, DHSID, KIDDOBCMC, CHIRTSCMC, PROPHEATWAVE)</span>
 <span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 9 × 5</span></span>
@@ -827,11 +829,11 @@ Censoring
 <span id="cb32-12"><a href="#cb32-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 6 46605 1255 2 2 ML201200000001      1305      1301        1    </span></span>
 <span id="cb32-13"><a href="#cb32-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 7 46605 1255 2 2 ML201200000001      1305      1302        0.822</span></span>
 <span id="cb32-14"><a href="#cb32-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 8 46605 1255 2 2 ML201200000001      1305      1303        0.103</span></span>
-<span id="cb32-15"><a href="#cb32-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 9 46605 1255 2 2 ML201200000001      1305      1304        0</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb32-15"><a href="#cb32-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 9 46605 1255 2 2 ML201200000001      1305      1304        0</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Similarly, for a child from a different cluster, we’ll have different <code>PROPHEATWAVE</code> values regardless of which month is under consideration:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>ml_dhs_chirts <span class="sc">|&gt;</span> </span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>ml_dhs_chirts <span class="sc">|&gt;</span> </span>
 <span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(KIDID <span class="sc">==</span> <span class="st">"46605 518171 3 1"</span>) <span class="sc">|&gt;</span> </span>
 <span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(KIDID, DHSID, KIDDOBCMC, CHIRTSCMC, PROPHEATWAVE)</span>
 <span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 9 × 5</span></span>
@@ -845,18 +847,18 @@ Censoring
 <span id="cb33-12"><a href="#cb33-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 6 46605 518171 3 1 ML201200000518      1314      1310       0.505 </span></span>
 <span id="cb33-13"><a href="#cb33-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 7 46605 518171 3 1 ML201200000518      1314      1311       0.923 </span></span>
 <span id="cb33-14"><a href="#cb33-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 8 46605 518171 3 1 ML201200000518      1314      1312       1     </span></span>
-<span id="cb33-15"><a href="#cb33-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 9 46605 518171 3 1 ML201200000518      1314      1313       1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb33-15"><a href="#cb33-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 9 46605 518171 3 1 ML201200000518      1314      1313       1</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Now that we have the correct 9-month time series for each child, we can further aggregate to get a trimester-specific exposure metric for each child.</p>
 <p>First, we’ll create a <code>TRIMESTER</code> variable, which encodes the trimester that each month belongs to for each child:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>ml_dhs_chirts <span class="ot">&lt;-</span> ml_dhs_chirts <span class="sc">|&gt;</span> </span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>ml_dhs_chirts <span class="ot">&lt;-</span> ml_dhs_chirts <span class="sc">|&gt;</span> </span>
 <span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(DHSID, KIDID, CHIRTSCMC) <span class="sc">|&gt;</span> <span class="co"># order by CMC to ensure trimesters are in correct order</span></span>
-<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">TRIMESTER =</span> <span class="fu">as_factor</span>(<span class="fu">rep</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>), <span class="at">each =</span> <span class="dv">3</span>)), <span class="at">.by =</span> KIDID)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">TRIMESTER =</span> <span class="fu">as_factor</span>(<span class="fu">rep</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>), <span class="at">each =</span> <span class="dv">3</span>)), <span class="at">.by =</span> KIDID)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Then, we’ll average the heatwave proportions across trimesters for each child:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Average proportion of heatwave days within each child and trimester</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Average proportion of heatwave days within each child and trimester</span></span>
 <span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>ml_dhs_tri <span class="ot">&lt;-</span> ml_dhs_chirts <span class="sc">|&gt;</span> </span>
 <span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(</span>
 <span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">MEANPROPHEATWAVE =</span> <span class="fu">mean</span>(PROPHEATWAVE), </span>
@@ -877,7 +879,7 @@ Censoring
 <span id="cb35-19"><a href="#cb35-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  8 46605 1 16 5 1 2                    0.322</span></span>
 <span id="cb35-20"><a href="#cb35-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  9 46605 1 16 5 1 3                    0.578</span></span>
 <span id="cb35-21"><a href="#cb35-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10 46605 1 16 5 2 1                    0.115</span></span>
-<span id="cb35-22"><a href="#cb35-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # ℹ 30,890 more rows</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb35-22"><a href="#cb35-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # ℹ 30,890 more rows</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>We now have 3 records for each child—one for each trimester. Our temperature metric now represents the average monthly proportion of days spent in a heatwave across the three months of each trimester <em>as well as</em> across the spatial region of each buffered cluster region.</p>
 <p>Recall that in this case we define a heatwave day as any day belonging to a sequence of at least 3 days over 35°C.</p>
@@ -903,7 +905,7 @@ Note
 </div>
 <p>First, we need to reattach our covariates to our trimester-aggregated data from the previous step. We’ll do so by selecting our variables of interest and joining them back on our heatwave exposure metrics calculated for each trimester and child ID.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Select covariates of interest. We want a single row of covariates for each</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Select covariates of interest. We want a single row of covariates for each</span></span>
 <span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a><span class="co"># KIDID</span></span>
 <span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>ml_dhs_chirts_sub <span class="ot">&lt;-</span> ml_dhs_chirts <span class="sc">|&gt;</span> </span>
 <span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(</span>
@@ -917,15 +919,15 @@ Note
 <span id="cb36-12"><a href="#cb36-12" aria-hidden="true" tabindex="-1"></a>  ml_dhs_tri,</span>
 <span id="cb36-13"><a href="#cb36-13" aria-hidden="true" tabindex="-1"></a>  ml_dhs_chirts_sub,</span>
 <span id="cb36-14"><a href="#cb36-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">by =</span> <span class="fu">c</span>(<span class="st">"KIDID"</span>, <span class="st">"TRIMESTER"</span>)</span>
-<span id="cb36-15"><a href="#cb36-15" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb36-15"><a href="#cb36-15" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Now, we can build a random effects model using <code>lmer</code> from the <code>{lme4}</code> package. We won’t get into all the details of random effects models in this post; for now, it’s enough to know that these models allow you to model a separate intercept for observations that belong to different groups. In this case, we fit separate intercepts for each enumeration area <code>(1 | DHSID)</code>. This allows us to account for some of the correlation between child observations from the same spatial area.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>heatwave_mod <span class="ot">&lt;-</span> lme4<span class="sc">::</span><span class="fu">lmer</span>(</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>heatwave_mod <span class="ot">&lt;-</span> lme4<span class="sc">::</span><span class="fu">lmer</span>(</span>
 <span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>  BIRTHWT <span class="sc">~</span> MEANPROPHEATWAVE <span class="sc">*</span> TRIMESTER <span class="sc">+</span> KIDSEX <span class="sc">+</span> AGE <span class="sc">+</span> BIDX <span class="sc">+</span> </span>
 <span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>    EDUCLVL <span class="sc">+</span> BIRTHWTREF <span class="sc">+</span> HEIGHTFEM <span class="sc">+</span> (<span class="dv">1</span> <span class="sc">|</span> DHSID),</span>
 <span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> ml_dhs_tri</span>
-<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 
 <div class="no-row-height column-margin column-container"><div class="">
@@ -935,7 +937,7 @@ Note
 <div class="cell">
 <details class="code-fold">
 <summary>Show table code</summary>
-<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gtsummary)</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gtsummary)</span>
 <span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a><span class="fu">tbl_regression</span>(</span>
 <span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a>  heatwave_mod, </span>
@@ -962,7 +964,7 @@ Note
 <span id="cb38-25"><a href="#cb38-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ℹ Use `modify_header(...)` input instead. Dynamic dots allow for syntax like</span></span>
 <span id="cb38-26"><a href="#cb38-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   `modify_header(!!!list(...))`.</span></span>
 <span id="cb38-27"><a href="#cb38-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ℹ The deprecated feature was likely used in the gtsummary package.</span></span>
-<span id="cb38-28"><a href="#cb38-28" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   Please report the issue at &lt;https://github.com/ddsjoberg/gtsummary/issues&gt;.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb38-28"><a href="#cb38-28" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   Please report the issue at &lt;https://github.com/ddsjoberg/gtsummary/issues&gt;.</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output-display">
 <div id="glzmebcjwu" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
@@ -1415,7 +1417,7 @@ Note
 }
 </style>
 
-<table class="gt_table caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+<table class="gt_table caption-top table table-sm table-striped small" data-quarto-bootstrap="false">
 <colgroup>
 <col style="width: 33%">
 <col style="width: 33%">
@@ -1423,11 +1425,11 @@ Note
 </colgroup>
 <thead>
 <tr class="gt_heading header">
-<th colspan="3" class="gt_heading gt_title gt_font_normal gt_bottom_border"><h1 id="effects-of-heatwave-days-on-birthweight"><br>
+<td colspan="3" class="gt_heading gt_title gt_font_normal gt_bottom_border"><h1 id="effects-of-heatwave-days-on-birthweight"><br>
 Effects of Heatwave Days on Birthweight<br>
 </h1>
 <h1 id="effects-of-heatwave-days-on-birthweight">Effects of Heatwave Days on Birthweight</h1>
-</th>
+</td>
 </tr>
 <tr class="gt_col_headings even">
 <th id="label" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col"></th>
@@ -1604,7 +1606,7 @@ Effects of Heatwave Days on Birthweight<br>
 <div class="cell page-columns page-full">
 <details class="code-fold">
 <summary>Show plot code</summary>
-<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>sjPlot<span class="sc">::</span><span class="fu">plot_model</span>(</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>sjPlot<span class="sc">::</span><span class="fu">plot_model</span>(</span>
 <span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>  heatwave_mod, </span>
 <span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">title =</span> <span class="st">"Heatwave Model Coefficients"</span>, </span>
 <span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">vline.color =</span> <span class="st">"#00263A"</span>,</span>
@@ -1626,7 +1628,7 @@ Effects of Heatwave Days on Birthweight<br>
 <span id="cb39-20"><a href="#cb39-20" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Heatwave x Trimester: 2"</span>,</span>
 <span id="cb39-21"><a href="#cb39-21" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Heatwave x Trimester: 3"</span></span>
 <span id="cb39-22"><a href="#cb39-22" aria-hidden="true" tabindex="-1"></a>  ))</span>
-<span id="cb39-23"><a href="#cb39-23" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb39-23"><a href="#cb39-23" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output-display page-columns page-full">
 <div class="page-columns page-full">
@@ -1698,13 +1700,14 @@ Effects of Heatwave Days on Birthweight<br>
       e.clearSelection();
     }
     const getTextToCopy = function(trigger) {
-        const codeEl = trigger.previousElementSibling.cloneNode(true);
-        for (const childEl of codeEl.children) {
-          if (isCodeAnnotation(childEl)) {
-            childEl.remove();
-          }
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
         }
-        return codeEl.innerText;
+      }
+      return codeEl.innerText;
     }
     const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
       text: getTextToCopy

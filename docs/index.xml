@@ -9,8 +9,23 @@
 <link>https://ipums.github.io/dhs-research-hub/</link>
 <atom:link href="https://ipums.github.io/dhs-research-hub/index.xml" rel="self" type="application/rss+xml"/>
 <description>Understand population health in its environmental context</description>
-<generator>quarto-1.7.32</generator>
-<lastBuildDate>Fri, 21 Nov 2025 06:00:00 GMT</lastBuildDate>
+<generator>quarto-1.8.25</generator>
+<lastBuildDate>Fri, 06 Feb 2026 06:00:00 GMT</lastBuildDate>
+<item>
+  <title>Vegetation and Land Cover Part 1: Vegetative Indices</title>
+  <dc:creator>Devon Kristiansen</dc:creator>
+  <link>https://ipums.github.io/dhs-research-hub/posts/2026-02-06-land-cover-intro/</link>
+  <description><![CDATA[ An almost overwhelming number of vegetative and land cover data types exist. As the first post in a series of three, this blog gives a brief primer into vegetative indices and which ones might be most appropriate for different research goals. ]]></description>
+  <category>NDVI</category>
+  <category>LAI</category>
+  <category>VCF</category>
+  <category>Agriculture</category>
+  <category>Seasonality</category>
+  <category>terra</category>
+  <category>sf</category>
+  <guid>https://ipums.github.io/dhs-research-hub/posts/2026-02-06-land-cover-intro/</guid>
+  <pubDate>Fri, 06 Feb 2026 06:00:00 GMT</pubDate>
+</item>
 <item>
   <title>Multilevel Dietary Diversity using DHS data</title>
   <dc:creator>Devon Kristiansen</dc:creator>
@@ -337,21 +352,6 @@
   <category>Cartography</category>
   <guid>https://ipums.github.io/dhs-research-hub/posts/2024-04-09-spatial-harmonization/</guid>
   <pubDate>Tue, 09 Apr 2024 05:00:00 GMT</pubDate>
-</item>
-<item>
-  <title>Droplets of Insights for Integrating DHS and Rainfall Data</title>
-  <dc:creator>Audrey Dorélien</dc:creator>
-  <dc:creator>Molly Brown</dc:creator>
-  <link>https://ipums.github.io/dhs-research-hub/posts/2024-02-23-rainfall-insights/</link>
-  <description><![CDATA[ Some factors to consider when obtaining and preparing precipitation data for use with DHS surveys ]]></description>
-  <category>Extreme weather</category>
-  <category>Precipitation</category>
-  <category>CHIRPS</category>
-  <category>Methodology</category>
-  <category>Research concepts</category>
-  <guid>https://ipums.github.io/dhs-research-hub/posts/2024-02-23-rainfall-insights/</guid>
-  <pubDate>Thu, 07 Mar 2024 06:00:00 GMT</pubDate>
-  <media:content url="https://ipums.github.io/dhs-research-hub/posts/2024-02-23-rainfall-insights/images/storm-clouds-over-wheat-field-danger-weather-with-dark-sky-over-fields-SBI-300870591.jpg" medium="image" type="image/jpeg"/>
 </item>
 </channel>
 </rss>
