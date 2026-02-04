@@ -20,7 +20,7 @@ bibliography: references.bib
 
 Several previous posts on this blog ([iterative workflows](https://tech.popdata.org/dhs-research-hub/posts/2024-08-01-ndvi-data/); [NDVI aggregation methods](https://tech.popdata.org/dhs-research-hub/posts/2024-08-16-ndvi-data-2/index.html); [multilevel modeling](https://tech.popdata.org/dhs-research-hub/posts/2025-11-21-diet-diversity-ndvi/)) have featured the Normalized Difference Vegetation Index (NDVI), which is an index frequently used as a measure of vegetation greenness and health.
 
-There are many other indices and measures to describe vegetation or land cover on Earth's surface, however, and in this series we'll go into details about what these data are and how they might be appropriate for certain research goals. Various data and indices represent seasonal agricultural productivity, or be used to measure droughts, deforestation, or many other climate change-related phenomena. We will start with vegetative indices, that is, measures of greenness detected using surface reflectance. The next two posts will cover measures of moisture in the environment and then land cover/land use data. 
+There are many other indices and measures to describe vegetation or land cover on Earth's surface, however, and in this series we'll go into details about what these data are and how they might be appropriate for certain research goals. Various data and indices represent seasonal agricultural productivity, or be used to measure droughts, deforestation, or many other climate change-related phenomena. We will start with vegetative indices, that is, measures of greenness detected using surface reflectance. The next two posts will cover measures of moisture in the environment and then land cover/land use data.
 
 # Greenness or Vegetation
 
@@ -144,7 +144,7 @@ uganda_evi_plot
 
 The table below is not an exhaustive list. We've chosen a select set of indicators to highlight that are widely used and vary enough from each other to be considered for different research goals. A [longer list of vegetation indices](https://www.earthdata.nasa.gov/topics/biosphere/vegetation-index) can be found on NASA's website.
 
-The information in the table is designed to help you navigate which indicator might be most appropriate for your research question. Your choice might be guided by the spatial resolution, temporal frequency, spatial or temporal coverage, or specific component of the measure itself. 
+The information in the table is designed to help you navigate which indicator might be most appropriate for your research question. Your choice might be guided by the spatial resolution, temporal frequency, spatial or temporal coverage, or specific component of the measure itself.
 
 You will notice some indicators occupy multiple rows - in the cases that the same indicator was collected by different instruments (ie. satellites) over time, their resolution or frequency might have changed as technology in remote sensing has advanced. Below the table are additional details regarding each measure and suggestions or examples for best use cases.
 
@@ -213,7 +213,7 @@ The Leaf Area Index is a measurement of the green leaf density of plant canopy, 
 
 ### Typical Uses
 
-The LAI is a reasonable choice to represent a variety of biological processes and activity of plant matter in an area, such as photosynthetic production, rainfall interception, or evapotranspiration [@bangelesa_is_2023].  For example, leaf area may be more important in measuring shade given by a canopy to moderate sunlight and heat.
+The LAI is a reasonable choice to represent a variety of biological processes and activity of plant matter in an area, such as photosynthetic production, rainfall interception, or evapotranspiration [@bangelesa_is_2023]. For example, leaf area may be more important in measuring shade given by a canopy to moderate sunlight and heat.
 
 ### Example article
 
