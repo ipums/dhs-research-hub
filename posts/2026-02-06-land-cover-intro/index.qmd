@@ -183,7 +183,7 @@ One option for research projects involving areas with low vegetative cover is th
 
 ### Example articles
 
--   Lopez-Carr et al 2016 used NDVI and precipitation data to analyze child nutrition in the Lake Victoria basin [@lopez-carr_climate-related_2016].
+-   Njatang et al 2023 used NDVI, CHIRPS precipitation data, and armed conflict data to analyze climate change and conflict's effect on child malnutrition in Sub-Saharan Africa [@njatang_climate_2023].
 
 ## EVI
 
