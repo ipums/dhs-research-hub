@@ -10,7 +10,20 @@
 <atom:link href="https://ipums.github.io/dhs-research-hub/index.xml" rel="self" type="application/rss+xml"/>
 <description>Understand population health in its environmental context</description>
 <generator>quarto-1.8.25</generator>
-<lastBuildDate>Fri, 06 Feb 2026 06:00:00 GMT</lastBuildDate>
+<lastBuildDate>Mon, 02 Mar 2026 06:00:00 GMT</lastBuildDate>
+<item>
+  <title>Vegetation and Land Cover Part 2: Environmental Moisture</title>
+  <dc:creator>Devon Kristiansen</dc:creator>
+  <link>https://ipums.github.io/dhs-research-hub/posts/2026-03-02-land-cover-pt2/</link>
+  <description><![CDATA[ An almost overwhelming number of vegetative and land cover data types exist. This second post of three describes a few common indices representing vegetative or soil moisture, with an emphasis on agricultural productivity. ]]></description>
+  <category>WRSI</category>
+  <category>Agriculture</category>
+  <category>Seasonality</category>
+  <category>terra</category>
+  <category>sf</category>
+  <guid>https://ipums.github.io/dhs-research-hub/posts/2026-03-02-land-cover-pt2/</guid>
+  <pubDate>Mon, 02 Mar 2026 06:00:00 GMT</pubDate>
+</item>
 <item>
   <title>Vegetation and Land Cover Part 1: Vegetative Indices</title>
   <dc:creator>Devon Kristiansen</dc:creator>
@@ -336,22 +349,6 @@
   <guid>https://ipums.github.io/dhs-research-hub/posts/2024-04-15-chirts-metrics/</guid>
   <pubDate>Mon, 15 Apr 2024 05:00:00 GMT</pubDate>
   <media:content url="https://ipums.github.io/dhs-research-hub/posts/2024-04-15-chirts-metrics/index_files/figure-html/listing-img-1.png" medium="image" type="image/png" height="115" width="144"/>
-</item>
-<item>
-  <title>Demystifying Spatially Harmonized Geography in IPUMS DHS</title>
-  <dc:creator>Sula Sarkar</dc:creator>
-  <dc:creator>Devon Kristiansen</dc:creator>
-  <dc:creator>Miriam King</dc:creator>
-  <link>https://ipums.github.io/dhs-research-hub/posts/2024-04-09-spatial-harmonization/</link>
-  <description><![CDATA[ A demonstration of data and techniques to handle shifting geographic boundaries in longitudinal research ]]></description>
-  <category>Integrated geography</category>
-  <category>Spatial harmonization</category>
-  <category>Longitudinal analysis</category>
-  <category>Methodology</category>
-  <category>Research concepts</category>
-  <category>Cartography</category>
-  <guid>https://ipums.github.io/dhs-research-hub/posts/2024-04-09-spatial-harmonization/</guid>
-  <pubDate>Tue, 09 Apr 2024 05:00:00 GMT</pubDate>
 </item>
 </channel>
 </rss>
