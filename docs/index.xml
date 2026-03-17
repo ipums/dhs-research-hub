@@ -10,7 +10,20 @@
 <atom:link href="https://ipums.github.io/dhs-research-hub/index.xml" rel="self" type="application/rss+xml"/>
 <description>Understand population health in its environmental context</description>
 <generator>quarto-1.8.25</generator>
-<lastBuildDate>Mon, 02 Mar 2026 06:00:00 GMT</lastBuildDate>
+<lastBuildDate>Fri, 13 Mar 2026 05:00:00 GMT</lastBuildDate>
+<item>
+  <title>Vegetation and Land Cover Part 3: Land Cover/Land Use</title>
+  <dc:creator>Devon Kristiansen</dc:creator>
+  <link>https://ipums.github.io/dhs-research-hub/posts/2026-03-13-land-cover-pt3/</link>
+  <description><![CDATA[ An almost overwhelming number of vegetative and land cover data types exist. This post describes and compares sources of land cover data, as the final installment of a series of three. ]]></description>
+  <category>Land cover</category>
+  <category>Land Use Change Dynamics</category>
+  <category>Agriculture</category>
+  <category>terra</category>
+  <category>sf</category>
+  <guid>https://ipums.github.io/dhs-research-hub/posts/2026-03-13-land-cover-pt3/</guid>
+  <pubDate>Fri, 13 Mar 2026 05:00:00 GMT</pubDate>
+</item>
 <item>
   <title>Vegetation and Land Cover Part 2: Environmental Moisture</title>
   <dc:creator>Devon Kristiansen</dc:creator>
@@ -329,26 +342,6 @@
   <guid>https://ipums.github.io/dhs-research-hub/posts/2024-05-31-ts-join/</guid>
   <pubDate>Fri, 31 May 2024 05:00:00 GMT</pubDate>
   <media:content url="https://ipums.github.io/dhs-research-hub/posts/2024-05-31-ts-join/index_files/figure-html/listing-img-1.png" medium="image" type="image/png"/>
-</item>
-<item>
-  <title>Flexible Workflows with CHIRTS Temperature Data</title>
-  <dc:creator>Finn Roberts</dc:creator>
-  <link>https://ipums.github.io/dhs-research-hub/posts/2024-04-15-chirts-metrics/</link>
-  <description><![CDATA[ Generalize your code to more easily aggregate time-varying environmental data ]]></description>
-  <category>CHIRTS</category>
-  <category>Temperature</category>
-  <category>Heat</category>
-  <category>Extreme weather</category>
-  <category>Time series</category>
-  <category>Reproducible workflows</category>
-  <category>Functional programming</category>
-  <category>terra</category>
-  <category>sf</category>
-  <category>ggspatial</category>
-  <category>R</category>
-  <guid>https://ipums.github.io/dhs-research-hub/posts/2024-04-15-chirts-metrics/</guid>
-  <pubDate>Mon, 15 Apr 2024 05:00:00 GMT</pubDate>
-  <media:content url="https://ipums.github.io/dhs-research-hub/posts/2024-04-15-chirts-metrics/index_files/figure-html/listing-img-1.png" medium="image" type="image/png" height="115" width="144"/>
 </item>
 </channel>
 </rss>

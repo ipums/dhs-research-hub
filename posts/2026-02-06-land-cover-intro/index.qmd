@@ -158,7 +158,7 @@ You will notice some indicators occupy multiple rows - in the cases that the sam
 | [VCF](https://www.earthdata.nasa.gov/about/competitive-programs/measures/vegetation-continuous-fields-esdr) | AVHRR | Percent of cell covered in tree, non-tree vegetation, and non-vegetation | 1982-2016 | annual | 0.05 degree (\~5km at equator) | [NASA Earthdata Search](https://search.earthdata.nasa.gov/search) - VCF5KYR |
 | [VCF](https://modis.gsfc.nasa.gov/data/dataprod/mod44.php) | MODIS | Percent of cell covered in tree, non-tree vegetation, and non-vegetation | 2000-2021 | annual | 250m | [NASA Earthdata Search](https://search.earthdata.nasa.gov/search) - MOD44B |
 | [LAI](https://www.ncei.noaa.gov/products/climate-data-records/leaf-area-index-and-fapar) | AVHRR | Canopy/leaf cover | 1981 to 10 days before the present | daily | 0.05 degree (\~5km at equator) | [NCEI NOAA direct download](https://www.ncei.noaa.gov/data/land-leaf-area-index-and-fapar/access/) |
-| [LAI](https://modis.gsfc.nasa.gov/data/dataprod/mod15.php) | MODIS | Canopy/leaf cover | 2002 - present (2000 - present) | 4-day (8-day) | 500m | [NASA Earthdata Search](https://search.earthdata.nasa.gov/search) - MCD15A3H (MOD16A2GF) |
+| [LAI](https://modis.gsfc.nasa.gov/data/dataprod/mod15.php) | MODIS | Canopy/leaf cover | 2002 - present (2000 - present) | 4-day (8-day) | 500m | [NASA Earthdata Search](https://search.earthdata.nasa.gov/search) - MCD15A3H (MOD15A2H) |
 | [LAI](https://www.ospo.noaa.gov/products/land/vegetation/lai/) | VIIRS | Canopy/leaf cover | 2012 - present | 8-day | 500m | [NASA Earthdata Search](https://search.earthdata.nasa.gov/search) - VNP15A2H |
 
 ## NDVI
