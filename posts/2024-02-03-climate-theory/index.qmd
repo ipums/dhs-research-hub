@@ -47,9 +47,14 @@ nature of the extreme weather event, 2) the details of the health outcome, and
 3) the temporal and spatial relationships between extreme weather and the health 
 phenomena of interest.
 
-![Figure 1: Pathways of extreme weather effects on health. Available at:
-<https://nca2018.globalchange.gov/chapter/14/>
-[@Ebi2018]](images/pathways.png)
+::: {#fig-pathways}
+
+![](images/pathways.png){fig-alt="Conceptual diagram of how extreme weather affects health through environmental and social pathways"}
+
+Pathways of extreme weather effects on health. Available at:
+<https://nca2018.globalchange.gov/chapter/14/>. [@Ebi2018]
+
+:::
 
 Beyond these three elements, contextual factors are crucial for
 identifying the complex causal pathways among weather extremes and health.
