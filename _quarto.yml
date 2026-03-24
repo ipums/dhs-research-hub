@@ -24,12 +24,11 @@ website:
     title: false
     logo: images/dhs_logo_white.png
     logo-href: https://www.idhsdata.org/idhs/
+    logo-alt: "IPUMS DHS Spatial Analysis and Health Research Hub"
     left:
       - text: "Spatial Analysis and Health Research Hub"
         file: index.qmd
     right:
-      - text: "Posts"
-        file: index.html
       - text: "Getting Started"
         menu:
           - text: "An Introduction to R"
@@ -44,24 +43,33 @@ website:
             href: CODE_OF_CONDUCT.html
           - text: "License"
             href: LICENSE.html
+      - text: "Posts"
+        file: index.html
       - text: "About"
         href: about.qmd
-      - text: "{{< fa brands github >}}"
+      - icon: github
         href: https://github.com/ipums/dhs-research-hub
-      - text: "{{< fa rss >}}"
+        aria-label: "GitHub repository"
+      - icon: rss
         href: index.xml
-      - text: "{{< fa brands x-twitter >}}"
+        aria-label: "RSS feed"
+      - icon: twitter-x
         href: https://twitter.com/ipumsGH
-      - text: "{{< fa users >}}"
+        aria-label: "IPUMS on X"
+      - icon: people-fill
         href: https://forum.ipums.org
-      - text: "{{< fa globe >}}"
+        aria-label: "IPUMS Forum"
+      - icon: globe
         href: https://www.ipums.org/
+        aria-label: "IPUMS Homepage"
   search:
     type: textbox
   google-analytics: "G-0WLH5S9VD5"
-    
+
 format:
   html:
+    include-in-header:
+      - ./navbar-a11y-patch.html
     theme:
       - cosmo
       - custom.scss
@@ -76,13 +84,13 @@ format:
     code-link: true
     appendix-style: default
     html-math-method: katex
+    fig-numbering: true
 
 csl: csl/apa-numeric-superscript.csl
 
 knitr:
-  opts_chunk: 
+  opts_chunk:
     collapse: true
     comment: "#>"
 
 editor: visual
-

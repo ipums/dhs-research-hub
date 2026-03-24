@@ -8,3 +8,4 @@ docs/fonts/
 /.quarto/
 data_local/
 **/*.quarto_ipynb
+.idea

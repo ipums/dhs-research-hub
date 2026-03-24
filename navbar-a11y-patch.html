@@ -1,0 +1,8 @@
+<!-- Added to patch a bug in quarto that is causing "broken ARIA menu" errors in WAVE scans -->
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        document.querySelectorAll(".navbar-toggler[role='menu']").forEach(function (el) {
+            el.removeAttribute("role");
+        });
+    });
+</script>
