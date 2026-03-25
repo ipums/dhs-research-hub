@@ -44,28 +44,28 @@ website:
           - text: "License"
             href: LICENSE.html
       - text: "Posts"
-        file: index.html
+        file: index.html      
       - text: "About"
         href: about.qmd
       - icon: github
         href: https://github.com/ipums/dhs-research-hub
-        aria-label: "GitHub repository"
+        aria-label: "GitHub repository"      
       - icon: rss
         href: index.xml
-        aria-label: "RSS feed"
+        aria-label: "RSS feed"        
       - icon: twitter-x
         href: https://twitter.com/ipumsGH
-        aria-label: "IPUMS on X"
+        aria-label: "IPUMS on X"        
       - icon: people-fill
         href: https://forum.ipums.org
-        aria-label: "IPUMS Forum"
+        aria-label: "IPUMS Forum"        
       - icon: globe
         href: https://www.ipums.org/
         aria-label: "IPUMS Homepage"
   search:
     type: textbox
   google-analytics: "G-0WLH5S9VD5"
-
+    
 format:
   html:
     include-in-header:
@@ -89,8 +89,9 @@ format:
 csl: csl/apa-numeric-superscript.csl
 
 knitr:
-  opts_chunk:
+  opts_chunk: 
     collapse: true
     comment: "#>"
 
 editor: visual
+
