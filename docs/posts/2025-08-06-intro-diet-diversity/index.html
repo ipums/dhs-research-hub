@@ -1,16 +1,13 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
-
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
 <meta name="generator" content="quarto-1.8.25">
-
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-
 <meta name="author" content="Devon Kristiansen">
 <meta name="author" content="Rebecca Luttinen">
 <meta name="dcterms.date" content="2025-08-06">
 <meta name="description" content="An introduction to constructing comparable dietary diversity indicators. This post breaks away from the series on future conditions, with the first post of two on dietary diversity.">
-
 <title>Measuring Dietary Diversity using DHS data – IPUMS DHS Spatial Analysis and Health Research Hub</title>
 <style>
 code{white-space: pre-wrap;}
@@ -81,7 +78,6 @@ div.csl-indent {
   margin-left: 2em;
 }</style>
 
-
 <script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
 <script src="../../site_libs/quarto-nav/headroom.min.js"></script>
 <script src="../../site_libs/clipboard/clipboard.min.js"></script>
@@ -100,10 +96,7 @@ div.csl-indent {
 <link href="../../site_libs/quarto-html/quarto-syntax-highlighting-be0d74190db5c030392493894a628b9f.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap-b72def720c12fc22be66127d2101a337.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
-<link href="../../site_libs/quarto-contrib/fontawesome6-0.1.0/all.css" rel="stylesheet">
-<link href="../../site_libs/quarto-contrib/fontawesome6-0.1.0/latex-fontsize.css" rel="stylesheet">
-<script id="quarto-search-options" type="application/json">{
+<link href="../../site_libs/bootstrap/bootstrap-42421e77c5529847ff6e63ddf59efa80.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light"><script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
   "collapse-after": 3,
@@ -128,18 +121,19 @@ div.csl-indent {
     "search-submit-button-title": "Submit",
     "search-label": "Search"
   }
-}</script>
-<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-0WLH5S9VD5"></script>
-
-<script type="text/javascript">
+}</script><script async="" src="https://www.googletagmanager.com/gtag/js?id=G-0WLH5S9VD5"></script><script type="text/javascript">
 
 window.dataLayer = window.dataLayer || [];
 function gtag(){dataLayer.push(arguments);}
 gtag('js', new Date());
 gtag('config', 'G-0WLH5S9VD5', { 'anonymize_ip': true});
+</script><!-- Added to patch a bug in quarto that is causing "broken ARIA menu" errors in WAVE scans --><script>
+    document.addEventListener("DOMContentLoaded", function () {
+        document.querySelectorAll(".navbar-toggler[role='menu']").forEach(function (el) {
+            el.removeAttribute("role");
+        });
+    });
 </script>
-
-
 <meta property="og:title" content="IPUMS DHS Spatial Analysis and Health Research Hub">
 <meta property="og:description" content="Understand population health in its environmental context">
 <meta property="og:image" content="https://ipums.github.io/dhs-research-hub/posts/2025-08-06-intro-diet-diversity/images/dhs_logo_navy_pad.png">
@@ -149,18 +143,13 @@ gtag('config', 'G-0WLH5S9VD5', { 'anonymize_ip': true});
 <meta name="twitter:image" content="https://ipums.github.io/dhs-research-hub/posts/2025-08-06-intro-diet-diversity/images/dhs_logo_navy_pad.png">
 <meta name="twitter:card" content="summary_large_image">
 </head>
-
 <body class="floating nav-fixed slimcontent quarto-light">
 
 <div id="quarto-search-results"></div>
-  <header id="quarto-header" class="headroom fixed-top quarto-banner">
-    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
-      <div class="navbar-container container-fluid">
+  <header id="quarto-header" class="headroom fixed-top quarto-banner"><nav class="navbar navbar-expand-lg " data-bs-theme="dark"><div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
     <a href="https://www.idhsdata.org/idhs/" class="navbar-brand navbar-brand-logo">
-    <img src="../../images/dhs_logo_white.png" alt="" class="navbar-logo light-content">
-    <img src="../../images/dhs_logo_white.png" alt="" class="navbar-logo dark-content">
-    </a>
+    <img src="../../images/dhs_logo_white.png" alt="IPUMS DHS Spatial Analysis and Health Research Hub" class="navbar-logo light-content"><img src="../../images/dhs_logo_white.png" alt="IPUMS DHS Spatial Analysis and Health Research Hub" class="navbar-logo dark-content"></a>
   </div>
             <div id="quarto-search" class="" title="Search"></div>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
@@ -168,22 +157,18 @@ gtag('config', 'G-0WLH5S9VD5', { 'anonymize_ip': true});
 </button>
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
-  <li class="nav-item">
+<li class="nav-item">
     <a class="nav-link" href="../../index.html"> 
 <span class="menu-text">Spatial Analysis and Health Research Hub</span></a>
   </li>  
 </ul>
-            <ul class="navbar-nav navbar-nav-scroll ms-auto">
-  <li class="nav-item">
-    <a class="nav-link" href="../../index.html"> 
-<span class="menu-text">Posts</span></a>
-  </li>  
-  <li class="nav-item dropdown ">
+<ul class="navbar-nav navbar-nav-scroll ms-auto">
+<li class="nav-item dropdown ">
     <a class="nav-link dropdown-toggle" href="#" id="nav-menu-getting-started" role="link" data-bs-toggle="dropdown" aria-expanded="false">
  <span class="menu-text">Getting Started</span>
     </a>
-    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="nav-menu-getting-started">    
-        <li>
+    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="nav-menu-getting-started">
+<li>
     <a class="dropdown-item" href="../../posts/2024-02-01-getting-started-with-r/index.html">
  <span class="dropdown-text">An Introduction to R</span></a>
   </li>  
@@ -192,13 +177,13 @@ gtag('config', 'G-0WLH5S9VD5', { 'anonymize_ip': true});
  <span class="dropdown-text">Obtaining IPUMS DHS Data</span></a>
   </li>  
     </ul>
-  </li>
+</li>
   <li class="nav-item dropdown ">
     <a class="nav-link dropdown-toggle" href="#" id="nav-menu-community" role="link" data-bs-toggle="dropdown" aria-expanded="false">
  <span class="menu-text">Community</span>
     </a>
-    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="nav-menu-community">    
-        <li>
+    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="nav-menu-community">
+<li>
     <a class="dropdown-item" href="https://forum.ipums.org">
  <span class="dropdown-text">IPUMS Forum</span></a>
   </li>  
@@ -211,41 +196,46 @@ gtag('config', 'G-0WLH5S9VD5', { 'anonymize_ip': true});
  <span class="dropdown-text">License</span></a>
   </li>  
     </ul>
-  </li>
+</li>
+  <li class="nav-item">
+    <a class="nav-link" href="../../index.html"> 
+<span class="menu-text">Posts</span></a>
+  </li>  
   <li class="nav-item">
     <a class="nav-link" href="../../about.html"> 
 <span class="menu-text">About</span></a>
   </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="https://github.com/ipums/dhs-research-hub"> 
-<span class="menu-text"><i class="fa-brands fa-github" aria-label="github"></i></span></a>
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/ipums/dhs-research-hub"> <i class="bi bi-github" role="img" aria-label="GitHub repository">
+</i> 
+<span class="menu-text"></span></a>
   </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="../../index.xml"> 
-<span class="menu-text"><i class="fa-solid fa-rss" aria-label="rss"></i></span></a>
+  <li class="nav-item compact">
+    <a class="nav-link" href="../../index.xml"> <i class="bi bi-rss" role="img" aria-label="RSS feed">
+</i> 
+<span class="menu-text"></span></a>
   </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="https://twitter.com/ipumsGH"> 
-<span class="menu-text"><i class="fa-brands fa-x-twitter" aria-label="x-twitter"></i></span></a>
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://twitter.com/ipumsGH"> <i class="bi bi-twitter-x" role="img" aria-label="IPUMS on X">
+</i> 
+<span class="menu-text"></span></a>
   </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="https://forum.ipums.org"> 
-<span class="menu-text"><i class="fa-solid fa-users" aria-label="users"></i></span></a>
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://forum.ipums.org"> <i class="bi bi-people-fill" role="img" aria-label="IPUMS Forum">
+</i> 
+<span class="menu-text"></span></a>
   </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="https://www.ipums.org/"> 
-<span class="menu-text"><i class="fa-solid fa-globe" aria-label="globe"></i></span></a>
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://www.ipums.org/"> <i class="bi bi-globe" role="img" aria-label="IPUMS Homepage">
+</i> 
+<span class="menu-text"></span></a>
   </li>  
 </ul>
-          </div> <!-- /navcollapse -->
+</div> <!-- /navcollapse -->
             <div class="quarto-navbar-tools">
 </div>
       </div> <!-- /container-fluid -->
-    </nav>
-</header>
-<!-- content -->
-<header id="title-block-header" class="quarto-title-block default toc-left page-columns page-full">
-  <div class="quarto-title-banner page-columns page-full">
+    </nav></header><!-- content --><header id="title-block-header" class="quarto-title-block default toc-left page-columns page-full"><div class="quarto-title-banner page-columns page-full">
     <div class="quarto-title column-body">
       <h1 class="title">Measuring Dietary Diversity using DHS data</h1>
                   <div>
@@ -302,51 +292,42 @@ gtag('config', 'G-0WLH5S9VD5', { 'anonymize_ip': true});
   
   </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
-    <nav id="TOC" role="doc-toc" class="toc-active" data-toc-expanded="1">
-    <h2 id="toc-title">Contents</h2>
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto"><nav id="TOC" role="doc-toc" class="toc-active" data-toc-expanded="1"><h2 id="toc-title">Contents</h2>
    
   <ul>
-  <li><a href="#how-dietary-diversity-can-be-measured" id="toc-how-dietary-diversity-can-be-measured" class="nav-link active" data-scroll-target="#how-dietary-diversity-can-be-measured">How dietary diversity can be measured</a></li>
-  <li><a href="#dhs-diet-indicators-over-time" id="toc-dhs-diet-indicators-over-time" class="nav-link" data-scroll-target="#dhs-diet-indicators-over-time">DHS Diet Indicators Over Time</a>
+<li><a href="#how-dietary-diversity-can-be-measured" id="toc-how-dietary-diversity-can-be-measured" class="nav-link active" data-scroll-target="#how-dietary-diversity-can-be-measured">How dietary diversity can be measured</a></li>
+  <li>
+<a href="#dhs-diet-indicators-over-time" id="toc-dhs-diet-indicators-over-time" class="nav-link" data-scroll-target="#dhs-diet-indicators-over-time">DHS Diet Indicators Over Time</a>
   <ul class="collapse">
-  <li><a href="#minimum-dietary-diversity-definition" id="toc-minimum-dietary-diversity-definition" class="nav-link" data-scroll-target="#minimum-dietary-diversity-definition">Minimum dietary diversity definition</a></li>
+<li><a href="#minimum-dietary-diversity-definition" id="toc-minimum-dietary-diversity-definition" class="nav-link" data-scroll-target="#minimum-dietary-diversity-definition">Minimum dietary diversity definition</a></li>
   <li><a href="#changes-over-time" id="toc-changes-over-time" class="nav-link" data-scroll-target="#changes-over-time">Changes over time</a></li>
   <li><a href="#differences-in-variable-sub-population" id="toc-differences-in-variable-sub-population" class="nav-link" data-scroll-target="#differences-in-variable-sub-population">Differences in variable sub-population</a></li>
-  </ul></li>
-  <li><a href="#dietary-diversity-over-time-in-ethiopia" id="toc-dietary-diversity-over-time-in-ethiopia" class="nav-link" data-scroll-target="#dietary-diversity-over-time-in-ethiopia">Dietary diversity over time in Ethiopia</a>
-  <ul class="collapse">
-  <li><a href="#creating-a-comparable-count-of-food-groups-over-time" id="toc-creating-a-comparable-count-of-food-groups-over-time" class="nav-link" data-scroll-target="#creating-a-comparable-count-of-food-groups-over-time">Creating a comparable count of food groups over time</a></li>
-  <li><a href="#mapping-dietary-diversity-over-time" id="toc-mapping-dietary-diversity-over-time" class="nav-link" data-scroll-target="#mapping-dietary-diversity-over-time">Mapping dietary diversity over time</a></li>
-  </ul></li>
   </ul>
-</nav>
-</nav>
-<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+</li>
+  <li>
+<a href="#dietary-diversity-over-time-in-ethiopia" id="toc-dietary-diversity-over-time-in-ethiopia" class="nav-link" data-scroll-target="#dietary-diversity-over-time-in-ethiopia">Dietary diversity over time in Ethiopia</a>
+  <ul class="collapse">
+<li><a href="#creating-a-comparable-count-of-food-groups-over-time" id="toc-creating-a-comparable-count-of-food-groups-over-time" class="nav-link" data-scroll-target="#creating-a-comparable-count-of-food-groups-over-time">Creating a comparable count of food groups over time</a></li>
+  <li><a href="#mapping-dietary-diversity-over-time" id="toc-mapping-dietary-diversity-over-time" class="nav-link" data-scroll-target="#mapping-dietary-diversity-over-time">Mapping dietary diversity over time</a></li>
+  </ul>
+</li>
+  </ul></nav>
+</nav><div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
     </div>
 <!-- main -->
-<main class="content quarto-banner-title-block page-columns page-full" id="quarto-document-content">
-
-
-
-
-
-<p>Meeting dietary needs in early life is vital for human development and well-being. Child malnutrition before 24 months of age is particularly impactful on physical and cognitive health and human capital in later life stages<span class="citation" data-cites="victora_maternal_2008 martin-rodriguez_infancy_2022"><sup><a href="#ref-victora_maternal_2008" role="doc-biblioref">1</a>,<a href="#ref-martin-rodriguez_infancy_2022" role="doc-biblioref">2</a></sup></span>.</p>
+<main class="content quarto-banner-title-block page-columns page-full" id="quarto-document-content"><p>Meeting dietary needs in early life is vital for human development and well-being. Child malnutrition before 24 months of age is particularly impactful on physical and cognitive health and human capital in later life stages<span class="citation" data-cites="victora_maternal_2008 martin-rodriguez_infancy_2022"><sup><a href="#ref-victora_maternal_2008" role="doc-biblioref">1</a>,<a href="#ref-martin-rodriguez_infancy_2022" role="doc-biblioref">2</a></sup></span>.</p>
 <p>The main three indicators measuring dietary adequacy, developed by the World Health Organization, are minimum dietary diversity (MDD), minimum meal frequency (MMF), and minimum acceptable diet (MAD). Meal frequency is a proxy for under-nutrition and dietary diversity represents whether the child’s diet provides adequate macro-nutrients, while MAD indicates both MDD and MMF are met. For the purposes of this post, we will focus on minimum dietary diversity.</p>
 <p>Studies have shown that minimum dietary diversity, a standard measurement developed by the World Health organization, is strongly correlated with multiple dimensions of nutritional status<span class="citation" data-cites="arimond_dietary_2004 molani_gol_association_2022"><sup><a href="#ref-arimond_dietary_2004" role="doc-biblioref">3</a>,<a href="#ref-molani_gol_association_2022" role="doc-biblioref">4</a></sup></span>. <a href="https://www.who.int/data/gho/indicator-metadata-registry/imr-details/7042">Minimum dietary diversity</a> is defined as the consumption of foods from 5 out of 8 food groups in the past 24 hours. In many countries, less than a quarter of children meet the standard diet diversity guidelines, and factors such as climate change and conflict threaten to reduce that prevalence even further<span class="citation" data-cites="WHO_infant_child_feeding_fact_sheet_2023"><sup><a href="#ref-WHO_infant_child_feeding_fact_sheet_2023" role="doc-biblioref">5</a></sup></span>. Evidence already indicates that climate change may correlate with reduced dietary diversity<span class="citation" data-cites="niles_climate_2021"><sup><a href="#ref-niles_climate_2021" role="doc-biblioref">6</a></sup></span>.</p>
 <p>This post is designed to introduce researchers to available data for measuring dietary diversity in order to study trends over time and associations with climate change-related events.</p>
-<section id="how-dietary-diversity-can-be-measured" class="level1">
-<h1>How dietary diversity can be measured</h1>
+<section id="how-dietary-diversity-can-be-measured" class="level1"><h1>How dietary diversity can be measured</h1>
 <p>In order to capture dietary diversity in a survey, respondents are asked about whether their children have eaten nutritional foods. Respondents are generally asked whether their child was fed certain foods in the past 24 hours, sometimes phrased as “any time yesterday or last night” or “any time yesterday (last 24 hours)” or “yesterday during the day or night”.</p>
 <p>While food availability and diets vary across cultures and national boundaries, the types of foods that respondents are asked about in surveys also vary.</p>
 <p>The integrated variables available in IPUMS DHS child record data have an important distinction that researchers need to be wary of. You might notice that there are two versions of the feeding questions, one with a naming structure MAFED_24H, like MAFEDGRAIN24H, and other with FED_24H, such as FEDGRAIN24H.</p>
 <p>The feeding questions from the individual recode (women’s) file indicate that the mother fed the youngest of her children an item from that food category (MAFEDGRAIN24H). These variables have been attached to children records in the original DHS data - even children who are not the youngest. Though these records have a value that appears to be in universe, the information only refers to whether the youngest child of the mother was fed that food type.</p>
 <p>In contrast, variables such as FEDGRAIN24H refer to whether the child themselves consumed a food of that category. For most DHS samples, these questions were only asked of youngest children, though the age limit differs across samples.</p>
-</section>
-<section id="dhs-diet-indicators-over-time" class="level1 page-columns page-full">
-<h1>DHS Diet Indicators Over Time</h1>
+</section><section id="dhs-diet-indicators-over-time" class="level1 page-columns page-full"><h1>DHS Diet Indicators Over Time</h1>
 <p>In the DHS Guide to Statistics version 6, published in 2006, the supplemental feeding questions were used to calculate the percentage of children who consumed a specific food group in the past day, differentiated by whether the child was currently breastfeeding or not. Starting in Version 7, the DHS Guide to Statistics use the minimum dietary diversity standard from the World Health Organization.</p>
 <table class="caption-top table">
 <colgroup>
@@ -355,14 +336,12 @@ gtag('config', 'G-0WLH5S9VD5', { 'anonymize_ip': true});
 <col style="width: 24%">
 <col style="width: 24%">
 </colgroup>
-<thead>
-<tr class="header">
+<thead><tr class="header">
 <th></th>
 <th style="text-align: center;">Version 6</th>
 <th style="text-align: center;">Version 7 &amp; 7.2</th>
 <th style="text-align: center;">Version 8</th>
-</tr>
-</thead>
+</tr></thead>
 <tbody>
 <tr class="odd">
 <td><strong>Indicator</strong></td>
@@ -390,8 +369,7 @@ gtag('config', 'G-0WLH5S9VD5', { 'anonymize_ip': true});
 </tr>
 </tbody>
 </table>
-<section id="minimum-dietary-diversity-definition" class="level2 page-columns page-full">
-<h2 class="anchored" data-anchor-id="minimum-dietary-diversity-definition">Minimum dietary diversity definition</h2>
+<section id="minimum-dietary-diversity-definition" class="level2 page-columns page-full"><h2 class="anchored" data-anchor-id="minimum-dietary-diversity-definition">Minimum dietary diversity definition</h2>
 <p>Children aged 6 to 23 months who were fed 5 out of the following 8 food groups in the past day meet the minimum dietary diversity (MDD) guidelines:</p>
 <ul>
 <li>Breastmilk</li>
@@ -407,75 +385,71 @@ gtag('config', 'G-0WLH5S9VD5', { 'anonymize_ip': true});
 <p>##Calculating the MDD indicator using R</p>
 <p>We will use Ethiopia DHS surveys from 2000 to 2019 as an illustrative example, loading in an IPUMS DHS extract and bringing in the necessary libraries for our research example later.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load in necessary libraries</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ipumsr)</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sf)</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyr)</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(janitor)</span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Load IPUMS DHS extract</span></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>dhs_microdata <span class="ot">&lt;-</span> <span class="fu">read_ipums_micro</span>(</span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">ddi =</span> <span class="st">"data/dhs/idhs_00050.xml"</span>,</span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">data_file =</span> <span class="st">"data/dhs/idhs_00050.dat.gz"</span>,</span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">verbose =</span> <span class="cn">FALSE</span></span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Load in necessary libraries</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tech.popdata.org/ipumsr/">ipumsr</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://r-spatial.github.io/sf/">sf</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org">ggplot2</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org">dplyr</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyr.tidyverse.org">tidyr</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/sfirke/janitor">janitor</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Load IPUMS DHS extract</span></span>
+<span><span class="va">dhs_microdata</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tech.popdata.org/ipumsr/reference/read_ipums_micro.html">read_ipums_micro</a></span><span class="op">(</span></span>
+<span>  ddi <span class="op">=</span> <span class="st">"data/dhs/idhs_00050.xml"</span>,</span>
+<span>  data_file <span class="op">=</span> <span class="st">"data/dhs/idhs_00050.dat.gz"</span>,</span>
+<span>  verbose <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 
 <div class="no-row-height column-margin column-container"><div class="">
 <p>The DHS questionnaires modify the standard questionnaire to include culturally-specific food groups, and the DHS guide to statistics instructs analysts to include the country-specific food types into the appropriate food groups above. For example, products made from teff (Ethiopia) should be included in grain foods.</p>
 </div></div><p>First, we recode the DHS diet variables into indicators for the food groups outlined in the WHO dietary diversity guidelines.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Create indicators for whether the youngest child consumed something from each of the 8 food groups in the past 24 hours</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co">#a)Breastmilk</span></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>dhs_microdata <span class="ot">&lt;-</span> dhs_microdata <span class="sc">%&gt;%</span> </span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">breastmilk =</span> <span class="fu">case_when</span>(BRSFEDUR<span class="sc">==</span><span class="dv">95</span> <span class="sc">~</span> <span class="dv">1</span>))</span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="co">#b)Grains, cereals, tubers, porridge, and teff products</span></span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>dhs_microdata <span class="ot">&lt;-</span> dhs_microdata <span class="sc">%&gt;%</span> </span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">grains =</span> <span class="fu">case_when</span>(MAFEDCEREAL24H<span class="sc">==</span><span class="dv">1</span> <span class="sc">|</span> MAFEDGRAIN24H<span class="sc">==</span><span class="dv">1</span> <span class="sc">|</span> MAFEDTUBER24H<span class="sc">==</span><span class="dv">1</span> <span class="sc">|</span> MAFEDPORR24H<span class="sc">==</span><span class="dv">1</span> <span class="sc">|</span> MAFEDTEFF24H<span class="sc">==</span><span class="dv">1</span> <span class="sc">~</span> <span class="dv">1</span>))</span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="co">#c)Legumes and nuts</span></span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>dhs_microdata <span class="ot">&lt;-</span> dhs_microdata <span class="sc">%&gt;%</span> </span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">nuts_legumes =</span> <span class="fu">case_when</span>(MAFEDLEGUM24H<span class="sc">==</span><span class="dv">1</span> <span class="sc">|</span> MAFEDNUTS24H<span class="sc">==</span><span class="dv">1</span> <span class="sc">~</span> <span class="dv">1</span>))</span>
-<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a><span class="co">#d)Dairy products (infant formula, milk, yogurt, cheese)</span></span>
-<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>dhs_microdata <span class="ot">&lt;-</span> dhs_microdata <span class="sc">%&gt;%</span> </span>
-<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">dairy =</span> <span class="fu">case_when</span>(MAFEDFORM24H<span class="sc">==</span><span class="dv">1</span> <span class="sc">|</span> MAFEDGENMILK24H<span class="sc">==</span><span class="dv">1</span> <span class="sc">|</span> MAFEDCHEESE24H<span class="sc">==</span><span class="dv">1</span> <span class="sc">|</span> MAFEDYOGURT24H<span class="sc">==</span><span class="dv">1</span> <span class="sc">~</span> <span class="dv">1</span>))</span>
-<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a><span class="co">#e)Flesh foods (meat, fish, poultry and liver/organ meats)</span></span>
-<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>dhs_microdata <span class="ot">&lt;-</span> dhs_microdata <span class="sc">%&gt;%</span> </span>
-<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">meat =</span> <span class="fu">case_when</span>(MAFEDMEAT24H<span class="sc">==</span><span class="dv">1</span> <span class="sc">|</span> MAFEDORGAN24H<span class="sc">==</span><span class="dv">1</span> <span class="sc">|</span> MAFEDFISH24H<span class="sc">==</span><span class="dv">1</span> <span class="sc">|</span> MAFEDPROTEIN24H <span class="sc">==</span> <span class="dv">1</span> <span class="sc">|</span> MAFEDFISH24H<span class="sc">==</span><span class="dv">1</span> <span class="sc">|</span> MAFEDBIRD24H <span class="sc">==</span><span class="dv">1</span> <span class="sc">~</span> <span class="dv">1</span>))</span>
-<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a><span class="co">#f)Eggs</span></span>
-<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>dhs_microdata <span class="ot">&lt;-</span> dhs_microdata <span class="sc">%&gt;%</span> </span>
-<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">eggs =</span> <span class="fu">case_when</span>(MAFEDEGG24H<span class="sc">==</span><span class="dv">1</span> <span class="sc">~</span> <span class="dv">1</span>))</span>
-<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a><span class="co">#g)Vitamin A rich fruits and vegetables</span></span>
-<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a>dhs_microdata <span class="ot">&lt;-</span> dhs_microdata <span class="sc">%&gt;%</span> </span>
-<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">vita =</span> <span class="fu">case_when</span>(MAFEDYELVEG24H<span class="sc">==</span><span class="dv">1</span> <span class="sc">|</span> MAFEDGRNVEG24H<span class="sc">==</span><span class="dv">1</span> <span class="sc">|</span> MAFEDVITAFRUIT24H<span class="sc">==</span><span class="dv">1</span> <span class="sc">~</span> <span class="dv">1</span>))</span>
-<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a><span class="co">#h)Other fruits and vegetables</span></span>
-<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a>dhs_microdata <span class="ot">&lt;-</span> dhs_microdata <span class="sc">%&gt;%</span> </span>
-<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">othfrtveg =</span> <span class="fu">case_when</span>(MAFEDOFRTVEG24H<span class="sc">==</span><span class="dv">1</span> <span class="sc">~</span> <span class="dv">1</span>))</span>
-<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a><span class="co">#Calculate the number of food groups consumed in the past 24 hours</span></span>
-<span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a>dhs_microdata <span class="ot">&lt;-</span> dhs_microdata <span class="sc">%&gt;%</span> </span>
-<span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">foodgroups =</span> <span class="fu">sum</span>(breastmilk, grains, nuts_legumes, dairy, meat, eggs, vita, othfrtveg, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span>
-<span id="cb2-38"><a href="#cb2-38" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-39"><a href="#cb2-39" aria-hidden="true" tabindex="-1"></a><span class="co">#Create an indicator for whether the child consumed foods from 5 or more food groups and assign to 1; zero otherwise</span></span>
-<span id="cb2-40"><a href="#cb2-40" aria-hidden="true" tabindex="-1"></a>dhs_microdata <span class="ot">&lt;-</span> dhs_microdata <span class="sc">%&gt;%</span> </span>
-<span id="cb2-41"><a href="#cb2-41" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">MDD =</span> <span class="fu">case_when</span>(foodgroups <span class="sc">&gt;=</span> <span class="dv">5</span> <span class="sc">~</span> <span class="dv">1</span>, foodgroups <span class="sc">&lt;</span> <span class="dv">5</span> <span class="sc">~</span> <span class="dv">0</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co">#Create indicators for whether the youngest child consumed something from each of the 8 food groups in the past 24 hours</span></span>
+<span></span>
+<span><span class="co">#a)Breastmilk</span></span>
+<span><span class="va">dhs_microdata</span> <span class="op">&lt;-</span> <span class="va">dhs_microdata</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>breastmilk <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/case-and-replace-when.html">case_when</a></span><span class="op">(</span><span class="va">BRSFEDUR</span><span class="op">==</span><span class="fl">95</span> <span class="op">~</span> <span class="fl">1</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">#b)Grains, cereals, tubers, porridge, and teff products</span></span>
+<span><span class="va">dhs_microdata</span> <span class="op">&lt;-</span> <span class="va">dhs_microdata</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>grains <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/case-and-replace-when.html">case_when</a></span><span class="op">(</span><span class="va">MAFEDCEREAL24H</span><span class="op">==</span><span class="fl">1</span> <span class="op">|</span> <span class="va">MAFEDGRAIN24H</span><span class="op">==</span><span class="fl">1</span> <span class="op">|</span> <span class="va">MAFEDTUBER24H</span><span class="op">==</span><span class="fl">1</span> <span class="op">|</span> <span class="va">MAFEDPORR24H</span><span class="op">==</span><span class="fl">1</span> <span class="op">|</span> <span class="va">MAFEDTEFF24H</span><span class="op">==</span><span class="fl">1</span> <span class="op">~</span> <span class="fl">1</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">#c)Legumes and nuts</span></span>
+<span><span class="va">dhs_microdata</span> <span class="op">&lt;-</span> <span class="va">dhs_microdata</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>nuts_legumes <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/case-and-replace-when.html">case_when</a></span><span class="op">(</span><span class="va">MAFEDLEGUM24H</span><span class="op">==</span><span class="fl">1</span> <span class="op">|</span> <span class="va">MAFEDNUTS24H</span><span class="op">==</span><span class="fl">1</span> <span class="op">~</span> <span class="fl">1</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">#d)Dairy products (infant formula, milk, yogurt, cheese)</span></span>
+<span><span class="va">dhs_microdata</span> <span class="op">&lt;-</span> <span class="va">dhs_microdata</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>dairy <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/case-and-replace-when.html">case_when</a></span><span class="op">(</span><span class="va">MAFEDFORM24H</span><span class="op">==</span><span class="fl">1</span> <span class="op">|</span> <span class="va">MAFEDGENMILK24H</span><span class="op">==</span><span class="fl">1</span> <span class="op">|</span> <span class="va">MAFEDCHEESE24H</span><span class="op">==</span><span class="fl">1</span> <span class="op">|</span> <span class="va">MAFEDYOGURT24H</span><span class="op">==</span><span class="fl">1</span> <span class="op">~</span> <span class="fl">1</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">#e)Flesh foods (meat, fish, poultry and liver/organ meats)</span></span>
+<span><span class="va">dhs_microdata</span> <span class="op">&lt;-</span> <span class="va">dhs_microdata</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>meat <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/case-and-replace-when.html">case_when</a></span><span class="op">(</span><span class="va">MAFEDMEAT24H</span><span class="op">==</span><span class="fl">1</span> <span class="op">|</span> <span class="va">MAFEDORGAN24H</span><span class="op">==</span><span class="fl">1</span> <span class="op">|</span> <span class="va">MAFEDFISH24H</span><span class="op">==</span><span class="fl">1</span> <span class="op">|</span> <span class="va">MAFEDPROTEIN24H</span> <span class="op">==</span> <span class="fl">1</span> <span class="op">|</span> <span class="va">MAFEDFISH24H</span><span class="op">==</span><span class="fl">1</span> <span class="op">|</span> <span class="va">MAFEDBIRD24H</span> <span class="op">==</span><span class="fl">1</span> <span class="op">~</span> <span class="fl">1</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">#f)Eggs</span></span>
+<span><span class="va">dhs_microdata</span> <span class="op">&lt;-</span> <span class="va">dhs_microdata</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>eggs <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/case-and-replace-when.html">case_when</a></span><span class="op">(</span><span class="va">MAFEDEGG24H</span><span class="op">==</span><span class="fl">1</span> <span class="op">~</span> <span class="fl">1</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">#g)Vitamin A rich fruits and vegetables</span></span>
+<span><span class="va">dhs_microdata</span> <span class="op">&lt;-</span> <span class="va">dhs_microdata</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>vita <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/case-and-replace-when.html">case_when</a></span><span class="op">(</span><span class="va">MAFEDYELVEG24H</span><span class="op">==</span><span class="fl">1</span> <span class="op">|</span> <span class="va">MAFEDGRNVEG24H</span><span class="op">==</span><span class="fl">1</span> <span class="op">|</span> <span class="va">MAFEDVITAFRUIT24H</span><span class="op">==</span><span class="fl">1</span> <span class="op">~</span> <span class="fl">1</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">#h)Other fruits and vegetables</span></span>
+<span><span class="va">dhs_microdata</span> <span class="op">&lt;-</span> <span class="va">dhs_microdata</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>othfrtveg <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/case-and-replace-when.html">case_when</a></span><span class="op">(</span><span class="va">MAFEDOFRTVEG24H</span><span class="op">==</span><span class="fl">1</span> <span class="op">~</span> <span class="fl">1</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">#Calculate the number of food groups consumed in the past 24 hours</span></span>
+<span><span class="va">dhs_microdata</span> <span class="op">&lt;-</span> <span class="va">dhs_microdata</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>foodgroups <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">breastmilk</span>, <span class="va">grains</span>, <span class="va">nuts_legumes</span>, <span class="va">dairy</span>, <span class="va">meat</span>, <span class="va">eggs</span>, <span class="va">vita</span>, <span class="va">othfrtveg</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">#Create an indicator for whether the child consumed foods from 5 or more food groups and assign to 1; zero otherwise</span></span>
+<span><span class="va">dhs_microdata</span> <span class="op">&lt;-</span> <span class="va">dhs_microdata</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>MDD <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/case-and-replace-when.html">case_when</a></span><span class="op">(</span><span class="va">foodgroups</span> <span class="op">&gt;=</span> <span class="fl">5</span> <span class="op">~</span> <span class="fl">1</span>, <span class="va">foodgroups</span> <span class="op">&lt;</span> <span class="fl">5</span> <span class="op">~</span> <span class="fl">0</span><span class="op">)</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-</section>
-<section id="changes-over-time" class="level2">
-<h2 class="anchored" data-anchor-id="changes-over-time">Changes over time</h2>
+</section><section id="changes-over-time" class="level2"><h2 class="anchored" data-anchor-id="changes-over-time">Changes over time</h2>
 <p>Protein sources, notably eggs, were indicated together in the supplemental feeding module in DHS surveys. Starting in 2005, some surveys were fielded with animal protein sources (meat, poultry, or fish) separate from a variable to indicate consumption of eggs. From this point on, eggs were counted as its own food group for calculating MDD. This limits our ability to create a comparable indicator between samples before and after 2005. If a comparable indicator is central to the goal of your analysis, you could combine eggs and other protein sources into one indicator, and count the number of food groups out of 7. Bear in mind that a count out of seven food groups is no longer minimum dietary diversity as currently defined by the World Health Organization, but the estimates will be comparable over time if universe differences are reconciled, as we will address below.</p>
-</section>
-<section id="differences-in-variable-sub-population" class="level2">
-<h2 class="anchored" data-anchor-id="differences-in-variable-sub-population">Differences in variable sub-population</h2>
+</section><section id="differences-in-variable-sub-population" class="level2"><h2 class="anchored" data-anchor-id="differences-in-variable-sub-population">Differences in variable sub-population</h2>
 <p>The skip logic pattern for feeding variables differs across surveys, and causes the variable universe (or sub-population of children in this variable) to differ. Variable universes are empirically tested by IPUMS DHS and can be found on the Universe tab (see this <a href="https://www.youtube.com/watch?v=cf_HAslNLJs">video tutorial about IPUMS DHS variable documentation</a> for more information) for each integrated variable on their website. Because of their wider availability across IPUMS DHS samples, we will focus on the MAFED* variables. Below is an example of universe differences over time:</p>
 <blockquote class="blockquote">
 <p><strong>Ethiopia 2000:</strong> Children born in the 5 years before the survey to women age 15-49 whose last-born child <em>under age 5</em> is still alive.</p>
@@ -488,129 +462,119 @@ gtag('config', 'G-0WLH5S9VD5', { 'anonymize_ip': true});
 <p>There is also a difference introduced in Ethiopia 2016 that the last-born children must be living with the mother.</p>
 <p>We can easily impose a consistent universe across these samples by restricting only to the definition of MDD and analyzing only children aged 6 to 23 months living with their mother.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Keep only children under 2 years old</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>dhs_microdata <span class="ot">&lt;-</span> dhs_microdata <span class="sc">%&gt;%</span> </span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(KIDCURAGE <span class="sc">&lt;</span> <span class="dv">2</span>)</span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co">#Keep only children who live with their mother</span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>dhs_microdata <span class="ot">&lt;-</span> dhs_microdata <span class="sc">%&gt;%</span> </span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(KIDLIVESWITH <span class="sc">==</span> <span class="dv">10</span>)</span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="co">#Drop children who are not alive</span></span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>dhs_microdata <span class="ot">&lt;-</span> dhs_microdata <span class="sc">%&gt;%</span> </span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(KIDALIVE <span class="sc">==</span> <span class="dv">1</span>)</span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="co">#Restrict to youngest born children</span></span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>dhs_microdata <span class="ot">&lt;-</span> dhs_microdata <span class="sc">%&gt;%</span></span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(SAMPLE, CASEID) <span class="sc">%&gt;%</span></span>
-<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">row_number</span>() <span class="sc">==</span> <span class="dv">1</span> <span class="sc">|</span> CASEID <span class="sc">!=</span> <span class="fu">lag</span>(CASEID))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co">#Keep only children under 2 years old</span></span>
+<span><span class="va">dhs_microdata</span> <span class="op">&lt;-</span> <span class="va">dhs_microdata</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">KIDCURAGE</span> <span class="op">&lt;</span> <span class="fl">2</span><span class="op">)</span></span>
+<span><span class="co">#Keep only children who live with their mother</span></span>
+<span><span class="va">dhs_microdata</span> <span class="op">&lt;-</span> <span class="va">dhs_microdata</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">KIDLIVESWITH</span> <span class="op">==</span> <span class="fl">10</span><span class="op">)</span></span>
+<span><span class="co">#Drop children who are not alive</span></span>
+<span><span class="va">dhs_microdata</span> <span class="op">&lt;-</span> <span class="va">dhs_microdata</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">KIDALIVE</span> <span class="op">==</span> <span class="fl">1</span><span class="op">)</span></span>
+<span><span class="co">#Restrict to youngest born children</span></span>
+<span><span class="va">dhs_microdata</span> <span class="op">&lt;-</span> <span class="va">dhs_microdata</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">SAMPLE</span>, <span class="va">CASEID</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/row_number.html">row_number</a></span><span class="op">(</span><span class="op">)</span> <span class="op">==</span> <span class="fl">1</span> <span class="op">|</span> <span class="va">CASEID</span> <span class="op">!=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/lead-lag.html">lag</a></span><span class="op">(</span><span class="va">CASEID</span><span class="op">)</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>The code above should be applied to Ethiopia 2000 to address both the difference in age restriction and the co-residence restriction to align with Ethiopia 2016. We would also apply the same code to Ethiopia 2016 to not include records of children who are not last-born, not living with their mother, and/or not alive. Without addressing the universe difference, we may observe a spurious trend of dietary diversity if there is a systematic difference between the number of food groups older last-born children eat compared to last-born children age 6 to 23 months, or whether the inclusion of children not living with the mother in the 2000 survey might influence the estimate.</p>
-</section>
-</section>
-<section id="dietary-diversity-over-time-in-ethiopia" class="level1 page-columns page-full">
-<h1>Dietary diversity over time in Ethiopia</h1>
-<section id="creating-a-comparable-count-of-food-groups-over-time" class="level2">
-<h2 class="anchored" data-anchor-id="creating-a-comparable-count-of-food-groups-over-time">Creating a comparable count of food groups over time</h2>
+</section></section><section id="dietary-diversity-over-time-in-ethiopia" class="level1 page-columns page-full"><h1>Dietary diversity over time in Ethiopia</h1>
+<section id="creating-a-comparable-count-of-food-groups-over-time" class="level2"><h2 class="anchored" data-anchor-id="creating-a-comparable-count-of-food-groups-over-time">Creating a comparable count of food groups over time</h2>
 <p>The code below creates a modified count of food groups in which all protein sources are counted in one group so that the count of food groups is comparable between Ethiopia 2000 and subsequent surveys.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Create a variable that equals 1 if the child consumed any animal protein or egg in the past 24 hours</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>dhs_microdata <span class="ot">&lt;-</span> dhs_microdata <span class="sc">%&gt;%</span> </span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">meateggs =</span> <span class="fu">case_when</span>(MAFEDEGG24H<span class="sc">==</span><span class="dv">1</span> <span class="sc">|</span> MAFEDMEAT24H<span class="sc">==</span><span class="dv">1</span> <span class="sc">|</span> MAFEDORGAN24H<span class="sc">==</span><span class="dv">1</span> <span class="sc">|</span> MAFEDFISH24H<span class="sc">==</span><span class="dv">1</span> <span class="sc">|</span> MAFEDPROTEIN24H <span class="sc">==</span> <span class="dv">1</span> <span class="sc">|</span> MAFEDFISH24H<span class="sc">==</span><span class="dv">1</span> <span class="sc">|</span> MAFEDBIRD24H <span class="sc">==</span><span class="dv">1</span> <span class="sc">~</span> <span class="dv">1</span>))</span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="co">#Calculate the number of food groups the child consumed, with meat and eggs counting as one category.</span></span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="co">#The maximum number of food groups is seven.</span></span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>dhs_microdata <span class="ot">&lt;-</span> dhs_microdata <span class="sc">%&gt;%</span> </span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">foodgroups_com =</span> <span class="fu">sum</span>(breastmilk, grains, nuts_legumes, dairy, meateggs, vita, othfrtveg, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co">#Create a variable that equals 1 if the child consumed any animal protein or egg in the past 24 hours</span></span>
+<span><span class="va">dhs_microdata</span> <span class="op">&lt;-</span> <span class="va">dhs_microdata</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>meateggs <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/case-and-replace-when.html">case_when</a></span><span class="op">(</span><span class="va">MAFEDEGG24H</span><span class="op">==</span><span class="fl">1</span> <span class="op">|</span> <span class="va">MAFEDMEAT24H</span><span class="op">==</span><span class="fl">1</span> <span class="op">|</span> <span class="va">MAFEDORGAN24H</span><span class="op">==</span><span class="fl">1</span> <span class="op">|</span> <span class="va">MAFEDFISH24H</span><span class="op">==</span><span class="fl">1</span> <span class="op">|</span> <span class="va">MAFEDPROTEIN24H</span> <span class="op">==</span> <span class="fl">1</span> <span class="op">|</span> <span class="va">MAFEDFISH24H</span><span class="op">==</span><span class="fl">1</span> <span class="op">|</span> <span class="va">MAFEDBIRD24H</span> <span class="op">==</span><span class="fl">1</span> <span class="op">~</span> <span class="fl">1</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">#Calculate the number of food groups the child consumed, with meat and eggs counting as one category.</span></span>
+<span><span class="co">#The maximum number of food groups is seven.</span></span>
+<span><span class="va">dhs_microdata</span> <span class="op">&lt;-</span> <span class="va">dhs_microdata</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>foodgroups_com <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">breastmilk</span>, <span class="va">grains</span>, <span class="va">nuts_legumes</span>, <span class="va">dairy</span>, <span class="va">meateggs</span>, <span class="va">vita</span>, <span class="va">othfrtveg</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>As a check for how significant the comparability issue could be, we can analyze cases in a sample that has separate indicators for meat and eggs. Upon closer inspection, the difference between the comparable count of food groups and the minimum dietary diversity definition does not differ greatly for Ethiopia 2005 - less than 1% of cases included children who had eaten both eggs and a different protein source. This may not be true in other contexts.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Load in the labelled library to create a helpfully-labelled cross tabulation</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(labelled)</span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="co">#Create a cross tabulation of the indicator for meat consumption and the indicator for egg consumption for Ethiopia 2005</span></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>dhs_microdata <span class="sc">%&gt;%</span></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">MAFEDEGG24H =</span> <span class="fu">to_factor</span>(MAFEDEGG24H),</span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(SAMPLE <span class="sc">==</span> <span class="dv">23102</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tabyl</span>(MAFEDEGG24H, meat, <span class="at">show_na =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">adorn_percentages</span>(<span class="st">"all"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">adorn_pct_formatting</span>()</span>
-<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;            MAFEDEGG24H    1   NA_</span></span>
-<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;                     No 4.3% 91.0%</span></span>
-<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;                    Yes 0.6%  3.9%</span></span>
-<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;             Don't know 0.0%  0.1%</span></span>
-<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;                Missing 0.0%  0.1%</span></span>
-<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  NIU (not in universe) 0.0%  0.0%</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co">#Load in the labelled library to create a helpfully-labelled cross tabulation</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://larmarange.github.io/labelled/">labelled</a></span><span class="op">)</span></span>
+<span><span class="co">#Create a cross tabulation of the indicator for meat consumption and the indicator for egg consumption for Ethiopia 2005</span></span>
+<span><span class="va">dhs_microdata</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span></span>
+<span>    MAFEDEGG24H <span class="op">=</span> <span class="fu">to_factor</span><span class="op">(</span><span class="va">MAFEDEGG24H</span><span class="op">)</span>,</span>
+<span>  <span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">SAMPLE</span> <span class="op">==</span> <span class="fl">23102</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu">tabyl</span><span class="op">(</span><span class="va">MAFEDEGG24H</span>, <span class="va">meat</span>, show_na <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu">adorn_percentages</span><span class="op">(</span><span class="st">"all"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu">adorn_pct_formatting</span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="co">#&gt;            MAFEDEGG24H    1   NA_</span></span>
+<span><span class="co">#&gt;                     No 4.3% 91.0%</span></span>
+<span><span class="co">#&gt;                    Yes 0.6%  3.9%</span></span>
+<span><span class="co">#&gt;             Don't know 0.0%  0.1%</span></span>
+<span><span class="co">#&gt;                Missing 0.0%  0.1%</span></span>
+<span><span class="co">#&gt;  NIU (not in universe) 0.0%  0.0%</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-</section>
-<section id="mapping-dietary-diversity-over-time" class="level2 page-columns page-full">
-<h2 class="anchored" data-anchor-id="mapping-dietary-diversity-over-time">Mapping dietary diversity over time</h2>
+</section><section id="mapping-dietary-diversity-over-time" class="level2 page-columns page-full"><h2 class="anchored" data-anchor-id="mapping-dietary-diversity-over-time">Mapping dietary diversity over time</h2>
 <p>Using workflows described elsewhere in this blog (see <a href="../2024-04-15-chirts-metrics/">our previous post</a> as an example), we utilize spatially-harmonized shapefiles for Ethiopia to demonstrate comparable changes in indicators over time and across space. For more information on spatial harmonization, see <a href="../2024-04-09-spatial-harmonization/">another previous post</a>. The shapefiles are available to download from <a href="https://www.idhsdata.org/idhs/gis.shtml">the IPUMS DHS website</a>.</p>
 <p>We can use the comparable count of food groups consumed that we just calculated from DHS surveys conducted in Ethiopia in 2000, 2005, 2011, 2016, and 2019 to analyze patterns in dietary diversity over time in spatially-harmonized subnational regions. We’ll use the person-level weight PERWEIGHT to get weighted estimates representative at the region level and create a new dataframe called <em>foodgroups_by_region</em>.</p>
 
 <div class="no-row-height column-margin column-container"><div class="">
 <p>In this post, we will map first level administrative boundaries. Second-level administrative areas have been predicted using GPS coordinates of DHS clusters, though the variable <a href="https://www.idhsdata.org/idhs-action/variables/GEOLEV2#description_section">GEOLEV2</a> should be used only to connect contextual variables calculated using IPUMS International, and not to calculate estimates at the second-level unit level.</p>
 </div></div><div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>foodgroups_by_region <span class="ot">&lt;-</span> dhs_microdata <span class="sc">%&gt;%</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(<span class="at">sample =</span> <span class="fu">as.factor</span>(SAMPLE), <span class="at">geo =</span> <span class="fu">as.factor</span>(GEO_ET2000_2019)) <span class="sc">%&gt;%</span></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">average_food_groups_com =</span> <span class="fu">weighted.mean</span>(foodgroups_com, <span class="at">w =</span> PERWEIGHT, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>()</span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="co">#Read in the spationally-harmonized Ethiopia shapefiles</span></span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>ethiopia_shapefile <span class="ot">&lt;-</span> <span class="fu">read_ipums_sf</span>(<span class="st">"data/gps/geo_et2000_2019.zip"</span>)</span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; options:        ENCODING=CP1252 </span></span>
-<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Reading layer `geo_et2000_2019' from data source </span></span>
-<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   `C:\Users\krist108\AppData\Local\Temp\RtmpENv9jB\file4cac5b877ecf\geo_et2000_2019.shp' </span></span>
-<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   using driver `ESRI Shapefile'</span></span>
-<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Simple feature collection with 12 features and 3 fields</span></span>
-<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Geometry type: MULTIPOLYGON</span></span>
-<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Dimension:     XY</span></span>
-<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Bounding box:  xmin: 32.99773 ymin: 3.404137 xmax: 48.00106 ymax: 14.89421</span></span>
-<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Geodetic CRS:  WGS 84</span></span>
-<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a><span class="co">#ATTACH SHAPEFILE TO FOOD GROUPS DATA BY REGION ----</span></span>
-<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a>foodgroups_by_region <span class="ot">&lt;-</span> foodgroups_by_region <span class="sc">%&gt;%</span> </span>
-<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">DHSCODE =</span> <span class="fu">as.integer</span>(geo))</span>
-<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a>dhs_shapefile_merge <span class="ot">&lt;-</span> <span class="fu">left_join</span>(ethiopia_shapefile, foodgroups_by_region, <span class="fu">join_by</span>(DHSCODE), <span class="at">relationship=</span><span class="st">"one-to-many"</span>)</span>
-<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a>dhs_shapefile_merge <span class="ot">&lt;-</span> <span class="fu">subset</span>(dhs_shapefile_merge, <span class="sc">!</span><span class="fu">is.na</span>(sample))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">foodgroups_by_region</span> <span class="op">&lt;-</span> <span class="va">dhs_microdata</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span>sample <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">as.factor</a></span><span class="op">(</span><span class="va">SAMPLE</span><span class="op">)</span>, geo <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">as.factor</a></span><span class="op">(</span><span class="va">GEO_ET2000_2019</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span>average_food_groups_com <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/weighted.mean.html">weighted.mean</a></span><span class="op">(</span><span class="va">foodgroups_com</span>, w <span class="op">=</span> <span class="va">PERWEIGHT</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">ungroup</a></span><span class="op">(</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">#Read in the spationally-harmonized Ethiopia shapefiles</span></span>
+<span><span class="va">ethiopia_shapefile</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tech.popdata.org/ipumsr/reference/read_ipums_sf.html">read_ipums_sf</a></span><span class="op">(</span><span class="st">"data/gps/geo_et2000_2019.zip"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; options:        ENCODING=CP1252 </span></span>
+<span><span class="co">#&gt; Reading layer `geo_et2000_2019' from data source </span></span>
+<span><span class="co">#&gt;   `C:\Users\krist108\AppData\Local\Temp\RtmpENv9jB\file4cac5b877ecf\geo_et2000_2019.shp' </span></span>
+<span><span class="co">#&gt;   using driver `ESRI Shapefile'</span></span>
+<span><span class="co">#&gt; Simple feature collection with 12 features and 3 fields</span></span>
+<span><span class="co">#&gt; Geometry type: MULTIPOLYGON</span></span>
+<span><span class="co">#&gt; Dimension:     XY</span></span>
+<span><span class="co">#&gt; Bounding box:  xmin: 32.99773 ymin: 3.404137 xmax: 48.00106 ymax: 14.89421</span></span>
+<span><span class="co">#&gt; Geodetic CRS:  WGS 84</span></span>
+<span></span>
+<span><span class="co">#ATTACH SHAPEFILE TO FOOD GROUPS DATA BY REGION ----</span></span>
+<span><span class="va">foodgroups_by_region</span> <span class="op">&lt;-</span> <span class="va">foodgroups_by_region</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>DHSCODE <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/integer.html">as.integer</a></span><span class="op">(</span><span class="va">geo</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">dhs_shapefile_merge</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">left_join</a></span><span class="op">(</span><span class="va">ethiopia_shapefile</span>, <span class="va">foodgroups_by_region</span>, <span class="fu"><a href="https://dplyr.tidyverse.org/reference/join_by.html">join_by</a></span><span class="op">(</span><span class="va">DHSCODE</span><span class="op">)</span>, relationship<span class="op">=</span><span class="st">"one-to-many"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">dhs_shapefile_merge</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/subset.html">subset</a></span><span class="op">(</span><span class="va">dhs_shapefile_merge</span>, <span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="va">sample</span><span class="op">)</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>We then use the ggplot2 library and the facet_wrap function to create a map of weighted average food groups consumed by young children by subnational regions of Ethiopia over time.</p>
 <div class="cell">
-<details class="code-fold">
-<summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>dhs_shapefile_merge <span class="ot">&lt;-</span> dhs_shapefile_merge <span class="sc">%&gt;%</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">sample =</span> <span class="fu">to_factor</span>(sample)</span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>dhs_shapefile_merge <span class="ot">&lt;-</span> dhs_shapefile_merge <span class="sc">%&gt;%</span></span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">sample =</span> <span class="fu">case_when</span>(</span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>    sample <span class="sc">==</span> <span class="dv">23101</span> <span class="sc">~</span> <span class="st">"Ethiopia 2000"</span>, </span>
-<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>    sample <span class="sc">==</span> <span class="dv">23102</span> <span class="sc">~</span> <span class="st">"Ethiopia 2005"</span>,</span>
-<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>    sample <span class="sc">==</span> <span class="dv">23103</span> <span class="sc">~</span> <span class="st">"Ethiopia 2011"</span>,</span>
-<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>    sample <span class="sc">==</span> <span class="dv">23104</span> <span class="sc">~</span> <span class="st">"Ethiopia 2016"</span>, </span>
-<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>    sample <span class="sc">==</span> <span class="dv">23105</span> <span class="sc">~</span> <span class="st">"Ethiopia 2019"</span>)</span>
-<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>  )    </span>
-<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>ethiopia_maps <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data =</span> dhs_shapefile_merge) <span class="sc">+</span></span>
-<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="fu">aes</span>(<span class="at">fill =</span> average_food_groups_com)) <span class="sc">+</span> </span>
-<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="fu">vars</span>(sample)) <span class="sc">+</span></span>
-<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_viridis_c</span>(<span class="at">direction =</span> <span class="sc">-</span><span class="dv">1</span>, <span class="at">name=</span><span class="st">"Average food groups consumed"</span>) <span class="sc">+</span></span>
-<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
-<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.title.x =</span> <span class="fu">element_blank</span>(),</span>
-<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.text.x =</span> <span class="fu">element_blank</span>(),</span>
-<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.title.y =</span> <span class="fu">element_blank</span>(),</span>
-<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.text.y =</span> <span class="fu">element_blank</span>(),</span>
-<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.ticks.x =</span> <span class="fu">element_blank</span>(),</span>
-<span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.ticks.y =</span> <span class="fu">element_blank</span>()</span>
-<span id="cb7-26"><a href="#cb7-26" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
-<span id="cb7-27"><a href="#cb7-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">"Regional average food groups consumed by children </span><span class="sc">\n</span><span class="st"> aged 6 to 23 months over time in Ethiopia"</span>) </span>
-<span id="cb7-28"><a href="#cb7-28" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-29"><a href="#cb7-29" aria-hidden="true" tabindex="-1"></a>ethiopia_maps</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
-<div class="cell-output-display">
+<details class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">dhs_shapefile_merge</span> <span class="op">&lt;-</span> <span class="va">dhs_shapefile_merge</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span></span>
+<span>    sample <span class="op">=</span> <span class="fu">to_factor</span><span class="op">(</span><span class="va">sample</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="va">dhs_shapefile_merge</span> <span class="op">&lt;-</span> <span class="va">dhs_shapefile_merge</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span></span>
+<span>    sample <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/case-and-replace-when.html">case_when</a></span><span class="op">(</span></span>
+<span>    <span class="va">sample</span> <span class="op">==</span> <span class="fl">23101</span> <span class="op">~</span> <span class="st">"Ethiopia 2000"</span>, </span>
+<span>    <span class="va">sample</span> <span class="op">==</span> <span class="fl">23102</span> <span class="op">~</span> <span class="st">"Ethiopia 2005"</span>,</span>
+<span>    <span class="va">sample</span> <span class="op">==</span> <span class="fl">23103</span> <span class="op">~</span> <span class="st">"Ethiopia 2011"</span>,</span>
+<span>    <span class="va">sample</span> <span class="op">==</span> <span class="fl">23104</span> <span class="op">~</span> <span class="st">"Ethiopia 2016"</span>, </span>
+<span>    <span class="va">sample</span> <span class="op">==</span> <span class="fl">23105</span> <span class="op">~</span> <span class="st">"Ethiopia 2019"</span><span class="op">)</span></span>
+<span>  <span class="op">)</span>    </span>
+<span></span>
+<span><span class="va">ethiopia_maps</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">dhs_shapefile_merge</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggsf.html">geom_sf</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="va">average_food_groups_com</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/facet_wrap.html">facet_wrap</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/vars.html">vars</a></span><span class="op">(</span><span class="va">sample</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_viridis.html">scale_fill_viridis_c</a></span><span class="op">(</span>direction <span class="op">=</span> <span class="op">-</span><span class="fl">1</span>, name<span class="op">=</span><span class="st">"Average food groups consumed"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span><span class="op">(</span></span>
+<span>    axis.title.x <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_blank</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>    axis.text.x <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_blank</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>    axis.title.y <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_blank</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>    axis.text.y <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_blank</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>    axis.ticks.x <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_blank</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>    axis.ticks.y <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_blank</a></span><span class="op">(</span><span class="op">)</span></span>
+<span>  <span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">ggtitle</a></span><span class="op">(</span><span class="st">"Regional average food groups consumed by children \n aged 6 to 23 months over time in Ethiopia"</span><span class="op">)</span> </span>
+<span></span>
+<span><span class="va">ethiopia_maps</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details><div class="cell-output-display">
 <div>
-<figure class="figure">
-<p><img src="index_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid figure-img" width="672"></p>
+<figure class="figure"><p><img src="index_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -620,10 +584,7 @@ gtag('config', 'G-0WLH5S9VD5', { 'anonymize_ip': true});
 
 
 
-</section>
-</section>
-
-<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" data-line-spacing="2" role="list">
+</section></section><div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" data-line-spacing="2" role="list">
 <div id="ref-victora_maternal_2008" class="csl-entry" role="listitem">
 1. Victora, C. G., Adair, L., Fall, C., Hallal, P. C., Martorell, R., Richter, L., &amp; Sachdev, H. S. (2008). Maternal and child undernutrition: Consequences for adult health and human capital. <em>The Lancet</em>, <em>371</em>(9609), 340–357. <a href="https://doi.org/10.1016/S0140-6736(07)61692-4">https://doi.org/10.1016/S0140-6736(07)61692-4</a>
 </div>
@@ -651,8 +612,7 @@ gtag('config', 'G-0WLH5S9VD5', { 'anonymize_ip': true});
 <div id="ref-IPC_Ethiopia" class="csl-entry" role="listitem">
 9. Food and Agriculture Organization of the United Nations. (n.d.). <em>Ethiopia: Integrated food security phase classification snapshot <span></span> july 2019 - june 2020&nbsp;<span></span><span>KORE</span> - knowledge sharing platform on resilience<span></span> food and agriculture organization of the united nations</em>. Retrieved August 4, 2025, from <a href="https://www.fao.org/in-action/kore/news-and-events/news-details/en/c/1251985/">https://www.fao.org/in-action/kore/news-and-events/news-details/en/c/1251985/</a>
 </div>
-</div></section></div></main> <!-- /main -->
-<script id="quarto-html-after-body" type="application/javascript">
+</div></section></div></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     const icon = "";
     const anchorJS = new window.AnchorJS();
@@ -1053,8 +1013,7 @@ gtag('config', 'G-0WLH5S9VD5', { 'anonymize_ip': true});
   });
   </script>
 </div> <!-- /content -->
-<footer class="footer">
-  <div class="nav-footer">
+<footer class="footer"><div class="nav-footer">
     <div class="nav-footer-left">
       &nbsp;
     </div>   
@@ -1066,8 +1025,6 @@ gtag('config', 'G-0WLH5S9VD5', { 'anonymize_ip': true});
     </div>
   </div>
 </footer>
-
-
 
 
 </body></html>

@@ -65,9 +65,7 @@ div.csl-indent {
 <link href="../../site_libs/quarto-html/quarto-syntax-highlighting-be0d74190db5c030392493894a628b9f.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap-b72def720c12fc22be66127d2101a337.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
-<link href="../../site_libs/quarto-contrib/fontawesome6-0.1.0/all.css" rel="stylesheet">
-<link href="../../site_libs/quarto-contrib/fontawesome6-0.1.0/latex-fontsize.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-42421e77c5529847ff6e63ddf59efa80.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -103,6 +101,14 @@ function gtag(){dataLayer.push(arguments);}
 gtag('js', new Date());
 gtag('config', 'G-0WLH5S9VD5', { 'anonymize_ip': true});
 </script>
+<!-- Added to patch a bug in quarto that is causing "broken ARIA menu" errors in WAVE scans -->
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        document.querySelectorAll(".navbar-toggler[role='menu']").forEach(function (el) {
+            el.removeAttribute("role");
+        });
+    });
+</script>
 
 
 <meta property="og:title" content="Droplets of Insights for Integrating DHS and Rainfall Data">
@@ -123,8 +129,8 @@ gtag('config', 'G-0WLH5S9VD5', { 'anonymize_ip': true});
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
     <a href="https://www.idhsdata.org/idhs/" class="navbar-brand navbar-brand-logo">
-    <img src="../../images/dhs_logo_white.png" alt="" class="navbar-logo light-content">
-    <img src="../../images/dhs_logo_white.png" alt="" class="navbar-logo dark-content">
+    <img src="../../images/dhs_logo_white.png" alt="IPUMS DHS Spatial Analysis and Health Research Hub" class="navbar-logo light-content">
+    <img src="../../images/dhs_logo_white.png" alt="IPUMS DHS Spatial Analysis and Health Research Hub" class="navbar-logo dark-content">
     </a>
   </div>
             <div id="quarto-search" class="" title="Search"></div>
@@ -139,10 +145,6 @@ gtag('config', 'G-0WLH5S9VD5', { 'anonymize_ip': true});
   </li>  
 </ul>
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
-  <li class="nav-item">
-    <a class="nav-link" href="../../index.html"> 
-<span class="menu-text">Posts</span></a>
-  </li>  
   <li class="nav-item dropdown ">
     <a class="nav-link dropdown-toggle" href="#" id="nav-menu-getting-started" role="link" data-bs-toggle="dropdown" aria-expanded="false">
  <span class="menu-text">Getting Started</span>
@@ -178,28 +180,37 @@ gtag('config', 'G-0WLH5S9VD5', { 'anonymize_ip': true});
     </ul>
   </li>
   <li class="nav-item">
+    <a class="nav-link" href="../../index.html"> 
+<span class="menu-text">Posts</span></a>
+  </li>  
+  <li class="nav-item">
     <a class="nav-link" href="../../about.html"> 
 <span class="menu-text">About</span></a>
   </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="https://github.com/ipums/dhs-research-hub"> 
-<span class="menu-text"><i class="fa-brands fa-github" aria-label="github"></i></span></a>
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/ipums/dhs-research-hub"> <i class="bi bi-github" role="img" aria-label="GitHub repository">
+</i> 
+<span class="menu-text"></span></a>
   </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="../../index.xml"> 
-<span class="menu-text"><i class="fa-solid fa-rss" aria-label="rss"></i></span></a>
+  <li class="nav-item compact">
+    <a class="nav-link" href="../../index.xml"> <i class="bi bi-rss" role="img" aria-label="RSS feed">
+</i> 
+<span class="menu-text"></span></a>
   </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="https://twitter.com/ipumsGH"> 
-<span class="menu-text"><i class="fa-brands fa-x-twitter" aria-label="x-twitter"></i></span></a>
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://twitter.com/ipumsGH"> <i class="bi bi-twitter-x" role="img" aria-label="IPUMS on X">
+</i> 
+<span class="menu-text"></span></a>
   </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="https://forum.ipums.org"> 
-<span class="menu-text"><i class="fa-solid fa-users" aria-label="users"></i></span></a>
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://forum.ipums.org"> <i class="bi bi-people-fill" role="img" aria-label="IPUMS Forum">
+</i> 
+<span class="menu-text"></span></a>
   </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="https://www.ipums.org/"> 
-<span class="menu-text"><i class="fa-solid fa-globe" aria-label="globe"></i></span></a>
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://www.ipums.org/"> <i class="bi bi-globe" role="img" aria-label="IPUMS Homepage">
+</i> 
+<span class="menu-text"></span></a>
   </li>  
 </ul>
           </div> <!-- /navcollapse -->
