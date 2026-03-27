@@ -67,6 +67,7 @@ you're satisfied with the contents of your extract, click **Create Data
 Extract**.
 
 ```{r}
+#| fig-alt: "DHS cart view"
 #| echo: false
 #| column: body-outset
 #| out-width: "100%"
@@ -81,6 +82,7 @@ which is the format expected by the data-reading functions provided in
 ipumsr.
 
 ```{r}
+#| fig-alt: "DHS extract summary"
 #| echo: false
 #| column: body-outset
 #| out-width: "100%"
@@ -113,6 +115,7 @@ You can do so by right clicking the **DDI** link and selecting **Save
 link as...**.
 
 ```{r}
+#| fig-alt: "DHS downloads page"
 #| echo: false
 #| column: page
 #| out-width: "100%"
@@ -136,7 +139,7 @@ The `{ipumsr}` package provides the tools you'll need to easily load
 your extract into R.
 
 ::: column-margin
-`r hex("ipumsr")`
+`r hex("ipumsr", alt = "Hex logo for the ipumsr R package")`
 :::
 
 If you haven't previously installed the package, you can do so with:
@@ -169,18 +172,18 @@ You should now have a tabular data source loaded into R:
 dhs
 ```
 
-### Why use ipumsr?
+## Why use ipumsr?
 
 Several R packages already exist for reading external data files. There
 are a few reasons we suggest using ipumsr to work with IPUMS data.
 
-#### Load compressed files
+### Load compressed files
 
 First, IPUMS delivers data extracts as compressed archives. ipumsr
 anticipates this and allows you to load data directly without having to
 manually decompress these files.
 
-#### View variable metadata
+### View variable metadata
 
 Furthermore, ipumsr uses the metadata contained in an extract's DDI file
 to attach contextual information to the loaded data. For instance, to
@@ -208,7 +211,7 @@ More details about working with IPUMS metadata can be found in the
 [ipumsr
 documentation](https://tech.popdata.org/ipumsr/articles/value-labels.html).
 
-#### Access the IPUMS API
+### Access the IPUMS API
 
 Finally, ipumsr provides an R interface for the IPUMS API, allowing you
 to request and download data entirely within your R environment. While

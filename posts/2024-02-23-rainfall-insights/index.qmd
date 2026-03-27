@@ -336,7 +336,7 @@ and water use patterns of a given region.
 
 ## Context matters
 
-#### How might the same shock have different effects in different regions?
+### How might the same shock have different effects in different regions?
 
 Studies that span geographic areas with heterogeneous climatic zones and
 other characteristics often stratify or interact rainfall with regional

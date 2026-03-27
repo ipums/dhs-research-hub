@@ -154,7 +154,7 @@ Search interface](https://search.earthdata.nasa.gov/search), which
 should look something like this:
 
 ::: column-page
-![](images/ed_search.png)
+![](images/ed_search.png){fig-alt="ed search image"}
 :::
 
 From this interface, you can search for data across many NASA products.
@@ -185,7 +185,7 @@ in the search bar in the top left of the Earthdata Search interface, as
 shown below.
 
 ::: column-page
-![](images/ed_search_mod13q1.png)
+![](images/ed_search_mod13q1.png){fig-alt="ed search mod13q1 image"}
 :::
 
 In our case, we've selected the MOD13Q1 product, which provides data at
@@ -202,7 +202,7 @@ obtain full coverage of the entire country, we'll need to download each
 tile and stich them together.
 
 ::: column-page
-![](images/ed_search_ke_bbox.png)
+![](images/ed_search_ke_bbox.png){fig-alt="ed search ke bbox image"}
 :::
 
 To narrow down further, you can filter the time range of data by
@@ -212,7 +212,7 @@ Once you've selected the area and time of interest, you can click the
 **Download** button to proceed to the download page, as shown below.
 
 ::: column-page
-![](images/ed_search_time.png)
+![](images/ed_search_time.png){fig-alt="ed search time image"}
 :::
 
 ### Download
@@ -265,7 +265,7 @@ learn any new R tools yet. However, because each tile represents a
 them into a single source, called a **mosaic**.
 
 ::: column-margin
-`r hex("terra")`
+`r hex("terra", alt = "Hex logo for the terra R package")`
 :::
 
 # Preparing NDVI data
@@ -363,7 +363,7 @@ library(stringr)
 ```
 
 ::: column-margin
-`r hex("stringr")`
+`r hex("stringr", alt = "Hex logo for the stringr R package")`
 :::
 
 At their simplest, regular expressions allow you to extract specific
@@ -473,7 +473,7 @@ provides a concise syntax for iterating through multiple inputs. This is
 primarily facilitated by purrr's `map()` function.
 
 ::: column-margin
-`r hex("purrr")`
+`r hex("purrr", alt = "Hex logo for the purrr R package")`
 :::
 
 ::: callout-note
@@ -848,7 +848,7 @@ These timestamps are in year + day of year format. We can parse this
 format using `{lubridate}`, using `"yj"` format.
 
 ::: column-margin
-`r hex("lubridate")`
+`r hex("lubridate", alt = "Hex logo for the lubridate R package")`
 :::
 
 ::: column-margin

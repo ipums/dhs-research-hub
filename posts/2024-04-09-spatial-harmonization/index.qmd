@@ -171,7 +171,7 @@ boundaries. The red circles indicate areas with changes in geographic
 boundaries.<br><br>**Map A** shows 2010 data from Malawi, Tanzania, and
 Zimbabwe; 2011 data from Mozambique; and 2007 data from Zambia.<br>**Map
 B** shows 2015 data from Tanzania and Zimbabwe; 2016 data from Malawi,
-and 2013 data from Zambia.](images/sampleSpecific_all.png)
+and 2013 data from Zambia.](images/sampleSpecific_all.png){fig-alt="hhs with improved sources of drinking water 1"}
 :::
 
 ### When spatial harmonization is necessary
@@ -208,13 +208,13 @@ with access to an improved water source changing from 18% to 52% between
 drinking water. The maps highlight changes in **sample-specific**
 boundaries. Map A shows Zambia in 2007 and Map B shows Zambia in 2013.
 Muchinga was formed from parts of Northern and
-Eastern.](images/zooms_SampleSpecific1.png)
+Eastern.](images/zooms_SampleSpecific1.png){fig-alt="hhs with improved sources of drinking water 2"}
 
 ![*Figure 3:* Percent of households that use improved sources of
 drinking water. The maps highlight **spatially harmonized** boundaries.
 Map A shows Zambia in 2007 and Map B shows Zambia in 2013. In this map,
 Eastern, Northern, and Muchinga were combined to form a spatially
-consistent boundary.](images/zoom1_spatialHarm1.png)
+consistent boundary.](images/zoom1_spatialHarm1.png){fig-alt="hhs with improved sources of drinking water 3"}
 :::
 
 As **Figure 4** shows, between 2010 and 2015, boundaries in Tanzania
@@ -240,13 +240,13 @@ drinking water. The maps highlight changes in **sample-specific**
 boundaries. Map A shows Tanzania in 2010 with three regions (Kagera,
 Mwanza, Shinyanga). Map B shows Tanzania in 2015 with 5 regions (Kagera,
 Mwanza, Shinyanga, Simiyu, and Geita) in the same spatial
-area.](images/zooms_SampleSpecific2.png)
+area.](images/zooms_SampleSpecific2.png){fig-alt="hhs with improved sources of drinking water 4"}
 
 ![*Figure 5*: Percent of households that use improved sources of
 drinking water. The maps highlight **spatially harmonized** boundaries.
 Map A shows Tanzania in 2010, and Map B shows Tanzania in 2015. The 5
 units Kagera, Mwanza, Shinyanga, Simiyu, and Geita were combined to form
-a single spatially consistent unit.](images/zoom1_spatialHarm2.png)
+a single spatially consistent unit.](images/zoom1_spatialHarm2.png){fig-alt="hhs with improved sources of drinking water 5"}
 :::
 
 ### Gains and losses from using integrated geography
@@ -276,13 +276,13 @@ harmonized geography.
 ![*Figure 6:* Percent of households that use improved sources of
 drinking water. The maps highlight changes in **sample-specific**
 boundaries from 2010 to 2016. Map A shows Malawi in 2010 and Map B shows
-Malawi in 2016.](images/zooms_SampleSpecific3.png)
+Malawi in 2016.](images/zooms_SampleSpecific3.png){fig-alt="hhs with improved sources of drinking water 6"}
 
 ![*Figure 7:* Percent of households that use improved sources of
 drinking water. The maps highlight **spatially harmonized** boundaries.
 Map A shows Malawi in 2010 and Map B shows Malawi in 2016. In this map
 the sub-regions Nkhatabay and Likoma, Lilongwe and Lilongwe city, and
-Mzimba and Mzuzu city are combined.](images/zoom1_spatialHarm3.png)
+Mzimba and Mzuzu city are combined.](images/zoom1_spatialHarm3.png){fig-alt="hhs with improved sources of drinking water 7"}
 :::
 
 ### When geographic boundaries don’t change
@@ -306,7 +306,7 @@ drinking water. Note that both the maps show **spatially harmonized**
 boundaries.<br><br>**Map A** shows 2010 data from Malawi, Tanzania, and
 Zimbabwe, 2011 data from Mozambique, and 2007 data from Zambia.<br>**Map
 B** shows 2015 data from Tanzania and Zimbabwe, 2016 data from Malawi,
-and 2013 data from Zambia.](images/spatiallyHarm_all.png)
+and 2013 data from Zambia.](images/spatiallyHarm_all.png){fig-alt="hhs with improved sources of drinking water 8"}
 :::
 
 # Conclusion
@@ -328,9 +328,9 @@ variable-specific documentation online, and allowing analysts to
 download customized files with just the samples and variables relevant
 to their research project. The integrated geographic variables and GIS
 shapefiles available only through IPUMS DHS are another important “value
-added” feature essential for sound research into change over time. More
-on IPUMS DHS spatially harmonized geography can be found
-[here](https://www.idhsdata.org/idhs/gis.shtml).
+added” feature essential for sound research into change over time. See the
+IPUMS DHS IPUMS-DHS Geography and GIS boundary files [page](https://www.idhsdata.org/idhs/gis.shtml) 
+for more info on spatially harmonized geography.
 
 ## Getting Help {.appendix}
 

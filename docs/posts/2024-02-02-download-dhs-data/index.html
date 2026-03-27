@@ -287,7 +287,14 @@ gtag('config', 'G-0WLH5S9VD5', { 'anonymize_ip': true});
   <li>
 <a href="#load-ipums-dhs-data-into-r" id="toc-load-ipums-dhs-data-into-r" class="nav-link" data-scroll-target="#load-ipums-dhs-data-into-r">Load IPUMS DHS data into R</a>
   <ul class="collapse">
-<li><a href="#why-use-ipumsr" id="toc-why-use-ipumsr" class="nav-link" data-scroll-target="#why-use-ipumsr">Why use ipumsr?</a></li>
+<li>
+<a href="#why-use-ipumsr" id="toc-why-use-ipumsr" class="nav-link" data-scroll-target="#why-use-ipumsr">Why use ipumsr?</a>
+  <ul class="collapse">
+<li><a href="#load-compressed-files" id="toc-load-compressed-files" class="nav-link" data-scroll-target="#load-compressed-files">Load compressed files</a></li>
+  <li><a href="#view-variable-metadata" id="toc-view-variable-metadata" class="nav-link" data-scroll-target="#view-variable-metadata">View variable metadata</a></li>
+  <li><a href="#access-the-ipums-api" id="toc-access-the-ipums-api" class="nav-link" data-scroll-target="#access-the-ipums-api">Access the IPUMS API</a></li>
+  </ul>
+</li>
   
   </ul>
 </li>
@@ -308,7 +315,7 @@ gtag('config', 'G-0WLH5S9VD5', { 'anonymize_ip': true});
 <div class="cell page-columns page-full" data-layout-align="center">
 <div class="cell-output-display page-columns page-full">
 <div class="quarto-figure quarto-figure-center page-columns page-full">
-<figure class="figure page-columns page-full"><p class="page-columns page-full"><img src="images/dhs-download1.png" class="img-fluid quarto-figure quarto-figure-center figure-img column-body-outset" style="width:100.0%"></p>
+<figure class="figure page-columns page-full"><p class="page-columns page-full"><img src="images/dhs-download1.png" class="img-fluid quarto-figure quarto-figure-center figure-img column-body-outset" style="width:100.0%" alt="DHS cart view"></p>
 </figure>
 </div>
 </div>
@@ -317,7 +324,7 @@ gtag('config', 'G-0WLH5S9VD5', { 'anonymize_ip': true});
 <div class="cell page-columns page-full" data-layout-align="center">
 <div class="cell-output-display page-columns page-full">
 <div class="quarto-figure quarto-figure-center page-columns page-full">
-<figure class="figure page-columns page-full"><p class="page-columns page-full"><img src="images/dhs-download2.png" class="img-fluid quarto-figure quarto-figure-center figure-img column-body-outset" style="width:100.0%"></p>
+<figure class="figure page-columns page-full"><p class="page-columns page-full"><img src="images/dhs-download2.png" class="img-fluid quarto-figure quarto-figure-center figure-img column-body-outset" style="width:100.0%" alt="DHS extract summary"></p>
 </figure>
 </div>
 </div>
@@ -333,7 +340,7 @@ gtag('config', 'G-0WLH5S9VD5', { 'anonymize_ip': true});
 <div class="cell page-columns page-full" data-layout-align="center">
 <div class="cell-output-display page-columns page-full">
 <div class="quarto-figure quarto-figure-center page-columns page-full">
-<figure class="figure page-columns page-full"><p class="page-columns page-full"><img src="images/microdata_annotated_screenshot.png" class="img-fluid quarto-figure quarto-figure-center figure-img column-page" style="width:100.0%"></p>
+<figure class="figure page-columns page-full"><p class="page-columns page-full"><img src="images/microdata_annotated_screenshot.png" class="img-fluid quarto-figure quarto-figure-center figure-img column-page" style="width:100.0%" alt="DHS downloads page"></p>
 </figure>
 </div>
 </div>
@@ -357,7 +364,7 @@ Tip
 
 <div class="no-row-height column-margin column-container"><div class="">
 <p></p>
-<div class="hex"> <a href="https://tech.popdata.org/ipumsr/" class="hex"> <img src="../../images/hex/ipumsr.png" class="hex-img"></a> <p class="hex-cap">© IPUMS (MPL-2.0)</p> </div>
+<div class="hex"> <a href="https://tech.popdata.org/ipumsr/" class="hex"> <img src="../../images/hex/ipumsr.png" class="hex-img" alt="Hex logo for the ipumsr R package"></a> <p class="hex-cap">© IPUMS (MPL-2.0)</p> </div>
 </div></div><p>If you haven’t previously installed the package, you can do so with:</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"ipumsr"</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -397,11 +404,11 @@ Tip
 <span><span class="co">#&gt; #   INTDATECMC &lt;dbl&gt;, URBAN &lt;int+lbl&gt;, RESIDEINTYR &lt;int+lbl&gt;,</span></span>
 <span><span class="co">#&gt; #   GEO_BF2003_2010 &lt;int+lbl&gt;, GEO_BF2003 &lt;int+lbl&gt;, GEO_BF2010 &lt;int+lbl&gt;, …</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<section id="why-use-ipumsr" class="level3"><h3 class="anchored" data-anchor-id="why-use-ipumsr">Why use ipumsr?</h3>
+<section id="why-use-ipumsr" class="level2"><h2 class="anchored" data-anchor-id="why-use-ipumsr">Why use ipumsr?</h2>
 <p>Several R packages already exist for reading external data files. There are a few reasons we suggest using ipumsr to work with IPUMS data.</p>
-<section id="load-compressed-files" class="level4"><h4 class="anchored" data-anchor-id="load-compressed-files">Load compressed files</h4>
+<section id="load-compressed-files" class="level3"><h3 class="anchored" data-anchor-id="load-compressed-files">Load compressed files</h3>
 <p>First, IPUMS delivers data extracts as compressed archives. ipumsr anticipates this and allows you to load data directly without having to manually decompress these files.</p>
-</section><section id="view-variable-metadata" class="level4"><h4 class="anchored" data-anchor-id="view-variable-metadata">View variable metadata</h4>
+</section><section id="view-variable-metadata" class="level3"><h3 class="anchored" data-anchor-id="view-variable-metadata">View variable metadata</h3>
 <p>Furthermore, ipumsr uses the metadata contained in an extract’s DDI file to attach contextual information to the loaded data. For instance, to get a description of a variable contained in an extract, use <code><a href="https://tech.popdata.org/ipumsr/reference/ipums_var_info.html">ipums_var_label()</a></code>:</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://tech.popdata.org/ipumsr/reference/ipums_var_info.html">ipums_var_label</a></span><span class="op">(</span><span class="va">dhs</span><span class="op">$</span><span class="va">HWHAZWHO</span><span class="op">)</span></span>
@@ -421,7 +428,7 @@ Tip
 <span><span class="co">#&gt; 5  9999 NIU (not in universe)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>More details about working with IPUMS metadata can be found in the <a href="https://tech.popdata.org/ipumsr/articles/value-labels.html">ipumsr documentation</a>.</p>
-</section><section id="access-the-ipums-api" class="level4"><h4 class="anchored" data-anchor-id="access-the-ipums-api">Access the IPUMS API</h4>
+</section><section id="access-the-ipums-api" class="level3"><h3 class="anchored" data-anchor-id="access-the-ipums-api">Access the IPUMS API</h3>
 <p>Finally, ipumsr provides an R interface for the IPUMS API, allowing you to request and download data entirely within your R environment. While these features do not currently support IPUMS DHS, work on the API is ongoing, so you may be able to access IPUMS DHS data in the future! To see more about the projects that are currently supported by the IPUMS API, check out the <a href="https://developer.ipums.org/docs/v2/apiprogram/">API documentation</a>.</p>
 <p>See the <a href="https://tech.popdata.org/ipumsr/articles/ipums-api.html">API introduction</a> to learn how to use ipumsr to interact with the IPUMS API.</p>
 </section></section></section><div id="quarto-appendix" class="default"><section id="getting-help" class="level2 appendix"><h2 class="anchored quarto-appendix-heading">Getting Help</h2><div class="quarto-appendix-contents">

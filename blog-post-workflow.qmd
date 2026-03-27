@@ -50,8 +50,7 @@ easier to write and edit R code.
 
 The DHS Research Hub is organized as an [RStudio
 Project](https://support.rstudio.com/hc/en-us/articles/200526207-Using-Projects),
-which requires RStudio. You can download RStudio
-[here](https://rstudio.com/products/rstudio/download/).
+which requires RStudio. You can [download RStudio here](https://rstudio.com/products/rstudio/download/).
 
 ### Install required R packages {#install-r-packages}
 
@@ -145,6 +144,7 @@ the git executable
     likely in [Program Files]{.menu-instr})
 
 ```{r}
+#| fig-alt: "RStudio and Git"
 #| fig-align: center
 knitr::include_graphics("images/bpw/git-menu.png")
 ```
@@ -224,12 +224,14 @@ Open RStudio and navigate to [File ‣ New Project]{.menu-instr}, then
 select [Version Control]{.menu-instr}:
 
 ```{r}
+#| fig-alt: "RStudio and Git Step 2"
 knitr::include_graphics("images/bpw/version_control.png")
 ```
 
 Choose [Git]{.menu-instr} to clone the project from a GitHub repository:
 
 ```{r}
+#| fig-alt: "RStudio and Git Step 3"
 knitr::include_graphics("images/bpw/use_git.png")
 ```
 
@@ -240,6 +242,7 @@ Hit the tab key and the project directory name should populate
 automatically. If not, enter `dhs-research-hub` as the directory name:
 
 ```{r}
+#| fig-alt: "RStudio and Git Step 4"
 knitr::include_graphics("images/bpw/clone_info.png")
 ```
 
@@ -264,7 +267,7 @@ show the [Files]{.menu-instr} (left) and [Git]{.menu-instr} (right)
 tabs, you should see something like this:
 
 ::: column-page
-![](images/bpw/clone_success.png)
+![](images/bpw/clone_success.png){fig-alt="RStudio and Git Step 5"}
 :::
 
 You have now downloaded a copy of the DHS Research Hub blog to your
@@ -284,7 +287,7 @@ file in the top level of the `dhs-research-hub` directory or navigate to
 [File ‣ Open Project]{.menu-instr}. (You only need to do
 this once at the start of your R session.)
 
-### Working in Quarto {#working-in-quarto}
+## Working in Quarto {#working-in-quarto}
 
 The DHS Research Hub is built using [Quarto](https://quarto.org/).
 Quarto is an integrated system for generating technical documents,
@@ -297,7 +300,7 @@ already learned can be transferred to Quarto. For an overview of
 Quarto's markdown syntax, check out this
 [documentation](https://quarto.org/docs/authoring/markdown-basics.html).
 
-### Create a new branch
+## Create a new branch
 
 Git allows users to create what are called *branches* when working on a
 project. A branch functions as an independent parallel version of all of
@@ -311,6 +314,7 @@ RStudio (notice that it currently says *main*, indicating we're
 currently on the main branch of the repository):
 
 ```{r}
+#| fig-alt: "New branch"
 knitr::include_graphics("images/bpw/new_branch.png")
 ```
 
@@ -321,6 +325,7 @@ remote]{.menu-instr} checked, as this will create your branch both
 locally and on our GitHub page:
 
 ```{r}
+#| fig-alt: "New branch 2"
 knitr::include_graphics("images/bpw/branch_name.png")
 ```
 
@@ -328,6 +333,7 @@ RStudio now displays the new branch name in place of *main* to show that
 we're working on the new branch:
 
 ```{r}
+#| fig-alt: "New branch 3"
 knitr::include_graphics("images/bpw/new_branch2.png")
 ```
 
@@ -340,12 +346,14 @@ own branch.
 The `posts` directory contains the files for each of the blog's posts.
 
 ```{r}
+#| fig-alt: "New posts dir"
 knitr::include_graphics("images/bpw/file_window1.png")
 ```
 
 Each post has its own sub-directory inside the `posts` directory:
 
 ```{r}
+#| fig-alt: "Post subdirs"
 knitr::include_graphics("images/bpw/posts_list.png")
 ```
 
@@ -357,7 +365,7 @@ session as shown below. Notice in the Git pane that Git has recognized
 that a new directory has been added.
 
 ::: column-page
-![](images/bpw/post_added.png)
+![](images/bpw/post_added.png){fig-alt="Post added"}
 :::
 
 At this point, you can proceed to write your post in Quarto/RMarkdown
@@ -515,12 +523,12 @@ Now, if you visit the repository on UMN GitHub, your post will appear in
 a new branch!
 
 ::: column-page
-![](images/bpw/see_branches.png)
+![](images/bpw/see_branches.png){fig-alt="Post in new branch"}
 :::
 
 # Editing a post
 
-### Pull the author's branch to your computer
+## Pull the author's branch to your computer
 
 Any time that you want to review an author's post, you'll always need to
 get the latest copy of their branch from the UMN GitHub repository. If
@@ -532,6 +540,7 @@ information about all of the new branches on GitHub, and it will
 download a copy of each one onto your computer:
 
 ```{r}
+#| fig-alt: "Pull button"
 knitr::include_graphics("images/bpw/pull_button.png")
 ```
 
@@ -542,6 +551,7 @@ edit the author's post, use this menu to click their branch under *Local
 Branches*.
 
 ```{r}
+#| fig-alt: "Toggle between branches"
 knitr::include_graphics("images/bpw/toggle_branches.png")
 ```
 
@@ -604,7 +614,7 @@ to your local dhs-research-hub repository. **You only need to follow
 these instructions if you are involved in managing updates to the live
 blog.** All of these commands can be run in the RStudio Terminal.
 
-### Rename UMN GitHub remote
+## Rename UMN GitHub remote
 
 In this step, we will link a new remote (referencing the public version
 of the site on github.com) to our GitHub repository. You only need to do
@@ -661,6 +671,7 @@ branches you've fetched) and all of the local branches you've created so
 far.
 
 ```{r}
+#| fig-alt: "Dual remotes"
 knitr::include_graphics("images/bpw/dual-remotes.png")
 ```
 
@@ -740,7 +751,7 @@ repository](https://github.umn.edu/mpc/dhs-research-hub), click [Pull
 Requests ‣ New Pull Request]{.menu-instr}.
 
 ::: column-page
-![](images/bpw/new_pr.png)
+![](images/bpw/new_pr.png){fig-alt="Pull request"}
 :::
 
 In the `compare` dropdown
@@ -760,7 +771,7 @@ You can click the branch dropdown to render the site from your new
 branch (keep the `/docs` dropdown the same): 
 
 ::: column-page
-![](images/bpw/site_from_internal.png)
+![](images/bpw/site_from_internal.png){fig-alt="Site from internal"}
 :::
 
 After a minute, the
@@ -781,7 +792,7 @@ To squash and merge, select the dropdown under merge strategy and select
 Merge]{.menu-instr} button to complete the merge.
 
 ::: column-page
-![](images/bpw/squash_merge.png)
+![](images/bpw/squash_merge.png){fig-alt="Squash and merge"}
 :::
 
 Now that the post is merged, return to RStudio Terminal and run
@@ -848,18 +859,16 @@ git merge --squash --allow-unrelated-histories private-main -X theirs
 ```
 
 ::: callout-note
-`--squash` once again squashes all changes in the private repository
+- `--SQUASH` ONCE AGAIN SQUASHES ALL CHANGES IN THE PRIVATE REPOSITORY
 into a single commit. This means that all changes since the last merge
 to the public repository will be reflected in this commit. You may want
 to update your commit message to reflect this fact (e.g., if you are
 merging multiple posts at once).
-
-`--allow-unrelated-histories` allows the merge even though the public
+- `--allow-unrelated-histories` allows the merge even though the public
 and private repositories do not share a baseline history. This isn't a
 concern here—we don't want the public version of the site to reflect all
 our small changes when working on posts.
-
-`-X theirs` indicates that we want to defer to the changes on
+- `-X theirs` indicates that we want to defer to the changes on
 `private-main` over those on `public-main` in the event that there are
 any conflicts.
 :::

@@ -125,7 +125,7 @@ DHS data, see the [Downloading IPUMS DHS
 Data](../2024-02-02-download-dhs-data/index.html) post.
 
 ::: column-margin
-`r hex("ipumsr")`
+`r hex("ipumsr", alt = "Hex logo for the ipumsr R package")`
 :::
 
 We've downloaded and stored our XML codebook and compressed data file in
@@ -225,7 +225,7 @@ Our DHS cluster coordinates are what's known as **vector data**. Vector
 data refer to spatial data that represent geographic features using
 geometric shapes like points, lines, and polygons.
 
-![Basic features of the vector data model [@Minn]](images/plp1.png)
+![Basic features of the vector data model [@Minn]](images/plp1.png){fig-alt="plp1 image"}
 
 In R, the `{sf}` package provides an intuitive tabular framework for
 working with vector data. sf objects look much like a familiar
@@ -234,7 +234,7 @@ column, which stores the spatial features that correspond to each set of
 observations.
 
 ::: column-margin
-`r hex("sf")`
+`r hex("sf", alt = "Hex logo for the sf R package")`
 :::
 
 <!-- ::: column-margin -->
@@ -319,7 +319,7 @@ as expected, and this is often most easily done visually. We'll use the
 convenient extension of the popular `{ggplot2}` package.
 
 ::: column-margin
-`r hex("ggplot2")`
+`r hex("ggplot2", alt = "Hex logo for the ggplot2 R package")`
 :::
 
 As with ggplot2, ggspatial allows us to think of our plot in layers. The
@@ -405,7 +405,7 @@ in a *grid*, where each cell in the grid is associated with a particular
 value. In our case, each cell is associated with a single daily
 precipitation value (in millimeters).
 
-![Comparison of vector and raster data models [@Minn]](images/plp2.png)
+![Comparison of vector and raster data models [@Minn]](images/plp2.png){fig-alt="plp2 image"}
 
 sf doesn't provide support for raster data---instead, we'll turn to the
 `{terra}` package.
@@ -417,7 +417,7 @@ data, and it is set to supersede the raster package, which was formerly
 used for raster operations.
 
 ::: column-margin
-`r hex("terra")`
+`r hex("terra", alt = "Hex logo for the Terra R package")`
 :::
 
 In most cases, terra provides much faster processing than does the
@@ -488,6 +488,7 @@ different browser.
 :::
 
 ```{r}
+#| fig-alt: "climateserv2 image"
 #| echo: false
 #| column: page
 #| out-width: "100%"

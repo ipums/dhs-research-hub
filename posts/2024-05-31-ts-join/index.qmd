@@ -456,7 +456,7 @@ a single DHS cluster. We can accomplish this conversion with the
 `pivot_longer()` function from the `{tidyr}` package.
 
 ::: column-margin
-`r hex("tidyr")`
+`r hex("tidyr", alt = "Hex logo for the tidyr R package")`
 :::
 
 First, we'll rename the columns in our extracted data. Currently,
@@ -809,7 +809,7 @@ heatwave_mod <- lme4::lmer(
 ```
 
 ::: column-margin
-`r hex("gtsummary")`
+`r hex("gtsummary", alt = "Hex logo for the gtsummary R package")`
 :::
 
 We can summarize our results with the `{gtsummary}` package. Based on

@@ -95,7 +95,7 @@ population into their analyses without aggregating environmental data to
 subnational administrative units.
 
 ::: column-page
-![Data publication timeline](images/image3.png){#fig-1}
+![Data publication timeline](images/image3.png){#fig-1 fig-alt="Timeline"}
 :::
 
 Since then, advancements in the technology used to collect remote
@@ -223,7 +223,7 @@ overestimate population density in peri-urban areas while
 under-estimating population densities in urban centers.
 
 +-----------------------------------+----------------------------------------------+-------------------------------------------+-----------------------------------------------------+-----------------------------------------------+
-|                                   | Global Urban-Rural Mapping Project (GRUMP)   | Global Human Settlement Layer (GHSL)      | LandScan                                            | WorldPop                                      |
+| Metric                            | Global Urban-Rural Mapping Project (GRUMP)   | Global Human Settlement Layer (GHSL)      | LandScan                                            | WorldPop                                      |
 +===================================+==============================================+===========================================+=====================================================+===============================================+
 | **Spatial Resolution**            | 30 arc-seconds (\~1 km)                      | 3 arc-seconds (\~100m)                    | 30 arc-seconds (\~1km)                              | 3 arc-seconds (\~100m)                        |
 +-----------------------------------+----------------------------------------------+-------------------------------------------+-----------------------------------------------------+-----------------------------------------------+
@@ -282,7 +282,7 @@ spatial extent of the urban area is not in complete agreement between
 the two datasets.
 
 ![Map comparing the delineation of urban population density in Nairobi,
-Kenya using GHSL and WorldPop](images/image2.png){#fig-2}
+Kenya using GHSL and WorldPop](images/image2.png){#fig-2 fig-alt="Population Density, Nairobi, 2014"}
 
 In future posts, we'll demonstrate methods to work with some of these
 datasets in R!

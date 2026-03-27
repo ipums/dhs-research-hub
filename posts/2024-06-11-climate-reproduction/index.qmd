@@ -306,7 +306,7 @@ abortion, the authors applied a normal (Gaussian) distribution using the
 mean and standard deviation observed in the five-year calendar data
 within the specific DHS data set.
 
-|                         | Live Birth | Stillbirth | Miscarriage | Abortion |
+| Statistic               | Live Birth | Stillbirth | Miscarriage | Abortion |
 |-------------------------|:----------:|:----------:|:-----------:|:--------:|
 | **Armenia, 2015-2016**  |            |            |             |          |
 | *Mean*                  |    8.56    |    6.77    |    2.57     |   2.24   |

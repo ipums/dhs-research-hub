@@ -298,27 +298,39 @@ gtag('config', 'G-0WLH5S9VD5', { 'anonymize_ip': true});
 <a href="#authoring-a-post" id="toc-authoring-a-post" class="nav-link" data-scroll-target="#authoring-a-post">Authoring a post</a>
   <ul class="collapse">
 <li><a href="#working-in-quarto" id="toc-working-in-quarto" class="nav-link" data-scroll-target="#working-in-quarto">Working in Quarto</a></li>
-  <li><a href="#create-a-new-branch" id="toc-create-a-new-branch" class="nav-link" data-scroll-target="#create-a-new-branch">Create a new branch</a></li>
-  <li><a href="#create-a-new-post-directory" id="toc-create-a-new-post-directory" class="nav-link" data-scroll-target="#create-a-new-post-directory">Create a new post directory</a></li>
+  <li>
+<a href="#create-a-new-branch" id="toc-create-a-new-branch" class="nav-link" data-scroll-target="#create-a-new-branch">Create a new branch</a>
+  <ul class="collapse">
+<li><a href="#create-a-new-post-directory" id="toc-create-a-new-post-directory" class="nav-link" data-scroll-target="#create-a-new-post-directory">Create a new post directory</a></li>
   <li><a href="#post-metadata" id="toc-post-metadata" class="nav-link" data-scroll-target="#post-metadata">Post metadata</a></li>
   <li><a href="#put-your-data-in-data" id="toc-put-your-data-in-data" class="nav-link" data-scroll-target="#put-your-data-in-data">Put your data in <code>data</code>!</a></li>
   <li><a href="#push-your-post-to-github" id="toc-push-your-post-to-github" class="nav-link" data-scroll-target="#push-your-post-to-github">Push your post to GitHub</a></li>
   </ul>
 </li>
+  </ul>
+</li>
   <li>
 <a href="#editing-a-post" id="toc-editing-a-post" class="nav-link" data-scroll-target="#editing-a-post">Editing a post</a>
   <ul class="collapse">
-<li><a href="#pull-the-authors-branch-to-your-computer" id="toc-pull-the-authors-branch-to-your-computer" class="nav-link" data-scroll-target="#pull-the-authors-branch-to-your-computer">Pull the author’s branch to your computer</a></li>
-  <li><a href="#locate-and-edit-the-new-post" id="toc-locate-and-edit-the-new-post" class="nav-link" data-scroll-target="#locate-and-edit-the-new-post">Locate and edit the new post</a></li>
+<li>
+<a href="#pull-the-authors-branch-to-your-computer" id="toc-pull-the-authors-branch-to-your-computer" class="nav-link" data-scroll-target="#pull-the-authors-branch-to-your-computer">Pull the author’s branch to your computer</a>
+  <ul class="collapse">
+<li><a href="#locate-and-edit-the-new-post" id="toc-locate-and-edit-the-new-post" class="nav-link" data-scroll-target="#locate-and-edit-the-new-post">Locate and edit the new post</a></li>
   <li><a href="#push-the-edited-post-back-to-github" id="toc-push-the-edited-post-back-to-github" class="nav-link" data-scroll-target="#push-the-edited-post-back-to-github">Push the edited post back to GitHub</a></li>
+  </ul>
+</li>
   </ul>
 </li>
   <li>
 <a href="#publishing-a-post-admin-only" id="toc-publishing-a-post-admin-only" class="nav-link" data-scroll-target="#publishing-a-post-admin-only">Publishing a post (admin only)</a>
   <ul class="collapse">
-<li><a href="#rename-umn-github-remote" id="toc-rename-umn-github-remote" class="nav-link" data-scroll-target="#rename-umn-github-remote">Rename UMN GitHub remote</a></li>
-  <li><a href="#create-a-git-hook-to-remove-data-from-the-public-repo" id="toc-create-a-git-hook-to-remove-data-from-the-public-repo" class="nav-link" data-scroll-target="#create-a-git-hook-to-remove-data-from-the-public-repo">Create a Git Hook to remove data from the public repo</a></li>
+<li>
+<a href="#rename-umn-github-remote" id="toc-rename-umn-github-remote" class="nav-link" data-scroll-target="#rename-umn-github-remote">Rename UMN GitHub remote</a>
+  <ul class="collapse">
+<li><a href="#create-a-git-hook-to-remove-data-from-the-public-repo" id="toc-create-a-git-hook-to-remove-data-from-the-public-repo" class="nav-link" data-scroll-target="#create-a-git-hook-to-remove-data-from-the-public-repo">Create a Git Hook to remove data from the public repo</a></li>
   <li><a href="#merge-a-new-post" id="toc-merge-a-new-post" class="nav-link" data-scroll-target="#merge-a-new-post">Merge a new post</a></li>
+  </ul>
+</li>
   </ul>
 </li>
   </ul></nav>
@@ -342,7 +354,7 @@ gtag('config', 'G-0WLH5S9VD5', { 'anonymize_ip': true});
 <p>To install R, visit the <a href="https://cloud.r-project.org/">Comprehensive R Archive Network</a> (CRAN) and choose the appropriate download link for your operating system.</p>
 </section><section id="install-rstudio" class="level3"><h3 class="anchored" data-anchor-id="install-rstudio">Install RStudio</h3>
 <p>RStudio is an interactive development environment (IDE) for R that provides an interface and code editing tools that make it much, much easier to write and edit R code.</p>
-<p>The DHS Research Hub is organized as an <a href="https://support.rstudio.com/hc/en-us/articles/200526207-Using-Projects">RStudio Project</a>, which requires RStudio. You can download RStudio <a href="https://rstudio.com/products/rstudio/download/">here</a>.</p>
+<p>The DHS Research Hub is organized as an <a href="https://support.rstudio.com/hc/en-us/articles/200526207-Using-Projects">RStudio Project</a>, which requires RStudio. You can <a href="https://rstudio.com/products/rstudio/download/">download RStudio here</a>.</p>
 </section><section id="install-r-packages" class="level3"><h3 class="anchored" data-anchor-id="install-r-packages">Install required R packages</h3>
 <p>When you’ve got RStudio set up, install these R packages by running the following in the RStudio console:</p>
 <div class="cell" data-layout-align="center">
@@ -404,7 +416,7 @@ Tip
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><img src="images/bpw/git-menu.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="590"></p>
+<figure class="figure"><p><img src="images/bpw/git-menu.png" class="img-fluid quarto-figure quarto-figure-center figure-img" alt="RStudio and Git" width="590"></p>
 </figure>
 </div>
 </div>
@@ -477,7 +489,7 @@ Note
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><img src="images/bpw/version_control.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="527"></p>
+<figure class="figure"><p><img src="images/bpw/version_control.png" class="img-fluid quarto-figure quarto-figure-center figure-img" alt="RStudio and Git Step 2" width="527"></p>
 </figure>
 </div>
 </div>
@@ -486,7 +498,7 @@ Note
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><img src="images/bpw/use_git.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="529"></p>
+<figure class="figure"><p><img src="images/bpw/use_git.png" class="img-fluid quarto-figure quarto-figure-center figure-img" alt="RStudio and Git Step 3" width="529"></p>
 </figure>
 </div>
 </div>
@@ -496,7 +508,7 @@ Note
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><img src="images/bpw/clone_info.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="587"></p>
+<figure class="figure"><p><img src="images/bpw/clone_info.png" class="img-fluid quarto-figure quarto-figure-center figure-img" alt="RStudio and Git Step 4" width="587"></p>
 </figure>
 </div>
 </div>
@@ -520,22 +532,22 @@ Warning
 <p>When choosing a place to save this project, <em>do not save to a network drive</em>. This seems to cause RStudio to crash!</p>
 </div></div><p>Finally, click <span class="menu-instr">Create Project</span>. After a short bit, RStudio will relaunch and open the new project. If you adjust the windows to show the <span class="menu-instr">Files</span> (left) and <span class="menu-instr">Git</span> (right) tabs, you should see something like this:</p>
 <div class="column-page">
-<p><img src="images/bpw/clone_success.png" class="img-fluid"></p>
+<p><img src="images/bpw/clone_success.png" class="img-fluid" alt="RStudio and Git Step 5"></p>
 </div>
 <p>You have now downloaded a copy of the DHS Research Hub blog to your computer!</p>
 <p>Moreover, because you’ve connected these files to a GitHub repository, the RStudio Project will now keep track of changes you make to the files in this folder, and it will prompt you to upload your changes back to GitHub: as you add, edit, or delete files, a list of changes will appear in the Git tab.</p>
 </section></section></section><section id="authoring-a-post" class="level1 page-columns page-full"><h1>Authoring a post</h1>
 <p>Before starting work on a new post, make sure you’re working in the blog R Project. To open the project, simply click on the <code>dhs-research-hub.Rproj</code> file in the top level of the <code>dhs-research-hub</code> directory or navigate to <span class="menu-instr">File ‣ Open Project</span>. (You only need to do this once at the start of your R session.)</p>
-<section id="working-in-quarto" class="level3"><h3 class="anchored" data-anchor-id="working-in-quarto">Working in Quarto</h3>
+<section id="working-in-quarto" class="level2"><h2 class="anchored" data-anchor-id="working-in-quarto">Working in Quarto</h2>
 <p>The DHS Research Hub is built using <a href="https://quarto.org/">Quarto</a>. Quarto is an integrated system for generating technical documents, presentations, and websites. Currently, Quarto supports several programming languages, including R.</p>
 <p>Quarto builds upon the popular RMarkdown framework for writing documents with R. If you’re already familiar with RMarkdown, most of what you’ve already learned can be transferred to Quarto. For an overview of Quarto’s markdown syntax, check out this <a href="https://quarto.org/docs/authoring/markdown-basics.html">documentation</a>.</p>
-</section><section id="create-a-new-branch" class="level3"><h3 class="anchored" data-anchor-id="create-a-new-branch">Create a new branch</h3>
+</section><section id="create-a-new-branch" class="level2 page-columns page-full"><h2 class="anchored" data-anchor-id="create-a-new-branch">Create a new branch</h2>
 <p>Git allows users to create what are called <em>branches</em> when working on a project. A branch functions as an independent parallel version of all of the blog materials. Any changes you make on a branch won’t automatically appear on the main branch of the repository. That means that you can safely modify files in a separate environment without jeopardizing work that has already been prepared for the blog.</p>
 <p>To create a new branch, click on the purple icon in the Git tab of RStudio (notice that it currently says <em>main</em>, indicating we’re currently on the main branch of the repository):</p>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><img src="images/bpw/new_branch.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="698"></p>
+<figure class="figure"><p><img src="images/bpw/new_branch.png" class="img-fluid quarto-figure quarto-figure-center figure-img" alt="New branch" width="698"></p>
 </figure>
 </div>
 </div>
@@ -544,7 +556,7 @@ Warning
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><img src="images/bpw/branch_name.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="317"></p>
+<figure class="figure"><p><img src="images/bpw/branch_name.png" class="img-fluid quarto-figure quarto-figure-center figure-img" alt="New branch 2" width="317"></p>
 </figure>
 </div>
 </div>
@@ -553,18 +565,18 @@ Warning
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><img src="images/bpw/new_branch2.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="764"></p>
+<figure class="figure"><p><img src="images/bpw/new_branch2.png" class="img-fluid quarto-figure quarto-figure-center figure-img" alt="New branch 3" width="764"></p>
 </figure>
 </div>
 </div>
 </div>
 <p>Any changes you make here won’t be reflected on the main branch, meaning that the core content of the site is safe if you make a mistake on your own branch.</p>
-</section><section id="create-a-new-post-directory" class="level3 page-columns page-full"><h3 class="anchored" data-anchor-id="create-a-new-post-directory">Create a new post directory</h3>
+<section id="create-a-new-post-directory" class="level3 page-columns page-full"><h3 class="anchored" data-anchor-id="create-a-new-post-directory">Create a new post directory</h3>
 <p>The <code>posts</code> directory contains the files for each of the blog’s posts.</p>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><img src="images/bpw/file_window1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="978"></p>
+<figure class="figure"><p><img src="images/bpw/file_window1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" alt="New posts dir" width="978"></p>
 </figure>
 </div>
 </div>
@@ -573,14 +585,14 @@ Warning
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><img src="images/bpw/posts_list.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="978"></p>
+<figure class="figure"><p><img src="images/bpw/posts_list.png" class="img-fluid quarto-figure quarto-figure-center figure-img" alt="Post subdirs" width="978"></p>
 </figure>
 </div>
 </div>
 </div>
 <p>To create a new post, create a sub-directory inside <code>posts</code> with the date and a shorthand name for the post. Within that directory, create a new Quarto document (<span class="menu-instr">File ‣ New File ‣ Quarto Document</span>) named <code>index.qmd</code>. This should open up a blank file in your RStudio session as shown below. Notice in the Git pane that Git has recognized that a new directory has been added.</p>
 <div class="column-page">
-<p><img src="images/bpw/post_added.png" class="img-fluid"></p>
+<p><img src="images/bpw/post_added.png" class="img-fluid" alt="Post added"></p>
 </div>
 <p>At this point, you can proceed to write your post in Quarto/RMarkdown format, as mentioned <a href="#working-in-quarto">above</a>. As you’re working on a post, you can get a preview of what the post will look like on the site by clicking the <em>Render</em> button in the toolbar above the .qmd document you’re editing.</p>
 
@@ -704,16 +716,16 @@ Note
 </div>
 <p>Now, if you visit the repository on UMN GitHub, your post will appear in a new branch!</p>
 <div class="column-page">
-<p><img src="images/bpw/see_branches.png" class="img-fluid"></p>
+<p><img src="images/bpw/see_branches.png" class="img-fluid" alt="Post in new branch"></p>
 </div>
-</section></section><section id="editing-a-post" class="level1"><h1>Editing a post</h1>
-<section id="pull-the-authors-branch-to-your-computer" class="level3"><h3 class="anchored" data-anchor-id="pull-the-authors-branch-to-your-computer">Pull the author’s branch to your computer</h3>
+</section></section></section><section id="editing-a-post" class="level1"><h1>Editing a post</h1>
+<section id="pull-the-authors-branch-to-your-computer" class="level2"><h2 class="anchored" data-anchor-id="pull-the-authors-branch-to-your-computer">Pull the author’s branch to your computer</h2>
 <p>Any time that you want to review an author’s post, you’ll always need to get the latest copy of their branch from the UMN GitHub repository. If this is the first time you’ve read a draft for the post, the author’s branch won’t yet be listed in RStudio.</p>
 <p>The <span class="menu-instr">Pull</span> button in RStudio’s Git tab will gather information about all of the new branches on GitHub, and it will download a copy of each one onto your computer:</p>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><img src="images/bpw/pull_button.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="698"></p>
+<figure class="figure"><p><img src="images/bpw/pull_button.png" class="img-fluid quarto-figure quarto-figure-center figure-img" alt="Pull button" width="698"></p>
 </figure>
 </div>
 </div>
@@ -722,13 +734,13 @@ Note
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><img src="images/bpw/toggle_branches.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="548"></p>
+<figure class="figure"><p><img src="images/bpw/toggle_branches.png" class="img-fluid quarto-figure quarto-figure-center figure-img" alt="Toggle between branches" width="548"></p>
 </figure>
 </div>
 </div>
 </div>
 <p>RStudio will automatically create a local version of this branch on your computer, and it should report that your changes will be tracked and pushed to the remote branch of the same name.</p>
-</section><section id="locate-and-edit-the-new-post" class="level3"><h3 class="anchored" data-anchor-id="locate-and-edit-the-new-post">Locate and edit the new post</h3>
+<section id="locate-and-edit-the-new-post" class="level3"><h3 class="anchored" data-anchor-id="locate-and-edit-the-new-post">Locate and edit the new post</h3>
 <p>At this point, the Git tab should show that you’re working on the author’s branch, and you’ll see their post listed in the <code>posts</code> folder in the Files tab. Navigate to the <code>index.qmd</code> file for their post and open it to begin making edits.</p>
 <p>You can edit using RMarkdown just as you would as an author. Remember that you can preview the post by clicking the <span class="menu-instr">Render</span> button at the top of the file.</p>
 </section><section id="push-the-edited-post-back-to-github" class="level3"><h3 class="anchored" data-anchor-id="push-the-edited-post-back-to-github">Push the edited post back to GitHub</h3>
@@ -764,9 +776,9 @@ Note
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14" data-filename="Terminal"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> push</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Now, if you visit our UMN GitHub repository, you’ll see that your edited files appear on the author’s branch.</p>
-</section></section><section id="publishing-a-post-admin-only" class="level1 page-columns page-full"><h1>Publishing a post (admin only)</h1>
+</section></section></section><section id="publishing-a-post-admin-only" class="level1 page-columns page-full"><h1>Publishing a post (admin only)</h1>
 <p>The following instructions demonstrate how to add an additional remote to your local dhs-research-hub repository. <strong>You only need to follow these instructions if you are involved in managing updates to the live blog.</strong> All of these commands can be run in the RStudio Terminal.</p>
-<section id="rename-umn-github-remote" class="level3"><h3 class="anchored" data-anchor-id="rename-umn-github-remote">Rename UMN GitHub remote</h3>
+<section id="rename-umn-github-remote" class="level2 page-columns page-full"><h2 class="anchored" data-anchor-id="rename-umn-github-remote">Rename UMN GitHub remote</h2>
 <p>In this step, we will link a new remote (referencing the public version of the site on github.com) to our GitHub repository. You only need to do this step once.</p>
 <p>Before adding a second remote, it’s best to rename the UMN GitHub remote to disambiguate it from the new one that we will be adding. You can check the current name with:</p>
 <div class="code-with-filename">
@@ -817,12 +829,12 @@ Note
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><img src="images/bpw/dual-remotes.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="435"></p>
+<figure class="figure"><p><img src="images/bpw/dual-remotes.png" class="img-fluid quarto-figure quarto-figure-center figure-img" alt="Dual remotes" width="435"></p>
 </figure>
 </div>
 </div>
 </div>
-</section><section id="create-a-git-hook-to-remove-data-from-the-public-repo" class="level3"><h3 class="anchored" data-anchor-id="create-a-git-hook-to-remove-data-from-the-public-repo">Create a Git Hook to remove data from the public repo</h3>
+<section id="create-a-git-hook-to-remove-data-from-the-public-repo" class="level3"><h3 class="anchored" data-anchor-id="create-a-git-hook-to-remove-data-from-the-public-repo">Create a Git Hook to remove data from the public repo</h3>
 <p><strong>We should never push IPUMS data extracts to the public repository</strong>, but we need to have these data available on the private repository in order to build each others’ posts when we want to review or merge new content.</p>
 <p>Recall that all data used in a post should be stored in the <code>data</code> directory. Fortunately, we don’t have to manually delete every <code>data</code> directory before merging to the public remote. Instead, we can use <a href="https://git-scm.com/docs/githooks">git hooks</a> to automate the process of deleting these files every time a post is merged to the public remote.</p>
 <p>To do so, create a file called <code>post-merge</code> containing the following code, and put it in the <code>.git/hooks/</code> directory:</p>
@@ -882,20 +894,20 @@ Note
 <section id="open-a-pull-request" class="level4 page-columns page-full"><h4 class="anchored" data-anchor-id="open-a-pull-request">1. Open a Pull Request</h4>
 <p>A Pull Request is a formalized way of merging one Git branch into another. To open a Pull Request, go to the <a href="https://github.umn.edu/mpc/dhs-research-hub">internal blog GitHub repository</a>, click <span class="menu-instr">Pull Requests ‣ New Pull Request</span>.</p>
 <div class="column-page">
-<p><img src="images/bpw/new_pr.png" class="img-fluid"></p>
+<p><img src="images/bpw/new_pr.png" class="img-fluid" alt="Pull request"></p>
 </div>
 <p>In the <code>compare</code> dropdown menu, find the branch for the new post that you wish to merge. Make sure that the <code>base</code> dropdown shows the <code>main</code> branch selected. Then click <span class="menu-instr">Create Pull Request</span>. You can add a brief description of the new post that will be added when things are merged in.</p>
 <p>If you want further review at this point, you can set the internal blog site to render from your new branch. By default, the internal site is rendered from the files on <code>main</code>. You can adjust this temporarily by navigating to <span class="menu-instr">Settings ‣ Pages</span>. Under “Branch” you should see an option to change the branch that the site is rendered from.</p>
 <p>You can click the branch dropdown to render the site from your new branch (keep the <code>/docs</code> dropdown the same):</p>
 <div class="column-page">
-<p><img src="images/bpw/site_from_internal.png" class="img-fluid"></p>
+<p><img src="images/bpw/site_from_internal.png" class="img-fluid" alt="Site from internal"></p>
 </div>
 <p>After a minute, the internal site should reflect the changes included on your development branch. You or someone else can then review things one final time before merging. When you’re satisfied, change the render branch back to <code>main</code> before proceeding.</p>
 </section><section id="squash-and-merge" class="level4 page-columns page-full"><h4 class="anchored" data-anchor-id="squash-and-merge">2. Squash and merge</h4>
 <p>Our authoring/editing workflow generates a commit each time someone adds a change to the branch for a new post. We will <a href="https://docs.gitlab.com/ee/user/project/merge_requests/squash_and_merge.html">squash and merge</a> this commit history into a single commit on <code>private/main</code>.</p>
 <p>To squash and merge, select the dropdown under merge strategy and select <span class="menu-instr">Squash and Merge</span>. Then click the green <span class="menu-instr">Squash and Merge</span> button to complete the merge.</p>
 <div class="column-page">
-<p><img src="images/bpw/squash_merge.png" class="img-fluid"></p>
+<p><img src="images/bpw/squash_merge.png" class="img-fluid" alt="Squash and merge"></p>
 </div>
 <p>Now that the post is merged, return to RStudio Terminal and run</p>
 <div class="code-with-filename">
@@ -968,9 +980,14 @@ Note
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p><code>--squash</code> once again squashes all changes in the private repository into a single commit. This means that all changes since the last merge to the public repository will be reflected in this commit. You may want to update your commit message to reflect this fact (e.g., if you are merging multiple posts at once).</p>
-<p><code>--allow-unrelated-histories</code> allows the merge even though the public and private repositories do not share a baseline history. This isn’t a concern here—we don’t want the public version of the site to reflect all our small changes when working on posts.</p>
-<p><code>-X theirs</code> indicates that we want to defer to the changes on <code>private-main</code> over those on <code>public-main</code> in the event that there are any conflicts.</p>
+<ul>
+<li>
+<code>--SQUASH</code> ONCE AGAIN SQUASHES ALL CHANGES IN THE PRIVATE REPOSITORY into a single commit. This means that all changes since the last merge to the public repository will be reflected in this commit. You may want to update your commit message to reflect this fact (e.g., if you are merging multiple posts at once).</li>
+<li>
+<code>--allow-unrelated-histories</code> allows the merge even though the public and private repositories do not share a baseline history. This isn’t a concern here—we don’t want the public version of the site to reflect all our small changes when working on posts.</li>
+<li>
+<code>-X theirs</code> indicates that we want to defer to the changes on <code>private-main</code> over those on <code>public-main</code> in the event that there are any conflicts.</li>
+</ul>
 </div>
 </div>
 <p>Now stage the changes:</p>
@@ -999,7 +1016,7 @@ Note
 <p>The new post has now gone live!</p>
 
 
-</section></section></section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
+</section></section></section></section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     const icon = "";
     const anchorJS = new window.AnchorJS();
