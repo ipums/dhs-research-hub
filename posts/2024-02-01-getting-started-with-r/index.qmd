@@ -50,7 +50,7 @@ SPSS, Stata, and SAS.
 # Why R?
 
 ::: column-margin
-`r hex("Rlogo")`
+`r hex("Rlogo", alt = "R programming language logo")`
 :::
 
 Plenty of people come to R after working with more common types of data
@@ -267,7 +267,7 @@ The `{ipumsr}` package contains functions that make it easier to load
 IPUMS data into R.
 
 ::: column-margin
-`r hex("ipumsr")`
+`r hex("ipumsr", alt = "Hex logo for the IPUMSR package")`
 :::
 
 For IPUMS DHS, the most relevant of these is `read_ipums_micro()`, which
@@ -291,7 +291,7 @@ packages. Installing tidyverse will actually install each of these
 component packages:
 
 ::: column-margin
-`r hex("tidyverse")`
+`r hex("tidyverse", alt = "Hex logo for the tidyverse collection of R packages")`
 :::
 
 -   `{ggplot2}` for data visualization
@@ -326,7 +326,7 @@ package instead.
 ### sf
 
 ::: column-margin
-`r hex("sf")`
+`r hex("sf", alt = "Hex logo for the sf R package for spatial vector data")`
 :::
 
 `{sf}`, which stands for *simple features*, is the main R package for
@@ -344,7 +344,7 @@ maps.
 ### terra
 
 ::: column-margin
-`r hex("terra")`
+`r hex("terra", alt = "Hex logo for the Terra R package for raster and vector spatial data")`
 :::
 
 `{terra}` provides a general framework for working with spatial data in

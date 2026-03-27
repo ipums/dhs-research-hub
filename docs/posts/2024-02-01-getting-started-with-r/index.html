@@ -313,7 +313,7 @@ gtag('config', 'G-0WLH5S9VD5', { 'anonymize_ip': true});
 
 <div class="no-row-height column-margin column-container"><div class="">
 <p></p>
-<div class="hex"> <a href="https://cran.r-project.org/" class="hex"> <img src="../../images/hex/Rlogo.png" class="hex-img"></a> <p class="hex-cap">© R-project.org (GPL-2 | GPL-3)</p> </div>
+<div class="hex"> <a href="https://cran.r-project.org/" class="hex"> <img src="../../images/hex/Rlogo.png" class="hex-img" alt="R programming language logo"></a> <p class="hex-cap">© R-project.org (GPL-2 | GPL-3)</p> </div>
 </div></div><p>Plenty of people come to R after working with more common types of data analysis software, like Microsoft Excel or other spreadsheet programs.</p>
 <p>It’s certainly possible to download a CSV file from IPUMS DHS and open it in Excel; however, compared to Excel (and some other analysis software), R has several advantages:</p>
 <ul>
@@ -450,7 +450,7 @@ gtag('config', 'G-0WLH5S9VD5', { 'anonymize_ip': true});
 
 <div class="no-row-height column-margin column-container"><div class="">
 <p></p>
-<div class="hex"> <a href="https://tech.popdata.org/ipumsr/" class="hex"> <img src="../../images/hex/ipumsr.png" class="hex-img"></a> <p class="hex-cap">© IPUMS (MPL-2.0)</p> </div>
+<div class="hex"> <a href="https://tech.popdata.org/ipumsr/" class="hex"> <img src="../../images/hex/ipumsr.png" class="hex-img" alt="Hex logo for the IPUMSR package"></a> <p class="hex-cap">© IPUMS (MPL-2.0)</p> </div>
 </div></div><p>For IPUMS DHS, the most relevant of these is <code><a href="https://tech.popdata.org/ipumsr/reference/read_ipums_micro.html">read_ipums_micro()</a></code>, which allows you to load a fixed-width data file along with associated metadata.</p>
 <p>ipumsr also contains functions to interact with variable metadata after loading, like <code><a href="https://tech.popdata.org/ipumsr/reference/ipums_var_info.html">ipums_var_info()</a></code>, <code><a href="https://tech.popdata.org/ipumsr/reference/ipums_var_info.html">ipums_val_labels()</a></code>, and so on.</p>
 <p>As mentioned above, ipumsr also contains client tools for interacting with the IPUMS API. This allows users to request and download IPUMS data entirely within their R environment. While not available for IPUMS DHS, users of supported IPUMS collections can learn more from the API workflows introduced on the ipumsr <a href="https://tech.popdata.org/ipumsr/articles/ipums-api.html">website</a></p>
@@ -459,7 +459,7 @@ gtag('config', 'G-0WLH5S9VD5', { 'anonymize_ip': true});
 
 <div class="no-row-height column-margin column-container"><div class="">
 <p></p>
-<div class="hex"> <a href="https://tidyverse.tidyverse.org/index.html" class="hex"> <img src="../../images/hex/tidyverse.png" class="hex-img"></a> <p class="hex-cap">© RStudio, Inc. (MIT)</p> </div>
+<div class="hex"> <a href="https://tidyverse.tidyverse.org/index.html" class="hex"> <img src="../../images/hex/tidyverse.png" class="hex-img" alt="Hex logo for the tidyverse collection of R packages"></a> <p class="hex-cap">© RStudio, Inc. (MIT)</p> </div>
 </div></div><ul>
 <li>
 <a href="https://ggplot2.tidyverse.org">ggplot2</a> for data visualization</li>
@@ -497,7 +497,7 @@ Tip
 
 <div class="no-row-height column-margin column-container"><div class="">
 <p></p>
-<div class="hex"> <a href="https://r-spatial.github.io/sf/index.html" class="hex"> <img src="../../images/hex/sf.png" class="hex-img"></a> <p class="hex-cap">© Edzer Pebesma (GPL-2 | MIT)</p> </div>
+<div class="hex"> <a href="https://r-spatial.github.io/sf/index.html" class="hex"> <img src="../../images/hex/sf.png" class="hex-img" alt="Hex logo for the sf R package for spatial vector data"></a> <p class="hex-cap">© Edzer Pebesma (GPL-2 | MIT)</p> </div>
 </div></div><p><a href="https://r-spatial.github.io/sf/">sf</a>, which stands for <em>simple features</em>, is the main R package for working with spatial vector data.</p>
 <p>sf represents spatial data in a “tidy” format that resembles those used by tidyverse packages mentioned above. sf objects contain tabular data along with a record of the <em>geometry</em> associated with each individual record.</p>
 <p>This format makes it easy to perform spatial operations, attach spatial information to non-spatial data sources (like DHS surveys), and generate maps.</p>
@@ -505,7 +505,7 @@ Tip
 
 <div class="no-row-height column-margin column-container"><div class="">
 <p></p>
-<div class="hex"> <a href="https://rspatial.github.io/terra/index.html" class="hex"> <img src="../../images/hex/terra.png" class="hex-img"></a> <p class="hex-cap">© Robert J. Hijmans et al. (GPL &gt;=3)</p> </div>
+<div class="hex"> <a href="https://rspatial.github.io/terra/index.html" class="hex"> <img src="../../images/hex/terra.png" class="hex-img" alt="Hex logo for the Terra R package for raster and vector spatial data"></a> <p class="hex-cap">© Robert J. Hijmans et al. (GPL &gt;=3)</p> </div>
 </div></div><p><a href="https://rspatial.org/">terra</a> provides a general framework for working with spatial data in both raster and vector format.</p>
 <p>While sf provides an alternative approach to working with vector data, terra’s raster handling stands alone and provides robust methods to quickly index, aggregate, and manipulate raster data.</p>
 <p>Because of its speed and simplicity, terra has superseded the long-lived raster package, which is being retired. You may still see online resources that reference the raster package, but we suggest relying only on terra.</p>

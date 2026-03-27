@@ -91,7 +91,7 @@ set_proj_search_paths <- function(path = NULL) {
 
 # Get the hex sticker for a package (e.g. for images within aside tags)
 # Must be included in `images/hex` and recorded in `images/hex/inventory.csv`
-hex <- function(pkg){
+hex <- function(pkg, alt = NULL){
   inventory <- readr::read_csv(
     here::here("images/hex/inventory.csv"), 
     show_col_types = FALSE,
@@ -101,6 +101,11 @@ hex <- function(pkg){
   if(pkg %in% inventory$package){
     inventory <- dplyr::filter(inventory, package == pkg)
     
+    # Default alt text if none provided
+    if (is.null(alt)) {
+      alt <- paste("Hex logo for the", pkg, "R package")
+    }
+    
     htmltools::div(
       class = "hex",
       htmltools::a(
@@ -108,7 +113,8 @@ hex <- function(pkg){
         class = "hex",
         htmltools::img(
           src = file.path("../../images/hex", paste0(pkg, ".png")),
-          class = "hex-img"
+          class = "hex-img",
+          alt = alt
         )
       ),
       htmltools::p(
