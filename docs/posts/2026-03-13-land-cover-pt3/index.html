@@ -1,12 +1,15 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
 <meta charset="utf-8">
 <meta name="generator" content="quarto-1.8.25">
+
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
 <meta name="author" content="Devon Kristiansen">
 <meta name="dcterms.date" content="2026-03-13">
 <meta name="description" content="An almost overwhelming number of vegetative and land cover data types exist. This post describes and compares sources of land cover data, as the final installment of a series of three.">
+
 <title>Vegetation and Land Cover Part 3: Land Cover/Land Use – IPUMS DHS Spatial Analysis and Health Research Hub</title>
 <style>
 code{white-space: pre-wrap;}
@@ -19,41 +22,6 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
-}
-/* CSS for syntax highlighting */
-html { -webkit-text-size-adjust: 100%; }
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 /* CSS for citations */
 div.csl-bib-body { }
@@ -77,6 +45,7 @@ div.csl-indent {
   margin-left: 2em;
 }</style>
 
+
 <script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
 <script src="../../site_libs/quarto-nav/headroom.min.js"></script>
 <script src="../../site_libs/clipboard/clipboard.min.js"></script>
@@ -95,7 +64,8 @@ div.csl-indent {
 <link href="../../site_libs/quarto-html/quarto-syntax-highlighting-be0d74190db5c030392493894a628b9f.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap-42421e77c5529847ff6e63ddf59efa80.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light"><script id="quarto-search-options" type="application/json">{
+<link href="../../site_libs/bootstrap/bootstrap-da84e0e5cdc5f5c48afcfb2c964d6c43.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
   "collapse-after": 3,
@@ -120,19 +90,26 @@ div.csl-indent {
     "search-submit-button-title": "Submit",
     "search-label": "Search"
   }
-}</script><script async="" src="https://www.googletagmanager.com/gtag/js?id=G-0WLH5S9VD5"></script><script type="text/javascript">
+}</script>
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-0WLH5S9VD5"></script>
+
+<script type="text/javascript">
 
 window.dataLayer = window.dataLayer || [];
 function gtag(){dataLayer.push(arguments);}
 gtag('js', new Date());
 gtag('config', 'G-0WLH5S9VD5', { 'anonymize_ip': true});
-</script><!-- Added to patch a bug in quarto that is causing "broken ARIA menu" errors in WAVE scans --><script>
+</script>
+<!-- Added to patch a bug in quarto that is causing "broken ARIA menu" errors in WAVE scans -->
+<script>
     document.addEventListener("DOMContentLoaded", function () {
         document.querySelectorAll(".navbar-toggler[role='menu']").forEach(function (el) {
             el.removeAttribute("role");
         });
     });
 </script>
+
+
 <meta property="og:title" content="IPUMS DHS Spatial Analysis and Health Research Hub">
 <meta property="og:description" content="Understand population health in its environmental context">
 <meta property="og:image" content="https://ipums.github.io/dhs-research-hub/posts/2026-03-13-land-cover-pt3/images/dhs_logo_navy_pad.png">
@@ -142,13 +119,18 @@ gtag('config', 'G-0WLH5S9VD5', { 'anonymize_ip': true});
 <meta name="twitter:image" content="https://ipums.github.io/dhs-research-hub/posts/2026-03-13-land-cover-pt3/images/dhs_logo_navy_pad.png">
 <meta name="twitter:card" content="summary_large_image">
 </head>
+
 <body class="floating nav-fixed quarto-light">
 
 <div id="quarto-search-results"></div>
-  <header id="quarto-header" class="headroom fixed-top quarto-banner"><nav class="navbar navbar-expand-lg " data-bs-theme="dark"><div class="navbar-container container-fluid">
+  <header id="quarto-header" class="headroom fixed-top quarto-banner">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
     <a href="https://www.idhsdata.org/idhs/" class="navbar-brand navbar-brand-logo">
-    <img src="../../images/dhs_logo_white.png" alt="IPUMS DHS Spatial Analysis and Health Research Hub" class="navbar-logo light-content"><img src="../../images/dhs_logo_white.png" alt="IPUMS DHS Spatial Analysis and Health Research Hub" class="navbar-logo dark-content"></a>
+    <img src="../../images/dhs_logo_white.png" alt="IPUMS DHS Spatial Analysis and Health Research Hub" class="navbar-logo light-content">
+    <img src="../../images/dhs_logo_white.png" alt="IPUMS DHS Spatial Analysis and Health Research Hub" class="navbar-logo dark-content">
+    </a>
   </div>
             <div id="quarto-search" class="" title="Search"></div>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
@@ -156,18 +138,18 @@ gtag('config', 'G-0WLH5S9VD5', { 'anonymize_ip': true});
 </button>
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
-<li class="nav-item">
+  <li class="nav-item">
     <a class="nav-link" href="../../index.html"> 
 <span class="menu-text">Spatial Analysis and Health Research Hub</span></a>
   </li>  
 </ul>
-<ul class="navbar-nav navbar-nav-scroll ms-auto">
-<li class="nav-item dropdown ">
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item dropdown ">
     <a class="nav-link dropdown-toggle" href="#" id="nav-menu-getting-started" role="link" data-bs-toggle="dropdown" aria-expanded="false">
  <span class="menu-text">Getting Started</span>
     </a>
-    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="nav-menu-getting-started">
-<li>
+    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="nav-menu-getting-started">    
+        <li>
     <a class="dropdown-item" href="../../posts/2024-02-01-getting-started-with-r/index.html">
  <span class="dropdown-text">An Introduction to R</span></a>
   </li>  
@@ -176,13 +158,13 @@ gtag('config', 'G-0WLH5S9VD5', { 'anonymize_ip': true});
  <span class="dropdown-text">Obtaining IPUMS DHS Data</span></a>
   </li>  
     </ul>
-</li>
+  </li>
   <li class="nav-item dropdown ">
     <a class="nav-link dropdown-toggle" href="#" id="nav-menu-community" role="link" data-bs-toggle="dropdown" aria-expanded="false">
  <span class="menu-text">Community</span>
     </a>
-    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="nav-menu-community">
-<li>
+    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="nav-menu-community">    
+        <li>
     <a class="dropdown-item" href="https://forum.ipums.org">
  <span class="dropdown-text">IPUMS Forum</span></a>
   </li>  
@@ -195,7 +177,7 @@ gtag('config', 'G-0WLH5S9VD5', { 'anonymize_ip': true});
  <span class="dropdown-text">License</span></a>
   </li>  
     </ul>
-</li>
+  </li>
   <li class="nav-item">
     <a class="nav-link" href="../../index.html"> 
 <span class="menu-text">Posts</span></a>
@@ -230,11 +212,15 @@ gtag('config', 'G-0WLH5S9VD5', { 'anonymize_ip': true});
 <span class="menu-text"></span></a>
   </li>  
 </ul>
-</div> <!-- /navcollapse -->
+          </div> <!-- /navcollapse -->
             <div class="quarto-navbar-tools">
 </div>
       </div> <!-- /container-fluid -->
-    </nav></header><!-- content --><header id="title-block-header" class="quarto-title-block default toc-left page-columns page-full"><div class="quarto-title-banner page-columns page-full">
+    </nav>
+</header>
+<!-- content -->
+<header id="title-block-header" class="quarto-title-block default toc-left page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
     <div class="quarto-title column-body">
       <h1 class="title">Vegetation and Land Cover Part 3: Land Cover/Land Use</h1>
                   <div>
@@ -282,42 +268,53 @@ gtag('config', 'G-0WLH5S9VD5', { 'anonymize_ip': true});
   
   </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto"><nav id="TOC" role="doc-toc" class="toc-active" data-toc-expanded="1"><h2 id="toc-title">Contents</h2>
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <nav id="TOC" role="doc-toc" class="toc-active" data-toc-expanded="1">
+    <h2 id="toc-title">Contents</h2>
    
   <ul>
-<li>
-<a href="#land-cover" id="toc-land-cover" class="nav-link active" data-scroll-target="#land-cover">Land Cover</a>
+  <li><a href="#land-cover" id="toc-land-cover" class="nav-link active" data-scroll-target="#land-cover">Land Cover</a>
   <ul class="collapse">
-<li>
-<a href="#nasa-lulc-data-types" id="toc-nasa-lulc-data-types" class="nav-link" data-scroll-target="#nasa-lulc-data-types">NASA LULC data types</a>
+  <li><a href="#nasa-lulc-data-types" id="toc-nasa-lulc-data-types" class="nav-link" data-scroll-target="#nasa-lulc-data-types">NASA LULC data types</a>
   <ul class="collapse">
-<li><a href="#measurement" id="toc-measurement" class="nav-link" data-scroll-target="#measurement">Measurement</a></li>
+  <li><a href="#measurement" id="toc-measurement" class="nav-link" data-scroll-target="#measurement">Measurement</a></li>
   <li><a href="#typical-uses" id="toc-typical-uses" class="nav-link" data-scroll-target="#typical-uses">Typical Uses</a></li>
   <li><a href="#example-articles" id="toc-example-articles" class="nav-link" data-scroll-target="#example-articles">Example articles</a></li>
-  </ul>
-</li>
-  <li>
-<a href="#gdlc" id="toc-gdlc" class="nav-link" data-scroll-target="#gdlc">GDLC</a>
+  </ul></li>
+  <li><a href="#gdlc" id="toc-gdlc" class="nav-link" data-scroll-target="#gdlc">GDLC</a>
   <ul class="collapse">
-<li><a href="#measurement-1" id="toc-measurement-1" class="nav-link" data-scroll-target="#measurement-1">Measurement</a></li>
+  <li><a href="#measurement-1" id="toc-measurement-1" class="nav-link" data-scroll-target="#measurement-1">Measurement</a></li>
   <li><a href="#typical-uses-1" id="toc-typical-uses-1" class="nav-link" data-scroll-target="#typical-uses-1">Typical Uses</a></li>
-  </ul>
-</li>
+  </ul></li>
   <li><a href="#honorable-mentions" id="toc-honorable-mentions" class="nav-link" data-scroll-target="#honorable-mentions">Honorable Mentions</a></li>
-  </ul>
-</li>
+  </ul></li>
   <li><a href="#looking-ahead" id="toc-looking-ahead" class="nav-link" data-scroll-target="#looking-ahead">Looking ahead</a></li>
-  </ul></nav>
-</nav><div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+  </ul>
+</nav>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
     </div>
 <!-- main -->
-<main class="content quarto-banner-title-block" id="quarto-document-content"><p>This post is our third in a series discussing and comparing spatial land cover data. The previous two posts have covered <a href="https://tech.popdata.org/dhs-research-hub/posts/2026-02-06-land-cover-intro/">vegetative indices</a> and <a href="https://tech.popdata.org/dhs-research-hub/posts/2026-03-02-land-cover-pt2/">environmental moisture data</a>. Now we will describe land cover/land use data and where to find it.</p>
-<section id="land-cover" class="level1"><h1>Land Cover</h1>
+<main class="content quarto-banner-title-block" id="quarto-document-content">
+
+
+
+
+
+<p>This post is our third in a series discussing and comparing spatial land cover data. The previous two posts have covered <a href="https://tech.popdata.org/dhs-research-hub/posts/2026-02-06-land-cover-intro/">vegetative indices</a> and <a href="https://tech.popdata.org/dhs-research-hub/posts/2026-03-02-land-cover-pt2/">environmental moisture data</a>. Now we will describe land cover/land use data and where to find it.</p>
+<section id="land-cover" class="level1">
+<h1>Land Cover</h1>
 <p>Obviously, vegetative cover is not the only type of surface on Earth. Datasets such as <a href="https://www.earthdata.nasa.gov/topics/land-surface/land-use-land-cover">Land Use/Land Cover from NASA</a> (LULC) and <a href="https://land.copernicus.eu/en/products/global-dynamic-land-cover">Global Dynamic Land Cover</a> from the Copernicus Programme describe the human lived environment using classification schemes that describe land in terms of impervious surfaces (urban or built up) or by ecosystem type (wetland, evergreen forest, savannah, permanent ice cover, etc). Below is a map using the LULC data for Nigeria in 2024. Click “Code” below to see the R code that created this map.</p>
 <div class="cell">
-<details class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co">#Read in necessary libraries</span></span>
+<details class="code-fold">
+<summary>
+Code
+</summary>
+<div class="code-copy-outer-scaffold">
+<div class="code-copy-outer-scaffold"><div id="cb1" class="sourceCode">
+<pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co">#Read in necessary libraries</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://rspatial.org/">terra</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org">dplyr</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyr.tidyverse.org">tidyr</a></span><span class="op">)</span></span>
@@ -396,16 +393,26 @@ gtag('config', 'G-0WLH5S9VD5', { 'anonymize_ip': true});
 <span>       subtitle <span class="op">=</span> <span class="st">"NASA LULC, 500m resolution"</span>, </span>
 <span>       fill <span class="op">=</span> <span class="st">"Land Cover"</span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">lulc_2024_graph_nigeria</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details><div class="cell-output-display">
+<span><span class="va">lulc_2024_graph_nigeria</span></span></code></pre>
+</div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<button title="Copy to Clipboard" class="code-copy-button">
+<i class="bi"></i>
+</button>
+</div>
+</details>
+<div class="cell-output-display">
 <div>
-<figure class="figure"><p><img src="index_files/figure-html/unnamed-chunk-1-1.png" class="img-fluid figure-img" width="672"></p>
+<figure class="figure">
+<p>
+<img src="index_files/figure-html/unnamed-chunk-1-1.png" alt="Nigeria land cover, 2024" class="img-fluid figure-img" width="672">
+</p>
 </figure>
 </div>
 </div>
 </div>
 <table class="caption-top table">
-<thead><tr class="header">
+<thead>
+<tr class="header">
 <th>Index or measure</th>
 <th style="text-align: center;">Instrument</th>
 <th style="text-align: center;">Basic content</th>
@@ -413,7 +420,8 @@ gtag('config', 'G-0WLH5S9VD5', { 'anonymize_ip': true});
 <th style="text-align: center;">Frequency</th>
 <th style="text-align: center;">Resolution</th>
 <th style="text-align: center;">Where to download</th>
-</tr></thead>
+</tr>
+</thead>
 <tbody>
 <tr class="odd">
 <td><a href="https://modis.gsfc.nasa.gov/data/dataprod/mod12.php">LULC</a></td>
@@ -422,8 +430,7 @@ gtag('config', 'G-0WLH5S9VD5', { 'anonymize_ip': true});
 <td style="text-align: center;">2001 - 2021</td>
 <td style="text-align: center;">annual</td>
 <td style="text-align: center;">500m</td>
-<td style="text-align: center;">
-<a href="https://search.earthdata.nasa.gov/search">NASA Earthdata Search</a> - MCD12Q1/MCD12C1 (new version)</td>
+<td style="text-align: center;"><a href="https://search.earthdata.nasa.gov/search">NASA Earthdata Search</a> - MCD12Q1/MCD12C1 (new version)</td>
 </tr>
 <tr class="even">
 <td><a href="https://www.usgs.gov/centers/western-geographic-science-center/science/global-food-and-water-security-support-analysis">LULC</a></td>
@@ -432,8 +439,7 @@ gtag('config', 'G-0WLH5S9VD5', { 'anonymize_ip': true});
 <td style="text-align: center;">2007 - 2016 (varies by region)</td>
 <td style="text-align: center;">multi-year</td>
 <td style="text-align: center;">30m - 1km</td>
-<td style="text-align: center;">
-<a href="https://search.earthdata.nasa.gov/search">NASA Earthdata Search</a> - GFSAD30</td>
+<td style="text-align: center;"><a href="https://search.earthdata.nasa.gov/search">NASA Earthdata Search</a> - GFSAD30</td>
 </tr>
 <tr class="odd">
 <td><a href="https://sites.bu.edu/measures/">LULC</a></td>
@@ -442,8 +448,7 @@ gtag('config', 'G-0WLH5S9VD5', { 'anonymize_ip': true});
 <td style="text-align: center;">2001 - 2019</td>
 <td style="text-align: center;">annual</td>
 <td style="text-align: center;">30m</td>
-<td style="text-align: center;">
-<a href="https://search.earthdata.nasa.gov/search">NASA Earthdata Search</a> - Global Land Cover Mapping and Estimation Yearly 30 m V001</td>
+<td style="text-align: center;"><a href="https://search.earthdata.nasa.gov/search">NASA Earthdata Search</a> - Global Land Cover Mapping and Estimation Yearly 30 m V001</td>
 </tr>
 <tr class="even">
 <td><a href="https://land.copernicus.eu/en/products/global-dynamic-land-cover">GDLC</a></td>
@@ -456,37 +461,56 @@ gtag('config', 'G-0WLH5S9VD5', { 'anonymize_ip': true});
 </tr>
 </tbody>
 </table>
-<section id="nasa-lulc-data-types" class="level2"><h2 class="anchored" data-anchor-id="nasa-lulc-data-types">NASA LULC data types</h2>
-<section id="measurement" class="level3"><h3 class="anchored" data-anchor-id="measurement">Measurement</h3>
+<section id="nasa-lulc-data-types" class="level2">
+<h2 class="anchored" data-anchor-id="nasa-lulc-data-types">NASA LULC data types</h2>
+<section id="measurement" class="level3">
+<h3 class="anchored" data-anchor-id="measurement">Measurement</h3>
 <p>NASA’s Land Use/Land Cover data represent pixels of Earth’s surface using several land use classification schemes. Land cover/land use data describe human’s lived environment, in both biophysical (such as woody savannah) and socioeconomic features (urban or built up land).</p>
 <p>LULC data is available in standardized schemes with global coverage, but also at finer spatial resolution with more specific land cover types for smaller regions. Surface reflectance is the key component of how land cover at a pixel level is determined, but other inputs are used, especially in regional data.</p>
 <p>In addition to high-frequency LULC data with global coverage, a project out of Boston University called <a href="https://sites.bu.edu/measures/">Global Land Cover Estimation</a> (GLanCE) produces global coverage at an annual level, but at much higher resolution (30m).</p>
 <p>Lastly, NASA also produces a product called <a href="https://www.usgs.gov/centers/western-geographic-science-center/science/global-food-and-water-security-support-analysis">Global Food-and-Water Security-support Analysis Data</a> (GFSAD), which contains high-resolution data on irrigated and non-irrigated cropland.</p>
-</section><section id="typical-uses" class="level3"><h3 class="anchored" data-anchor-id="typical-uses">Typical Uses</h3>
+</section>
+<section id="typical-uses" class="level3">
+<h3 class="anchored" data-anchor-id="typical-uses">Typical Uses</h3>
 <p>Land Use/Land Cover data have a wide variety of applications, such as studying climate change, land use change dynamics, deforestation, urbanization, and more. The categories distinguish between different types of ecosystems, which is not easily accomplished with some of the vegetative indices described in previous posts. These data distinguish human-built impervious surfaces from bare ground/no vegetative cover.</p>
 <p>The wide scope of spatial resolution, temporal extent, and varying number of categories make the different LULC data flexible for many applications. The exceptions being change within a year or measurements regarding health of vegetation, which are better suited for vegetative indices with a finer temporal resolution (that is, more frequent data points).</p>
-</section><section id="example-articles" class="level3"><h3 class="anchored" data-anchor-id="example-articles">Example articles</h3>
+</section>
+<section id="example-articles" class="level3">
+<h3 class="anchored" data-anchor-id="example-articles">Example articles</h3>
 <ul>
 <li>Ganem et al 2025 uses regional LULC data to analyze land cover change in Brazil<span class="citation" data-cites="ganem_rainforests_2025"><sup><a href="#ref-ganem_rainforests_2025" role="doc-biblioref">1</a></sup></span>.</li>
 <li>Zaldo-Aubanell et al 2021 is a review article comparing different LULC approaches<span class="citation" data-cites="zaldo-aubanell_reviewing_2021"><sup><a href="#ref-zaldo-aubanell_reviewing_2021" role="doc-biblioref">2</a></sup></span>.</li>
-</ul></section></section><section id="gdlc" class="level2"><h2 class="anchored" data-anchor-id="gdlc">GDLC</h2>
-<section id="measurement-1" class="level3"><h3 class="anchored" data-anchor-id="measurement-1">Measurement</h3>
+</ul>
+</section>
+</section>
+<section id="gdlc" class="level2">
+<h2 class="anchored" data-anchor-id="gdlc">GDLC</h2>
+<section id="measurement-1" class="level3">
+<h3 class="anchored" data-anchor-id="measurement-1">Measurement</h3>
 <p>Global Dynamic Land Cover (GDLC) contains land use/land cover data from the Copernicus Program, out of the European Space Agency, using Sentinel satellites. The GDLC contain 11 different land cover classes, and include layers with a specific focus on tropical forest types at high spatial resolution. Data inputs include the Digital Elevation Model, land training data, and agro-meteorological indicators.</p>
-</section><section id="typical-uses-1" class="level3"><h3 class="anchored" data-anchor-id="typical-uses-1">Typical Uses</h3>
+</section>
+<section id="typical-uses-1" class="level3">
+<h3 class="anchored" data-anchor-id="typical-uses-1">Typical Uses</h3>
 <p>Similar to LULC, GDLC can also be used to measure land cover change dynamics, deforestation, climate change, and urbanization. GDLC is less frequent than LULC and covers a narrower time extent, but often has a finer spatial resolution. You may consider using GDLC data for focused regional projects because of the small spatial resolutions, and the distinctions drawn between tropical vegetation types in their pantropical tree cover density data. The small time frame limits its use for understanding change over time, however.</p>
-</section></section><section id="honorable-mentions" class="level2"><h2 class="anchored" data-anchor-id="honorable-mentions">Honorable Mentions</h2>
+</section>
+</section>
+<section id="honorable-mentions" class="level2">
+<h2 class="anchored" data-anchor-id="honorable-mentions">Honorable Mentions</h2>
 <ul>
-<li>
-<a href="https://earthengine.google.com/">Google Earth Engine</a> (GEE): An open source online data platform that contains a spatial data archive from a variety of sources, as well as tools for interacting with those data. GEE contains both land cover data and imagery as well as weather and climate data.</li>
-<li>
-<a href="https://fews.net/data/livelihood-zones">Livelihood Zones</a> from FEWSNET: Livelihood zone maps are country-specific map layers produced by experts with local knowledge of the predominant economic activity (for food production and income) by location. The maps are developed using factors such as agroclimatology, elevation, landcover, land use, and market accessibility. Grace and Nagle 2015 used Livelihood Zones in a study analyzing the relationship between agricultural production and fertility.<span class="citation" data-cites="grace_using_2015"><sup><a href="#ref-grace_using_2015" role="doc-biblioref">3</a></sup></span>
-</li>
-</ul></section></section><section id="looking-ahead" class="level1"><h1>Looking ahead</h1>
+<li><a href="https://earthengine.google.com/">Google Earth Engine</a> (GEE): An open source online data platform that contains a spatial data archive from a variety of sources, as well as tools for interacting with those data. GEE contains both land cover data and imagery as well as weather and climate data.</li>
+<li><a href="https://fews.net/data/livelihood-zones">Livelihood Zones</a> from FEWSNET: Livelihood zone maps are country-specific map layers produced by experts with local knowledge of the predominant economic activity (for food production and income) by location. The maps are developed using factors such as agroclimatology, elevation, landcover, land use, and market accessibility. Grace and Nagle 2015 used Livelihood Zones in a study analyzing the relationship between agricultural production and fertility.<span class="citation" data-cites="grace_using_2015"><sup><a href="#ref-grace_using_2015" role="doc-biblioref">3</a></sup></span></li>
+</ul>
+</section>
+</section>
+<section id="looking-ahead" class="level1">
+<h1>Looking ahead</h1>
 <p>Though this is the last of three in our series describing and comparing data sources of land cover and vegetation, in the near future we will follow with a post demonstrating how to use a select number of these data to measure deforestation after a few posts on other topics.</p>
 
 
 
-</section><div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" data-line-spacing="2" role="list">
+</section>
+
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" data-line-spacing="2" role="list">
 <div id="ref-ganem_rainforests_2025" class="csl-entry" role="listitem">
 1. Ganem, K. A., Xue, Y., Dutra, A. C., Pareyn, F. G. C., &amp; Shimabukuro, Y. E. (2025). From rainforests to drylands: A context-specific framework for mapping land use and land cover dynamics in <span>Northeast</span> <span>Brazil</span> (2000–2020). <em>GIScience &amp; Remote Sensing</em>, <em>62</em>(1), 2510140. <a href="https://doi.org/10.1080/15481603.2025.2510140">https://doi.org/10.1080/15481603.2025.2510140</a>
 </div>
@@ -496,7 +520,8 @@ gtag('config', 'G-0WLH5S9VD5', { 'anonymize_ip': true});
 <div id="ref-grace_using_2015" class="csl-entry" role="listitem">
 3. Grace, K., &amp; Nagle, N. N. (2015). <em>Using <span>High</span>-<span>Resolution</span> <span>Remotely</span> <span>Sensed</span> <span>Data</span> to <span>Examine</span> the <span>Relationship</span> <span>Between</span> <span>Agriculture</span> and <span>Fertility</span> in <span>Mali</span></em>. <a href="https://www.tandfonline.com/doi/pdf/10.1080/00330124.2015.1032899?casa_token=jSe8BslY86kAAAAA:RyYtxFCNK0FJ3sxROURFl6-Ax6utI4G8R4AqyLa3J52v94wAulwcrP_17Cs7vdr4mBG3rH25PmSNQg">https://www.tandfonline.com/doi/pdf/10.1080/00330124.2015.1032899?casa_token=jSe8BslY86kAAAAA:RyYtxFCNK0FJ3sxROURFl6-Ax6utI4G8R4AqyLa3J52v94wAulwcrP_17Cs7vdr4mBG3rH25PmSNQg</a>
 </div>
-</div></section></div></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
+</div></section></div></main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     const icon = "";
     const anchorJS = new window.AnchorJS();
@@ -897,7 +922,8 @@ gtag('config', 'G-0WLH5S9VD5', { 'anonymize_ip': true});
   });
   </script>
 </div> <!-- /content -->
-<footer class="footer"><div class="nav-footer">
+<footer class="footer">
+  <div class="nav-footer">
     <div class="nav-footer-left">
       &nbsp;
     </div>   
@@ -909,6 +935,8 @@ gtag('config', 'G-0WLH5S9VD5', { 'anonymize_ip': true});
     </div>
   </div>
 </footer>
+
+
 
 
 </body></html>

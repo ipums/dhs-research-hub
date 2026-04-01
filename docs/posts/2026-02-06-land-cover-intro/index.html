@@ -1,12 +1,15 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
 <meta charset="utf-8">
 <meta name="generator" content="quarto-1.8.25">
+
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
 <meta name="author" content="Devon Kristiansen">
 <meta name="dcterms.date" content="2026-02-06">
 <meta name="description" content="An almost overwhelming number of vegetative and land cover data types exist. As the first post in a series of three, this blog gives a brief primer into vegetative indices and which ones might be most appropriate for different research goals.">
+
 <title>Vegetation and Land Cover Part 1: Vegetative Indices – IPUMS DHS Spatial Analysis and Health Research Hub</title>
 <style>
 code{white-space: pre-wrap;}
@@ -19,41 +22,6 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
-}
-/* CSS for syntax highlighting */
-html { -webkit-text-size-adjust: 100%; }
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 /* CSS for citations */
 div.csl-bib-body { }
@@ -77,6 +45,7 @@ div.csl-indent {
   margin-left: 2em;
 }</style>
 
+
 <script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
 <script src="../../site_libs/quarto-nav/headroom.min.js"></script>
 <script src="../../site_libs/clipboard/clipboard.min.js"></script>
@@ -95,7 +64,8 @@ div.csl-indent {
 <link href="../../site_libs/quarto-html/quarto-syntax-highlighting-be0d74190db5c030392493894a628b9f.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap-42421e77c5529847ff6e63ddf59efa80.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light"><script id="quarto-search-options" type="application/json">{
+<link href="../../site_libs/bootstrap/bootstrap-da84e0e5cdc5f5c48afcfb2c964d6c43.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
   "collapse-after": 3,
@@ -120,19 +90,27 @@ div.csl-indent {
     "search-submit-button-title": "Submit",
     "search-label": "Search"
   }
-}</script><script async="" src="https://www.googletagmanager.com/gtag/js?id=G-0WLH5S9VD5"></script><script type="text/javascript">
+}</script>
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-0WLH5S9VD5"></script>
+
+<script type="text/javascript">
 
 window.dataLayer = window.dataLayer || [];
 function gtag(){dataLayer.push(arguments);}
 gtag('js', new Date());
 gtag('config', 'G-0WLH5S9VD5', { 'anonymize_ip': true});
-</script><!-- Added to patch a bug in quarto that is causing "broken ARIA menu" errors in WAVE scans --><script>
+</script>
+<!-- Added to patch a bug in quarto that is causing "broken ARIA menu" errors in WAVE scans -->
+<script>
     document.addEventListener("DOMContentLoaded", function () {
         document.querySelectorAll(".navbar-toggler[role='menu']").forEach(function (el) {
             el.removeAttribute("role");
         });
     });
-</script><script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script><script>document.addEventListener("DOMContentLoaded", function () {
+</script>
+
+  <script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
  var mathElements = document.getElementsByClassName("math");
  var macros = [];
  for (var i = 0; i < mathElements.length; i++) {
@@ -145,7 +123,9 @@ gtag('config', 'G-0WLH5S9VD5', { 'anonymize_ip': true});
     fleqn: false
    });
 }}});
-  </script><script>window.define = window.backupDefine; window.backupDefine = undefined;</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css">
+  </script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css">
+
 <script type="text/javascript">
 const typesetMath = (el) => {
   if (window.MathJax) {
@@ -172,6 +152,7 @@ window.Quarto = {
   typesetMath
 };
 </script>
+
 <meta property="og:title" content="IPUMS DHS Spatial Analysis and Health Research Hub">
 <meta property="og:description" content="Understand population health in its environmental context">
 <meta property="og:image" content="https://ipums.github.io/dhs-research-hub/posts/2026-02-06-land-cover-intro/images/dhs_logo_navy_pad.png">
@@ -181,13 +162,18 @@ window.Quarto = {
 <meta name="twitter:image" content="https://ipums.github.io/dhs-research-hub/posts/2026-02-06-land-cover-intro/images/dhs_logo_navy_pad.png">
 <meta name="twitter:card" content="summary_large_image">
 </head>
+
 <body class="floating nav-fixed quarto-light">
 
 <div id="quarto-search-results"></div>
-  <header id="quarto-header" class="headroom fixed-top quarto-banner"><nav class="navbar navbar-expand-lg " data-bs-theme="dark"><div class="navbar-container container-fluid">
+  <header id="quarto-header" class="headroom fixed-top quarto-banner">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
     <a href="https://www.idhsdata.org/idhs/" class="navbar-brand navbar-brand-logo">
-    <img src="../../images/dhs_logo_white.png" alt="IPUMS DHS Spatial Analysis and Health Research Hub" class="navbar-logo light-content"><img src="../../images/dhs_logo_white.png" alt="IPUMS DHS Spatial Analysis and Health Research Hub" class="navbar-logo dark-content"></a>
+    <img src="../../images/dhs_logo_white.png" alt="IPUMS DHS Spatial Analysis and Health Research Hub" class="navbar-logo light-content">
+    <img src="../../images/dhs_logo_white.png" alt="IPUMS DHS Spatial Analysis and Health Research Hub" class="navbar-logo dark-content">
+    </a>
   </div>
             <div id="quarto-search" class="" title="Search"></div>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
@@ -195,18 +181,18 @@ window.Quarto = {
 </button>
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
-<li class="nav-item">
+  <li class="nav-item">
     <a class="nav-link" href="../../index.html"> 
 <span class="menu-text">Spatial Analysis and Health Research Hub</span></a>
   </li>  
 </ul>
-<ul class="navbar-nav navbar-nav-scroll ms-auto">
-<li class="nav-item dropdown ">
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item dropdown ">
     <a class="nav-link dropdown-toggle" href="#" id="nav-menu-getting-started" role="link" data-bs-toggle="dropdown" aria-expanded="false">
  <span class="menu-text">Getting Started</span>
     </a>
-    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="nav-menu-getting-started">
-<li>
+    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="nav-menu-getting-started">    
+        <li>
     <a class="dropdown-item" href="../../posts/2024-02-01-getting-started-with-r/index.html">
  <span class="dropdown-text">An Introduction to R</span></a>
   </li>  
@@ -215,13 +201,13 @@ window.Quarto = {
  <span class="dropdown-text">Obtaining IPUMS DHS Data</span></a>
   </li>  
     </ul>
-</li>
+  </li>
   <li class="nav-item dropdown ">
     <a class="nav-link dropdown-toggle" href="#" id="nav-menu-community" role="link" data-bs-toggle="dropdown" aria-expanded="false">
  <span class="menu-text">Community</span>
     </a>
-    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="nav-menu-community">
-<li>
+    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="nav-menu-community">    
+        <li>
     <a class="dropdown-item" href="https://forum.ipums.org">
  <span class="dropdown-text">IPUMS Forum</span></a>
   </li>  
@@ -234,7 +220,7 @@ window.Quarto = {
  <span class="dropdown-text">License</span></a>
   </li>  
     </ul>
-</li>
+  </li>
   <li class="nav-item">
     <a class="nav-link" href="../../index.html"> 
 <span class="menu-text">Posts</span></a>
@@ -269,11 +255,15 @@ window.Quarto = {
 <span class="menu-text"></span></a>
   </li>  
 </ul>
-</div> <!-- /navcollapse -->
+          </div> <!-- /navcollapse -->
             <div class="quarto-navbar-tools">
 </div>
       </div> <!-- /container-fluid -->
-    </nav></header><!-- content --><header id="title-block-header" class="quarto-title-block default toc-left page-columns page-full"><div class="quarto-title-banner page-columns page-full">
+    </nav>
+</header>
+<!-- content -->
+<header id="title-block-header" class="quarto-title-block default toc-left page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
     <div class="quarto-title column-body">
       <h1 class="title">Vegetation and Land Cover Part 1: Vegetative Indices</h1>
                   <div>
@@ -323,60 +313,67 @@ window.Quarto = {
   
   </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto"><nav id="TOC" role="doc-toc" class="toc-active" data-toc-expanded="1"><h2 id="toc-title">Contents</h2>
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <nav id="TOC" role="doc-toc" class="toc-active" data-toc-expanded="1">
+    <h2 id="toc-title">Contents</h2>
    
   <ul>
-<li>
-<a href="#greenness-or-vegetation" id="toc-greenness-or-vegetation" class="nav-link active" data-scroll-target="#greenness-or-vegetation">Greenness or Vegetation</a>
+  <li><a href="#greenness-or-vegetation" id="toc-greenness-or-vegetation" class="nav-link active" data-scroll-target="#greenness-or-vegetation">Greenness or Vegetation</a>
   <ul class="collapse">
-<li>
-<a href="#ndvi" id="toc-ndvi" class="nav-link" data-scroll-target="#ndvi">NDVI</a>
+  <li><a href="#ndvi" id="toc-ndvi" class="nav-link" data-scroll-target="#ndvi">NDVI</a>
   <ul class="collapse">
-<li><a href="#measurement" id="toc-measurement" class="nav-link" data-scroll-target="#measurement">Measurement</a></li>
+  <li><a href="#measurement" id="toc-measurement" class="nav-link" data-scroll-target="#measurement">Measurement</a></li>
   <li><a href="#typical-uses" id="toc-typical-uses" class="nav-link" data-scroll-target="#typical-uses">Typical Uses</a></li>
   <li><a href="#example-articles" id="toc-example-articles" class="nav-link" data-scroll-target="#example-articles">Example articles</a></li>
-  </ul>
-</li>
-  <li>
-<a href="#evi" id="toc-evi" class="nav-link" data-scroll-target="#evi">EVI</a>
+  </ul></li>
+  <li><a href="#evi" id="toc-evi" class="nav-link" data-scroll-target="#evi">EVI</a>
   <ul class="collapse">
-<li><a href="#measurement-1" id="toc-measurement-1" class="nav-link" data-scroll-target="#measurement-1">Measurement</a></li>
+  <li><a href="#measurement-1" id="toc-measurement-1" class="nav-link" data-scroll-target="#measurement-1">Measurement</a></li>
   <li><a href="#typical-uses-1" id="toc-typical-uses-1" class="nav-link" data-scroll-target="#typical-uses-1">Typical Uses</a></li>
   <li><a href="#example-article" id="toc-example-article" class="nav-link" data-scroll-target="#example-article">Example article</a></li>
-  </ul>
-</li>
-  <li>
-<a href="#lai" id="toc-lai" class="nav-link" data-scroll-target="#lai">LAI</a>
+  </ul></li>
+  <li><a href="#lai" id="toc-lai" class="nav-link" data-scroll-target="#lai">LAI</a>
   <ul class="collapse">
-<li><a href="#measurement-2" id="toc-measurement-2" class="nav-link" data-scroll-target="#measurement-2">Measurement</a></li>
+  <li><a href="#measurement-2" id="toc-measurement-2" class="nav-link" data-scroll-target="#measurement-2">Measurement</a></li>
   <li><a href="#typical-uses-2" id="toc-typical-uses-2" class="nav-link" data-scroll-target="#typical-uses-2">Typical Uses</a></li>
   <li><a href="#example-article-1" id="toc-example-article-1" class="nav-link" data-scroll-target="#example-article-1">Example article</a></li>
-  </ul>
-</li>
-  <li>
-<a href="#vcf" id="toc-vcf" class="nav-link" data-scroll-target="#vcf">VCF</a>
+  </ul></li>
+  <li><a href="#vcf" id="toc-vcf" class="nav-link" data-scroll-target="#vcf">VCF</a>
   <ul class="collapse">
-<li><a href="#measurement-3" id="toc-measurement-3" class="nav-link" data-scroll-target="#measurement-3">Measurement</a></li>
+  <li><a href="#measurement-3" id="toc-measurement-3" class="nav-link" data-scroll-target="#measurement-3">Measurement</a></li>
   <li><a href="#typical-uses-3" id="toc-typical-uses-3" class="nav-link" data-scroll-target="#typical-uses-3">Typical Uses</a></li>
   <li><a href="#example-article-2" id="toc-example-article-2" class="nav-link" data-scroll-target="#example-article-2">Example article</a></li>
-  </ul>
-</li>
+  </ul></li>
   <li><a href="#honorable-mentions" id="toc-honorable-mentions" class="nav-link" data-scroll-target="#honorable-mentions">Honorable Mentions</a></li>
-  </ul>
-</li>
+  </ul></li>
   <li><a href="#looking-ahead" id="toc-looking-ahead" class="nav-link" data-scroll-target="#looking-ahead">Looking ahead</a></li>
-  </ul></nav>
-</nav><div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+  </ul>
+</nav>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
     </div>
 <!-- main -->
-<main class="content quarto-banner-title-block" id="quarto-document-content"><p>Several previous posts on this blog (<a href="https://tech.popdata.org/dhs-research-hub/posts/2024-08-01-ndvi-data/">iterative workflows</a>; <a href="https://tech.popdata.org/dhs-research-hub/posts/2024-08-16-ndvi-data-2/index.html">NDVI aggregation methods</a>; <a href="https://tech.popdata.org/dhs-research-hub/posts/2025-11-21-diet-diversity-ndvi/">multilevel modeling</a>) have featured the Normalized Difference Vegetation Index (NDVI), which is an index frequently used as a measure of vegetation greenness and health.</p>
+<main class="content quarto-banner-title-block" id="quarto-document-content">
+
+
+
+
+
+<p>Several previous posts on this blog (<a href="https://tech.popdata.org/dhs-research-hub/posts/2024-08-01-ndvi-data/">iterative workflows</a>; <a href="https://tech.popdata.org/dhs-research-hub/posts/2024-08-16-ndvi-data-2/index.html">NDVI aggregation methods</a>; <a href="https://tech.popdata.org/dhs-research-hub/posts/2025-11-21-diet-diversity-ndvi/">multilevel modeling</a>) have featured the Normalized Difference Vegetation Index (NDVI), which is an index frequently used as a measure of vegetation greenness and health.</p>
 <p>There are many other indices and measures to describe vegetation or land cover on Earth’s surface, however, and in this series we’ll go into details about what these data are and how they might be appropriate for certain research goals. Various data and indices represent seasonal agricultural productivity, or be used to measure droughts, deforestation, or many other climate change-related phenomena. We will start with vegetative indices, that is, measures of greenness detected using surface reflectance. The next two posts will cover measures of moisture in the environment and then land cover/land use data.</p>
-<section id="greenness-or-vegetation" class="level1"><h1>Greenness or Vegetation</h1>
+<section id="greenness-or-vegetation" class="level1">
+<h1>Greenness or Vegetation</h1>
 <p>First, we’ll look more closely at measures related to vegetation, in that the primary method to produce the measure or index is a calculation of the density of greenness, or photosynthetic activity, of a pixel. Below is an image we’ve created of the Enhanced Vegetation Index of Uganda in 2024 using remotely-sensed data from NASA’s VIIRS satellite, as an example of available vegetative index data. Click the word “Code” below to see the entirety of the code used to produce this image. The code below includes a workflow for adding projection metadata covered in our <a href="https://tech.popdata.org/dhs-research-hub/posts/2025-03-31-viirs/">blog post about VIIRS vegetative index data</a>.</p>
 <div class="cell">
-<details class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tech.popdata.org/ipumsr/">ipumsr</a></span><span class="op">)</span></span>
+<details class="code-fold">
+<summary>
+Code
+</summary>
+<div class="code-copy-outer-scaffold">
+<div class="code-copy-outer-scaffold"><div id="cb1" class="sourceCode">
+<pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tech.popdata.org/ipumsr/">ipumsr</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://r-spatial.github.io/sf/">sf</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org">dplyr</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyr.tidyverse.org">tidyr</a></span><span class="op">)</span></span>
@@ -386,7 +383,7 @@ window.Quarto = {
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://fs.r-lib.org">fs</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://stringr.tidyverse.org">stringr</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://purrr.tidyverse.org/">purrr</a></span><span class="op">)</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">rhdf5</span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/Huber-group-EMBL/rhdf5">rhdf5</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org">ggplot2</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://paleolimbot.github.io/ggspatial/">ggspatial</a></span><span class="op">)</span></span>
 <span></span>
@@ -402,7 +399,7 @@ window.Quarto = {
 <span><span class="co"># Read in metadata from HDF files</span></span>
 <span><span class="va">tile_metadata</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span><span class="op">(</span></span>
 <span>  <span class="va">tiles</span>,</span>
-<span>  <span class="kw">function</span><span class="op">(</span><span class="va">t</span><span class="op">)</span> <span class="fu">h5read</span><span class="op">(</span><span class="va">t</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>, name <span class="op">=</span> <span class="st">"//HDFEOS INFORMATION/StructMetadata.0"</span><span class="op">)</span></span>
+<span>  <span class="kw">function</span><span class="op">(</span><span class="va">t</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/pkg/rhdf5/man/h5_read.html">h5read</a></span><span class="op">(</span><span class="va">t</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>, name <span class="op">=</span> <span class="st">"//HDFEOS INFORMATION/StructMetadata.0"</span><span class="op">)</span></span>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Assign sinusoidal projection information from object tile_metadata</span></span>
@@ -487,10 +484,19 @@ window.Quarto = {
 <span>  <span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Uganda Enhanced Vegetative Index (EVI) March 29-April 6, 2024"</span>, subtitle <span class="op">=</span> <span class="st">"NASA VIIRS, 500m resolution"</span>, fill <span class="op">=</span> <span class="st">"EVI"</span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">uganda_evi_plot</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details><div class="cell-output-display">
+<span><span class="va">uganda_evi_plot</span></span></code></pre>
+</div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<button title="Copy to Clipboard" class="code-copy-button">
+<i class="bi"></i>
+</button>
+</div>
+</details>
+<div class="cell-output-display">
 <div>
-<figure class="figure"><p><img src="index_files/figure-html/unnamed-chunk-1-1.png" class="img-fluid figure-img" width="672"></p>
+<figure class="figure">
+<p>
+<img src="index_files/figure-html/unnamed-chunk-1-1.png" alt="Uganda EVI. March 29-April 2, 2024" class="img-fluid figure-img" width="672">
+</p>
 </figure>
 </div>
 </div>
@@ -499,7 +505,8 @@ window.Quarto = {
 <p>The information in the table is designed to help you navigate which indicator might be most appropriate for your research question. Your choice might be guided by the spatial resolution, temporal frequency, spatial or temporal coverage, or specific component of the measure itself.</p>
 <p>You will notice some indicators occupy multiple rows - in the cases that the same indicator was collected by different instruments (ie. satellites) over time, their resolution or frequency might have changed as technology in remote sensing has advanced. Below the table are additional details regarding each measure and suggestions or examples for best use cases.</p>
 <table class="caption-top table">
-<thead><tr class="header">
+<thead>
+<tr class="header">
 <th>Index or measure</th>
 <th style="text-align: center;">Instrument</th>
 <th style="text-align: center;">Basic content</th>
@@ -507,7 +514,8 @@ window.Quarto = {
 <th style="text-align: center;">Frequency</th>
 <th style="text-align: center;">Resolution</th>
 <th style="text-align: center;">Where to download</th>
-</tr></thead>
+</tr>
+</thead>
 <tbody>
 <tr class="odd">
 <td><a href="https://www.ncei.noaa.gov/products/climate-data-records/normalized-difference-vegetation-index">NDVI</a></td>
@@ -525,8 +533,7 @@ window.Quarto = {
 <td style="text-align: center;">2000-2025</td>
 <td style="text-align: center;">16-day</td>
 <td style="text-align: center;">250m</td>
-<td style="text-align: center;">
-<a href="https://search.earthdata.nasa.gov/search">NASA Earthdata Search</a> - MOD13Q1</td>
+<td style="text-align: center;"><a href="https://search.earthdata.nasa.gov/search">NASA Earthdata Search</a> - MOD13Q1</td>
 </tr>
 <tr class="odd">
 <td><a href="https://www.ncei.noaa.gov/access/metadata/landing-page/bin/iso?id=gov.noaa.ncdc:C01677">NDVI</a></td>
@@ -535,8 +542,7 @@ window.Quarto = {
 <td style="text-align: center;">2012 - present</td>
 <td style="text-align: center;">8-day or 16-day</td>
 <td style="text-align: center;">500m</td>
-<td style="text-align: center;">
-<a href="https://search.earthdata.nasa.gov/search">NASA Earthdata Search</a> - VJ113A4N (8-day) or VNP13A1 (16-day)</td>
+<td style="text-align: center;"><a href="https://search.earthdata.nasa.gov/search">NASA Earthdata Search</a> - VJ113A4N (8-day) or VNP13A1 (16-day)</td>
 </tr>
 <tr class="even">
 <td><a href="https://www.earthdata.nasa.gov/data/catalog/lpcloud-vnp13a1-002">EVI</a></td>
@@ -545,8 +551,7 @@ window.Quarto = {
 <td style="text-align: center;">2012-present</td>
 <td style="text-align: center;">8-day or 16-day</td>
 <td style="text-align: center;">500m or 1km</td>
-<td style="text-align: center;">
-<a href="https://search.earthdata.nasa.gov/search">NASA Earthdata Search</a> - VJ113A4N (8-day) or VNP13A1 (16-day)</td>
+<td style="text-align: center;"><a href="https://search.earthdata.nasa.gov/search">NASA Earthdata Search</a> - VJ113A4N (8-day) or VNP13A1 (16-day)</td>
 </tr>
 <tr class="odd">
 <td><a href="https://www.usgs.gov/landsat-missions/landsat-enhanced-vegetation-index">EVI</a></td>
@@ -555,8 +560,7 @@ window.Quarto = {
 <td style="text-align: center;">December 2024 - present</td>
 <td style="text-align: center;">2-3 days</td>
 <td style="text-align: center;">30m</td>
-<td style="text-align: center;">
-<a href="https://search.earthdata.nasa.gov/search">NASA Earthdata Search</a> - HLS Operational Land Imager Vegetation Indices Daily Global 30 m V2.0</td>
+<td style="text-align: center;"><a href="https://search.earthdata.nasa.gov/search">NASA Earthdata Search</a> - HLS Operational Land Imager Vegetation Indices Daily Global 30 m V2.0</td>
 </tr>
 <tr class="even">
 <td><a href="https://www.earthdata.nasa.gov/about/competitive-programs/measures/vegetation-continuous-fields-esdr">VCF</a></td>
@@ -565,8 +569,7 @@ window.Quarto = {
 <td style="text-align: center;">1982-2016</td>
 <td style="text-align: center;">annual</td>
 <td style="text-align: center;">0.05 degree (~5km at equator)</td>
-<td style="text-align: center;">
-<a href="https://search.earthdata.nasa.gov/search">NASA Earthdata Search</a> - VCF5KYR</td>
+<td style="text-align: center;"><a href="https://search.earthdata.nasa.gov/search">NASA Earthdata Search</a> - VCF5KYR</td>
 </tr>
 <tr class="odd">
 <td><a href="https://modis.gsfc.nasa.gov/data/dataprod/mod44.php">VCF</a></td>
@@ -575,8 +578,7 @@ window.Quarto = {
 <td style="text-align: center;">2000-2021</td>
 <td style="text-align: center;">annual</td>
 <td style="text-align: center;">250m</td>
-<td style="text-align: center;">
-<a href="https://search.earthdata.nasa.gov/search">NASA Earthdata Search</a> - MOD44B</td>
+<td style="text-align: center;"><a href="https://search.earthdata.nasa.gov/search">NASA Earthdata Search</a> - MOD44B</td>
 </tr>
 <tr class="even">
 <td><a href="https://www.ncei.noaa.gov/products/climate-data-records/leaf-area-index-and-fapar">LAI</a></td>
@@ -594,8 +596,7 @@ window.Quarto = {
 <td style="text-align: center;">2002 - present (2000 - present)</td>
 <td style="text-align: center;">4-day (8-day)</td>
 <td style="text-align: center;">500m</td>
-<td style="text-align: center;">
-<a href="https://search.earthdata.nasa.gov/search">NASA Earthdata Search</a> - MCD15A3H (MOD15A2H)</td>
+<td style="text-align: center;"><a href="https://search.earthdata.nasa.gov/search">NASA Earthdata Search</a> - MCD15A3H (MOD15A2H)</td>
 </tr>
 <tr class="even">
 <td><a href="https://www.ospo.noaa.gov/products/land/vegetation/lai/">LAI</a></td>
@@ -604,66 +605,109 @@ window.Quarto = {
 <td style="text-align: center;">2012 - present</td>
 <td style="text-align: center;">8-day</td>
 <td style="text-align: center;">500m</td>
-<td style="text-align: center;">
-<a href="https://search.earthdata.nasa.gov/search">NASA Earthdata Search</a> - VNP15A2H</td>
+<td style="text-align: center;"><a href="https://search.earthdata.nasa.gov/search">NASA Earthdata Search</a> - VNP15A2H</td>
 </tr>
 </tbody>
 </table>
-<section id="ndvi" class="level2"><h2 class="anchored" data-anchor-id="ndvi">NDVI</h2>
-<section id="measurement" class="level3"><h3 class="anchored" data-anchor-id="measurement">Measurement</h3>
+<section id="ndvi" class="level2">
+<h2 class="anchored" data-anchor-id="ndvi">NDVI</h2>
+<section id="measurement" class="level3">
+<h3 class="anchored" data-anchor-id="measurement">Measurement</h3>
 <p>As we have covered previously <a href="https://tech.popdata.org/dhs-research-hub/posts/2024-07-02-ndvi-concepts/">in our introductory post on NDVI</a>, the Normalized Difference Vegetation Index represents the amount of photosynthetic activity measured by a satellite on a pixel of Earth’s surface. Photosynthetic plants absorb red light and reflect greens, but also reflect near-infrared light extremely well which satellite sensors can capture. The reflection of near-infrared light is what NDVI leverages: NDVI is measured using the difference between the near infrared (NIR) and red (R) light reflected back to satellite sensors, normalized by the sum of the near infrared and red bands of light.</p>
 <p><span class="math display">
 NDVI = (NIR - R) / (NIR + R )
 </span></p>
 <p>The possible values of NDVI range from -1 to 1, with values zero and under being bare ground, water, and other surfaces that reflect large amounts of red light relative to near infrared light, that is, having very little to no plants absorbing the red light for photosynthesis.</p>
-</section><section id="typical-uses" class="level3"><h3 class="anchored" data-anchor-id="typical-uses">Typical Uses</h3>
+</section>
+<section id="typical-uses" class="level3">
+<h3 class="anchored" data-anchor-id="typical-uses">Typical Uses</h3>
 <p>The NDVI is a widely-used measurement for vegetation health, and can be used to detect changes in vegetation cover, density, and stress over time.</p>
 <p>Some noted weaknesses of NDVI are that it can be prone to containing outliers and spurious value changes in the data due to cloud cover, and the reflectance of different soil types may interfere with its ability to compare pixels from different regions. NDVI has been found to not perform well differentiating pixels that have a high vegetation density, such as tropical rain forest. Further, not all photosynthetic surfaces of plants are green<span class="citation" data-cites="huete_overview_2002 schultz_performance_2016"><sup><a href="#ref-huete_overview_2002" role="doc-biblioref">1</a>,<a href="#ref-schultz_performance_2016" role="doc-biblioref">2</a></sup></span>.</p>
 <p>One option for research projects involving areas with low vegetative cover is the Soil Adjusted Vegetation Index (SAVI), which is the NDVI corrected for soil brightness. An option for areas of high vegetation density is the Enhanced Vegetation Index, described below.</p>
-</section><section id="example-articles" class="level3"><h3 class="anchored" data-anchor-id="example-articles">Example articles</h3>
+</section>
+<section id="example-articles" class="level3">
+<h3 class="anchored" data-anchor-id="example-articles">Example articles</h3>
 <ul>
 <li>Njatang et al 2023 used NDVI, CHIRPS precipitation data, and armed conflict data to analyze climate change and conflict’s effect on child malnutrition in Sub-Saharan Africa<span class="citation" data-cites="njatang_climate_2023"><sup><a href="#ref-njatang_climate_2023" role="doc-biblioref">3</a></sup></span>.</li>
-</ul></section></section><section id="evi" class="level2"><h2 class="anchored" data-anchor-id="evi">EVI</h2>
-<section id="measurement-1" class="level3"><h3 class="anchored" data-anchor-id="measurement-1">Measurement</h3>
+</ul>
+</section>
+</section>
+<section id="evi" class="level2">
+<h2 class="anchored" data-anchor-id="evi">EVI</h2>
+<section id="measurement-1" class="level3">
+<h3 class="anchored" data-anchor-id="measurement-1">Measurement</h3>
 <p>The Enhanced Vegetation Index is similar to the NDVI, but with additional components to adjust for cloud cover and canopy background noise. <span class="math display">
 EVI = G * ((NIR - R) / (NIR + C1 * R – C2 * B + L))
 </span> EVI is calculated from the above equation from near infrared light (NIR), red light (R), blue light (B), a canopy background value for the pixel (L), coefficients for atmospheric resistance (C1, C2), and a gain factor (G - usually 2.5).</p>
-</section><section id="typical-uses-1" class="level3"><h3 class="anchored" data-anchor-id="typical-uses-1">Typical Uses</h3>
+</section>
+<section id="typical-uses-1" class="level3">
+<h3 class="anchored" data-anchor-id="typical-uses-1">Typical Uses</h3>
 <p>The EVI might be a better choice over NDVI for an analysis focusing on areas of the world with frequent cloud cover and dense foliage (e.g.&nbsp;tropical rain forest) or smoke in the atmosphere (e.g.&nbsp;slash and burn agriculture). EVI is available through NASA starting in 2012, so it is not a viable measurement option for research questions involving a timeframe before 2012.</p>
-</section><section id="example-article" class="level3"><h3 class="anchored" data-anchor-id="example-article">Example article</h3>
+</section>
+<section id="example-article" class="level3">
+<h3 class="anchored" data-anchor-id="example-article">Example article</h3>
 <ul>
 <li>Davies et al 2016 found that EVI was more resilient to atmospheric interference than other vegetative indices when measuring forest changes in Cambodia<span class="citation" data-cites="davies_detecting_2016"><sup><a href="#ref-davies_detecting_2016" role="doc-biblioref">4</a></sup></span>.</li>
-</ul></section></section><section id="lai" class="level2"><h2 class="anchored" data-anchor-id="lai">LAI</h2>
-<section id="measurement-2" class="level3"><h3 class="anchored" data-anchor-id="measurement-2">Measurement</h3>
+</ul>
+</section>
+</section>
+<section id="lai" class="level2">
+<h2 class="anchored" data-anchor-id="lai">LAI</h2>
+<section id="measurement-2" class="level3">
+<h3 class="anchored" data-anchor-id="measurement-2">Measurement</h3>
 <p>The Leaf Area Index is a measurement of the green leaf density of plant canopy, or the one-sided leaf area per horizontal ground area. There are multiple approaches, but the end result is a unit-less index value greater than zero<span class="citation" data-cites="weiss_review_2004 fang_overview_2019"><sup><a href="#ref-weiss_review_2004" role="doc-biblioref">5</a>,<a href="#ref-fang_overview_2019" role="doc-biblioref">6</a></sup></span>. Values greater than 1 indicate multiple layers of leaves in the same area.</p>
 <ul>
 <li>Leaf Area (m<sup>2</sup>) / Ground Area (m<sup>2</sup>)</li>
 <li>Integral of leaf area over the canopy height (m<sup>3</sup>/m<sup>3</sup>)</li>
 <li>One-sided green broadleaf area per unit of ground area (m<sup>2</sup>/m<sup>2</sup>); one-half of the total conifer needle surface area per unit of ground area</li>
-</ul></section><section id="typical-uses-2" class="level3"><h3 class="anchored" data-anchor-id="typical-uses-2">Typical Uses</h3>
+</ul>
+</section>
+<section id="typical-uses-2" class="level3">
+<h3 class="anchored" data-anchor-id="typical-uses-2">Typical Uses</h3>
 <p>The LAI is a reasonable choice to represent a variety of biological processes and activity of plant matter in an area, such as photosynthetic production, rainfall interception, or evapotranspiration<span class="citation" data-cites="bangelesa_is_2023"><sup><a href="#ref-bangelesa_is_2023" role="doc-biblioref">7</a></sup></span>. For example, leaf area may be more important in measuring shade given by a canopy to moderate sunlight and heat.</p>
-</section><section id="example-article-1" class="level3"><h3 class="anchored" data-anchor-id="example-article-1">Example article</h3>
+</section>
+<section id="example-article-1" class="level3">
+<h3 class="anchored" data-anchor-id="example-article-1">Example article</h3>
 <ul>
 <li>Bangelesa et al 2023 found an association between LAI and stunting in children under 5 in the Democratic Republic of the Congo<span class="citation" data-cites="bangelesa_is_2023"><sup><a href="#ref-bangelesa_is_2023" role="doc-biblioref">7</a></sup></span>.</li>
-</ul></section></section><section id="vcf" class="level2"><h2 class="anchored" data-anchor-id="vcf">VCF</h2>
-<section id="measurement-3" class="level3"><h3 class="anchored" data-anchor-id="measurement-3">Measurement</h3>
+</ul>
+</section>
+</section>
+<section id="vcf" class="level2">
+<h2 class="anchored" data-anchor-id="vcf">VCF</h2>
+<section id="measurement-3" class="level3">
+<h3 class="anchored" data-anchor-id="measurement-3">Measurement</h3>
 <p>The Vegetation Continuous Fields data are produced by NASA to describe the composition of land cover within each pixel, divided into tree cover, non-tree vegetative cover, and non-vegetative cover, such that the sum of the three components is 100 percent.</p>
 <p>The data are produced, like the other vegetative indices, using surface reflectance (or light captured by satellite reflected off Earth’s surface), but also combined with training data to create the model for predicting global land coverage in the three categories.</p>
-</section><section id="typical-uses-3" class="level3"><h3 class="anchored" data-anchor-id="typical-uses-3">Typical Uses</h3>
+</section>
+<section id="typical-uses-3" class="level3">
+<h3 class="anchored" data-anchor-id="typical-uses-3">Typical Uses</h3>
 <p>The VCF data may be useful for research projects if the outcome may be correlated differently between tree and non-tree vegetative cover, which is difficult to determine using NDVI. VCF may be more useful than land cover data if the density of forest cover relative to non-tree vegetative cover is meaningful.</p>
 <p>Because the VCF data are an annual-based measure, VCF might not be well suited to study change within the year, or specific deforestation events with a narrow time scale. For example, VCF would not be suited to measuring the loss of vegetative cover immediately after a fire, as some amount of vegetation would grow back over a period of months until the next measurement occurs.</p>
-</section><section id="example-article-2" class="level3"><h3 class="anchored" data-anchor-id="example-article-2">Example article</h3>
+</section>
+<section id="example-article-2" class="level3">
+<h3 class="anchored" data-anchor-id="example-article-2">Example article</h3>
 <ul>
 <li>Johnson et al 2013 used VCF data to demonstrate a linkage between percent forest cover and reduced risk of diarrhea in young children, and that children living in areas with deforestation in the past 10 years were less likely to consume foods rich in vitamin A or meet dietary diversity guidelines<span class="citation" data-cites="johnson_forest_2013"><sup><a href="#ref-johnson_forest_2013" role="doc-biblioref">8</a></sup></span>.</li>
-</ul></section></section><section id="honorable-mentions" class="level2"><h2 class="anchored" data-anchor-id="honorable-mentions">Honorable Mentions</h2>
+</ul>
+</section>
+</section>
+<section id="honorable-mentions" class="level2">
+<h2 class="anchored" data-anchor-id="honorable-mentions">Honorable Mentions</h2>
 <ul>
 <li>The <a href="https://www.sciencedirect.com/science/article/abs/pii/S0034425705002385">Normalized Difference Fraction Index</a> has been demonstrated as a very accurate measure of deforestation and forest degradation, but it is not available at a global scale for download. Instead, one would need to download the component pieces of surface reflectance data and compute NDFI for the area of focus<span class="citation" data-cites="schultz_performance_2016 souza_forest_2024"><sup><a href="#ref-schultz_performance_2016" role="doc-biblioref">2</a>,<a href="#ref-souza_forest_2024" role="doc-biblioref">9</a></sup></span>.</li>
-</ul></section></section><section id="looking-ahead" class="level1"><h1>Looking ahead</h1>
+</ul>
+</section>
+</section>
+<section id="looking-ahead" class="level1">
+<h1>Looking ahead</h1>
 <p>The next post will feature measures of environmental moisture, which are helpful for identifying drought (or flooding) and plant stress due to a lack of water.</p>
 
 
 
-</section><div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" data-line-spacing="2" role="list">
+</section>
+
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" data-line-spacing="2" role="list">
 <div id="ref-huete_overview_2002" class="csl-entry" role="listitem">
 1. Huete, A., Didan, K., Miura, T., Rodriguez, E. P., Gao, X., &amp; Ferreira, L. G. (2002). Overview of the radiometric and biophysical performance of the <span>MODIS</span> vegetation indices. <em>Remote Sensing of Environment</em>, <em>83</em>(1), 195–213. <a href="https://doi.org/10.1016/S0034-4257(02)00096-2">https://doi.org/10.1016/S0034-4257(02)00096-2</a>
 </div>
@@ -691,7 +735,8 @@ EVI = G * ((NIR - R) / (NIR + C1 * R – C2 * B + L))
 <div id="ref-souza_forest_2024" class="csl-entry" role="listitem">
 9. Souza, C., Tenneson, K., Dilger, J., Wespestad, C., &amp; Bullock, E. (2024). Forest <span>Degradation</span> and <span>Deforestation</span>. In J. A. Cardille, M. A. Crowley, D. Saah, &amp; N. E. Clinton (Eds.), <em>Cloud-<span>Based</span> <span>Remote</span> <span>Sensing</span> with <span>Google</span> <span>Earth</span> <span>Engine</span>: <span>Fundamentals</span> and <span>Applications</span></em> (pp. 1061–1091). Springer International Publishing. <a href="https://doi.org/10.1007/978-3-031-26588-4_49">https://doi.org/10.1007/978-3-031-26588-4_49</a>
 </div>
-</div></section></div></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
+</div></section></div></main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     const icon = "";
     const anchorJS = new window.AnchorJS();
@@ -1092,7 +1137,8 @@ EVI = G * ((NIR - R) / (NIR + C1 * R – C2 * B + L))
   });
   </script>
 </div> <!-- /content -->
-<footer class="footer"><div class="nav-footer">
+<footer class="footer">
+  <div class="nav-footer">
     <div class="nav-footer-left">
       &nbsp;
     </div>   
@@ -1104,6 +1150,8 @@ EVI = G * ((NIR - R) / (NIR + C1 * R – C2 * B + L))
     </div>
   </div>
 </footer>
+
+
 
 
 </body></html>

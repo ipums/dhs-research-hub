@@ -18,6 +18,7 @@ fig-width: 10
 fig-height: 8
 bibliography: references.bib
 image: images/flowchart.png
+image-alt: "Qualitative Methods"
 open-graph:
   title: "Incorporating Qualitative Methods into Spatial Health Research"
   description: |
@@ -42,10 +43,10 @@ community experiences the most severe adverse outcomes?
 
 Of course, we are also concerned with *why* these differences emerge. As
 we’ve described in posts throughout this blog (for instance,
-[here](../2024-06-11-climate-reproduction/),
-[here](../2024-07-02-ndvi-concepts/), and
-[here](../2024-02-23-rainfall-insights/)), answering this question
-requires careful attention not only to the particular conditions of
+[Incorporating Environmental and Reproductive History Data](../2024-06-11-climate-reproduction/),
+[Introducing NDVI as a Tool for Population Health Research](../2024-07-02-ndvi-concepts/), and
+[Droplets of Insights for Integrating DHS and Rainfall Data](../2024-02-23-rainfall-insights/)), 
+answering this question requires careful attention not only to the particular conditions of
 place and of persons within that place, but also to the technical
 details involved in spatial and temporal aggregation.
 
@@ -146,7 +147,7 @@ describing extreme weather impact and risk.
 
 ::: column-body-outset
 ![Extreme weather risk is a product of individual, community, and
-macro-level factors[@Reich2024]](images/flowchart.png){width="100%"}
+macro-level factors[@Reich2024]](images/flowchart.png){width="100%" fig-alt="Socioeconomic factors influencing extreme weather impacts"}
 :::
 
 This kind of conceptual framework developed through qualitative research

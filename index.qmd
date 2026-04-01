@@ -1,10 +1,9 @@
 ---
-title: "Latest Posts"
+title: "IPUMS DHS Blog Posts"
 listing:
   contents: posts
   sort: "date desc"
   type: default
-  categories: true
   sort-ui: false
   filter-ui: false
   feed:
@@ -12,3 +11,6 @@ listing:
 page-layout: full
 title-block-banner: true
 ---
+
+
+## Latest posts

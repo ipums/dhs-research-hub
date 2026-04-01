@@ -43,7 +43,7 @@ In contrast, variables such as FEDGRAIN24H refer to whether the child themselves
 
 In the DHS Guide to Statistics version 6, published in 2006, the supplemental feeding questions were used to calculate the percentage of children who consumed a specific food group in the past day, differentiated by whether the child was currently breastfeeding or not.  Starting in Version 7, the DHS Guide to Statistics use the minimum dietary diversity standard from the World Health Organization.
 
-|   | Version 6 | Version 7 & 7.2 | Version 8 |
+|   Metric | Version 6 | Version 7 & 7.2 | Version 8 |
 |-------------------|:----------------:|:----------------:|:----------------:|
 | **Indicator** | Percentage of (breastfeeding/non-breastfeeding) children consuming specific foods | Percentage of children meeting minimum dietary diversity guideline | Percentage of children meeting minimum dietary diversity guideline |
 | **Denominator** | Number of (breastfeeding/non-breastfeeding) last children born in the three years preceding the survey to interviewed women and living with the mother | Number of youngest children under 2 years living with the mother who is aged 6-23 months, disaggregated by whether breastfeeding or not | Number of youngest children under 2 years living with the mother who is aged 6-23 months, disaggregated by whether breastfeeding or not |
@@ -245,7 +245,8 @@ dhs_shapefile_merge <- subset(dhs_shapefile_merge, !is.na(sample))
 We then use the ggplot2 library and the facet_wrap function to create a map of weighted average food groups consumed by young children by subnational regions of Ethiopia over time.
 
 ```{r}
-#| code-fold: true 
+#| code-fold: true
+#| fig-alt: "Regional average food groups consumed by children aged 6 to 23 months over time in Ethiopia." 
 
 dhs_shapefile_merge <- dhs_shapefile_merge %>%
   mutate(

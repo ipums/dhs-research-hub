@@ -64,7 +64,7 @@ div.csl-indent {
 <link href="../../site_libs/quarto-html/quarto-syntax-highlighting-be0d74190db5c030392493894a628b9f.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap-42421e77c5529847ff6e63ddf59efa80.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-da84e0e5cdc5f5c48afcfb2c964d6c43.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -314,7 +314,7 @@ gtag('config', 'G-0WLH5S9VD5', { 'anonymize_ip': true});
 <p>Network-Based Frameworks measure travel impedance based on the time it takes to travel along road networks. Census data are summarized at administrative unit levels to identify the locations of populations; they depend on the availability of highly detailed road network data and census data that is collected often and with large scale geographic identifiers such as census blocks<span class="citation" data-cites="mulrooney_comparison_2017"><sup><a href="#ref-mulrooney_comparison_2017" role="doc-biblioref">8</a></sup></span>. This framework allows researchers to account for many factors that influence spatial accessibility, including supply and demand, regional competition for services, quality of care, multimodal transportation, and population density. These models use two major sources of input data: facility points and population points.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="images/Input_Data_Map.png" class="img-fluid figure-img" alt="A map depicting health care facilities with red crosses and population centers using yellow dots sized to indicate the density of population."></p>
+<p><img src="images/Input_Data_Map.png" class="img-fluid figure-img" alt="Health care facilities and population centers showing density of population."></p>
 <figcaption>Figure 1. Map depicting accessibility model inputs</figcaption>
 </figure>
 </div>
@@ -323,7 +323,7 @@ gtag('config', 'G-0WLH5S9VD5', { 'anonymize_ip': true});
 <p>Accessibility analysis using simple metrics are based on the distance or travel time from the population point to the nearest facility; measured as the straight-line distance (as the crow flies) or network distance (following road networks, speed limits, etc.). Simple metrics are easy to calculate and straightforward to interpret, however they ignore facility capacity (all facilities are considered equal, even if one has more doctors or beds available than another) as well as competition between facilities and among populations.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="images/Simple_Distance_Map.png" class="img-fluid figure-img" alt="A map depicting health care facilities with red crosses and population centers using blue dots with shading scaled to indicate the simple distance from a health care facility."></p>
+<p><img src="images/Simple_Distance_Map.png" class="img-fluid figure-img" alt="Simple metric model: map depicting health care facilities and population centers."></p>
 <figcaption>Figure 2. Map depicting simple distance from facilities</figcaption>
 </figure>
 </div>
@@ -333,7 +333,7 @@ gtag('config', 'G-0WLH5S9VD5', { 'anonymize_ip': true});
 <p>Classic gravity-based models are an improvement over simple metrics due to the fact that they enable researchers to account for distance decay and the interaction between supply and demand. Distance decay refers to the reduction in utilization of a service with greater distance between population and facility; people are more likely to visit a facility that is closer than one that is farther away, if the services provided and quality of care are equal. Spatial accessibility is also impacted by the relative supply of services available to a population (the demand for services). An area with high population density and few healthcare facilities has low spatial accessibility to healthcare services due to the effects of overcrowding hospitals and long wait times for appointments.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="images/Gravity_Model_Map.png" class="img-fluid figure-img" alt="A map depicting health care facilities with red crosses and rings of increasing distance radiating out from them.  The map also charts population centers using blue dots with shading scaled to indicate the gravity score distance from a health care facility."></p>
+<p><img src="images/Gravity_Model_Map.png" class="img-fluid figure-img" alt="Gravity model: map depicting health care facilities and population centers."></p>
 <figcaption>Figure 3. Map depicting a gravity model to measure distance from facilities</figcaption>
 </figure>
 </div>
@@ -345,7 +345,7 @@ The mathematical computation of the 2SFCA model involves an initial assessment o
 <p>Each country in every region has a unique healthcare system with its own challenges to providing care. This model enables researchers to adapt it to their specific research question in the setting of their analysis; authors can adapt it to account for variable catchment sizes, multilevel healthcare systems, multimodal transportation analyses, and more). While simple metrics rely on the administrative data available, the 2SFCA model bases its calculation of distance on catchment sizes around facilities and populations, regardless of administrative boundaries, which greatly reduces the effects of the Modifiable Areal Unit Problem (MAUP).</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="images/2SFCA_Model_Map.png" class="img-fluid figure-img" alt="A map depicting health care facilities with red crosses and rings of increasing distance radiating out from them.  The map also charts population centers using blue dots with shading scaled to indicate the gravity score distance from a health care facility."></p>
+<p><img src="images/2SFCA_Model_Map.png" class="img-fluid figure-img" alt="2SFCA model: map depicting health care facilities and population centers."></p>
 <figcaption>Figure 4. Map depicting a gravity model to measure distance from facilities</figcaption>
 </figure>
 </div>

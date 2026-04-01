@@ -15,6 +15,7 @@ categories:
 fig-width: 10
 fig-height: 8
 image: ../../images/dhs_logo_navy.png
+image-alt: "IPUMS DHS logo"
 open-graph:
   title: "Obtaining Data from IPUMS DHS"
   description: |

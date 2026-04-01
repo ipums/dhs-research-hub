@@ -21,6 +21,7 @@ categories:
 fig-width: 10
 fig-height: 8
 image: index_files/figure-html/listing-img-1.png
+image-alt: "Proportion of days above threshold"
 bibliography: references.bib
 open-graph:
   title: "Reproducible Workflows with CHIRTS Temperature Data"
@@ -53,19 +54,6 @@ knitr::knit_hooks$set(output = function(x, options) {
   }
   hook_output(x, options)
 })
-
-source("../../R/utils.R")
-
-# Set plot theme
-ggplot2::theme_set(theme_dhs_base())
-
-# Load fonts
-sysfonts::font_add(
-  family = "cabrito", 
-  regular = "../../fonts/cabritosansnormregular-webfont.ttf"
-)
-
-showtext::showtext_auto()
 ```
 
 In our [previous technical post](../2024-02-04-dhs-chirps/index.html),
@@ -255,16 +243,9 @@ Fortunately, we don't need to learn any new tools to handle this file,
 as support for NetCDF is already built into `{terra}`. We can easily
 load the raster with `rast()`:
 
-```{r}
-#| eval: false
-ml_chirts <- rast("data/Tmax.2012.nc")
-```
-
-```{r}
-#| echo: false
-#| results: false
-ml_chirts <- rast("data_local/Tmax.2012.nc")
-```
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">ml_chirts</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rspatial.github.io/terra/reference/rast.html">rast</a></span><span class="op">(</span><span class="st">"data/Tmax.2012.nc"</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
 
 In this post we'll be particularly interested in the temporal dimension
 of our raster data. Typically, a raster stack will represent time in
@@ -273,9 +254,13 @@ point in time. terra's `SpatRaster` objects have a built-in
 representation of time, which can be accessed with the `time()`
 function:
 
-```{r,  out.lines = 3}
-time(ml_chirts)
-```
+<div class="cell" data-out.lines="3">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rspatial.github.io/terra/reference/time.html">time</a></span><span class="op">(</span><span class="va">ml_chirts</span><span class="op">)</span></span>
+<span><span class="co">#&gt;   [1] "2012-01-01" "2012-01-02" "2012-01-03" "2012-01-04" "2012-01-05"</span></span>
+<span><span class="co">#&gt;   [6] "2012-01-06" "2012-01-07" "2012-01-08" "2012-01-09" "2012-01-10"</span></span>
+<span><span class="co">#&gt;  [11] "2012-01-11" "2012-01-12" "2012-01-13" "2012-01-14" "2012-01-15"</span></span>
+<span><span class="va">....</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
 
 We can see that the temporal information contained in the NetCDF file
 was automatically included when we loaded this raster into R. Each of
@@ -311,10 +296,9 @@ ml_borders_buffer <- ml_borders_out |>
 Finally, we can crop the CHIRTS raster to our buffered border region
 with terra's `crop()`:
 
-```{r}
-#| results: false
-ml_chirts <- crop(ml_chirts, ml_borders_buffer, snap = "out")
-```
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">ml_chirts</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rspatial.github.io/terra/reference/crop.html">crop</a></span><span class="op">(</span><span class="va">ml_chirts</span>, <span class="va">ml_borders_buffer</span>, snap <span class="op">=</span> <span class="st">"out"</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
 
 ### Access via the chirps package
 
@@ -351,30 +335,32 @@ In contrast to the NetCDF files provided when downloading CHIRTS data
 directly, obtaining data via the chirps package does not provide any
 temporal metadata:
 
-```{r}
-#| echo: false
-#| results: false
-ml_chirts2 <- rast(terra::ext(ml_chirts), nlyr = nlyr(ml_chirts))
-```
-
-```{r, out.lines = 3}
-time(ml_chirts2)
-```
+<div class="cell" data-out.lines="3">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rspatial.github.io/terra/reference/time.html">time</a></span><span class="op">(</span><span class="va">ml_chirts2</span><span class="op">)</span></span>
+<span><span class="co">#&gt;   [1] NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA</span></span>
+<span><span class="co">#&gt;  [26] NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA</span></span>
+<span><span class="co">#&gt;  [51] NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA</span></span>
+<span><span class="va">....</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
 
 Since we know that we have a full year of data, we can construct the
 temporal metadata manually. We'll use the `{lubridate}` package to make
 this a little easier:
 
-```{r, out.lines = 3}
-# Convert strings to Date objects specifying year-month-day (ymd) format:
-start <- lubridate::ymd("2012-01-01")
-end <- lubridate::ymd("2012-12-31")
-
-# Set time as a daily sequence of dates for all of 2012
-time(ml_chirts2) <- seq(start, end, by = "days")
-
-time(ml_chirts2)
-```
+<div class="cell" data-out.lines="3">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Convert strings to Date objects specifying year-month-day (ymd) format:</span></span>
+<span><span class="va">start</span> <span class="op">&lt;-</span> <span class="fu">lubridate</span><span class="fu">::</span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/ymd.html">ymd</a></span><span class="op">(</span><span class="st">"2012-01-01"</span><span class="op">)</span></span>
+<span><span class="va">end</span> <span class="op">&lt;-</span> <span class="fu">lubridate</span><span class="fu">::</span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/ymd.html">ymd</a></span><span class="op">(</span><span class="st">"2012-12-31"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Set time as a daily sequence of dates for all of 2012</span></span>
+<span><span class="fu"><a href="https://rspatial.github.io/terra/reference/time.html">time</a></span><span class="op">(</span><span class="va">ml_chirts2</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="va">start</span>, <span class="va">end</span>, by <span class="op">=</span> <span class="st">"days"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rspatial.github.io/terra/reference/time.html">time</a></span><span class="op">(</span><span class="va">ml_chirts2</span><span class="op">)</span></span>
+<span><span class="co">#&gt;   [1] "2012-01-01" "2012-01-02" "2012-01-03" "2012-01-04" "2012-01-05"</span></span>
+<span><span class="co">#&gt;   [6] "2012-01-06" "2012-01-07" "2012-01-08" "2012-01-09" "2012-01-10"</span></span>
+<span><span class="co">#&gt;  [11] "2012-01-11" "2012-01-12" "2012-01-13" "2012-01-14" "2012-01-15"</span></span>
+<span><span class="va">....</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
 
 ::: callout-caution
 Manually attaching time units works in this case because we know the
@@ -395,91 +381,7 @@ curious, you can peek at the collapsed code blocks to see how each of
 our maps are produced.
 :::
 
-```{r}
-#| code-fold: true
-#| code-summary: "Show plot functions"
-
-# Add map scale bar and update guides
-theme_dhs_map <- function(show_scale = TRUE, continuous = TRUE) {
-  if (show_scale) {
-    scale <- annotation_scale(
-      aes(style = "ticks", location = "br"), 
-      text_col = "#999999",
-      line_col = "#999999",
-      height = unit(0.2, "cm")
-    )
-  } else {
-    scale <- NULL
-  }
-  
-  if (continuous) {
-    guide <- guides(
-      fill = guide_colorbar(draw.llim = FALSE, draw.ulim = FALSE)
-    )
-  } else {
-    guide <- guides(
-      fill = guide_colorsteps(draw.llim = FALSE, draw.ulim = FALSE)
-    )
-  }
-  
-  list(scale, guide)
-}
-
-# Define custom palette functions so we can easily reproduce
-# color schemes across our maps in this post
-chirts_palettes <- function() {
-  list(
-    main = c("#bad3e8", "#ffd3a3", "#da5831", "#872e38"),
-    diff = c("#5B3794", "#8F4D9F", "#B76AA8", "#D78CB1", "#F1B1BE", "#F8DCD9")
-  )
-}
-
-# Continuous fill scale for a selected palette
-scale_chirts_c <- function(pal = "main", ...) {
-  pal <- chirts_palettes()[[pal]]
-  colorRampPalette(pal, ...)
-}
-
-# ggplot2 layer for continuous scale for selected palette
-scale_fill_chirts_c <- function(pal = "main", na.value = NA, ...) {
-  pal <- scale_chirts_c(pal)
-  ggplot2::scale_fill_gradientn(colors = pal(256), na.value = na.value, ...)
-}
-
-# ggplot2 layer for binned scale for selected palette
-scale_fill_chirts_b <- function(pal = "main", na.value = NA, ...) {
-  pal <- scale_chirts_c(pal)
-  ggplot2::scale_fill_stepsn(colors = pal(256), na.value = na.value, ...)
-}
-```
-
-```{r}
-#| column: page
-#| fig-align: center
-#| out-width: "100%"
-#| code-fold: true
-#| code-summary: "Show plot code"
-
-# Split raster into two at the country border to allow for differential 
-# highlighting
-r_in <- mask(ml_chirts[[1]], ml_borders_out, inverse = FALSE)
-r_out <- mask(ml_chirts[[1]], ml_borders_out, inverse = TRUE)
-
-# Plot
-ggplot() +
-  layer_spatial(r_in, alpha = 0.9, na.rm = TRUE) +
-  layer_spatial(r_out, alpha = 0.3, na.rm = TRUE) +
-  layer_spatial(ml_borders_neat, fill = NA, color = "#eeeeee") +
-  layer_spatial(ml_borders_out, fill = NA, color = "#7f7f7f", linewidth = 0.5) +
-  labs(
-    title = "Daily Maximum Temperature: Mali",
-    subtitle = "January 1, 2012",
-    fill = "Temperature (°C)",
-    caption = "Source: Climate Hazards Center Infrared Temperature with Stations"
-  ) +
-  scale_fill_chirts_c(limits = c(18, 50)) +
-  theme_dhs_map()
-```
+![](index_files/figure-html/unnamed-chunk-14-1.png){fig-alt="Mali daily maximum temperature on January 1, 2012." .column-page width="100%"}
 
 # Calculating monthly temperature metrics
 
@@ -524,14 +426,22 @@ grouped together with the `index` argument. For instance, to
 independently calculate the mean of the first three layers and the
 second three layers, we could use the following `index`:
 
-```{r}
-#| cache: true
-tapp(
-  ml_chirts[[1:6]], # Select the first 6 layers to demo
-  fun = mean, 
-  index = c(1, 1, 1, 2, 2, 2)
-)
-```
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rspatial.github.io/terra/reference/tapp.html">tapp</a></span><span class="op">(</span></span>
+<span>  <span class="va">ml_chirts</span><span class="op">[[</span><span class="fl">1</span><span class="op">:</span><span class="fl">6</span><span class="op">]</span><span class="op">]</span>, <span class="co"># Select the first 6 layers to demo</span></span>
+<span>  fun <span class="op">=</span> <span class="va">mean</span>, </span>
+<span>  index <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">2</span>, <span class="fl">2</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span><span class="co">#&gt; class       : SpatRaster </span></span>
+<span><span class="co">#&gt; dimensions  : 301, 335, 2  (nrow, ncol, nlyr)</span></span>
+<span><span class="co">#&gt; resolution  : 0.05, 0.05  (x, y)</span></span>
+<span><span class="co">#&gt; extent      : -12.35, 4.399999, 10.05, 25.1  (xmin, xmax, ymin, ymax)</span></span>
+<span><span class="co">#&gt; coord. ref. : lon/lat WGS 84 </span></span>
+<span><span class="co">#&gt; source(s)   : memory</span></span>
+<span><span class="co">#&gt; names       :       X1,       X2 </span></span>
+<span><span class="co">#&gt; min values  : 20.32146, 21.20080 </span></span>
+<span><span class="co">#&gt; max values  : 35.77333, 35.86034</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
 
 Notice that this produces an output `SpatRaster` with 2 layers: the
 first represents the mean of the first 3 layers in the input, and the
@@ -549,80 +459,28 @@ Fortunately, terra provides us with an easier way. Because we have a
 attached to our raster as the index. For instance, to aggregate by
 month, simply use `index = "months"`:
 
-```{r}
-ml_chirts_mean <- tapp(ml_chirts, fun = mean, index = "months")
-
-ml_chirts_mean
-```
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">ml_chirts_mean</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rspatial.github.io/terra/reference/tapp.html">tapp</a></span><span class="op">(</span><span class="va">ml_chirts</span>, fun <span class="op">=</span> <span class="va">mean</span>, index <span class="op">=</span> <span class="st">"months"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">ml_chirts_mean</span></span>
+<span><span class="co">#&gt; class       : SpatRaster </span></span>
+<span><span class="co">#&gt; dimensions  : 301, 335, 12  (nrow, ncol, nlyr)</span></span>
+<span><span class="co">#&gt; resolution  : 0.05, 0.05  (x, y)</span></span>
+<span><span class="co">#&gt; extent      : -12.35, 4.399999, 10.05, 25.1  (xmin, xmax, ymin, ymax)</span></span>
+<span><span class="co">#&gt; coord. ref. : lon/lat WGS 84 (CRS84) (OGC:CRS84) </span></span>
+<span><span class="co">#&gt; source(s)   : memory</span></span>
+<span><span class="co">#&gt; names       :      m_1,      m_2,      m_3,      m_4,      m_5,      m_6, ... </span></span>
+<span><span class="co">#&gt; min values  : 20.13009, 21.27224, 27.66812, 29.93578, 29.76501, 26.91157, ... </span></span>
+<span><span class="co">#&gt; max values  : 35.44701, 38.60472, 40.72202, 42.85499, 44.10707, 47.46994, ... </span></span>
+<span><span class="co">#&gt; time (mnts) : Jan to Dec</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
 
 As expected, we now have 12 layers in our output `SpatRaster` (see the
 `dimensions` component of the output above). Each layer contains the
 average daily maximum temperature (in degrees Celsius) for the given
 month, as shown below.
 
-```{r}
-#| column: page
-#| fig-align: center
-#| out-width: "100%"
-#| message: false
-#| code-fold: true
-#| code-summary: "Show plot code"
-
-library(patchwork)
-
-# Helper to split raster layers into a list for small-multiple panel mapping
-split_raster <- function(r) {
-  purrr::map(seq_len(nlyr(r)), function(i) r[[i]])
-}
-
-# Function to build individual panels for a small-multiple map using 
-# continuous color scheme
-chirts_panel_continuous <- function(x, 
-                                    panel_title = "",
-                                    show_scale = TRUE,
-                                    ...) {
-  r_in <- mask(x, ml_borders_out, inverse = FALSE)
-  
-  ggplot() + 
-    layer_spatial(r_in, alpha = 0.9, na.rm = TRUE) +
-    layer_spatial(ml_borders_neat, fill = NA, color = "#eeeeee") +
-    layer_spatial(ml_borders_out, fill = NA, color = "#7f7f7f") +
-    labs(subtitle = panel_title, fill = "Temperature (°C)") +
-    scale_fill_chirts_c(...) +
-    theme_dhs_map(show_scale = show_scale) +
-    theme(
-      axis.text.x = element_blank(), 
-      axis.text.y = element_blank(),
-      plot.subtitle = element_text(hjust = 0.5, size = 12),
-      panel.grid = element_blank()
-    )
-}
-
-# Split raster by layer
-r <- split_raster(ml_chirts_mean)
-
-# Show scale only on final panel
-show_scale <- c(rep(FALSE, length(r) - 1), TRUE)
-
-# Panel labels
-months <- c("January", "February", "March", "April", 
-            "May", "June", "July", "August",
-            "September", "October", "November", "December")
-
-# Create map panels
-panels <- purrr::pmap(
-  list(r, months, show_scale),
-  function(x, y, z) chirts_panel_continuous(x, y, z, limits = c(18, 50))
-)
-
-# Plot
-wrap_plots(panels) +
-  plot_layout(guides = "collect", ncol = 4) +
-  plot_annotation(
-    title = "Average Monthly Temperature: Mali 2012",
-    caption = "Source: Climate Hazards Center Infrared Temperature with Stations"
-  )
-```
+![](index_files/figure-html/unnamed-chunk-17-1.png){fig-alt="Average monthly maximum temperature, Mali 2012." .column-page width="100%"}
 
 Note that the CHC does provide a [CHIRTS
 product](https://chc.ucsb.edu/data/chirtsmonthly) that has been
@@ -664,19 +522,29 @@ We can exploit the fact that terra supports logical operations on
 can compare the entire raster to a set value with the familiar `>`
 operator:
 
-```{r}
-#| results: false
-ml_bin <- ml_chirts > 35
-```
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb16"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">ml_bin</span> <span class="op">&lt;-</span> <span class="va">ml_chirts</span> <span class="op">&gt;</span> <span class="fl">35</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
 
 This produces a binary raster, where each pixel in each layer receives a
 logical value based on whether it is above or below 35 degrees Celsius
 (note that the `min values` and `max values` for each layer are now
 `TRUE` or `FALSE`):
 
-```{r}
-ml_bin
-```
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb17"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">ml_bin</span></span>
+<span><span class="co">#&gt; class       : SpatRaster </span></span>
+<span><span class="co">#&gt; dimensions  : 301, 335, 366  (nrow, ncol, nlyr)</span></span>
+<span><span class="co">#&gt; resolution  : 0.05, 0.05  (x, y)</span></span>
+<span><span class="co">#&gt; extent      : -12.35, 4.399999, 10.05, 25.1  (xmin, xmax, ymin, ymax)</span></span>
+<span><span class="co">#&gt; coord. ref. : lon/lat WGS 84 (CRS84) (OGC:CRS84) </span></span>
+<span><span class="co">#&gt; source      : spat_d3403e6edae9_54080_GdaPwXHptgIOPSx.tif </span></span>
+<span><span class="co">#&gt; varname     : Tmax (Climate Hazards Center Tmax) </span></span>
+<span><span class="co">#&gt; names       : Tmax_1, Tmax_2, Tmax_3, Tmax_4, Tmax_5, Tmax_6, ... </span></span>
+<span><span class="co">#&gt; min values  :  FALSE,  FALSE,  FALSE,  FALSE,  FALSE,  FALSE, ... </span></span>
+<span><span class="co">#&gt; max values  :   TRUE,   TRUE,   TRUE,   TRUE,   TRUE,   TRUE, ... </span></span>
+<span><span class="co">#&gt; time (days) : 2012-01-01 to 2012-12-31</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
 
 We can use this to count the number of days above the 35°C threshold for
 each pixel in our raster. We simply need to sum the binary raster layers
@@ -698,70 +566,15 @@ we can use a similar approach as we did when calculating average monthly
 temperature. The difference is that we now provide our binary raster
 (`ml_bin`) to the `tapp()` function:
 
-```{r}
-ml_prop <- tapp(ml_bin, fun = mean, index = "months")
-```
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb18"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">ml_prop</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rspatial.github.io/terra/reference/tapp.html">tapp</a></span><span class="op">(</span><span class="va">ml_bin</span>, fun <span class="op">=</span> <span class="va">mean</span>, index <span class="op">=</span> <span class="st">"months"</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
 
 Once again, we end up with a `SpatRaster` with 12 layers. However, in
 this case, each raster pixel reflects the proportion of days above 35°
 in that month.
 
-```{r listing-img}
-#| column: page
-#| fig-align: center
-#| out-width: "100%"
-#| code-fold: true
-#| code-summary: "Show plot code"
-
-# Function to build individual panels for a small-multiple map using 
-# binned color scheme
-chirts_panel_binned <- function(x, 
-                                panel_title = "",
-                                fill_label = "",
-                                show_scale = TRUE,
-                                ...) {
-  r_in <- mask(x, ml_borders_out, inverse = FALSE)
-  
-  ggplot() + 
-    layer_spatial(r_in, alpha = 0.9, na.rm = TRUE) +
-    layer_spatial(ml_borders_neat, fill = NA, color = "#eeeeee") +
-    layer_spatial(ml_borders_out, fill = NA, color = "#7f7f7f") +
-    labs(subtitle = panel_title, fill = fill_label) +
-    scale_fill_chirts_b(...) +
-    theme_dhs_map(show_scale = show_scale) +
-    theme(
-      axis.text.x = element_blank(), 
-      axis.text.y = element_blank(),
-      plot.subtitle = element_text(hjust = 0.5, size = 12),
-      panel.grid = element_blank(),
-      legend.ticks = element_blank()
-    )
-}
-
-# Split raster by layer
-r <- split_raster(ml_prop)
-
-# Create map panels
-panels <- purrr::pmap(
-  list(r, months, show_scale),
-  function(x, y, z) chirts_panel_binned(
-    x, 
-    y, 
-    z, 
-    n.breaks = 8, 
-    limits = c(0, 1), 
-    fill_label = "Proportion of Days Above 35°C"
-  )
-)
-
-# Plot
-wrap_plots(panels) +
-  plot_layout(guides = "collect", ncol = 4) +
-  plot_annotation(
-    title = "Proportion of Days Above Threshold",
-    caption = "Source: Climate Hazards Center Infrared Temperature with Stations"
-  )
-```
+![](index_files/figure-html/listing-img-1.png){fig-alt="Proportion of days above 35 degrees Celsius by month, Mali 2012." .column-page width="100%"}
 
 This approach reveals a bit more detail about the *consistency* of the
 temperature exposure during certain months. As we can see, some months
@@ -784,21 +597,29 @@ How should we go about identifying sequences of days? To simplify
 things, let's pull out the daily CHIRTS values for a single pixel in our
 raster to use as an example:
 
-```{r, out.lines = 3}
-# Extract values from a single pixel of CHIRTS data
-px1 <- as.numeric(ml_chirts[1, 1])
-
-px1
-```
+<div class="cell" data-out.lines="3">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb20"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Extract values from a single pixel of CHIRTS data</span></span>
+<span><span class="va">px1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html">as.numeric</a></span><span class="op">(</span><span class="va">ml_chirts</span><span class="op">[</span><span class="fl">1</span>, <span class="fl">1</span><span class="op">]</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">px1</span></span>
+<span><span class="co">#&gt;   [1] 22.08196 22.25259 24.63318 25.46410 25.11430 24.69748 25.71723 27.64781</span></span>
+<span><span class="co">#&gt;   [9] 25.00261 22.27929 24.83206 22.42412 24.87811 28.53550 27.20606 26.75240</span></span>
+<span><span class="co">#&gt;  [17] 22.12105 22.98229 20.55801 19.10251 20.74286 22.91010 22.37615 22.23903</span></span>
+<span><span class="va">....</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
 
 As we demonstrated above, it's easy to identify the layers that are
 above a given threshold:
 
-```{r, out.lines = 3}
-px1_bin <- px1 > 35
-
-px1_bin
-```
+<div class="cell" data-out.lines="3">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb21"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">px1_bin</span> <span class="op">&lt;-</span> <span class="va">px1</span> <span class="op">&gt;</span> <span class="fl">35</span></span>
+<span></span>
+<span><span class="va">px1_bin</span></span>
+<span><span class="co">#&gt;   [1] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE</span></span>
+<span><span class="co">#&gt;  [13] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE</span></span>
+<span><span class="co">#&gt;  [25] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE</span></span>
+<span><span class="va">....</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
 
 But how do we extract *sequences* from this vector? One option is to
 exploit the features of [run-length
@@ -809,11 +630,14 @@ single value and the *length* of that run.
 We can use the `rle()` function from base R to convert to run-length
 encoding:
 
-```{r}
-px1_rle <- rle(px1_bin)
-
-px1_rle
-```
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb22"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">px1_rle</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/rle.html">rle</a></span><span class="op">(</span><span class="va">px1_bin</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">px1_rle</span></span>
+<span><span class="co">#&gt; Run Length Encoding</span></span>
+<span><span class="co">#&gt;   lengths: int [1:23] 81 1 16 1 30 11 3 3 7 1 ...</span></span>
+<span><span class="co">#&gt;   values : logi [1:23] FALSE TRUE FALSE TRUE FALSE TRUE ...</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
 
 The output shows us that the `px1_bin` vector starts with a run of 81
 `FALSE` values, then has a run of 1 `TRUE` value, then 16 `FALSE`
@@ -827,33 +651,38 @@ of `TRUE` (days that exceeded the threshold) **and** a *length* (number
 of days in a row) of 3 or more. We can use logical operations to
 identify whether each run is a heatwave or not:
 
-```{r, out.lines = 3}
-# Identify days that were above threshold and belonged to a 3+ day sequence
-is_heatwave <- px1_rle$values & (px1_rle$lengths >= 3)
-
-is_heatwave
-```
+<div class="cell" data-out.lines="3">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb23"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Identify days that were above threshold and belonged to a 3+ day sequence</span></span>
+<span><span class="va">is_heatwave</span> <span class="op">&lt;-</span> <span class="va">px1_rle</span><span class="op">$</span><span class="va">values</span> <span class="op">&amp;</span> <span class="op">(</span><span class="va">px1_rle</span><span class="op">$</span><span class="va">lengths</span> <span class="op">&gt;=</span> <span class="fl">3</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">is_heatwave</span></span>
+<span><span class="co">#&gt;  [1] FALSE FALSE FALSE FALSE FALSE  TRUE FALSE  TRUE FALSE FALSE FALSE  TRUE</span></span>
+<span><span class="co">#&gt; [13] FALSE  TRUE FALSE  TRUE FALSE  TRUE FALSE  TRUE FALSE  TRUE FALSE</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
 
 Summing this vector will give us the number of unique *heatwave events*
 during the year for this sample pixel:
 
-```{r}
-sum(is_heatwave)
-```
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb24"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">is_heatwave</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 8</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
 
 We could also get the proportion of days that are within those heatwaves
 by summing the lengths of all the heatwave events and dividing by the
 number of total days:
 
-```{r}
-# Extract lengths for each heatwave event
-heatwave_lengths <- px1_rle$lengths[is_heatwave]
-
-heatwave_lengths
-
-# Proportion of days belonging to a heatwave
-sum(heatwave_lengths) / length(px1)
-```
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb25"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Extract lengths for each heatwave event</span></span>
+<span><span class="va">heatwave_lengths</span> <span class="op">&lt;-</span> <span class="va">px1_rle</span><span class="op">$</span><span class="va">lengths</span><span class="op">[</span><span class="va">is_heatwave</span><span class="op">]</span></span>
+<span></span>
+<span><span class="va">heatwave_lengths</span></span>
+<span><span class="co">#&gt; [1]  11   3   4 101   4   8   3   7</span></span>
+<span></span>
+<span><span class="co"># Proportion of days belonging to a heatwave</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">heatwave_lengths</span><span class="op">)</span> <span class="op">/</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">px1</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 0.3852459</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
 
 ### Custom functions
 
@@ -878,18 +707,18 @@ At its simplest, all this requires is copying the code we've already
 written above (we've consolidated the code into single lines in some
 cases):
 
-```{r}
-prop_heatwave <- function(temps) {
-  # Convert to RLE of days above threshold
-  bin_rle <- rle(temps >= 35)
-  
-  # Identify heatwave events based on sequence length
-  is_heatwave <- bin_rle$values & (bin_rle$lengths >= 3)
-  
-  # Count heatwave days and divide by total number of days
-  sum(bin_rle$lengths[is_heatwave]) / length(temps)
-}
-```
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb26"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">prop_heatwave</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">temps</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="co"># Convert to RLE of days above threshold</span></span>
+<span>  <span class="va">bin_rle</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/rle.html">rle</a></span><span class="op">(</span><span class="va">temps</span> <span class="op">&gt;=</span> <span class="fl">35</span><span class="op">)</span></span>
+<span>  </span>
+<span>  <span class="co"># Identify heatwave events based on sequence length</span></span>
+<span>  <span class="va">is_heatwave</span> <span class="op">&lt;-</span> <span class="va">bin_rle</span><span class="op">$</span><span class="va">values</span> <span class="op">&amp;</span> <span class="op">(</span><span class="va">bin_rle</span><span class="op">$</span><span class="va">lengths</span> <span class="op">&gt;=</span> <span class="fl">3</span><span class="op">)</span></span>
+<span>  </span>
+<span>  <span class="co"># Count heatwave days and divide by total number of days</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">bin_rle</span><span class="op">$</span><span class="va">lengths</span><span class="op">[</span><span class="va">is_heatwave</span><span class="op">]</span><span class="op">)</span> <span class="op">/</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">temps</span><span class="op">)</span></span>
+<span><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
 
 Note that we do the exact same processing as we did in our step-by-step
 walkthrough. The only difference is that instead of using the `px1`
@@ -900,16 +729,18 @@ named it `temps` to help make it clear that this should be a vector of
 temperature values). This means that we can easily run the same
 calculation on different vectors:
 
-```{r}
-# Extract 2 pixels for demonstration
-px1 <- as.numeric(ml_chirts[1, 1])
-px2 <- as.numeric(ml_chirts[1, 2])
-
-# Calculate heatwave proportions for each pixel
-prop_heatwave(px1)
-
-prop_heatwave(px2)
-```
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb27"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Extract 2 pixels for demonstration</span></span>
+<span><span class="va">px1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html">as.numeric</a></span><span class="op">(</span><span class="va">ml_chirts</span><span class="op">[</span><span class="fl">1</span>, <span class="fl">1</span><span class="op">]</span><span class="op">)</span></span>
+<span><span class="va">px2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html">as.numeric</a></span><span class="op">(</span><span class="va">ml_chirts</span><span class="op">[</span><span class="fl">1</span>, <span class="fl">2</span><span class="op">]</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Calculate heatwave proportions for each pixel</span></span>
+<span><span class="fu">prop_heatwave</span><span class="op">(</span><span class="va">px1</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 0.3852459</span></span>
+<span></span>
+<span><span class="fu">prop_heatwave</span><span class="op">(</span><span class="va">px2</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 0.3852459</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
 
 #### Writing a more flexible function
 
@@ -921,18 +752,18 @@ If we move these values to the function arguments, we allow the *user*
 to decide what values these parameters should take. Here is a modified
 version of `prop_heatwave()` that does this:
 
-```{r}
-prop_heatwave <- function(temps, thresh, n_seq) {
-  # Convert to RLE of days above threshold
-  bin_rle <- rle(temps >= thresh)
-  
-  # Identify heatwave events based on sequence length
-  is_heatwave <- bin_rle$values & (bin_rle$lengths >= n_seq)
-  
-  # Count heatwave days and divide by total number of days
-  sum(bin_rle$lengths[is_heatwave]) / length(temps)
-}
-```
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb28"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">prop_heatwave</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">temps</span>, <span class="va">thresh</span>, <span class="va">n_seq</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="co"># Convert to RLE of days above threshold</span></span>
+<span>  <span class="va">bin_rle</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/rle.html">rle</a></span><span class="op">(</span><span class="va">temps</span> <span class="op">&gt;=</span> <span class="va">thresh</span><span class="op">)</span></span>
+<span>  </span>
+<span>  <span class="co"># Identify heatwave events based on sequence length</span></span>
+<span>  <span class="va">is_heatwave</span> <span class="op">&lt;-</span> <span class="va">bin_rle</span><span class="op">$</span><span class="va">values</span> <span class="op">&amp;</span> <span class="op">(</span><span class="va">bin_rle</span><span class="op">$</span><span class="va">lengths</span> <span class="op">&gt;=</span> <span class="va">n_seq</span><span class="op">)</span></span>
+<span>  </span>
+<span>  <span class="co"># Count heatwave days and divide by total number of days</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">bin_rle</span><span class="op">$</span><span class="va">lengths</span><span class="op">[</span><span class="va">is_heatwave</span><span class="op">]</span><span class="op">)</span> <span class="op">/</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">temps</span><span class="op">)</span></span>
+<span><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
 
 Our function now has a `thresh` argument and an `n_seq` argument. Where
 we previously would have compared our input `temps` vector to the
@@ -944,17 +775,19 @@ length `3` or more, we now use the sequence length the user provides to
 Using the values of 35 and 3 produces the same heatwave proportion as
 above:
 
-```{r}
-prop_heatwave(px1, thresh = 35, n_seq = 3)
-```
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb29"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">prop_heatwave</span><span class="op">(</span><span class="va">px1</span>, thresh <span class="op">=</span> <span class="fl">35</span>, n_seq <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 0.3852459</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
 
 But now we can easily change our inputs to calculate modified heatwave
 definitions. For instance, to find the proportion of days in 4+ day
 heatwaves of at least 37°C:
 
-```{r}
-prop_heatwave(px1, thresh = 37, n_seq = 4)
-```
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb30"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">prop_heatwave</span><span class="op">(</span><span class="va">px1</span>, thresh <span class="op">=</span> <span class="fl">37</span>, n_seq <span class="op">=</span> <span class="fl">4</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 0.3114754</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
 
 This example demonstrates how function arguments can be used to produce
 a more *flexible* function that can be easily applied across a range of
@@ -968,14 +801,14 @@ Now that we have a function to calculate our heatwave definition, we can
 provide it to `tapp()` with our desired temperature threshold and
 sequence parameters.
 
-```{r}
-# Apply our custom heatwave counter to each month
-ml_heatwave_prop <- tapp(
-  ml_chirts, 
-  fun = function(x) prop_heatwave(x, thresh = 35, n_seq = 3), 
-  index = "months"
-)
-```
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb31"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Apply our custom heatwave counter to each month</span></span>
+<span><span class="va">ml_heatwave_prop</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rspatial.github.io/terra/reference/tapp.html">tapp</a></span><span class="op">(</span></span>
+<span>  <span class="va">ml_chirts</span>, </span>
+<span>  fun <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu">prop_heatwave</span><span class="op">(</span><span class="va">x</span>, thresh <span class="op">=</span> <span class="fl">35</span>, n_seq <span class="op">=</span> <span class="fl">3</span><span class="op">)</span>, </span>
+<span>  index <span class="op">=</span> <span class="st">"months"</span></span>
+<span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
 
 ::: callout-note
 ## Anonymous Function Syntax
@@ -1001,128 +834,23 @@ that `fun = mean` was simply a shorthand. Writing
 Let's see what the distribution of heatwave days looks like under our
 latest definition:
 
-```{r}
-#| column: page
-#| fig-align: center
-#| out-width: "100%"
-#| code-fold: true
-#| code-summary: "Show plot code"
-
-# Split raster by layer
-r <- split_raster(ml_heatwave_prop)
-
-# Create map panels
-panels <- purrr::pmap(
-  list(r, months, show_scale),
-  function(x, y, z) chirts_panel_binned(
-    x, 
-    y, 
-    z, 
-    n.breaks = 8, 
-    limits = c(0, 1),
-    fill_label = "Proportion of days in a heatwave"
-  )
-)
-
-# Plot
-wrap_plots(panels) +
-  plot_layout(guides = "collect", ncol = 4) +
-  plot_annotation(
-    title = "Proportion of heatwave days",
-    subtitle = "Heatwaves as sequences of 3+ days of 35°C",
-    caption = "Source: Climate Hazards Center Infrared Temperature with Stations"
-  )
-```
+![](index_files/figure-html/unnamed-chunk-33-1.png){fig-alt="Proportion of heatwave days by month, Mali 2012, 3+ days, 35°C." .column-page width="100%"}
 
 Because we've built a flexible `prop_heatwave()` function, we can easily
 calculate a different heatwave definition. For heatwaves of 4+ days of
 37°C+, for instance:
 
-```{r}
-ml_heatwave_prop2 <- tapp(
-  ml_chirts, 
-  fun = function(x) prop_heatwave(x, thresh = 37, n_seq = 4), 
-  index = "months"
-)
-```
-
-```{r}
-#| column: page
-#| fig-align: center
-#| out-width: "100%"
-#| code-fold: true
-#| code-summary: "Show plot code"
-
-# Split raster by layer
-r <- split_raster(ml_heatwave_prop2)
-
-# Create map panels
-panels <- purrr::pmap(
-  list(r, months, show_scale),
-  function(x, y, z) chirts_panel_binned(
-    x, 
-    y, 
-    z, 
-    n.breaks = 8, 
-    limits = c(0, 1),
-    fill_label = "Proportion of days in a heatwave"
-  )
-)
-
-# Plot
-wrap_plots(panels) +
-  plot_layout(guides = "collect", ncol = 4) +
-  plot_annotation(
-    title = "Proportion of heatwave days",
-    subtitle = "Heatwaves as sequences of 4+ days of 37°C",
-    caption = "Source: Climate Hazards Center Infrared Temperature with Stations"
-  )
-```
+![](index_files/figure-html/unnamed-chunk-35-1.png){fig-alt="Proportion of heatwave days by month, Mali 2012, 4+ days, 37°C." .column-page width="100%"}
 
 It can be difficult to see the differences side-by-side, but we can
 subtract the output rasters to easily examine the differences between
 the two definitions:
 
-```{r}
-ml_heatwave_diff <- ml_heatwave_prop2 - ml_heatwave_prop
-```
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb35"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">ml_heatwave_diff</span> <span class="op">&lt;-</span> <span class="va">ml_heatwave_prop2</span> <span class="op">-</span> <span class="va">ml_heatwave_prop</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
 
-```{r}
-#| column: page
-#| fig-align: center
-#| out-width: "100%"
-#| code-fold: true
-#| code-summary: "Show plot code"
-
-# Convert 0 values to NA for transparency
-NAflag(ml_heatwave_diff) <- 0
-
-# Split raster into layers
-r <- split_raster(ml_heatwave_diff)
-
-# Create map panels
-panels <- purrr::pmap(
-  list(r, months, show_scale),
-  function(x, y, z) chirts_panel_binned(
-    x, 
-    y, 
-    z, 
-    pal = "diff", 
-    n.breaks = 8, 
-    limits = c(-1, 0),
-    fill_label = "Difference in proportion of days in heatwave"
-  )
-)
-
-# Plot
-wrap_plots(panels) +
-  plot_layout(guides = "collect", ncol = 4) +
-  plot_annotation(
-    title = "Difference in heatwave proportion metrics",
-    subtitle = "37°C 4+ days vs. 35°C 3+ days heatwave definitions",
-    caption = "Source: Climate Hazards Center Infrared Temperature with Stations"
-  )
-```
+![](index_files/figure-html/unnamed-chunk-37-1.png){fig-alt="Difference between the two heatwave definitions." .column-page width="100%"}
 
 As we can see, modifying our definition does indeed produce meaningful
 differences in the prevalence of heatwave days in various parts of the

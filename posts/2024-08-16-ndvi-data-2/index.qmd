@@ -22,6 +22,7 @@ categories:
 fig-width: 10
 fig-height: 8
 image: index_files/figure-html/listing-img-1.png
+image-alt: "NDVI data 2"
 open-graph:
   title: "Aggregation Methods for NDVI Data"
   description: |

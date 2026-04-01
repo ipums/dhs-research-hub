@@ -38,7 +38,7 @@ The Water Requirement Satisfaction Index (WRSI) uses historic information of cro
 
 Note that the index is relative to a specific crop's water demand, and WRSI data can currently be downloaded only for regions in Africa as part of the [Famine Early Warning System project from the US Geological Survey (USGS)](https://earlywarning.usgs.gov/fews/).
 
-![Current WRSI of East Africa from USGS FEWSNET, November 21-30, 2025](images/wsel202533do.png){width="50%" height="auto"}
+![Current WRSI of East Africa from USGS FEWSNET, November 21-30, 2025](images/wsel202533do.png){width="50%" height="auto" fig-alt="East Africa WRSI from USGS FEWSNET, November 21-30, 2025"}
 
 ### Typical Uses
 
@@ -102,7 +102,7 @@ Due to the importance of monitoring agricultural productivity in real time to id
 
 The [Global Agricultural Monitoring System](https://www.climatehubs.usda.gov/hubs/international/tools/gimms-global-agricultural-monitoring), a web-based interface for finding international crop cover data. GLAM is a joint effort between the USDA's Foreign Agricultural Service, UMD, SDSU, and NASA. The initiative assembles crop cover data from many sources, and produces crop production forecasts[@becker-reshef_monitoring_2010]. The [GLAM interface](https://glam1.gsfc.nasa.gov/) allows users to compare multiple geographies over time with flexible, custom plots. Users can choose the dataset (eg. Terra MODIS 8-day or NOAA VIIRS 8-day), the product (eg. NDVI or NDVI anomaly), the timeframe, and administrative geography level, and even display only data for specific crops (crop masks). In addition to producing seasonal, cumulative, and complete plots and maps, the interface allows you to download GeoTIFF files using your selections. New data is available every eight days to allow for real-time monitoring of agricultural production.
 
-![Screenshot of Global Agricultural Monitoring web interface](images/glams_interface.png){width="100%" height="auto"}
+![Screenshot of Global Agricultural Monitoring web interface](images/glams_interface.png){width="100%" height="auto" fig-alt=Screenshot: Global Agricultural Monitoring web UI"}
 
 ## Sentinel Hub
 
@@ -110,7 +110,7 @@ The [Global Agricultural Monitoring System](https://www.climatehubs.usda.gov/hub
 
 Sentinel Hub is a paid service, that as of March 20th, 2026, is depreciated and replaced by [Planet Insights](https://insights.planet.com/). A free, browser-based version is available at the [Copernicus Browser](https://browser.dataspace.copernicus.eu/).
 
-![Screenshot of Copernicus Browser](images/copernicus_browser.png){width="100%" height="auto"}
+![Screenshot of Copernicus Browser](images/copernicus_browser.png){width="100%" height="auto" fig-alt="Screenshot: Copernicus Browser"}
 
 ## CropScape and Crop-CASMA
 

@@ -9,6 +9,7 @@ author:
     affiliation: Professor, Department of Sociology, University of Minnesota
 date: 06-03-2025
 image: images/family.jpg
+image-alt: "Photo of a family at sunset"
 categories:
   - Projections
   - Population

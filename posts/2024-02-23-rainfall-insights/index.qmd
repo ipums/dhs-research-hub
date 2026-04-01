@@ -19,6 +19,7 @@ fig-width: 10
 fig-height: 8
 bibliography: references.bib
 image: images/storm-clouds-over-wheat-field-danger-weather-with-dark-sky-over-fields-SBI-300870591.jpg
+image-alt: "Dark sky over fields"
 open-graph:
   title: |
     Droplets of Insights for Integrating DHS and Rainfall Data

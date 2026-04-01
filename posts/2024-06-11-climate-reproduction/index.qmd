@@ -16,6 +16,7 @@ categories:
 fig-width: 10
 fig-height: 8
 image: images/ptest.jpg
+image-alt: "Pregnancy test"
 bibliography: references.bib
 open-graph:
   title: |

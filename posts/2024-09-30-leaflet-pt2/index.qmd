@@ -18,6 +18,7 @@ categories:
 fig-width: 10
 fig-height: 12
 image: images/listing-img.png
+image-alt: "Leaflet part 2"
 open-graph:
   title: |
     Using Leaflet for Exploratory Data Analysis: Part 2

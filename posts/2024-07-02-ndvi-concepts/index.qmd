@@ -17,6 +17,7 @@ categories:
 fig-width: 10
 fig-height: 8
 image: images/max_ndvi.png
+image-alt: "Subseasonal NDVI max"
 bibliography: references.bib
 open-graph:
   title: |
@@ -81,7 +82,7 @@ to either lean periods or periods of relative abundance.
 ::: column-page-inset
 ![Figure 1: NDVI maximum values as they vary over space and time for
 selected PMA
-samples[@brooks2023investigating]](images/max_ndvi.png){width="100%" fig-alt="TODO: max ndvi image"}
+samples[@brooks2023investigating]](images/max_ndvi.png){width="100%" fig-alt="NDVI max"}
 :::
 
 # NDVI in Context

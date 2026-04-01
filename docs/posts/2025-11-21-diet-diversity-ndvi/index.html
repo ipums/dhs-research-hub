@@ -1,12 +1,15 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
 <meta charset="utf-8">
 <meta name="generator" content="quarto-1.8.25">
+
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
 <meta name="author" content="Devon Kristiansen">
 <meta name="dcterms.date" content="2025-11-21">
 <meta name="description" content="A follow-up post on using a comparable measure of dietary diversity in a multilevel model including NDVI contextual information in the model.">
+
 <title>Multilevel Dietary Diversity using DHS data – IPUMS DHS Spatial Analysis and Health Research Hub</title>
 <style>
 code{white-space: pre-wrap;}
@@ -20,42 +23,8 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-/* CSS for syntax highlighting */
-html { -webkit-text-size-adjust: 100%; }
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-}
 </style>
+
 
 <script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
 <script src="../../site_libs/quarto-nav/headroom.min.js"></script>
@@ -75,7 +44,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="../../site_libs/quarto-html/quarto-syntax-highlighting-be0d74190db5c030392493894a628b9f.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap-42421e77c5529847ff6e63ddf59efa80.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light"><script id="quarto-search-options" type="application/json">{
+<link href="../../site_libs/bootstrap/bootstrap-da84e0e5cdc5f5c48afcfb2c964d6c43.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
   "collapse-after": 3,
@@ -100,19 +70,26 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-submit-button-title": "Submit",
     "search-label": "Search"
   }
-}</script><script async="" src="https://www.googletagmanager.com/gtag/js?id=G-0WLH5S9VD5"></script><script type="text/javascript">
+}</script>
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-0WLH5S9VD5"></script>
+
+<script type="text/javascript">
 
 window.dataLayer = window.dataLayer || [];
 function gtag(){dataLayer.push(arguments);}
 gtag('js', new Date());
 gtag('config', 'G-0WLH5S9VD5', { 'anonymize_ip': true});
-</script><!-- Added to patch a bug in quarto that is causing "broken ARIA menu" errors in WAVE scans --><script>
+</script>
+<!-- Added to patch a bug in quarto that is causing "broken ARIA menu" errors in WAVE scans -->
+<script>
     document.addEventListener("DOMContentLoaded", function () {
         document.querySelectorAll(".navbar-toggler[role='menu']").forEach(function (el) {
             el.removeAttribute("role");
         });
     });
 </script>
+
+
 <meta property="og:title" content="IPUMS DHS Spatial Analysis and Health Research Hub">
 <meta property="og:description" content="Understand population health in its environmental context">
 <meta property="og:image" content="https://ipums.github.io/dhs-research-hub/posts/2025-11-21-diet-diversity-ndvi/images/dhs_logo_navy_pad.png">
@@ -122,13 +99,18 @@ gtag('config', 'G-0WLH5S9VD5', { 'anonymize_ip': true});
 <meta name="twitter:image" content="https://ipums.github.io/dhs-research-hub/posts/2025-11-21-diet-diversity-ndvi/images/dhs_logo_navy_pad.png">
 <meta name="twitter:card" content="summary_large_image">
 </head>
+
 <body class="floating nav-fixed slimcontent quarto-light">
 
 <div id="quarto-search-results"></div>
-  <header id="quarto-header" class="headroom fixed-top quarto-banner"><nav class="navbar navbar-expand-lg " data-bs-theme="dark"><div class="navbar-container container-fluid">
+  <header id="quarto-header" class="headroom fixed-top quarto-banner">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
     <a href="https://www.idhsdata.org/idhs/" class="navbar-brand navbar-brand-logo">
-    <img src="../../images/dhs_logo_white.png" alt="IPUMS DHS Spatial Analysis and Health Research Hub" class="navbar-logo light-content"><img src="../../images/dhs_logo_white.png" alt="IPUMS DHS Spatial Analysis and Health Research Hub" class="navbar-logo dark-content"></a>
+    <img src="../../images/dhs_logo_white.png" alt="IPUMS DHS Spatial Analysis and Health Research Hub" class="navbar-logo light-content">
+    <img src="../../images/dhs_logo_white.png" alt="IPUMS DHS Spatial Analysis and Health Research Hub" class="navbar-logo dark-content">
+    </a>
   </div>
             <div id="quarto-search" class="" title="Search"></div>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
@@ -136,18 +118,18 @@ gtag('config', 'G-0WLH5S9VD5', { 'anonymize_ip': true});
 </button>
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
-<li class="nav-item">
+  <li class="nav-item">
     <a class="nav-link" href="../../index.html"> 
 <span class="menu-text">Spatial Analysis and Health Research Hub</span></a>
   </li>  
 </ul>
-<ul class="navbar-nav navbar-nav-scroll ms-auto">
-<li class="nav-item dropdown ">
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item dropdown ">
     <a class="nav-link dropdown-toggle" href="#" id="nav-menu-getting-started" role="link" data-bs-toggle="dropdown" aria-expanded="false">
  <span class="menu-text">Getting Started</span>
     </a>
-    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="nav-menu-getting-started">
-<li>
+    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="nav-menu-getting-started">    
+        <li>
     <a class="dropdown-item" href="../../posts/2024-02-01-getting-started-with-r/index.html">
  <span class="dropdown-text">An Introduction to R</span></a>
   </li>  
@@ -156,13 +138,13 @@ gtag('config', 'G-0WLH5S9VD5', { 'anonymize_ip': true});
  <span class="dropdown-text">Obtaining IPUMS DHS Data</span></a>
   </li>  
     </ul>
-</li>
+  </li>
   <li class="nav-item dropdown ">
     <a class="nav-link dropdown-toggle" href="#" id="nav-menu-community" role="link" data-bs-toggle="dropdown" aria-expanded="false">
  <span class="menu-text">Community</span>
     </a>
-    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="nav-menu-community">
-<li>
+    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="nav-menu-community">    
+        <li>
     <a class="dropdown-item" href="https://forum.ipums.org">
  <span class="dropdown-text">IPUMS Forum</span></a>
   </li>  
@@ -175,7 +157,7 @@ gtag('config', 'G-0WLH5S9VD5', { 'anonymize_ip': true});
  <span class="dropdown-text">License</span></a>
   </li>  
     </ul>
-</li>
+  </li>
   <li class="nav-item">
     <a class="nav-link" href="../../index.html"> 
 <span class="menu-text">Posts</span></a>
@@ -210,11 +192,15 @@ gtag('config', 'G-0WLH5S9VD5', { 'anonymize_ip': true});
 <span class="menu-text"></span></a>
   </li>  
 </ul>
-</div> <!-- /navcollapse -->
+          </div> <!-- /navcollapse -->
             <div class="quarto-navbar-tools">
 </div>
       </div> <!-- /container-fluid -->
-    </nav></header><!-- content --><header id="title-block-header" class="quarto-title-block default toc-left page-columns page-full"><div class="quarto-title-banner page-columns page-full">
+    </nav>
+</header>
+<!-- content -->
+<header id="title-block-header" class="quarto-title-block default toc-left page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
     <div class="quarto-title column-body">
       <h1 class="title">Multilevel Dietary Diversity using DHS data</h1>
                   <div>
@@ -263,37 +249,48 @@ gtag('config', 'G-0WLH5S9VD5', { 'anonymize_ip': true});
   
   </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto"><nav id="TOC" role="doc-toc" class="toc-active" data-toc-expanded="1"><h2 id="toc-title">Contents</h2>
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <nav id="TOC" role="doc-toc" class="toc-active" data-toc-expanded="1">
+    <h2 id="toc-title">Contents</h2>
    
   <ul>
-<li>
-<a href="#setting-up-the-data" id="toc-setting-up-the-data" class="nav-link active" data-scroll-target="#setting-up-the-data">Setting up the Data</a>
+  <li><a href="#setting-up-the-data" id="toc-setting-up-the-data" class="nav-link active" data-scroll-target="#setting-up-the-data">Setting up the Data</a>
   <ul class="collapse">
-<li><a href="#ndvi-data" id="toc-ndvi-data" class="nav-link" data-scroll-target="#ndvi-data">NDVI data</a></li>
+  <li><a href="#ndvi-data" id="toc-ndvi-data" class="nav-link" data-scroll-target="#ndvi-data">NDVI data</a></li>
   <li><a href="#dhs-data" id="toc-dhs-data" class="nav-link" data-scroll-target="#dhs-data">DHS data</a></li>
   <li><a href="#preparing-to-merge-ndvi-and-dhs-data" id="toc-preparing-to-merge-ndvi-and-dhs-data" class="nav-link" data-scroll-target="#preparing-to-merge-ndvi-and-dhs-data">Preparing to merge NDVI and DHS data</a></li>
   <li><a href="#merging-the-ndvi-and-dhs-data" id="toc-merging-the-ndvi-and-dhs-data" class="nav-link" data-scroll-target="#merging-the-ndvi-and-dhs-data">Merging the NDVI and DHS data</a></li>
-  </ul>
-</li>
-  <li>
-<a href="#creating-the-multilevel-model" id="toc-creating-the-multilevel-model" class="nav-link" data-scroll-target="#creating-the-multilevel-model">Creating the Multilevel model</a>
-  <ul class="collapse">
-<li><a href="#interpreting-the-model" id="toc-interpreting-the-model" class="nav-link" data-scroll-target="#interpreting-the-model">Interpreting the Model</a></li>
-  </ul>
-</li>
+  </ul></li>
+  <li><a href="#creating-the-multilevel-model" id="toc-creating-the-multilevel-model" class="nav-link" data-scroll-target="#creating-the-multilevel-model">Creating the Multilevel model</a></li>
   <li><a href="#looking-ahead" id="toc-looking-ahead" class="nav-link" data-scroll-target="#looking-ahead">Looking ahead</a></li>
-  </ul></nav>
-</nav><div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+  </ul>
+</nav>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
     </div>
 <!-- main -->
-<main class="content quarto-banner-title-block page-columns page-full" id="quarto-document-content"><p>This post is a follow-up to <a href="https://tech.popdata.org/dhs-research-hub/posts/2025-08-06-intro-diet-diversity/">our earlier blog</a> on measuring dietary diversity using Demographic and Health Surveys (DHS) data over time. First we will attach Normalized Difference Vegetation Index data to the individual level child records. Second, we will analyze the association between NDVI and dietary diversity using a multilevel model.</p>
-<section id="setting-up-the-data" class="level1 page-columns page-full"><h1>Setting up the Data</h1>
-<section id="ndvi-data" class="level2 page-columns page-full"><h2 class="anchored" data-anchor-id="ndvi-data">NDVI data</h2>
+<main class="content quarto-banner-title-block page-columns page-full" id="quarto-document-content">
+
+
+
+
+
+<p>This post is a follow-up to <a href="https://tech.popdata.org/dhs-research-hub/posts/2025-08-06-intro-diet-diversity/">our earlier blog</a> on measuring dietary diversity using Demographic and Health Surveys (DHS) data over time. First we will attach Normalized Difference Vegetation Index data to the individual level child records. Second, we will analyze the association between NDVI and dietary diversity using a multilevel model.</p>
+<section id="setting-up-the-data" class="level1 page-columns page-full">
+<h1>Setting up the Data</h1>
+<section id="ndvi-data" class="level2 page-columns page-full">
+<h2 class="anchored" data-anchor-id="ndvi-data">NDVI data</h2>
 <p>We covered how to read in an <a href="https://www.idhsdata.org/idhs/">IPUMS DHS</a> data file and calculate dietary diversity using World Health Organization definitions in <a href="https://tech.popdata.org/dhs-research-hub/posts/2025-08-06-intro-diet-diversity/">our previous post on dietary diversity</a>, and we discuss in multiple previous posts (<a href="https://tech.popdata.org/dhs-research-hub/posts/2024-08-01-ndvi-data/">iterative worklows using NDVI</a>; <a href="https://tech.popdata.org/dhs-research-hub/posts/2024-08-16-ndvi-data-2/">aggregation methods</a>) how to download and summarize NDVI data from NASA. The code below (hidden until you click “Code”) is included as a refresher.</p>
 <div class="cell">
-<details class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load necessary packages</span></span>
+<details class="code-fold">
+<summary>
+Code
+</summary>
+<div class="code-copy-outer-scaffold">
+<div class="code-copy-outer-scaffold"><div id="cb1" class="sourceCode cell-code">
+<pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load necessary packages</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ipumsr)</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sf)</span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
@@ -710,7 +707,12 @@ gtag('config', 'G-0WLH5S9VD5', { 'anonymize_ip': true});
 <span id="cb1-415"><a href="#cb1-415" aria-hidden="true" tabindex="-1"></a>  <span class="at">fun =</span> mean,</span>
 <span id="cb1-416"><a href="#cb1-416" aria-hidden="true" tabindex="-1"></a>  <span class="at">na.rm =</span> <span class="cn">TRUE</span>, <span class="co"># Exclude missing raster values in average</span></span>
 <span id="cb1-417"><a href="#cb1-417" aria-hidden="true" tabindex="-1"></a>  <span class="at">bind =</span> <span class="cn">TRUE</span></span>
-<span id="cb1-418"><a href="#cb1-418" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb1-418"><a href="#cb1-418" aria-hidden="true" tabindex="-1"></a>)</span></code></pre>
+</div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<button title="Copy to Clipboard" class="code-copy-button">
+<i class="bi"></i>
+</button>
+</div>
 </details>
 </div>
 <p>There are two things to note for how the code above differs from our previous posts on NDVI. First, we convert the HDF into TIFF files. We have 140 HDF files to load in across the three DHS survey years, but RStudio can only have 32 HDF files open at a time (due to a <a href="https://gdal.org/en/stable/drivers/raster/hdf4.html#driver-building">set limit in the HDF4 library</a>). So we loop through the file list of HDF files downloaded from NASA’s website and convert the first layer (the NDVI layer) to a TIFF file and name it exactly the same, except for the .tif file extension.</p>
@@ -729,24 +731,30 @@ gtag('config', 'G-0WLH5S9VD5', { 'anonymize_ip': true});
 <col style="width: 24%">
 <col style="width: 24%">
 </colgroup>
-<thead><tr class="header">
-<th></th>
-<th style="text-align: center;">DHS Kenya 2003</th>
-<th style="text-align: center;">DHS Kenya 2008</th>
-<th style="text-align: center;">DHS Kenya 2014</th>
-</tr></thead>
-<tbody><tr class="odd">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"><span class="sr-only">Interview dates label header</span></th>
+<th style="text-align: center;" data-quarto-table-cell-role="th">DHS Kenya 2003</th>
+<th style="text-align: center;" data-quarto-table-cell-role="th">DHS Kenya 2008</th>
+<th style="text-align: center;" data-quarto-table-cell-role="th">DHS Kenya 2014</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
 <td><strong>Interview dates</strong></td>
 <td style="text-align: center;">April to September</td>
 <td style="text-align: center;">November 2008 to March 2009</td>
 <td style="text-align: center;">May to October</td>
-</tr></tbody>
+</tr>
+</tbody>
 </table>
 <p>Each row in the dataframe we have created is a summarized NDVI value for a 2k or 10k buffer, for urban and rural DHS cluster points respectively, over a 16-day period. Although we recently <a href="https://tech.popdata.org/dhs-research-hub/posts/2025-03-31-viirs/">introduced VIIRS as a more recent data source for NDVI data</a>, we use data from MODIS because we use data from 2003 and 2008. VIIRS did not start collecting data until 2012. We also chose to use the 16-day NDVI value over the monthly NDVI values because the diet diversity questions use a reference window of 24 hours, so we want to use NDVI data with more temporal immediacy than other NDVI products with a larger time window.</p>
-</section><section id="dhs-data" class="level2 page-columns page-full"><h2 class="anchored" data-anchor-id="dhs-data">DHS data</h2>
+</section>
+<section id="dhs-data" class="level2 page-columns page-full">
+<h2 class="anchored" data-anchor-id="dhs-data">DHS data</h2>
 <p>Using the code hidden below, we create an IPUMS DHS dataframe containing only youngest surviving children between the ages of 6 and 23 months for the DHS Kenya surveys from 2003, 2008, and 2014. The code also creates a comparable variable that represents a count of food groups they consumed in the past 24 hours, with possible values between zero and seven.</p>
 <div class="cell">
-<details class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co">#Read in IPUMS DHS data ----</span></span>
+<details class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co">#Read in IPUMS DHS data ----</span></span>
 <span><span class="va">dhs_microdata</span> <span class="op">&lt;-</span> <span class="fu">read_ipums_micro</span><span class="op">(</span></span>
 <span>  ddi <span class="op">=</span> <span class="st">"data/dhs/idhs_00058.xml"</span>,</span>
 <span>  data_file <span class="op">=</span> <span class="st">"data/dhs/idhs_00058.dat.gz"</span>,</span>
@@ -803,26 +811,28 @@ gtag('config', 'G-0WLH5S9VD5', { 'anonymize_ip': true});
 <span><span class="co">#Calculate the number of food groups the child consumed in the past 24 hours</span></span>
 <span><span class="va">dhs_microdata</span> <span class="op">&lt;-</span> <span class="va">dhs_microdata</span> <span class="op">%&gt;%</span></span>
 <span>  <span class="fu">mutate</span><span class="op">(</span>foodgroups_com <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/colSums.html">rowSums</a></span><span class="op">(</span><span class="fu">across</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">breastmilk</span>, <span class="va">grains</span>, <span class="va">nuts_legumes</span>, <span class="va">dairy</span>, <span class="va">meateggs</span>, <span class="va">vita</span>, <span class="va">othfrtveg</span><span class="op">)</span><span class="op">)</span>, </span>
-<span>                              na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span>                              na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 </div>
 <p>To create a dataset for our proposed analysis, we need to attach the NDVI data to the DHS data by both cluster ID (DHSID) and the interview date, which will differ by household.</p>
 <p>First, we’ll create a single interview date variable in POSIXct format out of the separate interview year (INTYEAR), month (MONTHINT), and day (INTDAY) variables from IPUMS DHS.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co">#Create POSIXct date variable ----</span></span>
+<div class="code-copy-outer-scaffold"><div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co">#Create POSIXct date variable ----</span></span>
 <span><span class="va">dhs_microdata</span><span class="op">$</span><span class="va">interview_date</span> <span class="op">&lt;-</span> <span class="fu">make_datetime</span><span class="op">(</span></span>
 <span>  year <span class="op">=</span> <span class="va">dhs_microdata</span><span class="op">$</span><span class="va">INTYEAR</span>,</span>
 <span>  month <span class="op">=</span> <span class="va">dhs_microdata</span><span class="op">$</span><span class="va">MONTHINT</span>,</span>
 <span>  day <span class="op">=</span> <span class="va">dhs_microdata</span><span class="op">$</span><span class="va">INTDAY</span></span>
-<span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 
 <div class="no-row-height column-margin column-container"><div class="">
 <p>POSIXct is a way of storing date and time data efficiently in R. Its value is the number of seconds since January 1st, 1970.</p>
-</div></div></section><section id="preparing-to-merge-ndvi-and-dhs-data" class="level2 page-columns page-full"><h2 class="anchored" data-anchor-id="preparing-to-merge-ndvi-and-dhs-data">Preparing to merge NDVI and DHS data</h2>
+</div></div></section>
+<section id="preparing-to-merge-ndvi-and-dhs-data" class="level2 page-columns page-full">
+<h2 class="anchored" data-anchor-id="preparing-to-merge-ndvi-and-dhs-data">Preparing to merge NDVI and DHS data</h2>
 <p>Next, we’ll take some steps to make sure that the numerical suffixes of the NDVI columns and the start and end dates match so that each numerical value corresponds to the same 16-day period. These values were stored above (in the hidden code) as the object <code>raster_times</code>.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co">#Create columns ending in 1-35 containing the raster times of start dates</span></span>
+<div class="code-copy-outer-scaffold"><div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co">#Create columns ending in 1-35 containing the raster times of start dates</span></span>
 <span><span class="va">ke_mean_ndvi_df</span> <span class="op">&lt;-</span> <span class="fu">st_as_sf</span><span class="op">(</span><span class="va">ke_mean_ndvi</span><span class="op">)</span></span>
 <span><span class="va">ke_mean_ndvi_df</span> <span class="op">&lt;-</span> <span class="fu">bind_cols</span><span class="op">(</span></span>
 <span>  <span class="va">ke_mean_ndvi_df</span>,</span>
@@ -859,11 +869,11 @@ gtag('config', 'G-0WLH5S9VD5', { 'anonymize_ip': true});
 <span><span class="co">#&gt; [25] "X250m.16.days.NDVI.24" "X250m.16.days.NDVI.25" "X250m.16.days.NDVI.26"</span></span>
 <span><span class="co">#&gt; [28] "X250m.16.days.NDVI.27" "X250m.16.days.NDVI.28" "X250m.16.days.NDVI.29"</span></span>
 <span><span class="co">#&gt; [31] "X250m.16.days.NDVI.30" "X250m.16.days.NDVI.31" "X250m.16.days.NDVI.32"</span></span>
-<span><span class="co">#&gt; [34] "X250m.16.days.NDVI.33" "X250m.16.days.NDVI.34"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span><span class="co">#&gt; [34] "X250m.16.days.NDVI.33" "X250m.16.days.NDVI.34"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>The automatic indexing of the NDVI columns started without a number, and the second NDVI column ends in 1. So we will add a zero to the first column of NDVI data (the earliest 16-day time period of interview dates), and then add 1 to the numerical suffix of the entire series to align with the start_date series of columns, so that a variable suffix of “1” corresponds to April 7, 2003 to April 22, 2003.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co">#rename NDVI column without numerical suffix</span></span>
+<div class="code-copy-outer-scaffold"><div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co">#rename NDVI column without numerical suffix</span></span>
 <span><span class="va">ke_mean_ndvi_df</span> <span class="op">&lt;-</span> <span class="va">ke_mean_ndvi_df</span> <span class="op">%&gt;%</span> </span>
 <span>  <span class="fu">st_drop_geometry</span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span></span>
 <span>  <span class="fu">rename</span><span class="op">(</span>X250m.16.days.NDVI.0 <span class="op">=</span> <span class="va">X250m.16.days.NDVI</span><span class="op">)</span></span>
@@ -882,12 +892,12 @@ gtag('config', 'G-0WLH5S9VD5', { 'anonymize_ip': true});
 <span>    <span class="op">}</span><span class="op">)</span>,</span>
 <span>    .cols <span class="op">=</span> <span class="fu">starts_with</span><span class="op">(</span><span class="va">prefix</span><span class="op">)</span></span>
 <span>  <span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">ke_mean_ndvi_df2</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/grep.html">sub</a></span><span class="op">(</span><span class="st">"X250m.16.days.NDVI."</span>, <span class="st">"NDVI_"</span>, <span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">ke_mean_ndvi_df2</span><span class="op">)</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span><span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">ke_mean_ndvi_df2</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/grep.html">sub</a></span><span class="op">(</span><span class="st">"X250m.16.days.NDVI."</span>, <span class="st">"NDVI_"</span>, <span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">ke_mean_ndvi_df2</span><span class="op">)</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>We can now pivot the data longer so that instead of columns of NDVI data and start date data for each time period, we end up with each row representing a 16-day period that the NDVI data represents corresponding to each DHS cluster point across the three surveys, with only one column for start date and one column for NDVI. We’ll also create the end date column that is 15 days later than the start date to capture the full 16 day period.</p>
 <p>We only need the DHSID, start and end dates of the NDVI data periods, and NDVI data to attach to the DHS microdata, so we’ll create a dataframe called <code>ke_ndvi_long_select</code> with only those columns to keep things tidy.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co">#Reformat data to long with start date, end date, and NDVI as one column each</span></span>
+<div class="code-copy-outer-scaffold"><div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co">#Reformat data to long with start date, end date, and NDVI as one column each</span></span>
 <span><span class="va">ke_mean_ndvi_long</span> <span class="op">&lt;-</span> <span class="va">ke_mean_ndvi_df2</span> <span class="op">%&gt;%</span></span>
 <span>  <span class="fu">pivot_longer</span><span class="op">(</span></span>
 <span>    cols <span class="op">=</span> <span class="fu">starts_with</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"NDVI_"</span>, <span class="st">"start_date_"</span><span class="op">)</span><span class="op">)</span>,</span>
@@ -900,51 +910,53 @@ gtag('config', 'G-0WLH5S9VD5', { 'anonymize_ip': true});
 <span></span>
 <span><span class="co">#Create a dataframe with only the necessary data for merging</span></span>
 <span><span class="va">ke_ndvi_long_select</span> <span class="op">&lt;-</span> <span class="va">ke_mean_ndvi_long</span> <span class="op">%&gt;%</span></span>
-<span>  <span class="fu">select</span><span class="op">(</span><span class="va">DHSID</span>,<span class="va">NDVI</span>,<span class="va">start_date</span>,<span class="va">end_date</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span>  <span class="fu">select</span><span class="op">(</span><span class="va">DHSID</span>,<span class="va">NDVI</span>,<span class="va">start_date</span>,<span class="va">end_date</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 
 <div class="no-row-height column-margin column-container"><div class="">
 <p>Note if you just add 15 to the start date without enclosing it in the <code>days()</code> function, you only add 15 seconds.</p>
-</div></div></section><section id="merging-the-ndvi-and-dhs-data" class="level2"><h2 class="anchored" data-anchor-id="merging-the-ndvi-and-dhs-data">Merging the NDVI and DHS data</h2>
+</div></div></section>
+<section id="merging-the-ndvi-and-dhs-data" class="level2">
+<h2 class="anchored" data-anchor-id="merging-the-ndvi-and-dhs-data">Merging the NDVI and DHS data</h2>
 <p>Because we are matching an interview date to a range of dates, we can’t use the common <code>inner_join()</code> function one would usually use to merge dataframes. Instead, we’ll load a library called data.table and make sure that our two dataframes (<code>ke_ndvi_long_select</code> and <code>dhs_microdata</code>) are set as data tables.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://r-datatable.com">data.table</a></span><span class="op">)</span></span>
+<div class="code-copy-outer-scaffold"><div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://r-datatable.com">data.table</a></span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">setDT</span><span class="op">(</span><span class="va">dhs_microdata</span><span class="op">)</span></span>
-<span><span class="fu">setDT</span><span class="op">(</span><span class="va">ke_ndvi_long_select</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span><span class="fu"><a href="https://rdrr.io/pkg/data.table/man/setDT.html">setDT</a></span><span class="op">(</span><span class="va">dhs_microdata</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/data.table/man/setDT.html">setDT</a></span><span class="op">(</span><span class="va">ke_ndvi_long_select</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Then we’ll merge the dataframes using both the DHS cluster ID and the date ranges. We want an exact match on DHSID, so we need to list that matching requirement in the “by” argument. We list the dataframe <code>dhs_microdata</code> first, so we use the date variable from that dataframe (interview_date) in our logical statements first. The argument “allow.cartesian” allows for multiple matches of NDVI data to DHS observations.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">dhs_ndvi</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/merge.html">merge</a></span><span class="op">(</span></span>
+<div class="code-copy-outer-scaffold"><div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">dhs_ndvi</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/merge.html">merge</a></span><span class="op">(</span></span>
 <span>  <span class="va">dhs_microdata</span>,</span>
 <span>  <span class="va">ke_ndvi_long_select</span>,  </span>
 <span>  by <span class="op">=</span> <span class="st">"DHSID"</span>,</span>
 <span>  allow.cartesian <span class="op">=</span> <span class="cn">TRUE</span></span>
-<span><span class="op">)</span><span class="op">[</span><span class="va">interview_date</span> <span class="op">&gt;=</span> <span class="va">start_date</span> <span class="op">&amp;</span> <span class="va">interview_date</span> <span class="op">&lt;=</span> <span class="va">end_date</span><span class="op">]</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span><span class="op">)</span><span class="op">[</span><span class="va">interview_date</span> <span class="op">&gt;=</span> <span class="va">start_date</span> <span class="op">&amp;</span> <span class="va">interview_date</span> <span class="op">&lt;=</span> <span class="va">end_date</span><span class="op">]</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Now that we have a full dataset, we will summarize the data to get oriented. Let’s look at the mean number of food groups consumed by young children by 1st level administrative region (harmonized over time) and DHS sample. The gt and gtsummary packages help us easily create summary tables, and will help us display regression results. The haven package assists in variable label display in the tables. We also weight the mean estimates by the person-level normalized weight PERWEIGHT.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co">#Read in necessary packages</span></span>
+<div class="code-copy-outer-scaffold"><div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co">#Read in necessary packages</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/ddsjoberg/gtsummary">gtsummary</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://gt.rstudio.com">gt</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://haven.tidyverse.org">haven</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="co">#Create a table of regional differences over time </span></span>
-<span><span class="va">table_means</span> <span class="op">&lt;-</span> <span class="va">dhs_ndvi</span> <span class="op">%&gt;%</span></span>
-<span>  <span class="fu">group_by</span><span class="op">(</span><span class="va">GEO_KE1989_2014</span>, <span class="va">YEAR</span><span class="op">)</span> <span class="op">%&gt;%</span></span>
-<span>  <span class="fu">summarize</span><span class="op">(</span>mean_indicator <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/weighted.mean.html">weighted.mean</a></span><span class="op">(</span><span class="va">foodgroups_com</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span>, w <span class="op">=</span> <span class="va">PERWEIGHT</span><span class="op">)</span>, .groups <span class="op">=</span> <span class="st">"drop"</span><span class="op">)</span> <span class="op">%&gt;%</span></span>
+<span><span class="va">table_means</span> <span class="op">&lt;-</span> <span class="va">dhs_ndvi</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu">group_by</span><span class="op">(</span><span class="va">GEO_KE1989_2014</span>, <span class="va">YEAR</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu">summarize</span><span class="op">(</span>mean_indicator <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/weighted.mean.html">weighted.mean</a></span><span class="op">(</span><span class="va">foodgroups_com</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span>, w <span class="op">=</span> <span class="va">PERWEIGHT</span><span class="op">)</span>, .groups <span class="op">=</span> <span class="st">"drop"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu">pivot_wider</span><span class="op">(</span>names_from <span class="op">=</span> <span class="va">YEAR</span>, values_from <span class="op">=</span> <span class="va">mean_indicator</span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">table_means</span> <span class="op">&lt;-</span> <span class="va">table_means</span> <span class="op">%&gt;%</span></span>
-<span>  <span class="fu">mutate</span><span class="op">(</span><span class="fu">across</span><span class="op">(</span><span class="fu">where</span><span class="op">(</span><span class="va">is.labelled</span><span class="op">)</span>, <span class="va">as_factor</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">table_means</span> <span class="op">&lt;-</span> <span class="va">table_means</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span><span class="fu">across</span><span class="op">(</span><span class="fu"><a href="https://tidyselect.r-lib.org/reference/where.html">where</a></span><span class="op">(</span><span class="va">is.labelled</span><span class="op">)</span>, <span class="va">as_factor</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Format the table_means we calculate and display using gt</span></span>
-<span><span class="va">table_means</span> <span class="op">%&gt;%</span></span>
-<span>  <span class="fu">gt</span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span></span>
-<span>  <span class="fu">fmt_number</span><span class="op">(</span></span>
+<span><span class="va">table_means</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://gt.rstudio.com/reference/gt.html">gt</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://gt.rstudio.com/reference/fmt_number.html">fmt_number</a></span><span class="op">(</span></span>
 <span>    columns <span class="op">=</span> <span class="op">-</span><span class="va">GEO_KE1989_2014</span>,</span>
 <span>    decimals <span class="op">=</span> <span class="fl">2</span></span>
-<span>  <span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span>  <span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div id="nqijksngte" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 <style>#nqijksngte table {
@@ -1395,13 +1407,16 @@ gtag('config', 'G-0WLH5S9VD5', { 'anonymize_ip': true});
   height: 0px !important;
 }
 </style>
+
 <table class="gt_table caption-top table table-sm table-striped small" data-quarto-bootstrap="false">
-<thead><tr class="gt_col_headings header">
+<thead>
+<tr class="gt_col_headings header">
 <th id="GEO_KE1989_2014" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col">Kenya regions, 1989-2014 [integrated; GIS]</th>
 <th id="a2003" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">2003</th>
 <th id="a2008" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">2008</th>
 <th id="a2014" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">2014</th>
-</tr></thead>
+</tr>
+</thead>
 <tbody class="gt_table_body">
 <tr class="odd">
 <td class="gt_row gt_center" headers="GEO_KE1989_2014">Nairobi</td>
@@ -1453,31 +1468,32 @@ gtag('config', 'G-0WLH5S9VD5', { 'anonymize_ip': true});
 </tr>
 </tbody>
 </table>
+
 </div>
 </div>
 </div>
 <p>You might notice that the average values for the comparable food groups count is significantly lower in Kenya 2014. A quick review of the <a href="https://www.idhsdata.org/idhs-action/variables/MAFEDGRAIN24H#universe_section">Universe tab on the IPUMS DHS webpage</a> regarding any of the variables beginning with “MAFED” reveals that in Kenya 2014, only certain households were selected for the “long questionnaire”, which included the young children feeding questions. We’ll need to filter out all not in universe (NIU) observations to get a comparable mean. The variable universe will be consistent across the food consumption variables in the same survey year.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co">#NIU values are coded as 9 in this variable</span></span>
-<span><span class="va">dhs_ndvi</span> <span class="op">&lt;-</span> <span class="va">dhs_ndvi</span> <span class="op">%&gt;%</span></span>
+<div class="code-copy-outer-scaffold"><div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co">#NIU values are coded as 9 in this variable</span></span>
+<span><span class="va">dhs_ndvi</span> <span class="op">&lt;-</span> <span class="va">dhs_ndvi</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span><span class="op">(</span><span class="va">MAFEDGRAIN24H</span> <span class="op">!=</span> <span class="fl">9</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co">#Calculate and display the table again</span></span>
-<span><span class="va">table_means</span> <span class="op">&lt;-</span> <span class="va">dhs_ndvi</span> <span class="op">%&gt;%</span></span>
-<span>  <span class="fu">group_by</span><span class="op">(</span><span class="va">GEO_KE1989_2014</span>, <span class="va">YEAR</span><span class="op">)</span> <span class="op">%&gt;%</span></span>
-<span>  <span class="fu">summarize</span><span class="op">(</span>mean_indicator <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/weighted.mean.html">weighted.mean</a></span><span class="op">(</span><span class="va">foodgroups_com</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span>, w <span class="op">=</span> <span class="va">PERWEIGHT</span><span class="op">)</span>, .groups <span class="op">=</span> <span class="st">"drop"</span><span class="op">)</span> <span class="op">%&gt;%</span></span>
+<span><span class="va">table_means</span> <span class="op">&lt;-</span> <span class="va">dhs_ndvi</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu">group_by</span><span class="op">(</span><span class="va">GEO_KE1989_2014</span>, <span class="va">YEAR</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu">summarize</span><span class="op">(</span>mean_indicator <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/weighted.mean.html">weighted.mean</a></span><span class="op">(</span><span class="va">foodgroups_com</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span>, w <span class="op">=</span> <span class="va">PERWEIGHT</span><span class="op">)</span>, .groups <span class="op">=</span> <span class="st">"drop"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu">pivot_wider</span><span class="op">(</span>names_from <span class="op">=</span> <span class="va">YEAR</span>, values_from <span class="op">=</span> <span class="va">mean_indicator</span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">table_means</span> <span class="op">&lt;-</span> <span class="va">table_means</span> <span class="op">%&gt;%</span></span>
-<span>  <span class="fu">mutate</span><span class="op">(</span><span class="fu">across</span><span class="op">(</span><span class="fu">where</span><span class="op">(</span><span class="va">is.labelled</span><span class="op">)</span>, <span class="va">as_factor</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">table_means</span> <span class="op">&lt;-</span> <span class="va">table_means</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span><span class="fu">across</span><span class="op">(</span><span class="fu"><a href="https://tidyselect.r-lib.org/reference/where.html">where</a></span><span class="op">(</span><span class="va">is.labelled</span><span class="op">)</span>, <span class="va">as_factor</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Format the table_means we calculate and display using gt</span></span>
-<span><span class="va">table_means</span> <span class="op">%&gt;%</span></span>
-<span>  <span class="fu">gt</span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span></span>
-<span>  <span class="fu">fmt_number</span><span class="op">(</span></span>
+<span><span class="va">table_means</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://gt.rstudio.com/reference/gt.html">gt</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://gt.rstudio.com/reference/fmt_number.html">fmt_number</a></span><span class="op">(</span></span>
 <span>    columns <span class="op">=</span> <span class="op">-</span><span class="va">GEO_KE1989_2014</span>,</span>
 <span>    decimals <span class="op">=</span> <span class="fl">2</span></span>
-<span>  <span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span>  <span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div id="vhlcugywmp" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 <style>#vhlcugywmp table {
@@ -1928,13 +1944,16 @@ gtag('config', 'G-0WLH5S9VD5', { 'anonymize_ip': true});
   height: 0px !important;
 }
 </style>
+
 <table class="gt_table caption-top table table-sm table-striped small" data-quarto-bootstrap="false">
-<thead><tr class="gt_col_headings header">
+<thead>
+<tr class="gt_col_headings header">
 <th id="GEO_KE1989_2014" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col">Kenya regions, 1989-2014 [integrated; GIS]</th>
 <th id="a2003" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">2003</th>
 <th id="a2008" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">2008</th>
 <th id="a2014" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">2014</th>
-</tr></thead>
+</tr>
+</thead>
 <tbody class="gt_table_body">
 <tr class="odd">
 <td class="gt_row gt_center" headers="GEO_KE1989_2014">Nairobi</td>
@@ -1986,15 +2005,19 @@ gtag('config', 'G-0WLH5S9VD5', { 'anonymize_ip': true});
 </tr>
 </tbody>
 </table>
+
 </div>
 </div>
 </div>
 <p>These updated means for Kenya 2014 are looking a lot more reasonable now that we’ve addressed the comparability issue.</p>
-</section></section><section id="creating-the-multilevel-model" class="level1"><h1>Creating the Multilevel model</h1>
+</section>
+</section>
+<section id="creating-the-multilevel-model" class="level1">
+<h1>Creating the Multilevel model</h1>
 <p>Now we can finally get to the multilevel model. Because the dependent variable is a discrete count that cannot be less than zero and observations are clustered spatially, it may be appropriate to use a Poisson model with random effects for DHS cluster, so we indicate a Poisson estimation in the “family” argument.</p>
 <p>We include a number of other independent variables to explain variation in the outcome variable. Urban status represents infrastructural context for access to food from markets, the mother’s education level as a proxy for how informed she may be about dietary needs of young children, the wealth quintile of the household which represents how well the household is able to afford food, and whether the child is older or younger than 12 months old to differentiate older children who can consume more complex foods.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co">#Load in multilevel model and model results display packages</span></span>
+<div class="code-copy-outer-scaffold"><div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co">#Load in multilevel model and model results display packages</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/bbolker/broom.mixed">broom.mixed</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/lme4/lme4/">lme4</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/runehaubo/lmerTestR">lmerTest</a></span><span class="op">)</span></span>
@@ -2005,24 +2028,24 @@ gtag('config', 'G-0WLH5S9VD5', { 'anonymize_ip': true});
 <span><span class="va">dhs_ndvi</span><span class="op">$</span><span class="va">WEALTHQ</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://forcats.tidyverse.org/reference/as_factor.html">as_factor</a></span><span class="op">(</span><span class="va">dhs_ndvi</span><span class="op">$</span><span class="va">WEALTHQ</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co">#Estimating a Poisson model with random effects</span></span>
-<span><span class="va">multilevel_model</span> <span class="op">&lt;-</span> <span class="fu">glmer</span><span class="op">(</span></span>
+<span><span class="va">multilevel_model</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/lme4/man/glmer.html">glmer</a></span><span class="op">(</span></span>
 <span>  <span class="va">foodgroups_com</span> <span class="op">~</span> <span class="va">NDVI</span> <span class="op">+</span> <span class="va">URBAN</span> <span class="op">+</span> <span class="va">WEALTHQ</span> <span class="op">+</span> <span class="va">KIDCURAGE</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="va">YEAR</span><span class="op">)</span> <span class="op">+</span> <span class="va">EDUCLVL</span> <span class="op">+</span> <span class="op">(</span><span class="fl">1</span> <span class="op">|</span> <span class="va">DHSID</span><span class="op">)</span>, </span>
 <span>  data <span class="op">=</span> <span class="va">dhs_ndvi</span>,</span>
 <span>  family <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/family.html">poisson</a></span><span class="op">(</span>link <span class="op">=</span> <span class="st">"log"</span><span class="op">)</span></span>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="co">#Displaying the model results</span></span>
-<span><span class="va">multilevel_model</span> <span class="op">%&gt;%</span> </span>
-<span>  <span class="fu">gtsummary</span><span class="fu">::</span><span class="fu">tbl_regression</span><span class="op">(</span></span>
+<span><span class="va">multilevel_model</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu">gtsummary</span><span class="fu">::</span><span class="fu"><a href="https://www.danieldsjoberg.com/gtsummary/reference/tbl_regression.html">tbl_regression</a></span><span class="op">(</span></span>
 <span>    conf.int <span class="op">=</span> <span class="cn">TRUE</span>, </span>
-<span>    show_single_row <span class="op">=</span> <span class="fu">where</span><span class="op">(</span><span class="va">is.logical</span><span class="op">)</span>,</span>
-<span>    tidy_fun <span class="op">=</span> <span class="fu">broom.mixed</span><span class="fu">::</span><span class="va">tidy</span>,</span>
+<span>    show_single_row <span class="op">=</span> <span class="fu"><a href="https://tidyselect.r-lib.org/reference/where.html">where</a></span><span class="op">(</span><span class="va">is.logical</span><span class="op">)</span>,</span>
+<span>    tidy_fun <span class="op">=</span> <span class="fu">broom.mixed</span><span class="fu">::</span><span class="va"><a href="https://generics.r-lib.org/reference/tidy.html">tidy</a></span>,</span>
 <span>    label <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span></span>
 <span>      `DHSID.sd__(Intercept)` <span class="op">=</span> <span class="st">"Random Effects: DHS Cluster (SD)"</span></span>
 <span>    <span class="op">)</span></span>
-<span>  <span class="op">)</span> <span class="op">%&gt;%</span> </span>
-<span>  <span class="fu">modify_spanning_header</span><span class="op">(</span><span class="fu">everything</span><span class="op">(</span><span class="op">)</span> <span class="op">~</span> <span class="st">"# Model 1: Random Effects by DHS Cluster"</span><span class="op">)</span> <span class="op">%&gt;%</span> </span>
-<span>  <span class="fu">add_significance_stars</span><span class="op">(</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span>  <span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://www.danieldsjoberg.com/gtsummary/reference/modify.html">modify_spanning_header</a></span><span class="op">(</span><span class="fu"><a href="https://tidyselect.r-lib.org/reference/everything.html">everything</a></span><span class="op">(</span><span class="op">)</span> <span class="op">~</span> <span class="st">"# Model 1: Random Effects by DHS Cluster"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://www.danieldsjoberg.com/gtsummary/reference/add_significance_stars.html">add_significance_stars</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div id="fvbguxebok" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 <style>#fvbguxebok table {
@@ -2473,6 +2496,7 @@ gtag('config', 'G-0WLH5S9VD5', { 'anonymize_ip': true});
   height: 0px !important;
 }
 </style>
+
 <table class="gt_table caption-top table table-sm table-striped small" data-quarto-bootstrap="false">
 <colgroup>
 <col style="width: 33%">
@@ -2484,14 +2508,11 @@ gtag('config', 'G-0WLH5S9VD5', { 'anonymize_ip': true});
 <th colspan="3" id="level 1; label" class="gt_center gt_columns_top_border gt_column_spanner_outer" data-quarto-table-cell-role="th" scope="colgroup"><div class="gt_column_spanner">
 Model 1: Random Effects by DHS Cluster
 <h1 id="model-1-random-effects-by-dhs-cluster">Model 1: Random Effects by DHS Cluster</h1>
-
 </div></th>
 </tr>
 <tr class="gt_col_headings even">
 <th id="label" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col"><strong>Characteristic</strong></th>
-<th id="estimate" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col">
-<strong>log(IRR)</strong><span class="gt_footnote_marks" style="white-space:nowrap;font-style:italic;font-weight:normal;line-height:0;"><sup>1</sup></span>
-</th>
+<th id="estimate" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col"><strong>log(IRR)</strong><span class="gt_footnote_marks" style="white-space:nowrap;font-style:italic;font-weight:normal;line-height:0;"><sup>1</sup></span></th>
 <th id="std.error" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col"><strong>SE</strong></th>
 </tr>
 </thead>
@@ -2508,8 +2529,10 @@ Model 1: Random Effects by DHS Cluster
 </tr>
 <tr class="odd">
 <td class="gt_row gt_left" headers="label">WEALTHQ</td>
-<td class="gt_row gt_center" headers="estimate"><br></td>
-<td class="gt_row gt_center" headers="std.error"><br></td>
+<td class="gt_row gt_center" headers="estimate"><br>
+</td>
+<td class="gt_row gt_center" headers="std.error"><br>
+</td>
 </tr>
 <tr class="even">
 <td class="gt_row gt_left" headers="label">&nbsp;&nbsp;&nbsp;&nbsp;Poorest</td>
@@ -2543,8 +2566,10 @@ Model 1: Random Effects by DHS Cluster
 </tr>
 <tr class="even">
 <td class="gt_row gt_left" headers="label">factor(YEAR)</td>
-<td class="gt_row gt_center" headers="estimate"><br></td>
-<td class="gt_row gt_center" headers="std.error"><br></td>
+<td class="gt_row gt_center" headers="estimate"><br>
+</td>
+<td class="gt_row gt_center" headers="std.error"><br>
+</td>
 </tr>
 <tr class="odd">
 <td class="gt_row gt_left" headers="label">&nbsp;&nbsp;&nbsp;&nbsp;2003</td>
@@ -2563,8 +2588,10 @@ Model 1: Random Effects by DHS Cluster
 </tr>
 <tr class="even">
 <td class="gt_row gt_left" headers="label">EDUCLVL</td>
-<td class="gt_row gt_center" headers="estimate"><br></td>
-<td class="gt_row gt_center" headers="std.error"><br></td>
+<td class="gt_row gt_center" headers="estimate"><br>
+</td>
+<td class="gt_row gt_center" headers="std.error"><br>
+</td>
 </tr>
 <tr class="odd">
 <td class="gt_row gt_left" headers="label">&nbsp;&nbsp;&nbsp;&nbsp;No education</td>
@@ -2589,45 +2616,46 @@ Model 1: Random Effects by DHS Cluster
 <tr class="odd">
 <td class="gt_row gt_left" headers="label">Random Effects: DHS Cluster (SD)</td>
 <td class="gt_row gt_center" headers="estimate">0.00</td>
-<td class="gt_row gt_center" headers="std.error"><br></td>
+<td class="gt_row gt_center" headers="std.error"><br>
+</td>
 </tr>
-</tbody>
-<tfoot>
+</tbody><tfoot>
 <tr class="gt_footnotes odd">
-<td colspan="3" class="gt_footnote">
-<span class="gt_footnote_marks" style="white-space:nowrap;font-style:italic;font-weight:normal;line-height:0;"><sup>1</sup></span> <em>p&lt;0.05; <strong>p&lt;0.01; </strong></em>p&lt;0.001</td>
+<td colspan="3" class="gt_footnote"><span class="gt_footnote_marks" style="white-space:nowrap;font-style:italic;font-weight:normal;line-height:0;"><sup>1</sup></span> <em>p&lt;0.05; <strong>p&lt;0.01;</strong></em> p&lt;0.001</td>
 </tr>
 <tr class="gt_sourcenotes even">
 <td colspan="3" class="gt_sourcenote">Abbreviations: CI = Confidence Interval, IRR = Incidence Rate Ratio, SE = Standard Error</td>
 </tr>
 </tfoot>
+
 </table>
+
 </div>
 </div>
 </div>
 <p>This model returns a random intercept variance of zero, meaning that our model is over-specified. We are estimating the variance of both NDVI, which is a cluster-level variable, and the DHS cluster. Let’s try random effects at the region level instead.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">multilevel_model2</span> <span class="op">&lt;-</span> <span class="fu">glmer</span><span class="op">(</span></span>
+<div class="code-copy-outer-scaffold"><div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">multilevel_model2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/lme4/man/glmer.html">glmer</a></span><span class="op">(</span></span>
 <span>  <span class="va">foodgroups_com</span> <span class="op">~</span> <span class="va">NDVI</span> <span class="op">+</span> <span class="va">URBAN</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="va">WEALTHQ</span><span class="op">)</span> <span class="op">+</span> <span class="va">KIDCURAGE</span> <span class="op">+</span></span>
 <span>    <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="va">EDUCLVL</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="va">YEAR</span><span class="op">)</span> <span class="op">+</span> <span class="op">(</span><span class="fl">1</span> <span class="op">|</span> <span class="va">GEO_KE1989_2014</span><span class="op">)</span>, </span>
 <span>  data <span class="op">=</span> <span class="va">dhs_ndvi</span>,</span>
 <span>  family <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/family.html">poisson</a></span><span class="op">(</span>link <span class="op">=</span> <span class="st">"log"</span><span class="op">)</span></span>
 <span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">multilevel_model2</span> <span class="op">%&gt;%</span> </span>
-<span>  <span class="fu">gtsummary</span><span class="fu">::</span><span class="fu">tbl_regression</span><span class="op">(</span></span>
+<span><span class="va">multilevel_model2</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu">gtsummary</span><span class="fu">::</span><span class="fu"><a href="https://www.danieldsjoberg.com/gtsummary/reference/tbl_regression.html">tbl_regression</a></span><span class="op">(</span></span>
 <span>    conf.int <span class="op">=</span> <span class="cn">TRUE</span>, </span>
-<span>    show_single_row <span class="op">=</span> <span class="fu">where</span><span class="op">(</span><span class="va">is.logical</span><span class="op">)</span>,</span>
-<span>    tidy_fun <span class="op">=</span> <span class="fu">broom.mixed</span><span class="fu">::</span><span class="va">tidy</span>,</span>
+<span>    show_single_row <span class="op">=</span> <span class="fu"><a href="https://tidyselect.r-lib.org/reference/where.html">where</a></span><span class="op">(</span><span class="va">is.logical</span><span class="op">)</span>,</span>
+<span>    tidy_fun <span class="op">=</span> <span class="fu">broom.mixed</span><span class="fu">::</span><span class="va"><a href="https://generics.r-lib.org/reference/tidy.html">tidy</a></span>,</span>
 <span>    label <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span></span>
 <span>      `GEO_KE1989_2014.sd__(Intercept)` <span class="op">=</span> <span class="st">"Random Effects: Region (SD)"</span>,</span>
 <span>      `factor(YEAR)` <span class="op">=</span> <span class="st">"Sample year"</span>,</span>
 <span>      `factor(EDUCLVL)` <span class="op">=</span> <span class="st">"Mother's education"</span>,</span>
 <span>      `factor(WEALTHQ)` <span class="op">=</span> <span class="st">"Household wealth quintile"</span></span>
 <span>    <span class="op">)</span></span>
-<span>  <span class="op">)</span> <span class="op">%&gt;%</span> </span>
-<span>  <span class="fu">modify_spanning_header</span><span class="op">(</span><span class="fu">everything</span><span class="op">(</span><span class="op">)</span> <span class="op">~</span> <span class="st">"# Model 2: Random Effects by Region"</span><span class="op">)</span> <span class="op">%&gt;%</span> </span>
-<span>  <span class="fu">add_significance_stars</span><span class="op">(</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span>  <span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://www.danieldsjoberg.com/gtsummary/reference/modify.html">modify_spanning_header</a></span><span class="op">(</span><span class="fu"><a href="https://tidyselect.r-lib.org/reference/everything.html">everything</a></span><span class="op">(</span><span class="op">)</span> <span class="op">~</span> <span class="st">"# Model 2: Random Effects by Region"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://www.danieldsjoberg.com/gtsummary/reference/add_significance_stars.html">add_significance_stars</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div id="udthufdzmf" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 <style>#udthufdzmf table {
@@ -3078,6 +3106,7 @@ Model 1: Random Effects by DHS Cluster
   height: 0px !important;
 }
 </style>
+
 <table class="gt_table caption-top table table-sm table-striped small" data-quarto-bootstrap="false">
 <colgroup>
 <col style="width: 33%">
@@ -3089,14 +3118,11 @@ Model 1: Random Effects by DHS Cluster
 <th colspan="3" id="level 1; label" class="gt_center gt_columns_top_border gt_column_spanner_outer" data-quarto-table-cell-role="th" scope="colgroup"><div class="gt_column_spanner">
 Model 2: Random Effects by Region
 <h1 id="model-2-random-effects-by-region">Model 2: Random Effects by Region</h1>
-
 </div></th>
 </tr>
 <tr class="gt_col_headings even">
 <th id="label" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col"><strong>Characteristic</strong></th>
-<th id="estimate" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col">
-<strong>log(IRR)</strong><span class="gt_footnote_marks" style="white-space:nowrap;font-style:italic;font-weight:normal;line-height:0;"><sup>1</sup></span>
-</th>
+<th id="estimate" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col"><strong>log(IRR)</strong><span class="gt_footnote_marks" style="white-space:nowrap;font-style:italic;font-weight:normal;line-height:0;"><sup>1</sup></span></th>
 <th id="std.error" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col"><strong>SE</strong></th>
 </tr>
 </thead>
@@ -3113,8 +3139,10 @@ Model 2: Random Effects by Region
 </tr>
 <tr class="odd">
 <td class="gt_row gt_left" headers="label">Household wealth quintile</td>
-<td class="gt_row gt_center" headers="estimate"><br></td>
-<td class="gt_row gt_center" headers="std.error"><br></td>
+<td class="gt_row gt_center" headers="estimate"><br>
+</td>
+<td class="gt_row gt_center" headers="std.error"><br>
+</td>
 </tr>
 <tr class="even">
 <td class="gt_row gt_left" headers="label">&nbsp;&nbsp;&nbsp;&nbsp;Poorest</td>
@@ -3148,8 +3176,10 @@ Model 2: Random Effects by Region
 </tr>
 <tr class="even">
 <td class="gt_row gt_left" headers="label">Mother's education</td>
-<td class="gt_row gt_center" headers="estimate"><br></td>
-<td class="gt_row gt_center" headers="std.error"><br></td>
+<td class="gt_row gt_center" headers="estimate"><br>
+</td>
+<td class="gt_row gt_center" headers="std.error"><br>
+</td>
 </tr>
 <tr class="odd">
 <td class="gt_row gt_left" headers="label">&nbsp;&nbsp;&nbsp;&nbsp;No education</td>
@@ -3173,8 +3203,10 @@ Model 2: Random Effects by Region
 </tr>
 <tr class="odd">
 <td class="gt_row gt_left" headers="label">Sample year</td>
-<td class="gt_row gt_center" headers="estimate"><br></td>
-<td class="gt_row gt_center" headers="std.error"><br></td>
+<td class="gt_row gt_center" headers="estimate"><br>
+</td>
+<td class="gt_row gt_center" headers="std.error"><br>
+</td>
 </tr>
 <tr class="even">
 <td class="gt_row gt_left" headers="label">&nbsp;&nbsp;&nbsp;&nbsp;2003</td>
@@ -3194,72 +3226,83 @@ Model 2: Random Effects by Region
 <tr class="odd">
 <td class="gt_row gt_left" headers="label">Random Effects: Region (SD)</td>
 <td class="gt_row gt_center" headers="estimate">0.06</td>
-<td class="gt_row gt_center" headers="std.error"><br></td>
+<td class="gt_row gt_center" headers="std.error"><br>
+</td>
 </tr>
-</tbody>
-<tfoot>
+</tbody><tfoot>
 <tr class="gt_footnotes odd">
-<td colspan="3" class="gt_footnote">
-<span class="gt_footnote_marks" style="white-space:nowrap;font-style:italic;font-weight:normal;line-height:0;"><sup>1</sup></span> <em>p&lt;0.05; <strong>p&lt;0.01; </strong></em>p&lt;0.001</td>
+<td colspan="3" class="gt_footnote"><span class="gt_footnote_marks" style="white-space:nowrap;font-style:italic;font-weight:normal;line-height:0;"><sup>1</sup></span> <em>p&lt;0.05; <strong>p&lt;0.01;</strong></em> p&lt;0.001</td>
 </tr>
 <tr class="gt_sourcenotes even">
 <td colspan="3" class="gt_sourcenote">Abbreviations: CI = Confidence Interval, IRR = Incidence Rate Ratio, SE = Standard Error</td>
 </tr>
 </tfoot>
+
 </table>
+
 </div>
 </div>
 </div>
-<section id="interpreting-the-model" class="level2"><h2 class="anchored" data-anchor-id="interpreting-the-model">Interpreting the Model</h2>
-<p>We need to exponentiate the coefficients of a Poisson model because the coefficients are in log scale.</p>
+
+## Interpreting the Model
+
+We need to exponentiate the coefficients of a Poisson model because the coefficients are in log scale.
+
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co">#Exponentiating the coefficient for NDVI</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/Log.html">exp</a></span><span class="op">(</span><span class="fu">fixef</span><span class="op">(</span><span class="va">multilevel_model2</span><span class="op">)</span><span class="op">[</span><span class="st">"NDVI"</span><span class="op">]</span><span class="op">)</span></span>
+<div class="code-copy-outer-scaffold"><div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co">#Exponentiating the coefficient for NDVI</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/Log.html">exp</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/nlme/man/fixed.effects.html">fixef</a></span><span class="op">(</span><span class="va">multilevel_model2</span><span class="op">)</span><span class="op">[</span><span class="st">"NDVI"</span><span class="op">]</span><span class="op">)</span></span>
 <span><span class="co">#&gt;     NDVI </span></span>
-<span><span class="co">#&gt; 1.281607</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span><span class="co">#&gt; 1.281607</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<p>Because NDVI is a measure between -1 and 1, it is not very useful to interpret the results in terms of a change in NDVI by 1 unit. We can choose a smaller increment to interpret the results, for example, a change in NDVI of 0.1.</p>
+
+Because NDVI is a measure between -1 and 1, it is not very useful to interpret the results in terms of a change in NDVI by 1 unit. We can choose a smaller increment to interpret the results, for example, a change in NDVI of 0.1.
+
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co">#NDVI ranges between 0 and 1</span></span>
+<div class="code-copy-outer-scaffold"><div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co">#NDVI ranges between 0 and 1</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">dhs_ndvi</span><span class="op">$</span><span class="va">NDVI</span><span class="op">)</span></span>
 <span><span class="co">#&gt;    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. </span></span>
 <span><span class="co">#&gt; 0.06704 0.39064 0.56565 0.52987 0.67642 0.84518</span></span>
 <span></span>
 <span><span class="co">#Exponentiating the increment in NDVI by 0.1 instead of 1</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/Log.html">exp</a></span><span class="op">(</span><span class="fu">fixef</span><span class="op">(</span><span class="va">multilevel_model2</span><span class="op">)</span><span class="op">[</span><span class="st">"NDVI"</span><span class="op">]</span><span class="op">*</span><span class="fl">0.1</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/Log.html">exp</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/nlme/man/fixed.effects.html">fixef</a></span><span class="op">(</span><span class="va">multilevel_model2</span><span class="op">)</span><span class="op">[</span><span class="st">"NDVI"</span><span class="op">]</span><span class="op">*</span><span class="fl">0.1</span><span class="op">)</span></span>
 <span><span class="co">#&gt;     NDVI </span></span>
-<span><span class="co">#&gt; 1.025122</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span><span class="co">#&gt; 1.025122</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>From this result, we might interpret this as a 2.6% higher expected count of food groups consumed associated with a 0.1 increase in the NDVI index. We would expect that better vegetation greenness and health (ideally due to better agricultural productivity) would be positively associated with dietary diversity, both for subsistence growers but also more abundance makes food prices more affordable for families not participating in agricultural production.</p>
 <p>How does this compare to the other factors we estimated?</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb15"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org">ggplot2</a></span><span class="op">)</span></span>
+<div class="code-copy-outer-scaffold"><div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb15"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org">ggplot2</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Tidy model output (exponentiate coefficients)</span></span>
-<span><span class="va">model_tidy</span> <span class="op">&lt;-</span> <span class="fu">tidy</span><span class="op">(</span><span class="va">multilevel_model2</span>, effects <span class="op">=</span> <span class="st">"fixed"</span>, conf.int <span class="op">=</span> <span class="cn">TRUE</span>, exponentiate <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="va">model_tidy</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://generics.r-lib.org/reference/tidy.html">tidy</a></span><span class="op">(</span><span class="va">multilevel_model2</span>, effects <span class="op">=</span> <span class="st">"fixed"</span>, conf.int <span class="op">=</span> <span class="cn">TRUE</span>, exponentiate <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">model_tidy</span> <span class="op">%&gt;%</span></span>
-<span>  <span class="fu">mutate</span><span class="op">(</span>term <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/reorder.factor.html">reorder</a></span><span class="op">(</span><span class="va">term</span>, <span class="va">estimate</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span></span>
+<span><span class="va">model_tidy</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>term <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/reorder.factor.html">reorder</a></span><span class="op">(</span><span class="va">term</span>, <span class="va">estimate</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">estimate</span>, y <span class="op">=</span> <span class="va">term</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fl">3</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_linerange.html">geom_errorbarh</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>xmin <span class="op">=</span> <span class="va">conf.low</span>, xmax <span class="op">=</span> <span class="va">conf.high</span><span class="op">)</span>, height <span class="op">=</span> <span class="fl">0.2</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_abline.html">geom_vline</a></span><span class="op">(</span>xintercept <span class="op">=</span> <span class="fl">1</span>, linetype <span class="op">=</span> <span class="st">"dashed"</span>, color <span class="op">=</span> <span class="st">"gray40"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html">scale_x_log10</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>x <span class="op">=</span> <span class="st">"Incidence Rate Ratio (IRR)"</span>, y <span class="op">=</span> <span class="st">""</span>, title <span class="op">=</span> <span class="st">"Exponentiated Effects by Predictor"</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_minimal</a></span><span class="op">(</span>base_size <span class="op">=</span> <span class="fl">13</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_minimal</a></span><span class="op">(</span>base_size <span class="op">=</span> <span class="fl">13</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
-<figure class="figure"><p><img src="index_files/figure-html/unnamed-chunk-15-1.png" class="img-fluid figure-img" width="672"></p>
+<figure class="figure"><p><img src="index_files/figure-html/unnamed-chunk-15-1.png" alt="Exponentiated effects by predictor" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 </div>
 <p>Once we exponentiate the other independent variables in the model, mother’s education and household wealth are appear to be important factors by effect size. The child being above 12 months in age is also an important factor, as they are better able to consume more complex foods as they age.</p>
-</section></section><section id="looking-ahead" class="level1"><h1>Looking ahead</h1>
+</section>
+<section id="looking-ahead" class="level1">
+<h1>Looking ahead</h1>
 <p>NDVI isn’t our only option when working with vegetative and land cover spatial data. Our next post will compare different types of spatial vegetative data and how you might choose which one is best suited for your research purpose.</p>
 
 
-</section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     const icon = "";
     const anchorJS = new window.AnchorJS();
@@ -3660,7 +3703,8 @@ Model 2: Random Effects by Region
   });
   </script>
 </div> <!-- /content -->
-<footer class="footer"><div class="nav-footer">
+<footer class="footer">
+  <div class="nav-footer">
     <div class="nav-footer-left">
       &nbsp;
     </div>   
@@ -3672,6 +3716,8 @@ Model 2: Random Effects by Region
     </div>
   </div>
 </footer>
+
+
 
 
 </body></html>

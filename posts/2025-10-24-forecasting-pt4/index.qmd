@@ -52,10 +52,10 @@ library(stats)
 
 ```
 
-As we have demonstrated how to format DHS and climate data in earlier posts (i.e [here](https://tech.popdata.org/dhs-research-hub/posts/2024-02-04-dhs-chirps/)). We will skip over how to format climate and DHS data together, and get right into temporally harmonizing these data sources and modeling. First, we will read in a .Rda file, which is an R data file. This file contains already formatted child health/ household information from the 2022 Kenya DHS survey, as well as monthly average maximum temperature for a 10 kilometer buffer zone around each DHS cluster from [CHIRTS](https://www.chc.ucsb.edu/data/chirtsdaily). If you are not familiar with how to harmonize climate and DHS data, read the post linked at the start of this paragraph .
+As we have demonstrated how to format DHS and climate data in [earlier posts](https://tech.popdata.org/dhs-research-hub/posts/2024-02-04-dhs-chirps/)), we will skip over how to format climate and DHS data together, and get right into temporally harmonizing these data sources and modeling. First, we will read in a .Rda file, which is an R data file. This file contains already formatted child health/ household information from the 2022 Kenya DHS survey, as well as monthly average maximum temperature for a 10 kilometer buffer zone around each DHS cluster from [CHIRTS](https://www.chc.ucsb.edu/data/chirtsdaily). If you are not familiar with how to harmonize climate and DHS data, read the post linked at the start of this paragraph .
 
 ::: column-margin
-The DHS is currently reviewing applications for data access. Apply for and access DHS data [here](https://www.idhsdata.org/idhs/).
+The DHS is currently reviewing applications for data access. Click here to [apply for and access DHS data](https://www.idhsdata.org/idhs/).
 :::
 
 ```{r}
@@ -178,7 +178,7 @@ tempandDHSwithsurveyfilter$avtemppresurvey<-((tempandDHSwithsurveyfilter$presurv
 Now we will build a multivariate model that takes into account the multilevel structure of our dataset. We use various variables that are known to influence child health outcomes such as: household urban/ rural status, maternal educational attainment, child age, child sex, maternal marital status, and whether the household has a finished floor or not.
 
 ::: callout-note
-Research questions that require multi-level analysis involve outcomes that are clustered by time or space. This perspective requires consideration at the person-level and some other structural level. Multi-level data can include 2 or more levels. DHS surveys include information at the household, cluster, regional, and national levels. Read more [here](https://dhsprogram.com/publications/publication-mr27-methodological-reports.cfm).
+Research questions that require multi-level analysis involve outcomes that are clustered by time or space. This perspective requires consideration at the person-level and some other structural level. Multi-level data can include 2 or more levels. DHS surveys include information at the household, cluster, regional, and national levels. Read more about [Multilevel Modeling Using DHS Surveys](https://dhsprogram.com/publications/publication-mr27-methodological-reports.cfm).
 
 Why use a multilevel model instead of ordinary least squares (OLS) regression? If data are clustered at a structural level, we cannot assume **independence of observations**, a key assumption of OLS.
 :::
@@ -194,13 +194,45 @@ wastingmlm <- lmer(w4age ~ urban + educationlevel + curchildage+ childsex + marr
 summary(wastingmlm)
 ```
 
-An alternative way to present our results, can be accomplished with the modelsummary() pacakge.
+An alternative way to present our results, can be accomplished with the modelsummary() package.
 
 ```{r}
 library(modelsummary)
+library(knitr)
+library(kableExtra)
 
-modelsummary(wastingmlm, stars = TRUE, title = 'Multilevel Regression Model Results')
-```
+tbl_df <- modelsummary(
+  list("(1)" = wastingmlm),
+  stars = TRUE,
+  output = "dataframe"
+)
+
+model_col <- setdiff(names(tbl_df), c("part", "term", "statistic"))
+
+tbl_df$Variable <- ifelse(
+  tbl_df$part == "estimates" & tbl_df$statistic == "estimate",
+  tbl_df$term,
+  ifelse(tbl_df$part == "estimates", "", tbl_df$term)
+)
+
+tbl_out <- tbl_df[, c("Variable", model_col)]
+names(tbl_out) <- c("Variable", "(1)")
+
+kable(
+  tbl_out,
+  format = "html",
+  caption = "Multilevel Regression Model Results",
+  escape = FALSE,
+  col.names = c("Variable", "(1)"),
+  table.attr = 'class="table table-borderless compact-model-table"'
+) |>
+  kable_styling(full_width = FALSE, position = "center") |>
+  footnote(
+    general = "+ p < 0.1, * p < 0.05, ** p < 0.01, *** p < 0.001",
+    general_title = "",
+    footnote_as_chunk = TRUE
+  )
+```  
 
 Our multivariate, linear model, with a random intercept for each DHS cluster shows a negative, significant relationship between the average maximum temperature for 1-3 months prior to a survey and child weight-for-age z-score.
 
@@ -210,31 +242,29 @@ Now that we have built a model predicting child weight-for-age z-score, we will 
 
 We will begin this process by reading in the climate scenario data. For this example, we will use SSP5-8.5. Read more about this SSP and how to download and format it in order to use it with DHS data in [the post before this one.](https://tech.popdata.org/dhs-research-hub/posts/2025-09-05-forecasting-pt3/)
 
-```{r}
-#read in climate scenario data
-
-load("C:/Users/Rebecca/Downloads/ken_Tmax_585_2050_spatial_mean_sf.Rda")
-
-load("C:/Users/Rebecca/Downloads/ken_Tmax_585_2049_spatial_mean_sf.Rda")
-
-```
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co">#read in climate scenario data</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/load.html">load</a></span><span class="op">(</span><span class="st">"C:/Users/Rebecca/Downloads/ken_Tmax_585_2050_spatial_mean_sf.Rda"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/load.html">load</a></span><span class="op">(</span><span class="st">"C:/Users/Rebecca/Downloads/ken_Tmax_585_2049_spatial_mean_sf.Rda"</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
 
 We grab only a subset of months from 2049 because we are creating a forecast for 2050, not 2049. The reason we need information is because we are using an anticipatory action framework, which involves studying how climate trends prior to 2050 influence child malnutrition in 2050.
 
 The months we need from 2049 are stored in columns 21:23 in this example. Second, as we mentioned earlier, we have renamed our DHS cluster variable to be ID, so we will rename it here as well to streamline any further merging.
 
-```{r}
-#make a subset of the 2049 since we only need a few months of data from this year
-ken_Tmax_585_2049<-select(ken_Tmax_585_2049_spatial_mean_sf, 21:23)
-
-climatescenariodata<-st_join(ken_Tmax_585_2050_spatial_mean_sf, ken_Tmax_585_2049)
-
-#rename DHS cluster to ID for merging
-
-climatescenariodata<-climatescenariodata%>%
-  rename('ID'= 'DHSCLUST')
-
-```
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co">#make a subset of the 2049 since we only need a few months of data from this year</span></span>
+<span><span class="va">ken_Tmax_585_2049</span><span class="op">&lt;-</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">ken_Tmax_585_2049_spatial_mean_sf</span>, <span class="fl">21</span><span class="op">:</span><span class="fl">23</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">climatescenariodata</span><span class="op">&lt;-</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_join.html">st_join</a></span><span class="op">(</span><span class="va">ken_Tmax_585_2050_spatial_mean_sf</span>, <span class="va">ken_Tmax_585_2049</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">#rename DHS cluster to ID for merging</span></span>
+<span></span>
+<span><span class="va">climatescenariodata</span><span class="op">&lt;-</span><span class="va">climatescenariodata</span><span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/rename.html">rename</a></span><span class="op">(</span><span class="st">'ID'</span><span class="op">=</span> <span class="st">'DHSCLUST'</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
 
 Now we will need to create dataframe that is the same structure as the dataframe that we used to create our model. We will need to reorganize our climate scenario data to be 1-3 month averages prior to the month that the DHS survey was administered. We can do this by calculating the month of the DHS using information from our [century-month-code](https://dhsprogram.com/data/Guide-to-DHS-Statistics/Organization_of_DHS_Data.htm) variable.
 
@@ -268,212 +298,214 @@ Next, we need to merge our climate scenario information with this new dataframe 
 
 First, we select a subset of our cliamte scenario data that only includes the year-months that we need. In this example, these variables are in columns 21:35.
 
-```{r}
-
-climatescenarioselect<-select(climatescenariodata, ID, 21:35)
-
-#drop geometry 
-climatescenarioselect_df <- climatescenarioselect%>% 
-  st_drop_geometry()
-
-```
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb16"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span></span>
+<span><span class="va">climatescenarioselect</span><span class="op">&lt;-</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">climatescenariodata</span>, <span class="va">ID</span>, <span class="fl">21</span><span class="op">:</span><span class="fl">35</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">#drop geometry </span></span>
+<span><span class="va">climatescenarioselect_df</span> <span class="op">&lt;-</span> <span class="va">climatescenarioselect</span><span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_geometry.html">st_drop_geometry</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
 
 At this point, we have built a dataframe that contains the DHS cluster column and the projecte average monthly maximum temperature for select months in 2049 and 2050. We have to restructure this to be in the 1-3 month prior to the survey date format, as we did above with the historical information.
 
 We can start by using pivot_longer to make this our projected temperature data into the long format. In this example, we create a scenario_DATE variable with stores the full date in mm-dd-yyyy format. Then we can calculate the CMC for this variable.
 
-```{r}
-#make data long
-
-climatescenario_long <- climatescenarioselect_df%>%
-  pivot_longer(
-    cols = -ID, # Do not pivot the ID col
-    names_to = "scenario_DATE", # Rename output columns
-    values_to = "AV_TEMP"
-  ) %>%
-  mutate(
-    scenario_DATE= str_replace(scenario_DATE, "ym_", ""),
-    scenario_DATE = ym(scenario_DATE))
-
-
-#calculate the CMC
-
-climatescenario_long<-climatescenario_long%>%
-  mutate(scenarioCMC=(year(scenario_DATE) - 1900) * 12 + month(scenario_DATE))
-
-```
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb17"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co">#make data long</span></span>
+<span></span>
+<span><span class="va">climatescenario_long</span> <span class="op">&lt;-</span> <span class="va">climatescenarioselect_df</span><span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/pivot_longer.html">pivot_longer</a></span><span class="op">(</span></span>
+<span>    cols <span class="op">=</span> <span class="op">-</span><span class="va">ID</span>, <span class="co"># Do not pivot the ID col</span></span>
+<span>    names_to <span class="op">=</span> <span class="st">"scenario_DATE"</span>, <span class="co"># Rename output columns</span></span>
+<span>    values_to <span class="op">=</span> <span class="st">"AV_TEMP"</span></span>
+<span>  <span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span></span>
+<span>    scenario_DATE<span class="op">=</span> <span class="fu"><a href="https://stringr.tidyverse.org/reference/str_replace.html">str_replace</a></span><span class="op">(</span><span class="va">scenario_DATE</span>, <span class="st">"ym_"</span>, <span class="st">""</span><span class="op">)</span>,</span>
+<span>    scenario_DATE <span class="op">=</span> <span class="fu"><a href="https://lubridate.tidyverse.org/reference/ymd.html">ym</a></span><span class="op">(</span><span class="va">scenario_DATE</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span></span>
+<span><span class="co">#calculate the CMC</span></span>
+<span></span>
+<span><span class="va">climatescenario_long</span><span class="op">&lt;-</span><span class="va">climatescenario_long</span><span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>scenarioCMC<span class="op">=</span><span class="op">(</span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/year.html">year</a></span><span class="op">(</span><span class="va">scenario_DATE</span><span class="op">)</span> <span class="op">-</span> <span class="fl">1900</span><span class="op">)</span> <span class="op">*</span> <span class="fl">12</span> <span class="op">+</span> <span class="fu"><a href="https://lubridate.tidyverse.org/reference/month.html">month</a></span><span class="op">(</span><span class="va">scenario_DATE</span><span class="op">)</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
 
 Now we will change our DHS survey date variable, to make it as if it were collected in the year of 2050. We can do this by editing the CMC to match that of 2050. First, we extract the exact survey dates from our dataset. This variable is in CMC format.
 
-```{r}
-
-#first see what the unique values of the survey date are
-
-unique(tempandDHSwithsurveyfilter$surveydate)
-
-#another way to check this is by creating a month variable
-
-#calculate the month from  the cmc
-
-tempandDHSwithsurveyfilter<-tempandDHSwithsurveyfilter%>%
-  mutate(month= surveydate- 12 *(2022-1900))
-
-unique(tempandDHSwithsurveyfilter$month)
-```
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb18"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span></span>
+<span><span class="co">#first see what the unique values of the survey date are</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rspatial.github.io/terra/reference/unique.html">unique</a></span><span class="op">(</span><span class="va">tempandDHSwithsurveyfilter</span><span class="op">$</span><span class="va">surveydate</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 1468 1469 1470 1471 1467 1466</span></span>
+<span></span>
+<span><span class="co">#another way to check this is by creating a month variable</span></span>
+<span></span>
+<span><span class="co">#calculate the month from  the cmc</span></span>
+<span></span>
+<span><span class="va">tempandDHSwithsurveyfilter</span><span class="op">&lt;-</span><span class="va">tempandDHSwithsurveyfilter</span><span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>month<span class="op">=</span> <span class="va">surveydate</span><span class="op">-</span> <span class="fl">12</span> <span class="op">*</span><span class="op">(</span><span class="fl">2022</span><span class="op">-</span><span class="fl">1900</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rspatial.github.io/terra/reference/unique.html">unique</a></span><span class="op">(</span><span class="va">tempandDHSwithsurveyfilter</span><span class="op">$</span><span class="va">month</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 4 5 6 7 3 2</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
 
 Now that we know what the exact dates/ months are. We can write code to create a 'future' survey date.
 
-```{r}
-
-#now use case_when to get the CMC for these specific months in 2049-2050
-
-tempandDHSwithsurveyfilter<-tempandDHSwithsurveyfilter%>%
-  mutate(futuresurveydate= case_when(month==2~ 1802,
-                          month==3~ 1803,
-                          month==4~ 1804,
-                          month==5~ 1805,
-                          month==6~ 1806,
-                          month==7~ 1807))
-
-
-
-```
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb19"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span></span>
+<span><span class="co">#now use case_when to get the CMC for these specific months in 2049-2050</span></span>
+<span></span>
+<span><span class="va">tempandDHSwithsurveyfilter</span><span class="op">&lt;-</span><span class="va">tempandDHSwithsurveyfilter</span><span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>futuresurveydate<span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/case-and-replace-when.html">case_when</a></span><span class="op">(</span><span class="va">month</span><span class="op">==</span><span class="fl">2</span><span class="op">~</span> <span class="fl">1802</span>,</span>
+<span>                          <span class="va">month</span><span class="op">==</span><span class="fl">3</span><span class="op">~</span> <span class="fl">1803</span>,</span>
+<span>                          <span class="va">month</span><span class="op">==</span><span class="fl">4</span><span class="op">~</span> <span class="fl">1804</span>,</span>
+<span>                          <span class="va">month</span><span class="op">==</span><span class="fl">5</span><span class="op">~</span> <span class="fl">1805</span>,</span>
+<span>                          <span class="va">month</span><span class="op">==</span><span class="fl">6</span><span class="op">~</span> <span class="fl">1806</span>,</span>
+<span>                          <span class="va">month</span><span class="op">==</span><span class="fl">7</span><span class="op">~</span> <span class="fl">1807</span><span class="op">)</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
 
 Now that we have a future survey date in our dataset, we can lag our climate scenario information.
 
-```{r}
-
-#merge with DHS 
-climatescenarioreframe <- merge(tempandDHSwithsurveyfilter, climatescenario_long, by="ID")
-
-#create new variables for 1-3 months before future survey date
-
-
-climatescenarioreframe$prefuturesurveytemp1<-ifelse(climatescenarioreframe$scenarioCMC== (climatescenarioreframe$futuresurveydate-1), climatescenarioreframe$AV_TEMP, NA)
-
-
-climatescenarioreframe$prefuturesurveytemp2<-ifelse(climatescenarioreframe$scenarioCMC== (climatescenarioreframe$futuresurveydate-2), climatescenarioreframe$AV_TEMP, NA)
-
-
-climatescenarioreframe$prefuturesurveytemp3<-ifelse(climatescenarioreframe$scenarioCMC== (climatescenarioreframe$futuresurveydate-3), climatescenarioreframe$AV_TEMP, NA)
-```
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb20"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span></span>
+<span><span class="co">#merge with DHS </span></span>
+<span><span class="va">climatescenarioreframe</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rspatial.github.io/terra/reference/merge.html">merge</a></span><span class="op">(</span><span class="va">tempandDHSwithsurveyfilter</span>, <span class="va">climatescenario_long</span>, by<span class="op">=</span><span class="st">"ID"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">#create new variables for 1-3 months before future survey date</span></span>
+<span></span>
+<span></span>
+<span><span class="va">climatescenarioreframe</span><span class="op">$</span><span class="va">prefuturesurveytemp1</span><span class="op">&lt;-</span><span class="fu"><a href="https://rdrr.io/r/base/ifelse.html">ifelse</a></span><span class="op">(</span><span class="va">climatescenarioreframe</span><span class="op">$</span><span class="va">scenarioCMC</span><span class="op">==</span> <span class="op">(</span><span class="va">climatescenarioreframe</span><span class="op">$</span><span class="va">futuresurveydate</span><span class="op">-</span><span class="fl">1</span><span class="op">)</span>, <span class="va">climatescenarioreframe</span><span class="op">$</span><span class="va">AV_TEMP</span>, <span class="cn">NA</span><span class="op">)</span></span>
+<span></span>
+<span></span>
+<span><span class="va">climatescenarioreframe</span><span class="op">$</span><span class="va">prefuturesurveytemp2</span><span class="op">&lt;-</span><span class="fu"><a href="https://rdrr.io/r/base/ifelse.html">ifelse</a></span><span class="op">(</span><span class="va">climatescenarioreframe</span><span class="op">$</span><span class="va">scenarioCMC</span><span class="op">==</span> <span class="op">(</span><span class="va">climatescenarioreframe</span><span class="op">$</span><span class="va">futuresurveydate</span><span class="op">-</span><span class="fl">2</span><span class="op">)</span>, <span class="va">climatescenarioreframe</span><span class="op">$</span><span class="va">AV_TEMP</span>, <span class="cn">NA</span><span class="op">)</span></span>
+<span></span>
+<span></span>
+<span><span class="va">climatescenarioreframe</span><span class="op">$</span><span class="va">prefuturesurveytemp3</span><span class="op">&lt;-</span><span class="fu"><a href="https://rdrr.io/r/base/ifelse.html">ifelse</a></span><span class="op">(</span><span class="va">climatescenarioreframe</span><span class="op">$</span><span class="va">scenarioCMC</span><span class="op">==</span> <span class="op">(</span><span class="va">climatescenarioreframe</span><span class="op">$</span><span class="va">futuresurveydate</span><span class="op">-</span><span class="fl">3</span><span class="op">)</span>, <span class="va">climatescenarioreframe</span><span class="op">$</span><span class="va">AV_TEMP</span>, <span class="cn">NA</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
 
 Now we will restructure the dataset one last time and merge it with the dataframe for 2050 that we have created.
 
-```{r}
-#pivot long
-
-climatescenarioreframe2<-climatescenarioreframe %>%
-  pivot_longer(
-    cols = contains("futuresurveytemp"),
-    names_to = "cmcinreftosurvey",
-    names_prefix = "temp",
-    values_to = "temperature",
-    values_drop_na = TRUE)
-
-#pivot wider
-scenario_wide2 <- climatescenarioreframe2%>%
-  pivot_wider(id_cols = c(caseid, ID, birthorder), names_from = cmcinreftosurvey, values_from = temperature)
-
-
-#merge with 2050 df 
-df_2050_scenariodata<- left_join(build2050frame, scenario_wide2, by= c('caseid', 'birthorder', 'ID'))
-
-```
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb21"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co">#pivot long</span></span>
+<span></span>
+<span><span class="va">climatescenarioreframe2</span><span class="op">&lt;-</span><span class="va">climatescenarioreframe</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/pivot_longer.html">pivot_longer</a></span><span class="op">(</span></span>
+<span>    cols <span class="op">=</span> <span class="fu"><a href="https://tidyselect.r-lib.org/reference/starts_with.html">contains</a></span><span class="op">(</span><span class="st">"futuresurveytemp"</span><span class="op">)</span>,</span>
+<span>    names_to <span class="op">=</span> <span class="st">"cmcinreftosurvey"</span>,</span>
+<span>    names_prefix <span class="op">=</span> <span class="st">"temp"</span>,</span>
+<span>    values_to <span class="op">=</span> <span class="st">"temperature"</span>,</span>
+<span>    values_drop_na <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">#pivot wider</span></span>
+<span><span class="va">scenario_wide2</span> <span class="op">&lt;-</span> <span class="va">climatescenarioreframe2</span><span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/pivot_wider.html">pivot_wider</a></span><span class="op">(</span>id_cols <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">caseid</span>, <span class="va">ID</span>, <span class="va">birthorder</span><span class="op">)</span>, names_from <span class="op">=</span> <span class="va">cmcinreftosurvey</span>, values_from <span class="op">=</span> <span class="va">temperature</span><span class="op">)</span></span>
+<span></span>
+<span></span>
+<span><span class="co">#merge with 2050 df </span></span>
+<span><span class="va">df_2050_scenariodata</span><span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">left_join</a></span><span class="op">(</span><span class="va">build2050frame</span>, <span class="va">scenario_wide2</span>, by<span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">'caseid'</span>, <span class="st">'birthorder'</span>, <span class="st">'ID'</span><span class="op">)</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
 
 Next, since we worked with the average maximum temperature for 1-3 months prior to a survey. We need to create an average variable of our climate scenario data.
 
-```{r}
-#calculate the average temperature for 1-3 months prior to survey
-
-df_2050_scenariodata$avtemppresurvey<-((df_2050_scenariodata$prefuturesurveytemp1+ df_2050_scenariodata$prefuturesurveytemp2+ df_2050_scenariodata$prefuturesurveytemp3)/3)
-
-```
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb22"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co">#calculate the average temperature for 1-3 months prior to survey</span></span>
+<span></span>
+<span><span class="va">df_2050_scenariodata</span><span class="op">$</span><span class="va">avtemppresurvey</span><span class="op">&lt;-</span><span class="op">(</span><span class="op">(</span><span class="va">df_2050_scenariodata</span><span class="op">$</span><span class="va">prefuturesurveytemp1</span><span class="op">+</span> <span class="va">df_2050_scenariodata</span><span class="op">$</span><span class="va">prefuturesurveytemp2</span><span class="op">+</span> <span class="va">df_2050_scenariodata</span><span class="op">$</span><span class="va">prefuturesurveytemp3</span><span class="op">)</span><span class="op">/</span><span class="fl">3</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
 
 ## How Much Hotter Is 2050 than 2022?
 
 Before we generate our weight-for-age forecasts, let's visualize how much hotter the temperature in projected to be in 2050 is than the observed temperature in 2022. For the sake of comparison, let's visualize the difference between the average monthly maximum temperature in January 2022 and January 2050.
 
-```{r, code}
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb23"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span></span>
+<span><span class="co">#2022</span></span>
+<span><span class="va">Jan2022</span><span class="op">&lt;-</span><span class="va">ken_chirts_long_filter</span><span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span><span class="op">(</span><span class="va">CHIRTSCMC</span><span class="op">==</span><span class="fl">1465</span><span class="op">)</span><span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/rename.html">rename</a></span><span class="op">(</span><span class="st">'AV_TEMP_2022'</span><span class="op">=</span><span class="st">'AV_TEMP'</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">#2050</span></span>
+<span><span class="va">Jan2050</span><span class="op">&lt;-</span><span class="va">climatescenario_long</span><span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span><span class="op">(</span><span class="va">scenarioCMC</span><span class="op">==</span><span class="fl">1801</span><span class="op">)</span><span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/rename.html">rename</a></span><span class="op">(</span><span class="st">'AV_TEMP_2050'</span><span class="op">=</span><span class="st">'AV_TEMP'</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">#merge them </span></span>
+<span></span>
+<span><span class="va">temptogether</span><span class="op">&lt;-</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">left_join</a></span><span class="op">(</span><span class="va">Jan2022</span>, <span class="va">Jan2050</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Joining with `by = join_by(ID)`</span></span>
+<span></span>
+<span><span class="co">#add the geometry back in</span></span>
+<span></span>
+<span><span class="va">justgps</span><span class="op">&lt;-</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">ken_Tmax_585_2049_spatial_mean_sf</span>, ID<span class="op">=</span><span class="va">DHSCLUST</span>, <span class="va">geometry</span><span class="op">)</span></span>
+<span> </span>
+<span><span class="va">temp20222050wgeo</span><span class="op">&lt;-</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">left_join</a></span><span class="op">(</span><span class="va">temptogether</span>, <span class="va">justgps</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Joining with `by = join_by(ID)`</span></span>
+<span></span>
+<span><span class="co">#convert to spatial frame</span></span>
+<span></span>
+<span><span class="va">temptogetherwgeo</span><span class="op">&lt;-</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/sf.html">st_sf</a></span><span class="op">(</span><span class="va">temp20222050wgeo</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">#calculate the difference between them</span></span>
+<span></span>
+<span><span class="va">temp20222050wgeo</span><span class="op">$</span><span class="va">delta</span><span class="op">&lt;-</span><span class="va">temp20222050wgeo</span><span class="op">$</span><span class="va">AV_TEMP_2050</span><span class="op">-</span><span class="va">temp20222050wgeo</span><span class="op">$</span><span class="va">AV_TEMP_2022</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
 
-#2022
-Jan2022<-ken_chirts_long_filter%>%
-  filter(CHIRTSCMC==1465)%>%
-  rename('AV_TEMP_2022'='AV_TEMP')
+Next, we read in an administrative boundary file for Kenya, and use both ggplot() and a package inspired by the filmmaker [Wes Anderson](https://www.imdb.com/name/nm0027572/), that allows you to use a color palette reminiscent of the colors you see in his films. Read more about the [Wes Anderson Palettes package] (https://github.com/karthik/wesanderson).
 
-#2050
-Jan2050<-climatescenario_long%>%
-  filter(scenarioCMC==1801)%>%
-  rename('AV_TEMP_2050'='AV_TEMP')
-
-#merge them 
-
-temptogether<-left_join(Jan2022, Jan2050)
-
-#add the geometry back in
-
-justgps<-select(ken_Tmax_585_2049_spatial_mean_sf, ID=DHSCLUST, geometry)
- 
-temp20222050wgeo<-left_join(temptogether, justgps)
-
-#convert to spatial frame
-
-temptogetherwgeo<-st_sf(temp20222050wgeo)
-
-#calculate the difference between them
-
-temp20222050wgeo$delta<-temp20222050wgeo$AV_TEMP_2050-temp20222050wgeo$AV_TEMP_2022
-
-
-```
-
-Next, we read in an administrative boundary file for Kenya, and use both ggplot() and a package inspired by the filmmaker [Wes Anderson](https://www.imdb.com/name/nm0027572/), that allows you to use a color palette reminiscent of the colors you see in his films. Read more about this package [here](https://github.com/karthik/wesanderson).
-
-```{r}
-#| code-fold: true
-#| fig-align: center
-#| column: page
-#| out-width: "100%"
-
-#read into kenya borders
-
-ken_borders<-st_read("data/geo_ke1989_2014/geo_ke1989_2014.shp")
-
-
-# Load the wesanderson package 
-library(wesanderson)
-
-
-# Create a reversed continuous gradient from Zissou1, a reference to the 'The Life Aquatic'
-gb_palette <- colorRampPalette(wesanderson::wes_palette("Zissou1", type = "continuous"))(100)
-
-ggplot(temp20222050wgeo) +
-  geom_sf(aes(geometry = geometry, color = delta), size = 5, alpha = 0.8) +
-  geom_sf(data = ken_borders, color = "black", fill = NA, linewidth = 0.4) +
-  scale_color_gradientn(colors = gb_palette) +
-  labs(
-    title = "Delta between Monthly Average Maximum Temperature \nPredicted in January 2050 and Observed in January 2022",
-    color = "Delta (°C)"
-  ) +
-  theme_minimal(base_size = 20)+
-theme(
-  plot.title = element_text(size = 14)
-)
-
-```
+<div class="cell page-columns page-full" data-layout-align="center">
+<details class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb24"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co">#read into kenya borders</span></span>
+<span></span>
+<span><span class="va">ken_borders</span><span class="op">&lt;-</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_read.html">st_read</a></span><span class="op">(</span><span class="st">"data/geo_ke1989_2014/geo_ke1989_2014.shp"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Reading layer `geo_ke1989_2014' from data source </span></span>
+<span><span class="co">#&gt;   `C:\Users\Rebecca\Documents\Projects\dhs-research-hub\posts\2025-10-24-forecasting-pt4\data\geo_ke1989_2014\geo_ke1989_2014.shp' </span></span>
+<span><span class="co">#&gt;   using driver `ESRI Shapefile'</span></span>
+<span><span class="co">#&gt; Simple feature collection with 9 features and 3 fields</span></span>
+<span><span class="co">#&gt; Geometry type: MULTIPOLYGON</span></span>
+<span><span class="co">#&gt; Dimension:     XY</span></span>
+<span><span class="co">#&gt; Bounding box:  xmin: 33.90983 ymin: -4.680056 xmax: 41.90684 ymax: 5.033421</span></span>
+<span><span class="co">#&gt; Geodetic CRS:  WGS 84</span></span>
+<span></span>
+<span></span>
+<span><span class="co"># Load the wesanderson package </span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/karthik/wesanderson">wesanderson</a></span><span class="op">)</span></span>
+<span><span class="co">#&gt; Warning: package 'wesanderson' was built under R version 4.5.1</span></span>
+<span></span>
+<span></span>
+<span><span class="co"># Create a reversed continuous gradient from Zissou1, a reference to the 'The Life Aquatic'</span></span>
+<span><span class="va">gb_palette</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/grDevices/colorRamp.html">colorRampPalette</a></span><span class="op">(</span><span class="fu">wesanderson</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/wesanderson/man/wes_palette.html">wes_palette</a></span><span class="op">(</span><span class="st">"Zissou1"</span>, type <span class="op">=</span> <span class="st">"continuous"</span><span class="op">)</span><span class="op">)</span><span class="op">(</span><span class="fl">100</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">temp20222050wgeo</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggsf.html">geom_sf</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>geometry <span class="op">=</span> <span class="va">geometry</span>, color <span class="op">=</span> <span class="va">delta</span><span class="op">)</span>, size <span class="op">=</span> <span class="fl">5</span>, alpha <span class="op">=</span> <span class="fl">0.8</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggsf.html">geom_sf</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">ken_borders</span>, color <span class="op">=</span> <span class="st">"black"</span>, fill <span class="op">=</span> <span class="cn">NA</span>, linewidth <span class="op">=</span> <span class="fl">0.4</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_gradient.html">scale_color_gradientn</a></span><span class="op">(</span>colors <span class="op">=</span> <span class="va">gb_palette</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span></span>
+<span>    title <span class="op">=</span> <span class="st">"Delta between Monthly Average Maximum Temperature \nPredicted in January 2050 and Observed in January 2022"</span>,</span>
+<span>    color <span class="op">=</span> <span class="st">"Delta (°C)"</span></span>
+<span>  <span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_minimal</a></span><span class="op">(</span>base_size <span class="op">=</span> <span class="fl">20</span><span class="op">)</span><span class="op">+</span></span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span><span class="op">(</span></span>
+<span>  plot.title <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_text</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fl">14</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details><div class="cell-output-display page-columns page-full">
+<div class="quarto-figure quarto-figure-center page-columns page-full">
+<figure class="figure page-columns page-full"><p class="page-columns page-full"><img src="index_files/figure-html/unnamed-chunk-23-1.png" alt="Delta between monthly ave max temp predicted Jan 2050, Observed Jan 2022" class="img-fluid quarto-figure quarto-figure-center figure-img column-page" style="width:100.0%"></p>
+</figure>
+</div>
+</div>
+</div>
 
 # Generate the Forecasts
 
 Now we have our dataframe for 2050, we can generate the fitted values of our outcome, weight-for-age, for 2050. We can use the predict() function to run the model we have built earlier with the dataframe we have created in which we substituted out our historical climate data for climate scenario data.
 
-```{r}
-
-#generate the predictions
-
-forecasts_2050 <-predict(wastingmlm, newdata = df_2050_scenariodata, allow.new.levels = TRUE)
-
-
-```
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb25"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span></span>
+<span><span class="co">#generate the predictions</span></span>
+<span></span>
+<span><span class="va">forecasts_2050</span> <span class="op">&lt;-</span><span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">wastingmlm</span>, newdata <span class="op">=</span> <span class="va">df_2050_scenariodata</span>, allow.new.levels <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
 
 # Comparing our Observed and Forecasted Values
 
@@ -481,48 +513,46 @@ Now let's compare our forecasted weight-for-age z-scores for 2050 using SSP5-8.5
 
 To visualize the differences, we will calculate the observed average weight-for-age z-score per DHS cluster in 2022, alongside the predicted one for 2050, given the SSP5-8.5 assumptions.
 
-```{r}
-
-# Combine actual and predicted values
-forecasts_and_observed <- data.frame(Predictedw4age=forecasts_2050, caseid=df_2050_scenariodata$caseid, ID=df_2050_scenariodata$ID, observedw4age=tempandDHSwithsurveyfilter$w4age)
-
-```
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb26"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span></span>
+<span><span class="co"># Combine actual and predicted values</span></span>
+<span><span class="va">forecasts_and_observed</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span>Predictedw4age<span class="op">=</span><span class="va">forecasts_2050</span>, caseid<span class="op">=</span><span class="va">df_2050_scenariodata</span><span class="op">$</span><span class="va">caseid</span>, ID<span class="op">=</span><span class="va">df_2050_scenariodata</span><span class="op">$</span><span class="va">ID</span>, observedw4age<span class="op">=</span><span class="va">tempandDHSwithsurveyfilter</span><span class="op">$</span><span class="va">w4age</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
 
 Now let's plot the distribution of our observed and predicted weight-for-age scores.
 
-```{r, fig.width=10, fig.height=6}
-#| code-fold: true
-#| fig-align: center
-#| column: page
-#| out-width: "100%"
+<div class="cell page-columns page-full" data-layout-align="center">
+<details class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb27"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Reshape to long format</span></span>
+<span><span class="va">forecasts_and_observed_long</span> <span class="op">&lt;-</span> <span class="va">forecasts_and_observed</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/pivot_longer.html">pivot_longer</a></span><span class="op">(</span>cols <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">Predictedw4age</span>, <span class="va">observedw4age</span><span class="op">)</span>, names_to <span class="op">=</span> <span class="st">"predicted_observed"</span>, values_to <span class="op">=</span> <span class="st">"value"</span><span class="op">)</span></span>
+<span></span>
+<span></span>
+<span><span class="va">forecasts_and_observed_long</span> <span class="op">&lt;-</span> <span class="va">forecasts_and_observed_long</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span><span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="va">value</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Histogram with facet_wrap</span></span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">forecasts_and_observed_long</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">value</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_histogram.html">geom_histogram</a></span><span class="op">(</span>binwidth <span class="op">=</span> <span class="fl">0.5</span>, fill <span class="op">=</span> <span class="st">"skyblue"</span>, color <span class="op">=</span> <span class="st">"white"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/facet_wrap.html">facet_wrap</a></span><span class="op">(</span><span class="op">~</span> <span class="va">predicted_observed</span>, scales <span class="op">=</span> <span class="st">"fixed"</span>, labeller <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labeller.html">labeller</a></span><span class="op">(</span>predicted_observed <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span></span>
+<span>    <span class="st">"observedw4age"</span> <span class="op">=</span> <span class="st">"Observed values, 2022"</span>,</span>
+<span>    <span class="st">"Predictedw4age"</span> <span class="op">=</span> <span class="st">"Forecasted values, 2050, SSP5-8.5"</span></span>
+<span>  <span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_minimal</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Distribution of weight-for-age z-scores "</span>,</span>
+<span>       x <span class="op">=</span> <span class="st">"Weight-for-age z-score"</span>,</span>
+<span>       y <span class="op">=</span> <span class="st">"Count"</span><span class="op">)</span><span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_minimal</a></span><span class="op">(</span>base_size <span class="op">=</span> <span class="fl">20</span><span class="op">)</span><span class="op">+</span></span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span><span class="op">(</span></span>
+<span>  plot.title <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_text</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fl">14</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details><div class="cell-output-display page-columns page-full">
+<div class="quarto-figure quarto-figure-center page-columns page-full">
+<figure class="figure page-columns page-full"><p class="page-columns page-full"><img src="index_files/figure-html/unnamed-chunk-26-1.png" alt="Distribution of weight-for-age z-scores" class="img-fluid quarto-figure quarto-figure-center figure-img column-page" style="width:100.0%"></p>
+</figure>
+</div>
+</div>
+</div>
 
-# Reshape to long format
-forecasts_and_observed_long <- forecasts_and_observed %>%
-  pivot_longer(cols = c(Predictedw4age, observedw4age), names_to = "predicted_observed", values_to = "value")
-
-
-forecasts_and_observed_long <- forecasts_and_observed_long %>%
-  filter(!is.na(value))
-
-# Histogram with facet_wrap
-ggplot(forecasts_and_observed_long, aes(x = value)) +
-  geom_histogram(binwidth = 0.5, fill = "skyblue", color = "white") +
-  facet_wrap(~ predicted_observed, scales = "fixed", labeller = labeller(predicted_observed = c(
-    "observedw4age" = "Observed values, 2022",
-    "Predictedw4age" = "Forecasted values, 2050, SSP5-8.5"
-  ))) +
-  theme_minimal() +
-  labs(title = "Distribution of weight-for-age z-scores ",
-       x = "Weight-for-age z-score",
-       y = "Count")+
-  theme_minimal(base_size = 20)+
-theme(
-  plot.title = element_text(size = 14)
-)
-
-
-
-```
 
 Our forecasts are mainly concentrated below zero, meaning that our forecasted sample is predicted to have a higher concentration of lower weight-for-age z-scores than our observed sample from 2022.
 

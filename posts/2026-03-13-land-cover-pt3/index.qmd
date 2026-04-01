@@ -22,78 +22,94 @@ This post is our third in a series discussing and comparing spatial land cover d
 
 Obviously, vegetative cover is not the only type of surface on Earth. Datasets such as [Land Use/Land Cover from NASA](https://www.earthdata.nasa.gov/topics/land-surface/land-use-land-cover) (LULC) and [Global Dynamic Land Cover](https://land.copernicus.eu/en/products/global-dynamic-land-cover) from the Copernicus Programme describe the human lived environment using classification schemes that describe land in terms of impervious surfaces (urban or built up) or by ecosystem type (wetland, evergreen forest, savannah, permanent ice cover, etc). Below is a map using the LULC data for Nigeria in 2024. Click "Code" below to see the R code that created this map.
 
-```{r, message=FALSE, warning=FALSE}
-#| code-fold: true
-#Read in necessary libraries
-library(terra)
-library(dplyr)
-library(tidyr)
-library(stringr)
-library(sf)
-library(ggplot2)
-library(ggspatial)
-
-#Read in land cover data file for 2024
-land_majority_lulc_2024 <- sds("data_local/lulc/MCD12C1.A2024001.061.2025216131527.hdf")[1]
-
-#Read in shapefile of Nigeria
-nigeria_borders <- ipumsr::read_ipums_sf("shapefiles/geo1_ng2006_2010.zip") |> 
-  st_make_valid() |> # Fix minor border inconsistencies
-  st_union() |> 
-  st_transform(crs(land_majority_lulc_2024)) # Convert shapefile of Nigeria to projection of land cover
-
-nigeria_borders_vector <- vect(nigeria_borders)
-
-#Extract and mask land cover data to Nigeria
-land_majority_lulc_2024_crop <- crop(land_majority_lulc_2024, nigeria_borders)
-land_majority_lulc_2024_mask <- mask(land_majority_lulc_2024_crop, nigeria_borders_vector)
-
-#Identify which land cover categories exist in these data
-unique(land_majority_lulc_2024_mask)
-
-#Set up a color palette for land cover classes
-lulc_pal <- list(
-  pal = c(
-    "#1c0dff", # 0 Water Bodies
-    "#086A10", # 2 Evergreen Broadleaf Forest
-    "#78D203", # 4 Deciduous Broadleaf Forest
-    "#dade48", # 8 Woody Savannas
-    "#fbff13", # 9 Savannas
-    "#b6ff05", # 10 Grasslands
-    "#27ff87", # 11 Permanent Wetlands
-    "#c24f44", # 12 Croplands
-    "#a5a5a5", # 13 Urban and Built-up
-    "#ff6d4c", # 14 Cropland/Natural Mosaic
-    "#f9ffa4" # 16 Barren or Sparsely Vegetated
-  ),
-  values = unique(land_majority_lulc_2024_mask)
-)
-color_vec <- lulc_pal$pal
-names(color_vec) <- lulc_pal$values
-
-#Create vector of labels
-land_classes <- c("Water Bodies", "Evergreen Broadleaf Forests", "Deciduous Broadleaf Forests", "Woody Savannas", "Savannas", "Grasslands", "Permanent Wetlands", "Croplands", "Urban and Built-up Lands", "Cropland/Natural Vegetation Mosaics", "Barren")
-
-# Convert the land cover data to a factor variable to map discrete values
-land_majority_lulc_2024_mask_factor <-
-  as.factor(land_majority_lulc_2024_mask)
-
-#Create a plot of land cover
-lulc_2024_graph_nigeria <- ggplot() +
-  layer_spatial(land_majority_lulc_2024_mask_factor) +
-  scale_fill_manual(
-  values = lulc_pal$pal,
-  labels = land_classes, 
-  na.value = "transparent",
-  na.translate = FALSE
-) +
-  labs(title = "Nigeria Land Cover 2024", 
-       subtitle = "NASA LULC, 500m resolution", 
-       fill = "Land Cover")
-
-lulc_2024_graph_nigeria
-
-```
+<div class="cell">
+<details class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co">#Read in necessary libraries</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://rspatial.org/">terra</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org">dplyr</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyr.tidyverse.org">tidyr</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://stringr.tidyverse.org">stringr</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://r-spatial.github.io/sf/">sf</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org">ggplot2</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://paleolimbot.github.io/ggspatial/">ggspatial</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">#Read in land cover data file for 2024</span></span>
+<span><span class="va">land_majority_lulc_2024</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rspatial.github.io/terra/reference/sds.html">sds</a></span><span class="op">(</span><span class="st">"data_local/lulc/MCD12C1.A2024001.061.2025216131527.hdf"</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span></span>
+<span></span>
+<span><span class="co">#Read in shapefile of Nigeria</span></span>
+<span><span class="va">nigeria_borders</span> <span class="op">&lt;-</span> <span class="fu">ipumsr</span><span class="fu">::</span><span class="fu"><a href="https://tech.popdata.org/ipumsr/reference/read_ipums_sf.html">read_ipums_sf</a></span><span class="op">(</span><span class="st">"shapefiles/geo1_ng2006_2010.zip"</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://r-spatial.github.io/sf/reference/valid.html">st_make_valid</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="co"># Fix minor border inconsistencies</span></span>
+<span>  <span class="fu"><a href="https://r-spatial.github.io/sf/reference/geos_combine.html">st_union</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_transform.html">st_transform</a></span><span class="op">(</span><span class="fu"><a href="https://rspatial.github.io/terra/reference/crs.html">crs</a></span><span class="op">(</span><span class="va">land_majority_lulc_2024</span><span class="op">)</span><span class="op">)</span> <span class="co"># Convert shapefile of Nigeria to projection of land cover</span></span>
+<span></span>
+<span><span class="va">nigeria_borders_vector</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rspatial.github.io/terra/reference/vect.html">vect</a></span><span class="op">(</span><span class="va">nigeria_borders</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">#Extract and mask land cover data to Nigeria</span></span>
+<span><span class="va">land_majority_lulc_2024_crop</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rspatial.github.io/terra/reference/crop.html">crop</a></span><span class="op">(</span><span class="va">land_majority_lulc_2024</span>, <span class="va">nigeria_borders</span><span class="op">)</span></span>
+<span><span class="va">land_majority_lulc_2024_mask</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rspatial.github.io/terra/reference/mask.html">mask</a></span><span class="op">(</span><span class="va">land_majority_lulc_2024_crop</span>, <span class="va">nigeria_borders_vector</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">#Identify which land cover categories exist in these data</span></span>
+<span><span class="fu"><a href="https://rspatial.github.io/terra/reference/unique.html">unique</a></span><span class="op">(</span><span class="va">land_majority_lulc_2024_mask</span><span class="op">)</span></span>
+<span><span class="co">#&gt;    Majority_Land_Cover_Type_1</span></span>
+<span><span class="co">#&gt; 1                           0</span></span>
+<span><span class="co">#&gt; 2                           2</span></span>
+<span><span class="co">#&gt; 3                           4</span></span>
+<span><span class="co">#&gt; 4                           8</span></span>
+<span><span class="co">#&gt; 5                           9</span></span>
+<span><span class="co">#&gt; 6                          10</span></span>
+<span><span class="co">#&gt; 7                          11</span></span>
+<span><span class="co">#&gt; 8                          12</span></span>
+<span><span class="co">#&gt; 9                          13</span></span>
+<span><span class="co">#&gt; 10                         14</span></span>
+<span><span class="co">#&gt; 11                         16</span></span>
+<span></span>
+<span><span class="co">#Set up a color palette for land cover classes</span></span>
+<span><span class="va">lulc_pal</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span></span>
+<span>  pal <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span></span>
+<span>    <span class="st">"#1c0dff"</span>, <span class="co"># 0 Water Bodies</span></span>
+<span>    <span class="st">"#086A10"</span>, <span class="co"># 2 Evergreen Broadleaf Forest</span></span>
+<span>    <span class="st">"#78D203"</span>, <span class="co"># 4 Deciduous Broadleaf Forest</span></span>
+<span>    <span class="st">"#dade48"</span>, <span class="co"># 8 Woody Savannas</span></span>
+<span>    <span class="st">"#fbff13"</span>, <span class="co"># 9 Savannas</span></span>
+<span>    <span class="st">"#b6ff05"</span>, <span class="co"># 10 Grasslands</span></span>
+<span>    <span class="st">"#27ff87"</span>, <span class="co"># 11 Permanent Wetlands</span></span>
+<span>    <span class="st">"#c24f44"</span>, <span class="co"># 12 Croplands</span></span>
+<span>    <span class="st">"#a5a5a5"</span>, <span class="co"># 13 Urban and Built-up</span></span>
+<span>    <span class="st">"#ff6d4c"</span>, <span class="co"># 14 Cropland/Natural Mosaic</span></span>
+<span>    <span class="st">"#f9ffa4"</span> <span class="co"># 16 Barren or Sparsely Vegetated</span></span>
+<span>  <span class="op">)</span>,</span>
+<span>  values <span class="op">=</span> <span class="fu"><a href="https://rspatial.github.io/terra/reference/unique.html">unique</a></span><span class="op">(</span><span class="va">land_majority_lulc_2024_mask</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span><span class="va">color_vec</span> <span class="op">&lt;-</span> <span class="va">lulc_pal</span><span class="op">$</span><span class="va">pal</span></span>
+<span><span class="fu"><a href="https://rspatial.github.io/terra/reference/names.html">names</a></span><span class="op">(</span><span class="va">color_vec</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">lulc_pal</span><span class="op">$</span><span class="va">values</span></span>
+<span></span>
+<span><span class="co">#Create vector of labels</span></span>
+<span><span class="va">land_classes</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Water Bodies"</span>, <span class="st">"Evergreen Broadleaf Forests"</span>, <span class="st">"Deciduous Broadleaf Forests"</span>, <span class="st">"Woody Savannas"</span>, <span class="st">"Savannas"</span>, <span class="st">"Grasslands"</span>, <span class="st">"Permanent Wetlands"</span>, <span class="st">"Croplands"</span>, <span class="st">"Urban and Built-up Lands"</span>, <span class="st">"Cropland/Natural Vegetation Mosaics"</span>, <span class="st">"Barren"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Convert the land cover data to a factor variable to map discrete values</span></span>
+<span><span class="va">land_majority_lulc_2024_mask_factor</span> <span class="op">&lt;-</span></span>
+<span>  <span class="fu"><a href="https://rspatial.github.io/terra/reference/is.bool.html">as.factor</a></span><span class="op">(</span><span class="va">land_majority_lulc_2024_mask</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">#Create a plot of land cover</span></span>
+<span><span class="va">lulc_2024_graph_nigeria</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://paleolimbot.github.io/ggspatial/reference/layer_spatial.html">layer_spatial</a></span><span class="op">(</span><span class="va">land_majority_lulc_2024_mask_factor</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_manual.html">scale_fill_manual</a></span><span class="op">(</span></span>
+<span>  values <span class="op">=</span> <span class="va">lulc_pal</span><span class="op">$</span><span class="va">pal</span>,</span>
+<span>  labels <span class="op">=</span> <span class="va">land_classes</span>, </span>
+<span>  na.value <span class="op">=</span> <span class="st">"transparent"</span>,</span>
+<span>  na.translate <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Nigeria Land Cover 2024"</span>, </span>
+<span>       subtitle <span class="op">=</span> <span class="st">"NASA LULC, 500m resolution"</span>, </span>
+<span>       fill <span class="op">=</span> <span class="st">"Land Cover"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">lulc_2024_graph_nigeria</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details><div class="cell-output-display">
+<div>
+<figure class="figure"><p><img src="index_files/figure-html/unnamed-chunk-1-1.png" alt="Nigeria land cover, 2024" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
 
 | Index or measure | Instrument | Basic content | Temporal extent | Frequency | Resolution | Where to download |
 |-----------|:---------:|:---------:|:---------:|:---------:|:---------:|:---------:|

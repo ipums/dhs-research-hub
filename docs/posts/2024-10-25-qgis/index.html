@@ -44,7 +44,7 @@ ul.task-list li input[type="checkbox"] {
 <link href="../../site_libs/quarto-html/quarto-syntax-highlighting-be0d74190db5c030392493894a628b9f.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap-42421e77c5529847ff6e63ddf59efa80.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-da84e0e5cdc5f5c48afcfb2c964d6c43.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -96,11 +96,13 @@ gtag('config', 'G-0WLH5S9VD5', { 'anonymize_ip': true});
 <meta property="og:site_name" content="IPUMS DHS Spatial Analysis and Health Research Hub">
 <meta property="og:image:height" content="1013">
 <meta property="og:image:width" content="1920">
+<meta property="og:image:alt" content="TODO: add descriptive alt text for this post image">
 <meta name="twitter:title" content="Using QGIS for Spatial Data Analysis">
 <meta name="twitter:description" content="Standalone GIS software can provide an interactive alternative to code-based analysis workflows">
 <meta name="twitter:image" content="https://ipums.github.io/dhs-research-hub/posts/2024-10-25-qgis/images/Fig4.png">
 <meta name="twitter:image-height" content="1013">
 <meta name="twitter:image-width" content="1920">
+<meta name="twitter:image:alt" content="TODO: add descriptive alt text for this post image">
 <meta name="twitter:card" content="summary_large_image">
 </head>
 
@@ -270,8 +272,19 @@ gtag('config', 'G-0WLH5S9VD5', { 'anonymize_ip': true});
   </ul></li>
   <li><a href="#importing-and-organizing-spatial-data-in-qgis" id="toc-importing-and-organizing-spatial-data-in-qgis" class="nav-link" data-scroll-target="#importing-and-organizing-spatial-data-in-qgis">Importing and organizing spatial data in QGIS</a>
   <ul class="collapse">
-  <li><a href="#preparing-our-project" id="toc-preparing-our-project" class="nav-link" data-scroll-target="#preparing-our-project">Preparing our project</a></li>
-  <li><a href="#organizing-and-visualizing-layers-in-qgis" id="toc-organizing-and-visualizing-layers-in-qgis" class="nav-link" data-scroll-target="#organizing-and-visualizing-layers-in-qgis">Organizing and visualizing layers in QGIS</a></li>
+  <li><a href="#preparing-our-project" id="toc-preparing-our-project" class="nav-link" data-scroll-target="#preparing-our-project">Preparing our project</a>
+  <ul class="collapse">
+  <li><a href="#create-a-new-qgis-project" id="toc-create-a-new-qgis-project" class="nav-link" data-scroll-target="#create-a-new-qgis-project">1. Create a new QGIS project</a></li>
+  <li><a href="#add-the-temperature-raster-data" id="toc-add-the-temperature-raster-data" class="nav-link" data-scroll-target="#add-the-temperature-raster-data">2. Add the temperature raster data</a></li>
+  <li><a href="#add-the-kenya-shapefile" id="toc-add-the-kenya-shapefile" class="nav-link" data-scroll-target="#add-the-kenya-shapefile">3. Add the Kenya shapefile</a></li>
+  <li><a href="#load-the-dhs-cluster-data" id="toc-load-the-dhs-cluster-data" class="nav-link" data-scroll-target="#load-the-dhs-cluster-data">4. Load the DHS cluster data</a></li>
+  </ul></li>
+  <li><a href="#organizing-and-visualizing-layers-in-qgis" id="toc-organizing-and-visualizing-layers-in-qgis" class="nav-link" data-scroll-target="#organizing-and-visualizing-layers-in-qgis">Organizing and visualizing layers in QGIS</a>
+  <ul class="collapse">
+  <li><a href="#layer-visibility-and-order" id="toc-layer-visibility-and-order" class="nav-link" data-scroll-target="#layer-visibility-and-order">Layer visibility and order</a></li>
+  <li><a href="#zoom-to-layer" id="toc-zoom-to-layer" class="nav-link" data-scroll-target="#zoom-to-layer">Zoom to layer</a></li>
+  <li><a href="#project-crs" id="toc-project-crs" class="nav-link" data-scroll-target="#project-crs">Working with coordinate reference systems</a></li>
+  </ul></li>
   </ul></li>
   <li><a href="#geoprocessing-in-qgis" id="toc-geoprocessing-in-qgis" class="nav-link" data-scroll-target="#geoprocessing-in-qgis">Geoprocessing in QGIS</a>
   <ul class="collapse">
@@ -304,7 +317,7 @@ gtag('config', 'G-0WLH5S9VD5', { 'anonymize_ip': true});
 <p>In this post, we will use the open-source GIS software <a href="https://www.qgis.org/">QGIS (Quantum GIS)</a> to integrate environmental data with health survey data. Using a case study from Kenya, we will combine monthly temperature data from <a href="https://www.chc.ucsb.edu/data/chirtsmonthly">CHIRTS</a> with geolocated sample clusters from the <a href="https://dhsprogram.com/">Demographic and Health Surveys Program</a> (DHS). If you’ve been following along with this blog, you’ll recognize some similarities between this post and <a href="../2024-02-04-dhs-chirps/">previous posts</a>. But while the spatial analysis techniques will be familiar, the tools we use to implement them will be new.</p>
 
 <div class="no-row-height column-margin column-container"><div class="">
-<p><a href="https://www.qgis.org/"><img src="images/qgis.png" class="img-fluid"></a></p>
+<p><a href="https://www.qgis.org/"><img src="images/qgis.png" class="img-fluid" alt="QGIS logo"></a></p>
 </div></div><p>This step-by-step guide will provide an overview of QGIS and show you how to import data, process raster data, create spatial buffers, and extract aggregated data for analysis.</p>
 <section id="getting-started-with-qgis" class="level1 page-columns page-full">
 <h1>Getting started with QGIS</h1>
@@ -326,10 +339,10 @@ gtag('config', 'G-0WLH5S9VD5', { 'anonymize_ip': true});
 <li><p><strong>Search Bar:</strong> The Search Bar (or Locator Bar) allows us to quickly find tools, layers, and functions within QGIS. We can type in keywords like “Buffer” or “Raster Calculator” to access specific tools or commands without having to navigate through multiple menus. This feature speeds up our workflow and is especially useful for beginners still familiarizing themselves with the software.</p></li>
 </ol>
 <div class="page-columns page-full">
-<div id="fig-2" class="quarto-float quarto-figure quarto-figure-center anchored page-columns page-full">
+<div id="fig-2" class="quarto-float quarto-figure quarto-figure-center anchored page-columns page-full" alt="GQIS UI: screenshot">
 <figure class="quarto-float quarto-float-fig figure page-columns page-full">
 <div aria-describedby="fig-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca" class="page-columns page-full">
-<img src="images/Fig2.png" class="img-fluid figure-img column-page">
+<img src="images/Fig2.png" class="img-fluid figure-img column-page" alt="GQIS UI: screenshot">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;1: An overview of the QGIS interface
@@ -370,28 +383,28 @@ Figure&nbsp;1: An overview of the QGIS interface
 <section id="preparing-our-project" class="level2 page-columns page-full">
 <h2 class="anchored" data-anchor-id="preparing-our-project">Preparing our project</h2>
 <p>Before we can begin, we need to initiate a QGIS project to store our work and add the data sources identified above to our project.</p>
-<section id="create-a-new-qgis-project" class="level4">
-<h4 class="anchored" data-anchor-id="create-a-new-qgis-project">1. Create a new QGIS project</h4>
+<section id="create-a-new-qgis-project" class="level3">
+<h3 class="anchored" data-anchor-id="create-a-new-qgis-project">1. Create a new QGIS project</h3>
 <p>Open QGIS and create a new project by navigating to <span class="menu-instr">Project ‣ New</span>.</p>
 <p>Save the project by navigating to <span class="menu-instr">Project ‣ Save</span>. Provide a project name (in our case, we’ve used <code>Spatial_Analysis_Kenya.qgz</code>) and select the designated project folder we created previously (<code>Kenya_Temperature_Analysis</code>). Saving the project file ensures we can pause and resume our work without losing progress.</p>
 </section>
-<section id="add-the-temperature-raster-data" class="level4">
-<h4 class="anchored" data-anchor-id="add-the-temperature-raster-data">2. Add the temperature raster data</h4>
+<section id="add-the-temperature-raster-data" class="level3">
+<h3 class="anchored" data-anchor-id="add-the-temperature-raster-data">2. Add the temperature raster data</h3>
 <p>Select <span class="menu-instr">Layer ‣ Add Raster Layer</span>. Navigate to the <code>CHIRTS</code> sub-folder within our project folder and select all the monthly raster files (<code>CHIRTSmax.2016.01.tif</code> to <code>CHIRTSmax.2016.12.tif</code>). Click <span class="menu-instr">Add</span> to load the rasters into QGIS.</p>
 </section>
-<section id="add-the-kenya-shapefile" class="level4">
-<h4 class="anchored" data-anchor-id="add-the-kenya-shapefile">3. Add the Kenya shapefile</h4>
+<section id="add-the-kenya-shapefile" class="level3">
+<h3 class="anchored" data-anchor-id="add-the-kenya-shapefile">3. Add the Kenya shapefile</h3>
 <p>Go to <span class="menu-instr">Layer ‣ Add Layer ‣ Add Vector Layer</span>. Browse to the Shapefiles sub-folder and select the Kenya boundary shapefile (If you downloaded from GADM, the file should be named <code>gadm41_KEN_0.shp</code>). Again, click <span class="menu-instr">Add</span> to add the shapefile to our QGIS project.</p>
 </section>
-<section id="load-the-dhs-cluster-data" class="level4 page-columns page-full">
-<h4 class="anchored" data-anchor-id="load-the-dhs-cluster-data">4. Load the DHS cluster data</h4>
+<section id="load-the-dhs-cluster-data" class="level3 page-columns page-full">
+<h3 class="anchored" data-anchor-id="load-the-dhs-cluster-data">4. Load the DHS cluster data</h3>
 <p>Go to <span class="menu-instr">Layer ‣ Add Layer ‣ Add Vector Layer</span> to import the DHS cluster shapefile (‘KEGE8AFL.shp’). Click <span class="menu-instr">Add</span>.</p>
 <p>At this point, your interface should look something like <a href="#fig-3" class="quarto-xref">Figure&nbsp;2</a>:</p>
 <div class="page-columns page-full">
-<div id="fig-3" class="quarto-float quarto-figure quarto-figure-center anchored page-columns page-full">
+<div id="fig-3" class="quarto-float quarto-figure quarto-figure-center anchored page-columns page-full" alt="QGIS UI: initial data layers">
 <figure class="quarto-float quarto-float-fig figure page-columns page-full">
 <div aria-describedby="fig-3-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca" class="page-columns page-full">
-<img src="images/Fig3.png" class="img-fluid figure-img column-page">
+<img src="images/Fig3.png" class="img-fluid figure-img column-page" alt="QGIS UI: initial data layers">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-3-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;2: QGIS interface with initial data layers loaded
@@ -404,12 +417,12 @@ Figure&nbsp;2: QGIS interface with initial data layers loaded
 <section id="organizing-and-visualizing-layers-in-qgis" class="level2 page-columns page-full">
 <h2 class="anchored" data-anchor-id="organizing-and-visualizing-layers-in-qgis">Organizing and visualizing layers in QGIS</h2>
 <p>When we import data into QGIS, it is represented in its raw form and at its full spatial extent (as in <a href="#fig-3" class="quarto-xref">Figure&nbsp;2</a>). To make sense of this data and facilitate analysis, it’s crucial to understand some basic organizing and visualizing tools within QGIS. These tools help us manage the appearance and arrangement of layers, ensuring that the data is clear and easy to interpret.</p>
-<section id="layer-visibility-and-order" class="level4">
-<h4 class="anchored" data-anchor-id="layer-visibility-and-order">Layer visibility and order</h4>
+<section id="layer-visibility-and-order" class="level3">
+<h3 class="anchored" data-anchor-id="layer-visibility-and-order">Layer visibility and order</h3>
 <p>Layers in QGIS are displayed based on their order in the Layers Panel. Make sure that the DHS cluster shapefile is on top, followed by the Kenya boundary shapefile, and then the raster layers. This will help maintain a clean and visible map. You can reorder layers by dragging them up or down within the Layers Panel.</p>
 </section>
-<section id="zoom-to-layer" class="level4">
-<h4 class="anchored" data-anchor-id="zoom-to-layer">Zoom to layer</h4>
+<section id="zoom-to-layer" class="level3">
+<h3 class="anchored" data-anchor-id="zoom-to-layer">Zoom to layer</h3>
 <p>After adding layers, it’s useful to zoom in on specific layers for better visualization:</p>
 <ul>
 <li>Right-click on a layer in the Layers Panel and select <span class="menu-instr">Zoom to Layer(s)</span>.</li>
@@ -417,8 +430,8 @@ Figure&nbsp;2: QGIS interface with initial data layers loaded
 </ul>
 <p>If you lose track of your map (which happens often in QGIS!), using <span class="menu-instr">Zoom to Layer(s)</span> can quickly help re-center the view on any specific dataset.</p>
 </section>
-<section id="project-crs" class="level4 page-columns page-full">
-<h4 class="anchored" data-anchor-id="project-crs">Working with coordinate reference systems</h4>
+<section id="project-crs" class="level3 page-columns page-full">
+<h3 class="anchored" data-anchor-id="project-crs">Working with coordinate reference systems</h3>
 <p>We’ve mentioned coordinate reference systems in <a href="../2024-09-13-leaflet-pt1/#coordinate-reference-systems">previous posts</a>. As was the case there, it’s worth confirming the CRS of the layers in QGIS to ensure that we’re conducting the expected spatial operations. To check the CRS of a layer:</p>
 <ul>
 <li>Right-click on any layer (e.g., the Kenya shapefile or DHS clusters) and select <span class="menu-instr">Properties</span>.</li>
@@ -438,8 +451,8 @@ Note
 <p>While you’re working, QGIS projects layers “on the fly”. That is, if you have layers in different reference systems, QGIS will visualize them in the single project CRS so that the layers align visually. However, this doesn’t actually project any layer’s <em>data</em> to a new CRS. Thus, for spatial analysis, you’ll want to double check to ensure each layer is in an appropriate CRS for the operations you’re conducting.</p>
 </div>
 </div>
-<section id="change-the-crs-of-the-dhs-cluster-point-shapefile" class="level5 page-columns page-full">
-<h5 class="anchored" data-anchor-id="change-the-crs-of-the-dhs-cluster-point-shapefile">Change the CRS of the DHS cluster point shapefile</h5>
+<section id="change-the-crs-of-the-dhs-cluster-point-shapefile" class="level4 page-columns page-full">
+<h4 class="anchored" data-anchor-id="change-the-crs-of-the-dhs-cluster-point-shapefile">Change the CRS of the DHS cluster point shapefile</h4>
 <p>As we’ve discussed <a href="../2024-02-04-dhs-chirps/#cluster-buffers">before</a>, we need to project our cluster points before we can buffer them, as we want to buffer in units of meters, not degrees. For Kenya, an appropriate projection is UTM zone 37S (EPSG:32737).</p>
 
 <div class="no-row-height column-margin column-container"><div class="">
@@ -461,7 +474,6 @@ Note
 </ul></li>
 </ul>
 </section>
-</section>
 <section id="symbology-and-visualization" class="level4 page-columns page-full">
 <h4 class="anchored" data-anchor-id="symbology-and-visualization">Symbology and visualization</h4>
 <p>Symbology refers to the visual representation of our data on the map. We can adjust symbology to make for a more interpretable and visually appealing map.</p>
@@ -474,10 +486,10 @@ Note
 </ol>
 <p><a href="#fig-4" class="quarto-xref">Figure&nbsp;3</a> presents an example QGIS interface after applying the organization and visualization techniques discussed. It’s okay if your symbology looks a little different from ours. We recommend that you take the time to explore the available <a href="https://docs.qgis.org/3.34/en/docs/training_manual/basic_map/symbology.html">symbology options</a>, as they offer interesting ways to enhance your data presentation and analysis.</p>
 <div class="page-columns page-full">
-<div id="fig-4" class="quarto-float quarto-figure quarto-figure-center anchored page-columns page-full">
+<div id="fig-4" class="quarto-float quarto-figure quarto-figure-center anchored page-columns page-full" alt="QGIS UI: after symbology adjustments">
 <figure class="quarto-float quarto-float-fig figure page-columns page-full">
 <div aria-describedby="fig-4-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca" class="page-columns page-full">
-<img src="images/Fig4.png" class="img-fluid figure-img column-page-inset">
+<img src="images/Fig4.png" class="img-fluid figure-img column-page-inset" alt="QGIS UI: after symbology adjustments">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-4-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;3: Data layers after symbology adjustments
@@ -485,6 +497,7 @@ Figure&nbsp;3: Data layers after symbology adjustments
 </figure>
 </div>
 </div>
+</section>
 </section>
 </section>
 </section>
@@ -511,10 +524,10 @@ Tip
 </div>
 <p>The new raster will appear as a new layer in our Layers Panel, and you can apply the same singleband pseudocolor scheme for visualization to better interpret the temperature data. We can remove the single-month files from QGIS to keep things tidy (right click on the single-year layers and select <span class="menu-instr">Remove layer</span>).</p>
 <div class="page-columns page-full">
-<div id="fig-5" class="quarto-float quarto-figure quarto-figure-center anchored page-columns page-full">
+<div id="fig-5" class="quarto-float quarto-figure quarto-figure-center anchored page-columns page-full" alt="QGIS UI: Raster Calculator">
 <figure class="quarto-float quarto-float-fig figure page-columns page-full">
 <div aria-describedby="fig-5-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca" class="page-columns page-full">
-<img src="images/Fig5.png" class="img-fluid figure-img column-page-inset">
+<img src="images/Fig5.png" class="img-fluid figure-img column-page-inset" alt="QGIS UI: Raster Calculator">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-5-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;4: Raster Calculator window
@@ -529,10 +542,10 @@ Figure&nbsp;4: Raster Calculator window
 <p>To perform this task, we will follow a simple process in QGIS. First, we will navigate to <span class="menu-instr">Raster ‣ Extraction ‣ Clip Raster by Mask Layer</span>.</p>
 <p>In the window that appears, we will set the <span class="menu-instr">Input Layer</span> to the newly generated annual average raster (<code>Annual_Average_Tmax_2016.tif</code>). Then, for the <span class="menu-instr">Mask Layer</span>, we will select the Kenya boundary shapefile (<code>gadm41_KEN_0.shp</code>). This ensures that the raster is clipped to the boundaries of Kenya. Finally, we will name the output file as <code>Kenya_Clipped_Tmax_2016.tif</code> and save it in the <code>CHIRTS</code> folder (<a href="#fig-7" class="quarto-xref">Figure&nbsp;5</a>).</p>
 <div class="page-columns page-full">
-<div id="fig-7" class="quarto-float quarto-figure quarto-figure-center anchored page-columns page-full">
+<div id="fig-7" class="quarto-float quarto-figure quarto-figure-center anchored page-columns page-full" alt="QGIS UI: Clip Raster">
 <figure class="quarto-float quarto-float-fig figure page-columns page-full">
 <div aria-describedby="fig-7-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca" class="page-columns page-full">
-<img src="images/Fig7.png" class="img-fluid figure-img column-page-inset">
+<img src="images/Fig7.png" class="img-fluid figure-img column-page-inset" alt="QGIS UI: Clip Raster">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-7-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;5: Clip Raster window
@@ -542,10 +555,10 @@ Figure&nbsp;5: Clip Raster window
 </div>
 <p>After the process is complete, we will have a new raster that only covers the extent of Kenya, ready for further analysis. We can remove the full extent raster file from the layer panel and use the singleband pseudocolor scheme for better visualization. Notice that the minimum value in this case is already accurate as we do not have missing data within this clipped raster (<a href="#fig-8" class="quarto-xref">Figure&nbsp;6</a>).</p>
 <div class="page-columns page-full">
-<div id="fig-8" class="quarto-float quarto-figure quarto-figure-center anchored page-columns page-full">
+<div id="fig-8" class="quarto-float quarto-figure quarto-figure-center anchored page-columns page-full" alt="QGIS UI: raster clip results">
 <figure class="quarto-float quarto-float-fig figure page-columns page-full">
 <div aria-describedby="fig-8-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca" class="page-columns page-full">
-<img src="images/Fig8.png" class="img-fluid figure-img column-page-inset">
+<img src="images/Fig8.png" class="img-fluid figure-img column-page-inset" alt="QGIS UI: raster clip results">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-8-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;6: Results of raster clip, with updated symbology
@@ -559,10 +572,10 @@ Figure&nbsp;6: Results of raster clip, with updated symbology
 <p>Creating buffers around point locations is crucial for spatial analysis because it allows us to define areas of influence or impact around each point, enabling more focused environmental or demographic analysis. In this post as in <a href="../2024-02-04-dhs-chirps/#cluster-buffers">previous ones</a>, we are interested in creating buffers around the point locations of the geolocated DHS clusters.</p>
 <p>To create buffers, we will go to <span class="menu-instr">Vector ‣ Geoprocessing Tools ‣ Buffer</span>. In the window that opens, we will set the <span class="menu-instr">Input Layer</span> to be the <em>reprojected</em> DHS cluster file. Next, we will specify a buffer distance of 10,000 meters, which creates a 10 km zone around each cluster point. Finally, we will save the output as <code>DHS_10km_Buffers.shp</code> in the <code>Shapefiles</code> folder (<a href="#fig-9" class="quarto-xref">Figure&nbsp;7</a>). Once this process is complete, we will have buffer zones around the DHS clusters, ready for further spatial analysis and extraction of environmental data.</p>
 <div class="page-columns page-full">
-<div id="fig-9" class="quarto-float quarto-figure quarto-figure-center anchored page-columns page-full">
+<div id="fig-9" class="quarto-float quarto-figure quarto-figure-center anchored page-columns page-full" alt="QGIS UI: spatial buffer window">
 <figure class="quarto-float quarto-float-fig figure page-columns page-full">
 <div aria-describedby="fig-9-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca" class="page-columns page-full">
-<img src="images/Fig9.png" class="img-fluid figure-img column-page-inset">
+<img src="images/Fig9.png" class="img-fluid figure-img column-page-inset" alt="QGIS UI: spatial buffer window">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-9-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;7: Spatial buffer window
@@ -585,10 +598,10 @@ Warning
 </div>
 <p>As with other layers, we can adjust the symbology of the buffer regions (e.g., to decrease opacity) by right clicking the layer in the <span class="menu-instr">Layers</span> pane and selecting <span class="menu-instr">Properties ‣ Symbology</span>.</p>
 <p>Using the <span class="menu-instr">Magnifier</span> tool in the bottom right, we can zoom into specific areas to inspect parts of the map without changing the overall map scale, which helps in closely examining details (<a href="#fig-10" class="quarto-xref">Figure&nbsp;8</a>).</p>
-<div id="fig-10" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center">
+<div id="fig-10" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center" alt="QGIS UI: Using the Magnifier tool">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-10-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="images/Fig10.png" class="img-fluid quarto-figure quarto-figure-center figure-img">
+<img src="images/Fig10.png" class="img-fluid quarto-figure quarto-figure-center figure-img" alt="QGIS UI: Using the Magnifier tool">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-10-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;8: Use the Magnifier tool to inspect geoprocessing output
@@ -604,10 +617,10 @@ Figure&nbsp;8: Use the Magnifier tool to inspect geoprocessing output
 <div class="no-row-height column-margin column-container"><div class="">
 <p>If you can’t find a tool, you can always search for it in the search bar. For instance, a search for “Zonal statistics” would reveal where the tool is located.</p>
 </div></div><p>In the window that opens, set the <span class="menu-instr">Input Layer</span> to <code>DHS_10km_Buffers.shp</code> and the <span class="menu-instr">Raster Layer</span> to <code>Kenya_Clipped_Tmax_2016.tif</code>. Set the <span class="menu-instr">output column prefix</span> to <code>"Tmax_"</code>. Under <span class="menu-instr">Statistics to calculate</span>, choose <em>Mean</em> to compute the average temperature for each buffer based on the raster pixels within that buffer. Save the file in the Shapefile sub-folder with the name <code>Mean_Tmax_buffer.shp</code> (<a href="#fig-11" class="quarto-xref">Figure&nbsp;9</a>).</p>
-<div id="fig-11" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center">
+<div id="fig-11" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center" alt="QGIS UI: Zonal Statistics">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-11-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="images/Fig11.png" class="img-fluid quarto-figure quarto-figure-center figure-img">
+<img src="images/Fig11.png" class="img-fluid quarto-figure quarto-figure-center figure-img" alt="QGIS UI: Zonal Statistics">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-11-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;9: Zonal Statistics window
@@ -616,10 +629,10 @@ Figure&nbsp;9: Zonal Statistics window
 </div>
 <p>With this, we now have a new shapefile that includes a new column (<code>Tmax_mean</code>) in the buffer layer’s attribute table, representing the mean temperature for each buffer zone (<a href="#fig-12" class="quarto-xref">Figure&nbsp;10</a>). You can verify this by opening the attribute table (right-click on the new layer and select <span class="menu-instr">Open Attribute Table</span>). To export the attribute table as a CSV file, right-click on the layer, go to <span class="menu-instr">Export ‣ Save Feature As</span>, or save it in another tabular format. It is crucial to keep the unique cluster ID (<code>DHSID</code>) linked to the extracted data for easy reference and further analysis.</p>
 <div class="page-columns page-full">
-<div id="fig-12" class="quarto-float quarto-figure quarto-figure-center anchored page-columns page-full">
+<div id="fig-12" class="quarto-float quarto-figure quarto-figure-center anchored page-columns page-full" alt="QGIS UI: Mean Tmax buffer">
 <figure class="quarto-float quarto-float-fig figure page-columns page-full">
 <div aria-describedby="fig-12-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca" class="page-columns page-full">
-<img src="images/Fig12.png" id="fig-12" class="img-fluid figure-img column-page-inset">
+<img src="images/Fig12.png" id="fig-12" class="img-fluid figure-img column-page-inset" alt="QGIS UI: Mean Tmax buffer">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig quarto-uncaptioned" id="fig-12-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;10

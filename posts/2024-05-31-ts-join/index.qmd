@@ -22,6 +22,7 @@ categories:
 fig-width: 10
 fig-height: 8
 image: index_files/figure-html/listing-img-1.png
+image-alt: "Heatwave model coefficients"
 open-graph:
   title: |
     Time-specific temperature exposures for DHS 
@@ -43,6 +44,7 @@ twitter-card:
 ```{r}
 #| results: hide
 #| echo: false
+source("../../R/utils.R")
 # save the built-in output hook
 hook_output <- knitr::knit_hooks$get("output")
 
@@ -58,19 +60,6 @@ knitr::knit_hooks$set(output = function(x, options) {
   }
   hook_output(x, options)
 })
-
-source("../../R/utils.R")
-
-# Set plot theme
-ggplot2::theme_set(theme_dhs_base())
-
-# Load fonts
-sysfonts::font_add(
-  family = "cabrito", 
-  regular = "../../fonts/cabritosansnormregular-webfont.ttf"
-)
-
-showtext::showtext_auto()
 ```
 
 In our [last technical post](../2024-04-15-chirts-metrics/), we
@@ -103,6 +92,7 @@ temperature metrics. If you haven't had the chance to read through that
 post yet, we encourage you to start there.
 
 Before getting started, we'll load the necessary packages for this post:
+
 
 ```{r}
 #| message: false
@@ -249,10 +239,10 @@ dedicated function to calculate monthly heatwave proportions:
 prop_heatwave <- function(temps, thresh, n_seq) {
   # Convert to RLE of days above threshold
   bin_rle <- rle(temps >= thresh)
-  
+
   # Identify heatwave events based on sequence length
   is_heatwave <- bin_rle$values & (bin_rle$lengths >= n_seq)
-  
+
   # Count heatwave days and divide by total number of days
   sum(bin_rle$lengths[is_heatwave]) / length(temps)
 }
@@ -371,7 +361,7 @@ added and subtracted.
 However, the time encoded in our CHIRTS heatwave data aren't encoded in
 CMC format, so we'll need to reconcile these two time representations.
 
-#### Working with CMCs
+### Working with CMCs
 
 Since converting between CMCs and traditional dates is a common and
 well-defined task, we'll build some helper functions to handle the
@@ -392,9 +382,9 @@ You can view the description for any variable in your extract using the
 cmc_to_ym <- function(cmc) {
   year <- floor((cmc - 1) / 12) + 1900
   month <- cmc - ((year - 1900) * 12)
-  
+
   year_month <- paste(year, month, sep = "-")
-  
+
   lubridate::ym(year_month)
 }
 ```
@@ -405,7 +395,7 @@ Similarly, we'll create a function that goes in the reverse direction:
 ym_to_cmc <- function(date) {
   year <- lubridate::year(date)
   month <- lubridate::month(date)
-  
+
   (year - 1900) * 12 + month
 }
 ```
@@ -425,7 +415,7 @@ ym_to_cmc("2008-11-01")
 Now we have an easy way to reconcile the temporal information in our two
 data sources.
 
-## Attaching heatwaves to DHS clusters
+### Attaching heatwaves to DHS clusters
 
 To extract the average heatwave proportions for each DHS enumeration
 cluster, we'll use terra's `extract()`, which we've introduced
@@ -821,63 +811,844 @@ The interaction terms suggest that heatwave suggest that the effect of
 heatwave days on birth weight is slightly more positive in trimester 2
 as compared to the effect during trimester 1.
 
-```{r}
-#| code-fold: true
-#| code-summary: "Show table code"
-library(gtsummary)
+```{=html}
+<div class="cell">
+<details class="code-fold"><summary>
+Show table code
+</summary><div class="code-copy-outer-scaffold">
+<div class="code-copy-outer-scaffold"><div id="cb38" class="sourceCode">
+<pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/ddsjoberg/gtsummary">gtsummary</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://www.danieldsjoberg.com/gtsummary/reference/tbl_regression.html">tbl_regression</a></span><span class="op">(</span></span>
+<span>  <span class="va">heatwave_mod</span>, </span>
+<span>  conf.int <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  tidy_fun <span class="op">=</span> <span class="fu">broom.mixed</span><span class="fu">::</span><span class="va"><a href="https://generics.r-lib.org/reference/tidy.html">tidy</a></span>,</span>
+<span>  label <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span></span>
+<span>    MEANPROPHEATWAVE <span class="op">=</span> <span class="st">"Mean proportion of days in heatwave"</span>,</span>
+<span>    TRIMESTER <span class="op">=</span> <span class="st">"Trimester"</span>,</span>
+<span>    BIDX <span class="op">=</span> <span class="st">"Birth order"</span>,</span>
+<span>    EDUCLVL <span class="op">=</span> <span class="st">"Education level"</span>,</span>
+<span>    BIRTHWTREF <span class="op">=</span> <span class="st">"Birth weight source"</span>,</span>
+<span>    HEIGHTFEM <span class="op">=</span> <span class="st">"Mother's height (cm)"</span>,</span>
+<span>    `DHSID.sd__(Intercept)` <span class="op">=</span> <span class="st">"Random effects: Enumeration cluster (SD)"</span>,</span>
+<span>    `Residual.sd__Observation` <span class="op">=</span> <span class="st">"Random effects: Residual (SD)"</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://www.danieldsjoberg.com/gtsummary/reference/bold_italicize_labels_levels.html">italicize_labels</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://www.danieldsjoberg.com/gtsummary/reference/modify.html">modify_header</a></span><span class="op">(</span>update <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>label <span class="op">=</span> <span class="st">"Covariate"</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://www.danieldsjoberg.com/gtsummary/reference/as_gt.html">as_gt</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">gt</span><span class="fu">::</span><span class="fu"><a href="https://gt.rstudio.com/reference/tab_header.html">tab_header</a></span><span class="op">(</span></span>
+<span>    <span class="fu">gt</span><span class="fu">::</span><span class="fu"><a href="https://gt.rstudio.com/reference/md.html">md</a></span><span class="op">(</span><span class="st">"# Effects of Heatwave Days on Birthweight"</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="co">#&gt; Warning: The `update` argument of `modify_header()` is deprecated as of gtsummary 2.0.0.</span></span>
+<span><span class="co">#&gt; ℹ Use `modify_header(...)` input instead. Dynamic dots allow for syntax like</span></span>
+<span><span class="co">#&gt;   `modify_header(!!!list(...))`.</span></span>
+<span><span class="co">#&gt; ℹ The deprecated feature was likely used in the gtsummary package.</span></span>
+<span><span class="co">#&gt;   Please report the issue at &lt;https://github.com/ddsjoberg/gtsummary/issues&gt;.</span></span></code></pre>
+</div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<button title="Copy to Clipboard" class="code-copy-button">
+<i class="bi"></i>
+</button>
+</div>
+</details><div class="cell-output-display">
+<div id="wudqrhqljr" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#wudqrhqljr table {
+  font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
 
-tbl_regression(
-  heatwave_mod, 
-  conf.int = TRUE,
-  tidy_fun = broom.mixed::tidy,
-  label = list(
-    MEANPROPHEATWAVE = "Mean proportion of days in heatwave",
-    TRIMESTER = "Trimester",
-    BIDX = "Birth order",
-    EDUCLVL = "Education level",
-    BIRTHWTREF = "Birth weight source",
-    HEIGHTFEM = "Mother's height (cm)",
-    `DHSID.sd__(Intercept)` = "Random effects: Enumeration cluster (SD)",
-    `Residual.sd__Observation` = "Random effects: Residual (SD)"
-  )
-) |> 
-  italicize_labels() |> 
-  modify_header(update = list(label = "")) |> 
-  as_gt() |>
-  gt::tab_header(
-    gt::md("# Effects of Heatwave Days on Birthweight")
-  )
+#wudqrhqljr thead, #wudqrhqljr tbody, #wudqrhqljr tfoot, #wudqrhqljr tr, #wudqrhqljr td, #wudqrhqljr th {
+  border-style: none;
+}
+
+#wudqrhqljr p {
+  margin: 0;
+  padding: 0;
+}
+
+#wudqrhqljr .gt_table {
+  display: table;
+  border-collapse: collapse;
+  line-height: normal;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#wudqrhqljr .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+#wudqrhqljr .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#wudqrhqljr .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 3px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#wudqrhqljr .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#wudqrhqljr .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#wudqrhqljr .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#wudqrhqljr .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#wudqrhqljr .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#wudqrhqljr .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#wudqrhqljr .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#wudqrhqljr .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#wudqrhqljr .gt_spanner_row {
+  border-bottom-style: hidden;
+}
+
+#wudqrhqljr .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  text-align: left;
+}
+
+#wudqrhqljr .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#wudqrhqljr .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#wudqrhqljr .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#wudqrhqljr .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#wudqrhqljr .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#wudqrhqljr .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#wudqrhqljr .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#wudqrhqljr .gt_row_group_first th {
+  border-top-width: 2px;
+}
+
+#wudqrhqljr .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#wudqrhqljr .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#wudqrhqljr .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#wudqrhqljr .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#wudqrhqljr .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#wudqrhqljr .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#wudqrhqljr .gt_last_grand_summary_row_top {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: double;
+  border-bottom-width: 6px;
+  border-bottom-color: #D3D3D3;
+}
+
+#wudqrhqljr .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#wudqrhqljr .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#wudqrhqljr .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#wudqrhqljr .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#wudqrhqljr .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#wudqrhqljr .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#wudqrhqljr .gt_left {
+  text-align: left;
+}
+
+#wudqrhqljr .gt_center {
+  text-align: center;
+}
+
+#wudqrhqljr .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#wudqrhqljr .gt_font_normal {
+  font-weight: normal;
+}
+
+#wudqrhqljr .gt_font_bold {
+  font-weight: bold;
+}
+
+#wudqrhqljr .gt_font_italic {
+  font-style: italic;
+}
+
+#wudqrhqljr .gt_super {
+  font-size: 65%;
+}
+
+#wudqrhqljr .gt_footnote_marks {
+  font-size: 75%;
+  vertical-align: 0.4em;
+  position: initial;
+}
+
+#wudqrhqljr .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#wudqrhqljr .gt_indent_1 {
+  text-indent: 5px;
+}
+
+#wudqrhqljr .gt_indent_2 {
+  text-indent: 10px;
+}
+
+#wudqrhqljr .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#wudqrhqljr .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#wudqrhqljr .gt_indent_5 {
+  text-indent: 25px;
+}
+
+#wudqrhqljr .katex-display {
+  display: inline-flex !important;
+  margin-bottom: 0.75em !important;
+}
+
+#wudqrhqljr div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+  height: 0px !important;
+}
+</style>
+<table class="gt_table caption-top table table-sm table-striped small" data-quarto-bootstrap="false">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="gt_heading header">
+<td colspan="3" class="gt_heading gt_title gt_font_normal gt_bottom_border">
+
+<caption id="effects-of-heatwave-days-on-birthweight">
+Effects of Heatwave Days on Birthweight
+</caption>
+</td>
+</tr>
+<tr class="gt_col_headings even">
+<th id="label" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">
+Covariate
+</th>
+<th id="estimate" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col">
+<strong>Beta</strong>
+</th>
+<th id="conf.low" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col">
+<strong>95% CI</strong>
+</th>
+</tr>
+</thead>
+<tbody class="gt_table_body">
+<tr class="odd">
+<td class="gt_row gt_left" headers="label" style="font-style: italic">
+Mean proportion of days in heatwave
+</td>
+<td class="gt_row gt_center" headers="estimate">
+-0.08
+</td>
+<td class="gt_row gt_center" headers="conf.low">
+-0.22, 0.05
+</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="label" style="font-style: italic">
+Trimester
+</td>
+<td class="gt_row gt_center" headers="estimate">
+<br>
+</td>
+<td class="gt_row gt_center" headers="conf.low">
+<br>
+</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="label">
+&nbsp;&nbsp;&nbsp;&nbsp;1
+</td>
+<td class="gt_row gt_center" headers="estimate">
+—
+</td>
+<td class="gt_row gt_center" headers="conf.low">
+—
+</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="label">
+&nbsp;&nbsp;&nbsp;&nbsp;2
+</td>
+<td class="gt_row gt_center" headers="estimate">
+-0.10
+</td>
+<td class="gt_row gt_center" headers="conf.low">
+-0.20, 0.00
+</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="label">
+&nbsp;&nbsp;&nbsp;&nbsp;3
+</td>
+<td class="gt_row gt_center" headers="estimate">
+-0.01
+</td>
+<td class="gt_row gt_center" headers="conf.low">
+-0.11, 0.09
+</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="label" style="font-style: italic">
+Sex of child
+</td>
+<td class="gt_row gt_center" headers="estimate">
+<br>
+</td>
+<td class="gt_row gt_center" headers="conf.low">
+<br>
+</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="label">
+&nbsp;&nbsp;&nbsp;&nbsp;Male
+</td>
+<td class="gt_row gt_center" headers="estimate">
+—
+</td>
+<td class="gt_row gt_center" headers="conf.low">
+—
+</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="label">
+&nbsp;&nbsp;&nbsp;&nbsp;Female
+</td>
+<td class="gt_row gt_center" headers="estimate">
+-0.15
+</td>
+<td class="gt_row gt_center" headers="conf.low">
+-0.20, -0.10
+</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="label" style="font-style: italic">
+Age
+</td>
+<td class="gt_row gt_center" headers="estimate">
+0.01
+</td>
+<td class="gt_row gt_center" headers="conf.low">
+0.01, 0.01
+</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="label" style="font-style: italic">
+Birth order
+</td>
+<td class="gt_row gt_center" headers="estimate">
+<br>
+</td>
+<td class="gt_row gt_center" headers="conf.low">
+<br>
+</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="label">
+&nbsp;&nbsp;&nbsp;&nbsp;1
+</td>
+<td class="gt_row gt_center" headers="estimate">
+—
+</td>
+<td class="gt_row gt_center" headers="conf.low">
+—
+</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="label">
+&nbsp;&nbsp;&nbsp;&nbsp;2
+</td>
+<td class="gt_row gt_center" headers="estimate">
+0.06
+</td>
+<td class="gt_row gt_center" headers="conf.low">
+0.01, 0.12
+</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="label">
+&nbsp;&nbsp;&nbsp;&nbsp;3
+</td>
+<td class="gt_row gt_center" headers="estimate">
+0.12
+</td>
+<td class="gt_row gt_center" headers="conf.low">
+-0.02, 0.26
+</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="label">
+&nbsp;&nbsp;&nbsp;&nbsp;4
+</td>
+<td class="gt_row gt_center" headers="estimate">
+-0.55
+</td>
+<td class="gt_row gt_center" headers="conf.low">
+-1.1, 0.01
+</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="label" style="font-style: italic">
+Education level
+</td>
+<td class="gt_row gt_center" headers="estimate">
+<br>
+</td>
+<td class="gt_row gt_center" headers="conf.low">
+<br>
+</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="label">
+&nbsp;&nbsp;&nbsp;&nbsp;No education
+</td>
+<td class="gt_row gt_center" headers="estimate">
+—
+</td>
+<td class="gt_row gt_center" headers="conf.low">
+—
+</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="label">
+&nbsp;&nbsp;&nbsp;&nbsp;Primary
+</td>
+<td class="gt_row gt_center" headers="estimate">
+0.07
+</td>
+<td class="gt_row gt_center" headers="conf.low">
+-0.01, 0.14
+</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="label">
+&nbsp;&nbsp;&nbsp;&nbsp;Secondary
+</td>
+<td class="gt_row gt_center" headers="estimate">
+0.08
+</td>
+<td class="gt_row gt_center" headers="conf.low">
+0.01, 0.16
+</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="label">
+&nbsp;&nbsp;&nbsp;&nbsp;Higher
+</td>
+<td class="gt_row gt_center" headers="estimate">
+0.04
+</td>
+<td class="gt_row gt_center" headers="conf.low">
+-0.14, 0.22
+</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="label" style="font-style: italic">
+Birth weight source
+</td>
+<td class="gt_row gt_center" headers="estimate">
+<br>
+</td>
+<td class="gt_row gt_center" headers="conf.low">
+<br>
+</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="label">
+&nbsp;&nbsp;&nbsp;&nbsp;From written card
+</td>
+<td class="gt_row gt_center" headers="estimate">
+—
+</td>
+<td class="gt_row gt_center" headers="conf.low">
+—
+</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="label">
+&nbsp;&nbsp;&nbsp;&nbsp;From mother’s recall
+</td>
+<td class="gt_row gt_center" headers="estimate">
+0.12
+</td>
+<td class="gt_row gt_center" headers="conf.low">
+0.06, 0.18
+</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="label" style="font-style: italic">
+Mother’s height (cm)
+</td>
+<td class="gt_row gt_center" headers="estimate">
+0.00
+</td>
+<td class="gt_row gt_center" headers="conf.low">
+0.00, 0.00
+</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="label" style="font-style: italic">
+Mean proportion of days in heatwave * Trimester
+</td>
+<td class="gt_row gt_center" headers="estimate">
+<br>
+</td>
+<td class="gt_row gt_center" headers="conf.low">
+<br>
+</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="label">
+&nbsp;&nbsp;&nbsp;&nbsp;Mean proportion of days in heatwave * 2
+</td>
+<td class="gt_row gt_center" headers="estimate">
+0.22
+</td>
+<td class="gt_row gt_center" headers="conf.low">
+0.03, 0.41
+</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="label">
+&nbsp;&nbsp;&nbsp;&nbsp;Mean proportion of days in heatwave * 3
+</td>
+<td class="gt_row gt_center" headers="estimate">
+0.03
+</td>
+<td class="gt_row gt_center" headers="conf.low">
+-0.16, 0.21
+</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="label" style="font-style: italic">
+Random effects: Enumeration cluster (SD)
+</td>
+<td class="gt_row gt_center" headers="estimate">
+0.58
+</td>
+<td class="gt_row gt_center" headers="conf.low">
+<br>
+</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="label" style="font-style: italic">
+Random effects: Residual (SD)
+</td>
+<td class="gt_row gt_center" headers="estimate">
+0.82
+</td>
+<td class="gt_row gt_center" headers="conf.low">
+<br>
+</td>
+</tr>
+</tbody>
+<tfoot><tr class="gt_sourcenotes odd">
+<td colspan="3" class="gt_sourcenote">
+Abbreviation: CI = Confidence Interval
+</td>
+</tr></tfoot>
+</table>
+</div>
+</div>
+</div>
 ```
 
-```{r listing-img}
-#| column: page
-#| out-width: "100%"
-#| code-fold: true
-#| code-summary: "Show plot code"
-sjPlot::plot_model(
-  heatwave_mod, 
-  title = "Heatwave Model Coefficients", 
-  vline.color = "#00263A",
-  colors = "#98579B",
-  axis.labels = rev(c(
-    "Mean monthly proportion of days in heatwave",
-    "Trimester: 2",
-    "Trimester: 3",
-    "Sex: Female",
-    "Mother's age",
-    "Birth index: 2",
-    "Birth index: 3",
-    "Birth index: 4",
-    "Highest education: Primary",
-    "Highest education: Secondary",
-    "Highest education: Higher",
-    "Source of weight: Mother's recall",
-    "Mother's height",
-    "Heatwave x Trimester: 2",
-    "Heatwave x Trimester: 3"
-  ))
-)
-```
+![](index_files/figure-html/listing-img-1.png){fig-alt="Heatwave model coefficients." .column-page width="100%"}
 
 We've now demonstrated a full workflow to obtain raw CHIRTS raster data,
 calculate monthly heat exposure metrics, join them on survey records

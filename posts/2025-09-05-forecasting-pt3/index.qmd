@@ -10,6 +10,7 @@ author:
     affiliation: IPUMS Researcher
 date: 09-05-2025
 image: images/clipboard-1796866763.png
+image-alt: "Climate scenario chart"
 categories:
   - Climate
   - Scenarios
@@ -45,7 +46,7 @@ To understand how climate change may shift in the long-term, the IPCC and resear
 The figure below summarizes each single SSP, which is considered the starting point. Read more at the link below the figure to understand the different kinds of assumptions that can be applied to each SSP (i.e. the '-4.5' that comes after '2' in SSP 2-4.5).
 
 ::: colum-body.outset
-![](images/clipboard-1796866763.png)
+![](images/clipboard-1796866763.png){fig-alt="SSPs and mitigation and adaptation challenges"}
 
 *Figure: The five SSPs and the associated challenges to mitigation and adaptation.* ([*https://climatedata.ca/resource/understanding-shared-socio-economic-pathways-ssps/*](https://climatedata.ca/resource/understanding-shared-socio-economic-pathways-ssps/)*)*
 :::
@@ -81,7 +82,7 @@ We can use CHC-CMIP data to predict child health outcomes. As this blog has demo
 For this exercise we will work with temperature data for one month, January, which is during the hot season in Kenya for each scenario and time-frame. If you're interested in working with rainfall data, you can adapt this code, using the previous CHIRPS post (see above) to download projected rainfall data.
 
 ::: callout-note
-You can find the Tmax files for 2030 for 2-4.5 [here](https://data.chc.ucsb.edu/products/CHC_CMIP6/2030_SSP245/Tmax/) and 5-8.5 [here](https://data.chc.ucsb.edu/products/CHC_CMIP6/2030_SSP585/Tmax/). You can find the Tmax files for 2050 for 2-4.5 [here](https://data.chc.ucsb.edu/products/CHC_CMIP6/2050_SSP245/Tmax/) and 5-8.5 [here](https://data.chc.ucsb.edu/products/CHC_CMIP6/2050_SSP585/Tmax/2016/). **Note**: *both the projections for 2030 and 2050 come from the files labeled for the year of 2016. As we mentioned earlier, the projection data is calculated by adding a daily delta to each observation.*
+Here are the Tmax files for 2030 for [2-4.5](https://data.chc.ucsb.edu/products/CHC_CMIP6/2030_SSP245/Tmax/) and [5-8.5](https://data.chc.ucsb.edu/products/CHC_CMIP6/2030_SSP585/Tmax/). Here are the Tmax files for 2050 for [2-4.5](https://data.chc.ucsb.edu/products/CHC_CMIP6/2050_SSP245/Tmax/) and [5-8.5](https://data.chc.ucsb.edu/products/CHC_CMIP6/2050_SSP585/Tmax/2016/). **Note**: *both the projections for 2030 and 2050 come from the files labeled for the year of 2016. As we mentioned earlier, the projection data is calculated by adding a daily delta to each observation.*
 :::
 
 Once those files are downloaded we will create a file path to .tif files.
@@ -428,6 +429,7 @@ In order to create a summary visualization, we need to make some trade-offs. The
 ```{r, message=FALSE}
 #| code-fold: true
 #| fig-align: center
+#| fig-alt: "Scenario temperature data by DHS cluster, 2030 and 2050"
 #select the first 5 DHS cluster locations for simplicity
 
 combined_SSPs_long_select<-combined_SSPs_long%>%
@@ -472,6 +474,7 @@ Let's look at the fifth cluster alone to zoom into the differences in temperatur
 ```{r}
 #| code-fold: true 
 #| fig-align: center
+#| fig-alt: "Average temperature over  time by SSP in DHS cluster #5"
 combined_SSPs_long_select_5<-combined_SSPs_long%>%
   filter(DHSCLUST=="5")
 
@@ -502,6 +505,7 @@ Now let's map out this data. We will create a separate map for each year per sce
 ```{r, message=FALSE}
 #| code-fold: true 
 #| fig-align: center
+#| fig-alt: "Projected Tmax by DHS Cluster in Kenya January 2030, SSP 2-4.5, SSP 5-8.5"
 library(ggspatial)
 
 combined_SSPs_long_spatial<-left_join(ken_DHS_buffer, combined_SSPs_long)
@@ -535,7 +539,9 @@ Both SSPs predict varied temperatures in the West, and hotter temperatures in th
 
 ```{r}
 #| code-fold: true
-#| fig-align: center 
+#| fig-align: center
+#| fig-alt: "Projected Tmax by DHS Cluster in Kenya January 2050, SSP 2-4.5, SSP 5-8.5"
+ 
 #filter for only the 2050 values
 combined_SSPs_long_spatial_2050<-combined_SSPs_long_spatial%>%
   filter(year_month=="2050-01")

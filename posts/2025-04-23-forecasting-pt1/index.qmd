@@ -21,6 +21,7 @@ fig-width: 10
 fig-height: 8
 bibliography: references.bib
 image: images/image1.png
+image-alt: "US temprature map"
 open-graph:
   title: "Anticipating the Future: Important terminology"
   description: |
@@ -140,7 +141,7 @@ members in the network guidance on appropriate responses to local
 shocks, like drought or conflict.
 
 ![FEWS NET projection period
-updates.](images/image2.png){#fig-fews width="100%"}
+updates.](images/image2.png){#fig-fews width="100%" fig-alt="Famine Early Warning System Network: Projection Periods"}
 
 Population scientists can employ scenarios when estimating future
 population counts as well. Typically, population scenarios are
@@ -177,7 +178,7 @@ particular month is far more challenging.
 
 ::: column-page
 ![Figure 2. Seasonal temperature outlook for the United States, issued
-October 2024.](images/image1.png)
+October 2024.](images/image1.png){fig-alt="US Seasonal temperature outlook"}
 :::
 
 Population scientists create population forecasts—predicted population

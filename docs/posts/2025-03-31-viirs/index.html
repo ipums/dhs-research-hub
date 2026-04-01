@@ -96,7 +96,7 @@ div.csl-indent {
 <link href="../../site_libs/quarto-html/quarto-syntax-highlighting-be0d74190db5c030392493894a628b9f.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap-42421e77c5529847ff6e63ddf59efa80.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light"><script id="quarto-search-options" type="application/json">{
+<link href="../../site_libs/bootstrap/bootstrap-da84e0e5cdc5f5c48afcfb2c964d6c43.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light"><script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
   "collapse-after": 3,
@@ -140,11 +140,13 @@ gtag('config', 'G-0WLH5S9VD5', { 'anonymize_ip': true});
 <meta property="og:site_name" content="IPUMS DHS Spatial Analysis and Health Research Hub">
 <meta property="og:image:height" content="1536">
 <meta property="og:image:width" content="1920">
+<meta property="og:image:alt" content="VIIRS for NDVI data">
 <meta name="twitter:title" content="From MODIS to VIIRS: The Latest Source for NDVI Data">
 <meta name="twitter:description" content="Update your NDVI workflows with NASA’s newest instruments">
 <meta name="twitter:image" content="https://ipums.github.io/dhs-research-hub/posts/2025-03-31-viirs/index_files/figure-html/listing-img-1.png">
 <meta name="twitter:image-height" content="1536">
 <meta name="twitter:image-width" content="1920">
+<meta name="twitter:image:alt" content="VIIRS for NDVI data">
 <meta name="twitter:card" content="summary_large_image">
 </head>
 <body class="floating nav-fixed slimcontent quarto-light">
@@ -410,12 +412,12 @@ Note
 <p>To find the VNP13C2 product, enter the code in the search bar on the Earthdata Search interface.</p>
 <p>You should see a few different collections that pop up. We’ll want to use the <strong>latest version</strong> of the data. NASA regularly makes improvements and corrections to the data from its instruments, and importantly these changes are <strong>retroactively applied</strong> to prior years of data. Thus, it’s always advisable to use the latest version of a data product once it’s released. At the time of writing, the latest version is v002, so we’ll select the “VIIRS/NPP Vegetation Indices Monthly L3 Global 0.05Deg CMG V002” collection.</p>
 <div class="column-page">
-<p><img src="images/earthdata_viirs1.png" class="img-fluid"></p>
+<p><img src="images/earthdata_viirs1.png" class="img-fluid" alt="NASA Earthdata VIIRS screenshot"></p>
 </div>
 <p>From here, you can follow the <a href="../2024-08-01-ndvi-data/#earthdata-search">instructions</a> we introduced in our previous post (or use the Earthdata Search walk-through available when you launch the website) to narrow down your temporal range of interest. Here, our data are global, but if you were working with a higher resolution dataset, you could also select data for a specific spatial region through this interface as well.</p>
 <p>We’ve restricted our data to the first three months of 2014 for demonstration. You can download the data by clicking <strong>Download All</strong>.</p>
 <div class="column-page">
-<p><img src="images/earthdata_viirs2.png" class="img-fluid"></p>
+<p><img src="images/earthdata_viirs2.png" class="img-fluid" alt="NASA Earthdata VIIRS screenshot 2"></p>
 </div>
 <p>We’ve placed these VNP13C2 files in a <code>data/VNP13C2</code> directory, which we’ll use for the rest of the post.</p>
 </section></section></section><section id="loading-viirs-data-into-r" class="level1 page-columns page-full"><h1>Loading VIIRS data into R</h1>
@@ -435,28 +437,47 @@ Note
 <p>The file names contain helpful information about the data within. We can see the VIIRS product code (VNP13C2) followed by the file timestamp (e.g., A2014001), which uses the year (2014) followed by the Julian day (001—for January 1st). We also see the version (002) and finally the time that the file was last processed by NASA.</p>
 <div class="cell" data-scrub_data_local="true">
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">files</span></span>
-<span><span class="co">#&gt; [1] "data/VNP13C2/VNP13C2.A2014001.002.2024060013808.h5"</span></span>
-<span><span class="co">#&gt; [2] "data/VNP13C2/VNP13C2.A2014032.002.2024060030203.h5"</span></span>
-<span><span class="co">#&gt; [3] "data/VNP13C2/VNP13C2.A2014060.002.2024060044137.h5"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span><span class="co">#&gt; character(0)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>One key difference is in the file format. While the MODIS files we downloaded previously came in HDF4 format, VIIRS files come in HDF5 (<code>.h5</code>) format. HDF5 files are supported by <a href="https://rspatial.org/">terra</a>, but they store their metadata in different ways, which are not always detected automatically.</p>
 <p>For instance, if we load a few sample VIIRS files that we downloaded as described above, we notice that we get a warning when attempting to load with <code><a href="https://rspatial.github.io/terra/reference/rast.html">rast()</a></code>:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">viirs_cmg</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rspatial.github.io/terra/reference/rast.html">rast</a></span><span class="op">(</span><span class="va">files</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Warning: [rast] unknown extent</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold">
+<div class="code-copy-outer-scaffold"><div id="cb4" class="sourceCode">
+<pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">viirs_cmg</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rspatial.github.io/terra/reference/rast.html">rast</a></span><span class="op">(</span><span class="va">files</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Warning: [rast] unknown extent</span></span></code></pre>
+</div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<button title="Copy to Clipboard" class="code-copy-button">
+<i class="bi"></i>
+</button>
+</div>
 </div>
 <p>This warning is alerting us to the fact that while we were able to load the file into a <code>SpatRaster</code> object, we’re missing information about the spatial extent of the data we’ve loaded.</p>
 <p>We can check the extent information with <code><a href="https://rspatial.github.io/terra/reference/ext.html">ext()</a></code>:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rspatial.github.io/terra/reference/ext.html">ext</a></span><span class="op">(</span><span class="va">viirs_cmg</span><span class="op">)</span></span>
-<span><span class="co">#&gt; SpatExtent : 0, 7200, 0, 3600 (xmin, xmax, ymin, ymax)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold">
+<div class="code-copy-outer-scaffold"><div id="cb5" class="sourceCode">
+<pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rspatial.github.io/terra/reference/ext.html">ext</a></span><span class="op">(</span><span class="va">viirs_cmg</span><span class="op">)</span></span>
+<span><span class="co">#&gt; SpatExtent : 0, 7200, 0, 3600 (xmin, xmax, ymin, ymax)</span></span></code></pre>
+</div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<button title="Copy to Clipboard" class="code-copy-button">
+<i class="bi"></i>
+</button>
+</div>
 </div>
 <p>Why do we have extent information stored when terra warned us that it couldn’t identify the extent? This is because the extent that’s used in the absence of geographical information is simply in <em>pixel units</em>. That is, our raster is 7200x3600 pixels.</p>
 <p>Unfortunately, this doesn’t tell us anything about the geographic locations that the data correspond to. That is, the data aren’t <strong>georeferenced</strong>.</p>
 <p>Accordingly, we’ll notice that our data are also missing a coordinate reference system:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rspatial.github.io/terra/reference/crs.html">crs</a></span><span class="op">(</span><span class="va">viirs_cmg</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] ""</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold">
+<div class="code-copy-outer-scaffold"><div id="cb6" class="sourceCode">
+<pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rspatial.github.io/terra/reference/crs.html">crs</a></span><span class="op">(</span><span class="va">viirs_cmg</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] ""</span></span></code></pre>
+</div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<button title="Copy to Clipboard" class="code-copy-button">
+<i class="bi"></i>
+</button>
+</div>
 </div>
 <p>So, terra was able to load the raster values, but we don’t know any of the critical geographical information associated with these data. Apparently terra isn’t able to access it in these files!</p>
 <div class="callout callout-style-default callout-note callout-titled">
@@ -476,21 +497,42 @@ Note
 <p>As stated in the <a href="https://viirsland.gsfc.nasa.gov/PDF/SNPP_VIIRS_VI_UserGuide_09-26-2017_KDidan.pdf">VIIRS Vegetation Index Product Guide</a>, the VIIRS CMG data are provided in WGS84 geographic coordinates (that is, latitude and longitude) for the entire globe.</p>
 <p>We could use this knowledge to provide the missing extent and CRS information ourselves. We know that the global extent should span from -180° to 180° in longitude and -90° to 90° in latitude, so we can easily set the extent using terra’s <code><a href="https://rspatial.github.io/terra/reference/ext.html">ext()</a></code>:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Note that `ext()` expects coordinates in (xmin, xmax, ymin, ymax) order</span></span>
-<span><span class="fu"><a href="https://rspatial.github.io/terra/reference/ext.html">ext</a></span><span class="op">(</span><span class="va">viirs_cmg</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">180</span>, <span class="fl">180</span>, <span class="op">-</span><span class="fl">90</span>, <span class="fl">90</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold">
+<div class="code-copy-outer-scaffold"><div id="cb7" class="sourceCode">
+<pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Note that `ext()` expects coordinates in (xmin, xmax, ymin, ymax) order</span></span>
+<span><span class="fu"><a href="https://rspatial.github.io/terra/reference/ext.html">ext</a></span><span class="op">(</span><span class="va">viirs_cmg</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">180</span>, <span class="fl">180</span>, <span class="op">-</span><span class="fl">90</span>, <span class="fl">90</span><span class="op">)</span></span></code></pre>
+</div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<button title="Copy to Clipboard" class="code-copy-button">
+<i class="bi"></i>
+</button>
+</div>
 </div>
 <p>Similarly, we could provide the <a href="https://epsg.io/">EPSG code</a> for WGS84 using terra’s <code><a href="https://rspatial.github.io/terra/reference/crs.html">crs()</a></code>:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rspatial.github.io/terra/reference/crs.html">crs</a></span><span class="op">(</span><span class="va">viirs_cmg</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="st">"epsg:4326"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold">
+<div class="code-copy-outer-scaffold"><div id="cb8" class="sourceCode">
+<pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rspatial.github.io/terra/reference/crs.html">crs</a></span><span class="op">(</span><span class="va">viirs_cmg</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="st">"epsg:4326"</span></span></code></pre>
+</div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<button title="Copy to Clipboard" class="code-copy-button">
+<i class="bi"></i>
+</button>
+</div>
 </div>
 <p>Unfortunately, if we go ahead and plot our data, we notice something a bit unexpected:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rspatial.github.io/terra/reference/plot.html">plot</a></span><span class="op">(</span><span class="va">viirs_cmg</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold">
+<div class="code-copy-outer-scaffold"><div id="cb9" class="sourceCode">
+<pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rspatial.github.io/terra/reference/plot.html">plot</a></span><span class="op">(</span><span class="va">viirs_cmg</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">)</span></span></code></pre>
+</div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<button title="Copy to Clipboard" class="code-copy-button">
+<i class="bi"></i>
+</button>
+</div>
 </div>
 <div class="cell page-columns page-full">
 <div class="cell-output-display page-columns page-full">
 <div class="page-columns page-full">
-<figure class="figure page-columns page-full"><p class="page-columns page-full"><img src="images/global-map-1.png" class="img-fluid figure-img column-page" style="width:100.0%"></p>
+<figure class="figure page-columns page-full"><p class="page-columns page-full"><img src="images/global-map-1.png" class="img-fluid figure-img column-page" style="width:100.0%" alt="Global Map flipped"></p>
 </figure>
 </div>
 </div>
@@ -499,7 +541,9 @@ Note
 <p>You may also have noticed that the range of values in the plot above doesn’t correspond to what we’d expect from NDVI (which should range from -1 to 1). This is because our input file actually contains several measures (“subdatasets”) in addition to NDVI, and we’ve only shown the first. We can use the <code>subds</code> argument to select a particular subdataset from the HDF5 file. (<a href="#access-metadata">Later</a>, we’ll show how you can use the metadata to find the correct subdataset name.)</p>
 <p>Making these adjustments, we get:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">viirs_cmg</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rspatial.github.io/terra/reference/rast.html">rast</a></span><span class="op">(</span></span>
+<div class="code-copy-outer-scaffold">
+<div class="code-copy-outer-scaffold"><div id="cb10" class="sourceCode">
+<pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">viirs_cmg</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rspatial.github.io/terra/reference/rast.html">rast</a></span><span class="op">(</span></span>
 <span>  <span class="va">files</span>, </span>
 <span>  subds <span class="op">=</span> <span class="st">"//HDFEOS/GRIDS/VIIRS_Grid_monthly_VI_CMG/Data_Fields/CMG_0.05_Deg_monthly_NDVI"</span>,</span>
 <span>  noflip <span class="op">=</span> <span class="cn">TRUE</span></span>
@@ -507,11 +551,18 @@ Note
 <span></span>
 <span><span class="co"># Don't forget to attach geographic info as we've re-loaded the file!</span></span>
 <span><span class="fu"><a href="https://rspatial.github.io/terra/reference/ext.html">ext</a></span><span class="op">(</span><span class="va">viirs_cmg</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">180</span>, <span class="fl">180</span>, <span class="op">-</span><span class="fl">90</span>, <span class="fl">90</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rspatial.github.io/terra/reference/crs.html">crs</a></span><span class="op">(</span><span class="va">viirs_cmg</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="st">"epsg:4326"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span><span class="fu"><a href="https://rspatial.github.io/terra/reference/crs.html">crs</a></span><span class="op">(</span><span class="va">viirs_cmg</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="st">"epsg:4326"</span></span></code></pre>
+</div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<button title="Copy to Clipboard" class="code-copy-button">
+<i class="bi"></i>
+</button>
+</div>
 </div>
 <p>We now have a georeferenced NDVI raster dataset for 3 months:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">viirs_cmg</span></span>
+<div class="code-copy-outer-scaffold">
+<div class="code-copy-outer-scaffold"><div id="cb11" class="sourceCode">
+<pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">viirs_cmg</span></span>
 <span><span class="co">#&gt; class       : SpatRaster </span></span>
 <span><span class="co">#&gt; dimensions  : 3600, 7200, 3  (nrow, ncol, nlyr)</span></span>
 <span><span class="co">#&gt; resolution  : 0.05, 0.05  (x, y)</span></span>
@@ -523,16 +574,28 @@ Note
 <span><span class="co">#&gt; varnames    : CMG_0 </span></span>
 <span><span class="co">#&gt;               CMG_0 </span></span>
 <span><span class="co">#&gt;               CMG_0 </span></span>
-<span><span class="co">#&gt; names       : CMG_0.05_D~nthly_NDVI, CMG_0.05_D~nthly_NDVI, CMG_0.05_D~nthly_NDVI</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span><span class="co">#&gt; names       : CMG_0.05_D~nthly_NDVI, CMG_0.05_D~nthly_NDVI, CMG_0.05_D~nthly_NDVI</span></span></code></pre>
+</div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<button title="Copy to Clipboard" class="code-copy-button">
+<i class="bi"></i>
+</button>
+</div>
 </div>
 <p>A quick map of our data shows that it’s now oriented correctly:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rspatial.github.io/terra/reference/plot.html">plot</a></span><span class="op">(</span><span class="va">viirs_cmg</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold">
+<div class="code-copy-outer-scaffold"><div id="cb12" class="sourceCode">
+<pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rspatial.github.io/terra/reference/plot.html">plot</a></span><span class="op">(</span><span class="va">viirs_cmg</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">)</span></span></code></pre>
+</div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<button title="Copy to Clipboard" class="code-copy-button">
+<i class="bi"></i>
+</button>
+</div>
 </div>
 <div class="cell page-columns page-full">
 <div class="cell-output-display page-columns page-full">
 <div class="page-columns page-full">
-<figure class="figure page-columns page-full"><p class="page-columns page-full"><img src="images/global-map-2.png" class="img-fluid figure-img column-page" style="width:100.0%"></p>
+<figure class="figure page-columns page-full"><p class="page-columns page-full"><img src="images/global-map-2.png" class="img-fluid figure-img column-page" style="width:100.0%" alt="Global Map corrected, NDVI scaled"></p>
 </figure>
 </div>
 </div>
@@ -540,14 +603,28 @@ Note
 <p>However, our NDVI units still appear to be off—we’d expect them to range from -1 to 1, but here we see they appear to be scaled. The <a href="https://viirsland.gsfc.nasa.gov/PDF/SNPP_VIIRS_VI_UserGuide_09-26-2017_KDidan.pdf">VIIRS documentation</a> indicates that the values have been scaled by 10000 and that the valid range of data is from -10000 to 10000.</p>
 <p>We’ll rescale our data with simple division:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Rescale data</span></span>
-<span><span class="va">viirs_cmg</span> <span class="op">&lt;-</span> <span class="va">viirs_cmg</span> <span class="op">/</span> <span class="fl">10000</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold">
+<div class="code-copy-outer-scaffold"><div id="cb13" class="sourceCode">
+<pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Rescale data</span></span>
+<span><span class="va">viirs_cmg</span> <span class="op">&lt;-</span> <span class="va">viirs_cmg</span> <span class="op">/</span> <span class="fl">10000</span></span></code></pre>
+</div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<button title="Copy to Clipboard" class="code-copy-button">
+<i class="bi"></i>
+</button>
+</div>
 </div>
 <p>Then, we’ll use <code><a href="https://rspatial.github.io/terra/reference/classify.html">classify()</a></code> to convert all raster values below -1 to missing values. <code><a href="https://rspatial.github.io/terra/reference/classify.html">classify()</a></code> expects a matrix that contains an input range (in this case, <code>-Inf</code> to <code>-1</code>) and an output value that should be used as a replacement for values in that range (in this case, <code>NA</code>).</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Reclassify out-of-range data to NA</span></span>
+<div class="code-copy-outer-scaffold">
+<div class="code-copy-outer-scaffold"><div id="cb14" class="sourceCode">
+<pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Reclassify out-of-range data to NA</span></span>
 <span><span class="va">m</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="op">-</span><span class="cn">Inf</span>, <span class="op">-</span><span class="fl">1</span>, <span class="cn">NA</span><span class="op">)</span>, nrow <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
-<span><span class="va">viirs_cmg</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rspatial.github.io/terra/reference/classify.html">classify</a></span><span class="op">(</span><span class="va">viirs_cmg</span>, <span class="va">m</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span><span class="va">viirs_cmg</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rspatial.github.io/terra/reference/classify.html">classify</a></span><span class="op">(</span><span class="va">viirs_cmg</span>, <span class="va">m</span><span class="op">)</span></span></code></pre>
+</div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<button title="Copy to Clipboard" class="code-copy-button">
+<i class="bi"></i>
+</button>
+</div>
 </div>
 <p>This looks much better:</p>
 <!-- ```{r} -->
@@ -583,12 +660,12 @@ Note
 <!--   guides(fill = "none") -->
 <!-- ``` -->
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb15"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rspatial.github.io/terra/reference/plot.html">plot</a></span><span class="op">(</span><span class="va">viirs_cmg</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rspatial.github.io/terra/reference/plot.html">plot</a></span><span class="op">(</span><span class="va">viirs_cmg</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="cell page-columns page-full">
 <div class="cell-output-display page-columns page-full">
 <div class="page-columns page-full">
-<figure class="figure page-columns page-full"><p class="page-columns page-full"><img src="images/global-map-3.png" class="img-fluid figure-img column-page" style="width:100.0%"></p>
+<figure class="figure page-columns page-full"><p class="page-columns page-full"><img src="images/global-map-3.png" class="img-fluid figure-img column-page" style="width:100.0%" alt="Global map correct orientation and NDVI"></p>
 </figure>
 </div>
 </div>
@@ -621,32 +698,62 @@ Tip
 <section id="bioconductor-and-the-rhdf5-package" class="level3"><h3 class="anchored" data-anchor-id="bioconductor-and-the-rhdf5-package">Bioconductor and the rhdf5 package</h3>
 <p>First, we’ll load a collection of 8 HDF files that cover 2 timestamps for the same 4 tiles that we used in our MODIS post. We’ve placed them in a <code>data/VNP13A1</code> directory.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb16"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">files</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.files.html">list.files</a></span><span class="op">(</span><span class="st">"data/VNP13A1"</span>, full.names <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold">
+<div class="code-copy-outer-scaffold"><div id="cb16" class="sourceCode">
+<pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">files</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.files.html">list.files</a></span><span class="op">(</span><span class="st">"data/VNP13A1"</span>, full.names <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre>
+</div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<button title="Copy to Clipboard" class="code-copy-button">
+<i class="bi"></i>
+</button>
 </div>
-<p>Unfortunately, terra isn’t designed to provide flexible access to metadata for HDF5 files. However, there is another R package that can help, appropriately named <code>{rhdf5}</code>.</p>
+</div>
+<p>Unfortunately, terra isn’t designed to provide flexible access to metadata for HDF5 files. However, there is another R package that can help, appropriately named <a href="https://github.com/Huber-group-EMBL/rhdf5">rhdf5</a>.</p>
 <p>rhdf5 is a package from <a href="https://www.bioconductor.org/">Bioconductor</a>, an open-source software project focused on building bioinformatics tools. You’re probably familiar with installing packages from <a href="https://cran.r-project.org/">CRAN</a>, which is the default behavior when using <code><a href="https://rdrr.io/r/utils/install.packages.html">install.packages()</a></code>, but Bioconductor packages are not stored on CRAN.</p>
 <p>Fortunately, Bioconductor maintains the <a href="https://bioconductor.github.io/BiocManager/">BiocManager</a> package to help install Bioconductor packages. If you’ve never worked with a Bioconductor package before, you can install the manager with</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb17"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"BiocManager"</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold">
+<div class="code-copy-outer-scaffold"><div id="cb17" class="sourceCode">
+<pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"BiocManager"</span><span class="op">)</span></span></code></pre>
+</div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<button title="Copy to Clipboard" class="code-copy-button">
+<i class="bi"></i>
+</button>
+</div>
 </div>
 <p>Then, you can use it to install rhdf5:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb18"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">BiocManager</span><span class="fu">::</span><span class="fu">install</span><span class="op">(</span><span class="st">"rhdf5"</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">BiocManager</span><span class="fu">::</span><span class="fu"><a href="https://bioconductor.github.io/BiocManager/reference/install.html">install</a></span><span class="op">(</span><span class="st">"rhdf5"</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Note that you’ll only need to do this once, unless you later need to update the <code>BiocManager</code> or <code>rhdf5</code> packages.</p>
 </section><section id="access-metadata" class="level3 page-columns page-full"><h3 class="anchored" data-anchor-id="access-metadata">Accessing metadata</h3>
-<p>First, we’ll load the <code>{rhdf5}</code> package:</p>
+<p>First, we’ll load the <a href="https://github.com/Huber-group-EMBL/rhdf5">rhdf5</a> package:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb19"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">rhdf5</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold">
+<div class="code-copy-outer-scaffold"><div id="cb19" class="sourceCode">
+<pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/Huber-group-EMBL/rhdf5">rhdf5</a></span><span class="op">)</span></span></code></pre>
+</div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<button title="Copy to Clipboard" class="code-copy-button">
+<i class="bi"></i>
+</button>
 </div>
-<p>We can view the available data and metadata fields in an HDF5 file with <code>h5ls()</code>.</p>
+</div>
+<p>We can view the available data and metadata fields in an HDF5 file with <code><a href="https://rdrr.io/pkg/rhdf5/man/h5ls.html">h5ls()</a></code>.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb20"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">ds</span> <span class="op">&lt;-</span> <span class="fu">h5ls</span><span class="op">(</span><span class="va">files</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold">
+<div class="code-copy-outer-scaffold"><div id="cb20" class="sourceCode">
+<pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">ds</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/rhdf5/man/h5ls.html">h5ls</a></span><span class="op">(</span><span class="va">files</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span></span></code></pre>
+</div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<button title="Copy to Clipboard" class="code-copy-button">
+<i class="bi"></i>
+</button>
+</div>
 </div>
 <p>HDF5 files are organized into <strong>groups</strong>. Groups refer to an abstract collection of objects, like datasets or metadata objects. Each data object has a <strong>name</strong>. You can think of each group as a directory and the objects inside as different files within that directory.</p>
 <p>For instance, if we view this file’s groups, we notice that there are several entries in the <code>Data Fields</code> group, among others:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb21"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">ds</span><span class="op">$</span><span class="va">group</span></span>
+<div class="code-copy-outer-scaffold">
+<div class="code-copy-outer-scaffold"><div id="cb21" class="sourceCode">
+<pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">ds</span><span class="op">$</span><span class="va">group</span></span>
 <span><span class="co">#&gt;  [1] "/"                                                 </span></span>
 <span><span class="co">#&gt;  [2] "/HDFEOS"                                           </span></span>
 <span><span class="co">#&gt;  [3] "/HDFEOS/ADDITIONAL"                                </span></span>
@@ -675,11 +782,18 @@ Tip
 <span><span class="co">#&gt; [26] "/"                                                 </span></span>
 <span><span class="co">#&gt; [27] "/HDFEOS INFORMATION"                               </span></span>
 <span><span class="co">#&gt; [28] "/HDFEOS INFORMATION"                               </span></span>
-<span><span class="co">#&gt; [29] "/HDFEOS INFORMATION"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span><span class="co">#&gt; [29] "/HDFEOS INFORMATION"</span></span></code></pre>
+</div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<button title="Copy to Clipboard" class="code-copy-button">
+<i class="bi"></i>
+</button>
 </div>
-<p>If we look at the specific objects within these groups, we see that each of these data fields is a different metric (e.g.&nbsp; EVI [Enhanced Vegetation Index], NDVI, etc.):</p>
+</div>
+<p>If we look at the specific objects within these groups, we see that each of these data fields is a different metric (e.g.&nbsp;EVI [Enhanced Vegetation Index], NDVI, etc.):</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb22"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span><span class="op">(</span><span class="va">ds</span><span class="op">$</span><span class="va">group</span>, <span class="va">ds</span><span class="op">$</span><span class="va">name</span>, sep <span class="op">=</span> <span class="st">"/"</span><span class="op">)</span></span>
+<div class="code-copy-outer-scaffold">
+<div class="code-copy-outer-scaffold"><div id="cb22" class="sourceCode">
+<pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span><span class="op">(</span><span class="va">ds</span><span class="op">$</span><span class="va">group</span>, <span class="va">ds</span><span class="op">$</span><span class="va">name</span>, sep <span class="op">=</span> <span class="st">"/"</span><span class="op">)</span></span>
 <span><span class="co">#&gt;  [1] "//HDFEOS"                                                                                  </span></span>
 <span><span class="co">#&gt;  [2] "/HDFEOS/ADDITIONAL"                                                                        </span></span>
 <span><span class="co">#&gt;  [3] "/HDFEOS/ADDITIONAL/FILE_ATTRIBUTES"                                                        </span></span>
@@ -708,16 +822,29 @@ Tip
 <span><span class="co">#&gt; [26] "//HDFEOS INFORMATION"                                                                      </span></span>
 <span><span class="co">#&gt; [27] "/HDFEOS INFORMATION/ArchiveMetadata.0"                                                     </span></span>
 <span><span class="co">#&gt; [28] "/HDFEOS INFORMATION/CoreMetadata.0"                                                        </span></span>
-<span><span class="co">#&gt; [29] "/HDFEOS INFORMATION/StructMetadata.0"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span><span class="co">#&gt; [29] "/HDFEOS INFORMATION/StructMetadata.0"</span></span></code></pre>
+</div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<button title="Copy to Clipboard" class="code-copy-button">
+<i class="bi"></i>
+</button>
+</div>
 </div>
 <p>Of particular interest is the <code>"500 m 16 days NDVI"</code> data field, which contains the NDVI data we’ll eventually want to load.</p>
 <p>Also of note is the <code>"/HDFEOS INFORMATION/StructMetadata.0"</code> object. By convention, this is where NASA stores some of the key geographic metadata for the file.</p>
-<p>We can read the HDF5 metadata using <code>h5read()</code>. The <code>name</code> argument should be set to one of the <code>group</code> and <code>name</code> values from the <code>h5ls()</code> output above.</p>
+<p>We can read the HDF5 metadata using <code><a href="https://rdrr.io/pkg/rhdf5/man/h5_read.html">h5read()</a></code>. The <code>name</code> argument should be set to one of the <code>group</code> and <code>name</code> values from the <code><a href="https://rdrr.io/pkg/rhdf5/man/h5ls.html">h5ls()</a></code> output above.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb23"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">metadata</span> <span class="op">&lt;-</span> <span class="fu">h5read</span><span class="op">(</span><span class="va">files</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>, name <span class="op">=</span> <span class="st">"//HDFEOS INFORMATION/StructMetadata.0"</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold">
+<div class="code-copy-outer-scaffold"><div id="cb23" class="sourceCode">
+<pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">metadata</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/rhdf5/man/h5_read.html">h5read</a></span><span class="op">(</span><span class="va">files</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>, name <span class="op">=</span> <span class="st">"//HDFEOS INFORMATION/StructMetadata.0"</span><span class="op">)</span></span></code></pre>
+</div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<button title="Copy to Clipboard" class="code-copy-button">
+<i class="bi"></i>
+</button>
+</div>
 </div>
 <p>You can use <code><a href="https://rdrr.io/r/base/cat.html">cat()</a></code> to display the metadata text in the R console, making it a bit easier to read.</p>
 <div class="cell" data-out.lines="15">
+<div class="code-copy-outer-scaffold">
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb24"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span><span class="op">(</span><span class="va">metadata</span><span class="op">)</span></span>
 <span><span class="co">#&gt; GROUP=SwathStructure</span></span>
 <span><span class="co">#&gt; END_GROUP=SwathStructure</span></span>
@@ -735,6 +862,8 @@ Tip
 <span><span class="co">#&gt;          OBJECT=Dimension_1</span></span>
 <span><span class="co">#&gt;              DimensionName="dimofone"</span></span>
 <span><span class="va">....</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button>
+</div>
 </div>
 <section id="projection-metadata" class="level4 page-columns page-full"><h4 class="anchored" data-anchor-id="projection-metadata">Projection metadata</h4>
 <p>Notice the <code>Projection</code> and <code>ProjParams</code> rows in the output above. These show details about the projection and projection parameters for our data. On their own, they’re hard to interpret, but a quick look at the VIIRS documentation reveals that this is the NASA code for the sinusoidal projection.</p>
@@ -744,7 +873,7 @@ Tip
 <p><a href="https://proj.org/en/stable/about.html">PROJ</a> is a set of software tools that support transformations between coordinate reference systems. PROJ-strings are one way to represent the parameters of a specific projection in a way that PROJ can interpret.</p>
 </div></div><p>For the sinusoidal projection, we can use the following:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb25"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">sinu_proj</span> <span class="op">&lt;-</span> <span class="st">"+proj=sinu +lon_0=0 +x_0=0 +y_0=0 +R=6371007.181 +units=m +no_defs"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">sinu_proj</span> <span class="op">&lt;-</span> <span class="st">"+proj=sinu +lon_0=0 +x_0=0 +y_0=0 +R=6371007.181 +units=m +no_defs"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -762,7 +891,7 @@ Note
 </section><section id="extent-metadata" class="level4 page-columns page-full"><h4 class="anchored" data-anchor-id="extent-metadata">Extent metadata</h4>
 <p>The <code>UpperLeftPointMtrs</code> and <code>LowerRightMtrs</code> metadata rows show the locations of the upper left and lower right points of the raster grid in the sinusoidal projection.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb26"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">....</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">....</span></span>
 <span><span class="co">#&gt;      UpperLeftPointMtrs=(3335851.559000,1111950.519667)</span></span>
 <span><span class="co">#&gt;      LowerRightMtrs=(4447802.078667,0.000000)</span></span>
 <span><span class="va">....</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -772,13 +901,13 @@ Note
 <div class="no-row-height column-margin column-container"><div class="margin-aside">
 <p>You could also use <a href="https://stringr.tidyverse.org/articles/regular-expressions.html">regular expressions</a> to extract the numeric values themselves. We use this approach in our iterative workflow <a href="#using-string-matching-to-identify-tile-extent-coordinates">later</a> in the post.</p>
 </div></div><div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb27"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">ul</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">3335851.559</span>, <span class="fl">1111950.519667</span><span class="op">)</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">ul</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">3335851.559</span>, <span class="fl">1111950.519667</span><span class="op">)</span></span>
 <span><span class="va">lr</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">4447802.078667</span>, <span class="fl">0</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p><a href="https://rspatial.org/">terra</a> expects the extent to be in (xmin, xmax, ymin, ymax) order. In our case, this corresponds to (upper-left x-coordinate, lower-right x-coordinate, lower-right y-coordinate, upper-left y-coordinate).</p>
 <p>We’ll use terra’s <code><a href="https://rspatial.github.io/terra/reference/ext.html">ext()</a></code> to create a <code>SpatExtent</code> object containing the extent:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb28"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Using (xmin, xmax, ymin, ymax) order</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Using (xmin, xmax, ymin, ymax) order</span></span>
 <span><span class="va">extent</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rspatial.github.io/terra/reference/ext.html">ext</a></span><span class="op">(</span><span class="va">ul</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>, <span class="va">lr</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>, <span class="va">lr</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span>, <span class="va">ul</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">extent</span></span>
@@ -802,32 +931,62 @@ Note
 <p>We can use the metadata we’ve explored to improve our data loading workflow and attach correct geographic information to the loaded data.</p>
 <p>First, we’ll use the NDVI subdataset name we identified above to load just the NDVI raster, ignoring other bands:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb29"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">viirs_ndvi</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rspatial.github.io/terra/reference/rast.html">rast</a></span><span class="op">(</span></span>
+<div class="code-copy-outer-scaffold">
+<div class="code-copy-outer-scaffold"><div id="cb29" class="sourceCode">
+<pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">viirs_ndvi</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rspatial.github.io/terra/reference/rast.html">rast</a></span><span class="op">(</span></span>
 <span>  <span class="va">files</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>, </span>
 <span>  subds <span class="op">=</span> <span class="st">"//HDFEOS/GRIDS/VIIRS_Grid_16Day_VI_500m/Data_Fields/500_m_16_days_NDVI"</span>,</span>
 <span>  noflip <span class="op">=</span> <span class="cn">TRUE</span></span>
-<span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span><span class="op">)</span></span></code></pre>
+</div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<button title="Copy to Clipboard" class="code-copy-button">
+<i class="bi"></i>
+</button>
+</div>
 </div>
 <p>Now, we can assign our sinusoidal projection to our data:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb30"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rspatial.github.io/terra/reference/crs.html">crs</a></span><span class="op">(</span><span class="va">viirs_ndvi</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">sinu_proj</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold">
+<div class="code-copy-outer-scaffold"><div id="cb30" class="sourceCode">
+<pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rspatial.github.io/terra/reference/crs.html">crs</a></span><span class="op">(</span><span class="va">viirs_ndvi</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">sinu_proj</span></span></code></pre>
+</div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<button title="Copy to Clipboard" class="code-copy-button">
+<i class="bi"></i>
+</button>
+</div>
 </div>
 <p>As well as the extent we created above:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb31"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rspatial.github.io/terra/reference/ext.html">ext</a></span><span class="op">(</span><span class="va">viirs_ndvi</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">extent</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold">
+<div class="code-copy-outer-scaffold"><div id="cb31" class="sourceCode">
+<pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rspatial.github.io/terra/reference/ext.html">ext</a></span><span class="op">(</span><span class="va">viirs_ndvi</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">extent</span></span></code></pre>
+</div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<button title="Copy to Clipboard" class="code-copy-button">
+<i class="bi"></i>
+</button>
+</div>
 </div>
 <p>Finally, we’ll make the scale adjustments that we introduced when working with the global CMG data:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb32"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Rescale NDVI values</span></span>
+<div class="code-copy-outer-scaffold">
+<div class="code-copy-outer-scaffold"><div id="cb32" class="sourceCode">
+<pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Rescale NDVI values</span></span>
 <span><span class="va">viirs_ndvi</span> <span class="op">&lt;-</span> <span class="va">viirs_ndvi</span> <span class="op">/</span> <span class="fl">10000</span></span>
 <span></span>
 <span><span class="co"># Replace out-of-range values with NA</span></span>
 <span><span class="va">m</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="op">-</span><span class="cn">Inf</span>, <span class="op">-</span><span class="fl">1</span>, <span class="cn">NA</span><span class="op">)</span>, nrow <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
-<span><span class="va">viirs_ndvi</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rspatial.github.io/terra/reference/classify.html">classify</a></span><span class="op">(</span><span class="va">viirs_ndvi</span>, <span class="va">m</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span><span class="va">viirs_ndvi</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rspatial.github.io/terra/reference/classify.html">classify</a></span><span class="op">(</span><span class="va">viirs_ndvi</span>, <span class="va">m</span><span class="op">)</span></span></code></pre>
+</div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<button title="Copy to Clipboard" class="code-copy-button">
+<i class="bi"></i>
+</button>
+</div>
 </div>
 <p>Now we can see that our raster seems to have the appropriate CRS, extent, and scale!</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb33"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">viirs_ndvi</span></span>
+<div class="code-copy-outer-scaffold">
+<div class="code-copy-outer-scaffold"><div id="cb33" class="sourceCode">
+<pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">viirs_ndvi</span></span>
 <span><span class="co">#&gt; class       : SpatRaster </span></span>
 <span><span class="co">#&gt; dimensions  : 2400, 2400, 1  (nrow, ncol, nlyr)</span></span>
 <span><span class="co">#&gt; resolution  : 463.3127, 463.3127  (x, y)</span></span>
@@ -837,10 +996,19 @@ Note
 <span><span class="co">#&gt; varname     : 500_m_16_days_NDVI </span></span>
 <span><span class="co">#&gt; name        : 500_m_16_days_NDVI </span></span>
 <span><span class="co">#&gt; min value   :            -0.9688 </span></span>
-<span><span class="co">#&gt; max value   :             0.9994</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span><span class="co">#&gt; max value   :             0.9994</span></span></code></pre>
+</div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<button title="Copy to Clipboard" class="code-copy-button">
+<i class="bi"></i>
+</button>
+</div>
 </div>
 <div class="cell page-columns page-full">
-<details class="code-fold"><summary>Show plot code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb34"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">ndvi_pal</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span></span>
+<details class="code-fold"><summary>
+Show plot code
+</summary><div class="code-copy-outer-scaffold">
+<div class="code-copy-outer-scaffold"><div id="cb34" class="sourceCode">
+<pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">ndvi_pal</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span></span>
 <span>  pal <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span></span>
 <span>    <span class="st">"#fdfbdc"</span>,</span>
 <span>    <span class="st">"#f1f4b7"</span>,</span>
@@ -871,10 +1039,16 @@ Note
 <span>    caption <span class="op">=</span> <span class="st">"Source: NASA Visible Infrared Imaging Radiometer Suite (VIIRS)"</span></span>
 <span>  <span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">theme_dhs_map</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu">theme_dhs_base</span><span class="op">(</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span>  <span class="fu">theme_dhs_base</span><span class="op">(</span><span class="op">)</span></span></code></pre>
+</div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<button title="Copy to Clipboard" class="code-copy-button">
+<i class="bi"></i>
+</button>
+</div>
 </details><div class="cell-output-display page-columns page-full">
 <div class="page-columns page-full">
-<figure class="figure page-columns page-full"><p class="page-columns page-full"><img src="index_files/figure-html/unnamed-chunk-40-1.png" class="img-fluid figure-img column-page" style="width:100.0%"></p>
+<figure class="figure page-columns page-full"><p class="page-columns page-full">
+<img src="index_files/figure-html/unnamed-chunk-40-1.png" alt="VIIRS NDVI plot" class="img-fluid figure-img column-page" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
@@ -901,46 +1075,32 @@ Note
 <section id="identify-tile-codes" class="level2"><h2 class="anchored" data-anchor-id="identify-tile-codes">Identify tile codes</h2>
 <p>As we demonstrated last time, we’ll identify each unique tile code from our file names:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb35"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">tile_codes</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rspatial.github.io/terra/reference/unique.html">unique</a></span><span class="op">(</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_extract.html">str_extract</a></span><span class="op">(</span><span class="va">files</span>, <span class="st">"h[0-9]{2}v[0-9]{2}"</span><span class="op">)</span><span class="op">)</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">tile_codes</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rspatial.github.io/terra/reference/unique.html">unique</a></span><span class="op">(</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_extract.html">str_extract</a></span><span class="op">(</span><span class="va">files</span>, <span class="st">"h[0-9]{2}v[0-9]{2}"</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">tile_codes</span></span>
-<span><span class="co">#&gt; [1] "h21v08" "h21v09" "h22v08" "h22v09"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span><span class="co">#&gt; character(0)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>This allows us to group our files by tile into a list:</p>
 <div class="cell" data-scrub_data_local="true">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb36"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">tiles</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span><span class="op">(</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">tiles</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span><span class="op">(</span></span>
 <span>  <span class="va">tile_codes</span>,</span>
 <span>  <span class="kw">function</span><span class="op">(</span><span class="va">code</span><span class="op">)</span> <span class="va">files</span><span class="op">[</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_detect.html">str_detect</a></span><span class="op">(</span><span class="va">files</span>, <span class="va">code</span><span class="op">)</span><span class="op">]</span></span>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">tiles</span></span>
-<span><span class="co">#&gt; [[1]]</span></span>
-<span><span class="co">#&gt; [1] "data/VNP13A1/VNP13A1.A2014001.h21v08.002.2024059234751.h5"</span></span>
-<span><span class="co">#&gt; [2] "data/VNP13A1/VNP13A1.A2014017.h21v08.002.2024060002117.h5"</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; [[2]]</span></span>
-<span><span class="co">#&gt; [1] "data/VNP13A1/VNP13A1.A2014001.h21v09.002.2024059234749.h5"</span></span>
-<span><span class="co">#&gt; [2] "data/VNP13A1/VNP13A1.A2014017.h21v09.002.2024060002133.h5"</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; [[3]]</span></span>
-<span><span class="co">#&gt; [1] "data/VNP13A1/VNP13A1.A2014001.h22v08.002.2024059234752.h5"</span></span>
-<span><span class="co">#&gt; [2] "data/VNP13A1/VNP13A1.A2014017.h22v08.002.2024060002157.h5"</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; [[4]]</span></span>
-<span><span class="co">#&gt; [1] "data/VNP13A1/VNP13A1.A2014001.h22v09.002.2024059234755.h5"</span></span>
-<span><span class="co">#&gt; [2] "data/VNP13A1/VNP13A1.A2014017.h22v09.002.2024060002123.h5"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span><span class="co">#&gt; list()</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section><section id="using-string-matching-to-identify-tile-extent-coordinates" class="level2"><h2 class="anchored" data-anchor-id="using-string-matching-to-identify-tile-extent-coordinates">Using string matching to identify tile extent coordinates</h2>
-<p>Now, for each of these tiles, we can extract the metadata for the first file using <code>h5read()</code>. (Recall that the two files in each group are differentiated by their timestamps, but share the same geographic extent.)</p>
+<p>Now, for each of these tiles, we can extract the metadata for the first file using <code><a href="https://rdrr.io/pkg/rhdf5/man/h5_read.html">h5read()</a></code>. (Recall that the two files in each group are differentiated by their timestamps, but share the same geographic extent.)</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb37"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">tile_metadata</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span><span class="op">(</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">tile_metadata</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span><span class="op">(</span></span>
 <span>  <span class="va">tiles</span>,</span>
-<span>  <span class="kw">function</span><span class="op">(</span><span class="va">t</span><span class="op">)</span> <span class="fu">h5read</span><span class="op">(</span><span class="va">t</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>, name <span class="op">=</span> <span class="st">"//HDFEOS INFORMATION/StructMetadata.0"</span><span class="op">)</span></span>
+<span>  <span class="kw">function</span><span class="op">(</span><span class="va">t</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/pkg/rhdf5/man/h5_read.html">h5read</a></span><span class="op">(</span><span class="va">t</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>, name <span class="op">=</span> <span class="st">"//HDFEOS INFORMATION/StructMetadata.0"</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>The metadata are in string format. To extract the upper left and lower right coordinates, we’ll need to use regular expressions to pull out the text coordinates and convert to numeric values.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb38"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">ul</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span><span class="op">(</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">ul</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span><span class="op">(</span></span>
 <span>  <span class="va">tile_metadata</span>,</span>
 <span>  <span class="op">~</span> <span class="fu"><a href="https://stringr.tidyverse.org/reference/str_match.html">str_match</a></span><span class="op">(</span><span class="va">.x</span>, <span class="st">"UpperLeftPointMtrs=\\((.*?)\\)"</span><span class="op">)</span><span class="op">[</span>, <span class="fl">2</span><span class="op">]</span></span>
 <span><span class="op">)</span></span>
@@ -948,20 +1108,10 @@ Note
 <span><span class="va">ul</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span><span class="op">(</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_split.html">str_split</a></span><span class="op">(</span><span class="va">ul</span>, <span class="st">","</span><span class="op">)</span>, <span class="va">as.numeric</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">ul</span></span>
-<span><span class="co">#&gt; [[1]]</span></span>
-<span><span class="co">#&gt; [1] 3335852 1111951</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; [[2]]</span></span>
-<span><span class="co">#&gt; [1] 3335852       0</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; [[3]]</span></span>
-<span><span class="co">#&gt; [1] 4447802 1111951</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; [[4]]</span></span>
-<span><span class="co">#&gt; [1] 4447802       0</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span><span class="co">#&gt; list()</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb39"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">lr</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map_chr</a></span><span class="op">(</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">lr</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map_chr</a></span><span class="op">(</span></span>
 <span>  <span class="va">tile_metadata</span>,</span>
 <span>  <span class="op">~</span> <span class="fu"><a href="https://stringr.tidyverse.org/reference/str_match.html">str_match</a></span><span class="op">(</span><span class="va">.x</span>, <span class="st">"LowerRightMtrs=\\((.*?)\\)"</span><span class="op">)</span><span class="op">[</span>, <span class="fl">2</span><span class="op">]</span></span>
 <span><span class="op">)</span></span>
@@ -969,39 +1119,19 @@ Note
 <span><span class="va">lr</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span><span class="op">(</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_split.html">str_split</a></span><span class="op">(</span><span class="va">lr</span>, <span class="st">","</span><span class="op">)</span>, <span class="va">as.numeric</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">lr</span></span>
-<span><span class="co">#&gt; [[1]]</span></span>
-<span><span class="co">#&gt; [1] 4447802       0</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; [[2]]</span></span>
-<span><span class="co">#&gt; [1]  4447802 -1111951</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; [[3]]</span></span>
-<span><span class="co">#&gt; [1] 5559753       0</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; [[4]]</span></span>
-<span><span class="co">#&gt; [1]  5559753 -1111951</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span><span class="co">#&gt; list()</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Now we can convert these points to extents using terra’s conventions. We use <code><a href="https://purrr.tidyverse.org/reference/map2.html">map2()</a></code> to iterate over both sets of points <strong>in parallel</strong>. That is, we’ll use the first point in the <code>ul</code> list along with the first point in the <code>lr</code> list to construct the first extent, and so on.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb40"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">tile_ext</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://purrr.tidyverse.org/reference/map2.html">map2</a></span><span class="op">(</span><span class="va">ul</span>, <span class="va">lr</span>, <span class="kw">function</span><span class="op">(</span><span class="va">u</span>, <span class="va">l</span><span class="op">)</span> <span class="fu"><a href="https://rspatial.github.io/terra/reference/ext.html">ext</a></span><span class="op">(</span><span class="va">u</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>, <span class="va">l</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>, <span class="va">l</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span>, <span class="va">u</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span><span class="op">)</span><span class="op">)</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb15"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">tile_ext</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://purrr.tidyverse.org/reference/map2.html">map2</a></span><span class="op">(</span><span class="va">ul</span>, <span class="va">lr</span>, <span class="kw">function</span><span class="op">(</span><span class="va">u</span>, <span class="va">l</span><span class="op">)</span> <span class="fu"><a href="https://rspatial.github.io/terra/reference/ext.html">ext</a></span><span class="op">(</span><span class="va">u</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>, <span class="va">l</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>, <span class="va">l</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span>, <span class="va">u</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">tile_ext</span></span>
-<span><span class="co">#&gt; [[1]]</span></span>
-<span><span class="co">#&gt; SpatExtent : 3335851.559, 4447802.078667, 0, 1111950.519667 (xmin, xmax, ymin, ymax)</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; [[2]]</span></span>
-<span><span class="co">#&gt; SpatExtent : 3335851.559, 4447802.078667, -1111950.519667, 0 (xmin, xmax, ymin, ymax)</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; [[3]]</span></span>
-<span><span class="co">#&gt; SpatExtent : 4447802.078667, 5559752.598333, 0, 1111950.519667 (xmin, xmax, ymin, ymax)</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; [[4]]</span></span>
-<span><span class="co">#&gt; SpatExtent : 4447802.078667, 5559752.598333, -1111950.519667, 0 (xmin, xmax, ymin, ymax)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span><span class="co">#&gt; list()</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section><section id="load-all-tiles" class="level2"><h2 class="anchored" data-anchor-id="load-all-tiles">Load all tiles</h2>
 <p>Now, we need to load the data for each tile, updating its CRS and extent information with the corresponding extent for that tile. Since we need to iterate over both <strong>tiles</strong> and <strong>extents</strong>, we’ll again use <code><a href="https://purrr.tidyverse.org/reference/map2.html">map2()</a></code>. This will load the first tile and apply the first extent, then the second tile with the second extent, and so on.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb41"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">viirs_tiles</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://purrr.tidyverse.org/reference/map2.html">map2</a></span><span class="op">(</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb16"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">viirs_tiles</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://purrr.tidyverse.org/reference/map2.html">map2</a></span><span class="op">(</span></span>
 <span>  <span class="va">tiles</span>,</span>
 <span>  <span class="va">tile_ext</span>,</span>
 <span>  <span class="kw">function</span><span class="op">(</span><span class="va">tile</span>, <span class="va">ext</span><span class="op">)</span> <span class="op">{</span></span>
@@ -1022,17 +1152,35 @@ Note
 </section><section id="mosaic-georeferenced-tiles" class="level2 page-columns page-full"><h2 class="anchored" data-anchor-id="mosaic-georeferenced-tiles">Mosaic georeferenced tiles</h2>
 <p>As we did in our <a href="../2024-08-01-ndvi-data/#mosaic-tiles">MODIS post</a>, we’ll now mosaic all the tiles together into a single source:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb42"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">viirs_mosaic</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://purrr.tidyverse.org/reference/reduce.html">reduce</a></span><span class="op">(</span><span class="va">viirs_tiles</span>, <span class="va">mosaic</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold">
+<div class="code-copy-outer-scaffold"><div id="cb42" class="sourceCode">
+<pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">viirs_mosaic</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://purrr.tidyverse.org/reference/reduce.html">reduce</a></span><span class="op">(</span><span class="va">viirs_tiles</span>, <span class="va">mosaic</span><span class="op">)</span></span></code></pre>
+</div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<button title="Copy to Clipboard" class="code-copy-button">
+<i class="bi"></i>
+</button>
+</div>
 </div>
 <p>And take care of the NDVI adjustments we described above.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb43"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">viirs_mosaic</span> <span class="op">&lt;-</span> <span class="va">viirs_mosaic</span> <span class="op">/</span> <span class="fl">10000</span></span>
+<div class="code-copy-outer-scaffold">
+<div class="code-copy-outer-scaffold"><div id="cb43" class="sourceCode">
+<pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">viirs_mosaic</span> <span class="op">&lt;-</span> <span class="va">viirs_mosaic</span> <span class="op">/</span> <span class="fl">10000</span></span>
 <span></span>
 <span><span class="va">m</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="op">-</span><span class="cn">Inf</span>, <span class="op">-</span><span class="fl">1</span>, <span class="cn">NA</span><span class="op">)</span>, nrow <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
-<span><span class="va">viirs_mosaic</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rspatial.github.io/terra/reference/classify.html">classify</a></span><span class="op">(</span><span class="va">viirs_mosaic</span>, <span class="va">m</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span><span class="va">viirs_mosaic</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rspatial.github.io/terra/reference/classify.html">classify</a></span><span class="op">(</span><span class="va">viirs_mosaic</span>, <span class="va">m</span><span class="op">)</span></span></code></pre>
+</div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<button title="Copy to Clipboard" class="code-copy-button">
+<i class="bi"></i>
+</button>
+</div>
 </div>
 <div class="cell page-columns page-full">
-<details class="code-fold"><summary>Show plot code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb44"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://r-spatial.github.io/sf/">sf</a></span><span class="op">)</span></span>
+<details class="code-fold"><summary>
+Show plot code
+</summary><div class="code-copy-outer-scaffold">
+<div class="code-copy-outer-scaffold"><div id="cb44" class="sourceCode">
+<pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://r-spatial.github.io/sf/">sf</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://patchwork.data-imaginist.com">patchwork</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">ke_borders</span> <span class="op">&lt;-</span> <span class="fu">ipumsr</span><span class="fu">::</span><span class="fu"><a href="https://tech.popdata.org/ipumsr/reference/read_ipums_sf.html">read_ipums_sf</a></span><span class="op">(</span><span class="st">"data/geo_ke1989_2014.zip"</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
@@ -1077,10 +1225,16 @@ Note
 <span>    title <span class="op">=</span> <span class="st">"NDVI: Kenya"</span>,</span>
 <span>    caption <span class="op">=</span> <span class="st">"Source: NASA Visible Infrared Imaging Radiometer Suite (VIIRS)"</span></span>
 <span>  <span class="op">)</span> <span class="op">&amp;</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span><span class="op">(</span>legend.position<span class="op">=</span><span class="st">'bottom'</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span><span class="op">(</span>legend.position<span class="op">=</span><span class="st">'bottom'</span><span class="op">)</span></span></code></pre>
+</div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<button title="Copy to Clipboard" class="code-copy-button">
+<i class="bi"></i>
+</button>
+</div>
 </details><div class="cell-output-display page-columns page-full">
 <div class="page-columns page-full">
-<figure class="figure page-columns page-full"><p class="page-columns page-full"><img src="index_files/figure-html/unnamed-chunk-50-1.png" class="img-fluid figure-img column-page" style="width:100.0%"></p>
+<figure class="figure page-columns page-full"><p class="page-columns page-full">
+<img src="index_files/figure-html/unnamed-chunk-50-1.png" alt="NDVI Kenya, January 2014" class="img-fluid figure-img column-page" style="width:100.0%"></p>
 </figure>
 </div>
 </div>

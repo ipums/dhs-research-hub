@@ -20,6 +20,7 @@ categories:
 fig-width: 10
 fig-height: 8
 image: images/listing-img.png
+image-alt: "Pop density"
 bibliography: references.bib
 open-graph:
   title: "Measuring Population Density"
