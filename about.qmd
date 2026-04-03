@@ -30,7 +30,7 @@ relevant to disease vector transmission. Combined, they will enhance
 researchers' ability to use IPUMS DHS data to understand the impacts of
 weather extremes on health.
 
-#### Additional support
+### Additional support
 
 This blog is developed in collaboration with the [Climate Hazards
 Center](https://chc.ucsb.edu/) at the University of California, Santa
