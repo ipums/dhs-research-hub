@@ -401,6 +401,8 @@ use are:
     will be used as a thumbnail for this post on the listings page of
     the blog. By default, this uses the first image produced in the
     post. If you want a different thumbnail, you can indicate that here.
+-   `image-alt`: the alt text to be associated with the thumbnail image specified by the `image` attribute. `image-alt` 
+    is required unless `image` hasn't been set, in which case, the default first post image and its associated alt text will be used instead.
 -   `open-graph` and `twitter-card`: Specifications for the text and
     images to display when linking to this post (for instance, on
     Facebook, Twitter, etc.). The title and description should be
@@ -438,6 +440,7 @@ fig-width: 10
 fig-height: 8
 bibliography: references.bib
 image: index_files/figure-html/listing-img-1.png
+image-alt: "VIIRS image of NDVI data"
 open-graph:
   title: "From MODIS to VIIRS: The Latest Source for NDVI Data"
   description: "Update your NDVI workflows with NASA's newest instruments"
@@ -487,6 +490,27 @@ your local system.
 Editors of your post will need to obtain these data themselves if they want to
 independently run the code in your post.
 :::
+
+### Accessibility checklist for blog posts
+To ensure that content on the blog is usable by the widest possible 
+audience, please follow these accessibility best practices when drafting your post:
+
+1. Provide meaningful alt text for all images
+All images should include descriptive alternative text (`fig-alt` in Quarto). This allows screen reader users to 
+understand the content and purpose of the image.
+
+2. Use headings in a logical order
+Headings help structure your post and allow readers (and assistive technologies) to navigate it efficiently. In
+particular, don't skip heading levels (e.g., go from `##` to `###`, not directly to `####`)
+
+3. Run an accessibility check with WAVE
+Before committing or publishing your post, please run a quick accessibility scan using the WAVE tool.
+
+Since you're likely viewing your post on your local machine, your best bet is installing the WAVE browser 
+extension (available for all major browsers) and running it directly on your previewed post.
+
+Review any errors or alerts flagged by WAVE and address them where possible. Common issues include missing alt text, 
+skipped headings, and unlabeled elements.
 
 ### Push your post to GitHub
 

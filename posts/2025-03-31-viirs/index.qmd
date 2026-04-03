@@ -965,7 +965,7 @@ extent, and scale!
 <span>  <span class="fu">theme_dhs_base</span><span class="op">(</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details><div class="cell-output-display page-columns page-full">
 <div class="page-columns page-full">
-<figure class="figure page-columns page-full"><p class="page-columns page-full"><img src="index_files/figure-html/unnamed-chunk-40-1.png" alt="VIIRS NDVI plot" class="img-fluid figure-img column-page" style="width:100.0%"></p>
+<figure class="figure page-columns page-full"><p class="page-columns page-full"><img src="index_files/figure-html/unnamed-chunk-40-1.png" alt="VIIRS image of NDVI data" class="img-fluid figure-img column-page" style="width:100.0%"></p>
 </figure>
 </div>
 </div>

@@ -304,6 +304,7 @@ gtag('config', 'G-0WLH5S9VD5', { 'anonymize_ip': true});
 <li><a href="#create-a-new-post-directory" id="toc-create-a-new-post-directory" class="nav-link" data-scroll-target="#create-a-new-post-directory">Create a new post directory</a></li>
   <li><a href="#post-metadata" id="toc-post-metadata" class="nav-link" data-scroll-target="#post-metadata">Post metadata</a></li>
   <li><a href="#put-your-data-in-data" id="toc-put-your-data-in-data" class="nav-link" data-scroll-target="#put-your-data-in-data">Put your data in <code>data</code>!</a></li>
+  <li><a href="#accessibility-checklist-for-blog-posts" id="toc-accessibility-checklist-for-blog-posts" class="nav-link" data-scroll-target="#accessibility-checklist-for-blog-posts">Accessibility checklist for blog posts</a></li>
   <li><a href="#push-your-post-to-github" id="toc-push-your-post-to-github" class="nav-link" data-scroll-target="#push-your-post-to-github">Push your post to GitHub</a></li>
   </ul>
 </li>
@@ -616,6 +617,8 @@ Warning
 <li>
 <code>image</code>: Path (relative to the post directory) to the image that will be used as a thumbnail for this post on the listings page of the blog. By default, this uses the first image produced in the post. If you want a different thumbnail, you can indicate that here.</li>
 <li>
+<code>image-alt</code>: the alt text to be associated with the thumbnail image specified by the <code>image</code> attribute. <code>image-alt</code> is required unless <code>image</code> hasn’t been set, in which case, the default first post image and its associated alt text will be used instead.</li>
+<li>
 <code>open-graph</code> and <code>twitter-card</code>: Specifications for the text and images to display when linking to this post (for instance, on Facebook, Twitter, etc.). The title and description should be identical to the post title and description. The <code>image</code> field should be the same as the post thumbnail image.</li>
 </ul>
 <p>As an example, here’s the header for one of the posts on the blog:</p>
@@ -651,15 +654,16 @@ Warning
 <span id="cb7-26"><a href="#cb7-26" aria-hidden="true" tabindex="-1"></a><span class="fu">fig-height</span><span class="kw">:</span><span class="at"> </span><span class="dv">8</span></span>
 <span id="cb7-27"><a href="#cb7-27" aria-hidden="true" tabindex="-1"></a><span class="fu">bibliography</span><span class="kw">:</span><span class="at"> references.bib</span></span>
 <span id="cb7-28"><a href="#cb7-28" aria-hidden="true" tabindex="-1"></a><span class="fu">image</span><span class="kw">:</span><span class="at"> index_files/figure-html/listing-img-1.png</span></span>
-<span id="cb7-29"><a href="#cb7-29" aria-hidden="true" tabindex="-1"></a><span class="fu">open-graph</span><span class="kw">:</span></span>
-<span id="cb7-30"><a href="#cb7-30" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">title</span><span class="kw">:</span><span class="at"> </span><span class="st">"From MODIS to VIIRS: The Latest Source for NDVI Data"</span></span>
-<span id="cb7-31"><a href="#cb7-31" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">description</span><span class="kw">:</span><span class="at"> </span><span class="st">"Update your NDVI workflows with NASA's newest instruments"</span></span>
-<span id="cb7-32"><a href="#cb7-32" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">image</span><span class="kw">:</span><span class="at"> index_files/figure-html/listing-img-1.png</span></span>
-<span id="cb7-33"><a href="#cb7-33" aria-hidden="true" tabindex="-1"></a><span class="fu">twitter-card</span><span class="kw">:</span></span>
-<span id="cb7-34"><a href="#cb7-34" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">title</span><span class="kw">:</span><span class="at"> </span><span class="st">"From MODIS to VIIRS: The Latest Source for NDVI Data"</span></span>
-<span id="cb7-35"><a href="#cb7-35" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">description</span><span class="kw">:</span><span class="at"> </span><span class="st">"Update your NDVI workflows with NASA's newest instruments"</span></span>
-<span id="cb7-36"><a href="#cb7-36" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">image</span><span class="kw">:</span><span class="at"> index_files/figure-html/listing-img-1.png</span></span>
-<span id="cb7-37"><a href="#cb7-37" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb7-29"><a href="#cb7-29" aria-hidden="true" tabindex="-1"></a><span class="fu">image-alt</span><span class="kw">:</span><span class="at"> </span><span class="st">"VIIRS image of NDVI data"</span></span>
+<span id="cb7-30"><a href="#cb7-30" aria-hidden="true" tabindex="-1"></a><span class="fu">open-graph</span><span class="kw">:</span></span>
+<span id="cb7-31"><a href="#cb7-31" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">title</span><span class="kw">:</span><span class="at"> </span><span class="st">"From MODIS to VIIRS: The Latest Source for NDVI Data"</span></span>
+<span id="cb7-32"><a href="#cb7-32" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">description</span><span class="kw">:</span><span class="at"> </span><span class="st">"Update your NDVI workflows with NASA's newest instruments"</span></span>
+<span id="cb7-33"><a href="#cb7-33" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">image</span><span class="kw">:</span><span class="at"> index_files/figure-html/listing-img-1.png</span></span>
+<span id="cb7-34"><a href="#cb7-34" aria-hidden="true" tabindex="-1"></a><span class="fu">twitter-card</span><span class="kw">:</span></span>
+<span id="cb7-35"><a href="#cb7-35" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">title</span><span class="kw">:</span><span class="at"> </span><span class="st">"From MODIS to VIIRS: The Latest Source for NDVI Data"</span></span>
+<span id="cb7-36"><a href="#cb7-36" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">description</span><span class="kw">:</span><span class="at"> </span><span class="st">"Update your NDVI workflows with NASA's newest instruments"</span></span>
+<span id="cb7-37"><a href="#cb7-37" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">image</span><span class="kw">:</span><span class="at"> index_files/figure-html/listing-img-1.png</span></span>
+<span id="cb7-38"><a href="#cb7-38" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>If you’re curious, you can check out the <a href="https://quarto.org/docs/reference/formats/html.html">Quarto documentation</a> for a comprehensive list of the available options.</p>
 </section><section id="put-your-data-in-data" class="level3"><h3 class="anchored" data-anchor-id="put-your-data-in-data">Put your data in <code>data</code>!</h3>
@@ -683,6 +687,15 @@ Tip
 <p>Editors of your post will need to obtain these data themselves if they want to independently run the code in your post.</p>
 </div>
 </div>
+</section><section id="accessibility-checklist-for-blog-posts" class="level3"><h3 class="anchored" data-anchor-id="accessibility-checklist-for-blog-posts">Accessibility checklist for blog posts</h3>
+<p>To ensure that content on the blog is usable by the widest possible audience, please follow these accessibility best practices when drafting your post:</p>
+<ol type="1">
+<li><p>Provide meaningful alt text for all images All images should include descriptive alternative text (<code>fig-alt</code> in Quarto). This allows screen reader users to understand the content and purpose of the image.</p></li>
+<li><p>Use headings in a logical order Headings help structure your post and allow readers (and assistive technologies) to navigate it efficiently. In particular, don’t skip heading levels (e.g., go from <code>##</code> to <code>###</code>, not directly to <code>####</code>)</p></li>
+<li><p>Run an accessibility check with WAVE Before committing or publishing your post, please run a quick accessibility scan using the WAVE tool.</p></li>
+</ol>
+<p>Since you’re likely viewing your post on your local machine, your best bet is installing the WAVE browser extension (available for all major browsers) and running it directly on your previewed post.</p>
+<p>Review any errors or alerts flagged by WAVE and address them where possible. Common issues include missing alt text, skipped headings, and unlabeled elements.</p>
 </section><section id="push-your-post-to-github" class="level3 page-columns page-full"><h3 class="anchored" data-anchor-id="push-your-post-to-github">Push your post to GitHub</h3>
 <p>When you’re finished writing, you’ll need to share (or <em>push</em>) your changes to the UMN GitHub repository.</p>
 <div class="callout callout-style-default callout-note callout-titled">
