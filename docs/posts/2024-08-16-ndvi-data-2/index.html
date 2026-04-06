@@ -117,14 +117,10 @@ gtag('config', 'G-0WLH5S9VD5', { 'anonymize_ip': true});
 <meta property="og:description" content="We use data from two regions to illustrate approaches to processing NDVI data">
 <meta property="og:image" content="https://ipums.github.io/dhs-research-hub/posts/2024-08-16-ndvi-data-2/index_files/figure-html/listing-img-1.png">
 <meta property="og:site_name" content="IPUMS DHS Spatial Analysis and Health Research Hub">
-<meta property="og:image:height" content="1536">
-<meta property="og:image:width" content="1920">
 <meta property="og:image:alt" content="NDVI data 2">
 <meta name="twitter:title" content="Aggregation Methods for NDVI Data">
 <meta name="twitter:description" content="We use data from two regions to illustrate approaches to processing NDVI data">
 <meta name="twitter:image" content="https://ipums.github.io/dhs-research-hub/posts/2024-08-16-ndvi-data-2/index_files/figure-html/listing-img-1.png">
-<meta name="twitter:image-height" content="1536">
-<meta name="twitter:image-width" content="1920">
 <meta name="twitter:image:alt" content="NDVI data 2">
 <meta name="twitter:card" content="summary_large_image">
 </head>
@@ -344,12 +340,15 @@ gtag('config', 'G-0WLH5S9VD5', { 'anonymize_ip': true});
 <p>To simplify things, we’ve gone ahead and prepared these NDVI time series as we described in our <a href="../2024-08-01-ndvi-data">previous post</a> and saved them as stand-alone .tif files. We won’t show the step-by-step process for producing these files, but they track closely with the methods shown in our previous post, so take a look there if you need a refresher on how to ingest MODIS NDVI data into R.</p>
 <p>Since our data are stored in .tif files, we can load them directly with <a href="https://rspatial.org/">terra</a>:</p>
 <div class="cell">
+<div class="code-copy-outer-scaffold">
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Load NDVI time series</span></span>
 <span><span class="co"># Nairobi region</span></span>
 <span><span class="va">ndvi_nairobi</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rspatial.github.io/terra/reference/rast.html">rast</a></span><span class="op">(</span><span class="st">"data_local/ndvi_nairobi.tif"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Ouagadougou region</span></span>
 <span><span class="va">ndvi_ouaga</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rspatial.github.io/terra/reference/rast.html">rast</a></span><span class="op">(</span><span class="st">"data_local/ndvi_ouaga.tif"</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button>
+</div>
 </div>
 </section><section id="dhs-cluster-coordinates" class="level2 page-columns page-full"><h2 class="anchored" data-anchor-id="dhs-cluster-coordinates">DHS cluster coordinates</h2>
 <p>In this post, we’ll be aggregating our NDVI raster data to the DHS cluster level as we’ve <a href="../2024-02-04-dhs-chirps/#summarize-precipitation-values">demonstrated before</a>. To do so, we’ll need the cluster coordinate data provided by the DHS. We can use <a href="https://r-spatial.github.io/sf/">sf</a> to load the DHS cluster coordinates once we’ve downloaded the shapefiles provided by the DHS Program.</p>
@@ -357,7 +356,7 @@ gtag('config', 'G-0WLH5S9VD5', { 'anonymize_ip': true});
 <div class="no-row-height column-margin column-container"><div class="">
 <p>If you need a refresher on where you can access cluster coordinate data, see our <a href="../2024-02-04-dhs-chirps/#dhs-cluster-coordinates">CHIRPS post</a>.</p>
 </div></div><div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Load DHS cluster coordinates</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Load DHS cluster coordinates</span></span>
 <span><span class="co"># KE 2014 coordinates</span></span>
 <span><span class="va">ke_gps</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_read.html">st_read</a></span><span class="op">(</span><span class="st">"data/KEGE71FL/KEGE71FL.shp"</span>, quiet <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span></span>
@@ -366,13 +365,13 @@ gtag('config', 'G-0WLH5S9VD5', { 'anonymize_ip': true});
 </div>
 <p>Since we’re only working with the two capital regions for this demonstration, we’ll filter our cluster coordinate data to remove records for clusters that are outside each region of interest.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Filter Kenya cluster locations to those in the Nairobi region</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Filter Kenya cluster locations to those in the Nairobi region</span></span>
 <span><span class="va">nairobi_gps</span> <span class="op">&lt;-</span> <span class="va">ke_gps</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">DHSREGNA</span> <span class="op">==</span> <span class="st">"Nairobi"</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>For Burkina Faso, we’ll also need to remove some clusters that do not have valid coordinate locations, so we’ll filter out cases with (0, 0) coordinates:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Filter Burkina Faso cluster locations to those in the Ouagadougou region</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Filter Burkina Faso cluster locations to those in the Ouagadougou region</span></span>
 <span><span class="va">ouaga_gps</span> <span class="op">&lt;-</span> <span class="va">bf_gps</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span></span>
 <span>    <span class="op">!</span><span class="op">(</span><span class="va">LATNUM</span> <span class="op">==</span> <span class="fl">0</span> <span class="op">&amp;</span> <span class="va">LONGNUM</span> <span class="op">==</span> <span class="fl">0</span><span class="op">)</span>, <span class="co"># Remove missing coordinate locations</span></span>
@@ -380,56 +379,18 @@ gtag('config', 'G-0WLH5S9VD5', { 'anonymize_ip': true});
 <span>  <span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Even though we’re working with urban areas, our DHS clusters are still located across a range of NDVI values. Here we see our cluster point locations overlaid on the NDVI raster for the region:</p>
-<div class="cell page-columns page-full">
-<details class="code-fold"><summary>Show plot code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># We have converted our NDVI palette from the previous post to a scale function</span></span>
-<span><span class="co"># for easier use in this post</span></span>
-<span><span class="va">ndvi_pal</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="op">)</span> <span class="op">{</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span></span>
-<span>    pal <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span></span>
-<span>      <span class="st">"#fdfbdc"</span>,</span>
-<span>      <span class="st">"#f1f4b7"</span>,</span>
-<span>      <span class="st">"#d3ef9f"</span>,</span>
-<span>      <span class="st">"#a5da8d"</span>,</span>
-<span>      <span class="st">"#6cc275"</span>,</span>
-<span>      <span class="st">"#51a55b"</span>,</span>
-<span>      <span class="st">"#397e43"</span>,</span>
-<span>      <span class="st">"#2d673a"</span>,</span>
-<span>      <span class="st">"#1d472e"</span></span>
-<span>    <span class="op">)</span>,</span>
-<span>    values <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0.1</span>, <span class="fl">0.2</span>, <span class="fl">0.3</span>, <span class="fl">0.4</span>, <span class="fl">0.5</span>, <span class="fl">0.6</span>, <span class="fl">0.7</span>, <span class="fl">1</span><span class="op">)</span></span>
-<span>  <span class="op">)</span></span>
-<span><span class="op">}</span></span>
-<span></span>
-<span><span class="va">scale_fill_ndvi</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">pal</span> <span class="op">=</span> <span class="fu">ndvi_pal</span><span class="op">(</span><span class="op">)</span>, <span class="va">...</span><span class="op">)</span> <span class="op">{</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_gradient.html">scale_fill_gradientn</a></span><span class="op">(</span>colors <span class="op">=</span> <span class="va">pal</span><span class="op">$</span><span class="va">pal</span>, values <span class="op">=</span> <span class="va">pal</span><span class="op">$</span><span class="va">values</span>, <span class="va">...</span><span class="op">)</span></span>
-<span><span class="op">}</span></span>
-<span></span>
-<span><span class="va">scale_color_ndvi</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">pal</span> <span class="op">=</span> <span class="fu">ndvi_pal</span><span class="op">(</span><span class="op">)</span>, <span class="va">...</span><span class="op">)</span> <span class="op">{</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_gradient.html">scale_color_gradientn</a></span><span class="op">(</span>colors <span class="op">=</span> <span class="va">pal</span><span class="op">$</span><span class="va">pal</span>, values <span class="op">=</span> <span class="va">pal</span><span class="op">$</span><span class="va">values</span>, <span class="va">...</span><span class="op">)</span></span>
-<span><span class="op">}</span></span>
-<span></span>
-<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://paleolimbot.github.io/ggspatial/reference/layer_spatial.html">layer_spatial</a></span><span class="op">(</span><span class="va">ndvi_nairobi</span><span class="op">[[</span><span class="fl">3</span><span class="op">]</span><span class="op">]</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="co"># layer_spatial(nairobi_gps, color = "white", alpha = 1) +</span></span>
-<span>  <span class="fu"><a href="https://paleolimbot.github.io/ggspatial/reference/layer_spatial.html">layer_spatial</a></span><span class="op">(</span><span class="va">nairobi_gps</span>, color <span class="op">=</span> <span class="st">"black"</span>, fill <span class="op">=</span> <span class="st">"white"</span>, alpha <span class="op">=</span> <span class="fl">0.9</span>, shape <span class="op">=</span> <span class="fl">21</span>, size <span class="op">=</span> <span class="fl">1.5</span>, stroke <span class="op">=</span> <span class="fl">1</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu">scale_fill_ndvi</span><span class="op">(</span>limits <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">1</span><span class="op">)</span>, na.value <span class="op">=</span> <span class="st">"transparent"</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span></span>
-<span>    title <span class="op">=</span> <span class="st">"2014 DHS Cluster Coordinates: Nairobi"</span>,</span>
-<span>    subtitle <span class="op">=</span> <span class="st">"With NDVI from February 2-18, 2003"</span>,</span>
-<span>    fill <span class="op">=</span> <span class="st">"NDVI"</span></span>
-<span>  <span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu">theme_dhs_map</span><span class="op">(</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details><div class="cell-output-display page-columns page-full">
-<div class="page-columns page-full">
-<figure class="figure page-columns page-full"><p class="page-columns page-full"><img src="index_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid figure-img column-page" style="width:100.0%"></p>
+<div class="cell page-columns page-full"> <details class="code-fold"><summary>Show plot code</summary><div class="code-copy-outer-scaffold">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># We have converted our NDVI palette from the previous post to a scale function # for easier use in this post ndvi_pal &lt;- function() {   list(     pal = c(       "#fdfbdc",       "#f1f4b7",       "#d3ef9f",       "#a5da8d",       "#6cc275",       "#51a55b",       "#397e43",       "#2d673a",       "#1d472e"     ),     values = c(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 1)   ) }  scale_fill_ndvi &lt;- function(pal = ndvi_pal(), ...) {   scale_fill_gradientn(colors = pal$pal, values = pal$values, ...) }  scale_color_ndvi &lt;- function(pal = ndvi_pal(), ...) {   scale_color_gradientn(colors = pal$pal, values = pal$values, ...) }  ggplot() +   layer_spatial(ndvi_nairobi[[3]]) +   # layer_spatial(nairobi_gps, color = "white", alpha = 1) +   layer_spatial(nairobi_gps, color = "black", fill = "white", alpha = 0.9, shape = 21, size = 1.5, stroke = 1) +   scale_fill_ndvi(limits = c(0, 1), na.value = "transparent") +   labs(     title = "2014 DHS Cluster Coordinates: Nairobi",     subtitle = "With NDVI from February 2-18, 2003",     fill = "NDVI"   ) +   theme_dhs_map()</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button>
+</div> </details><div class="cell-output-display page-columns page-full"> <div class="page-columns page-full"> <figure class="figure page-columns page-full"><p class="page-columns page-full">
+<img src="index_files/figure-html/unnamed-chunk-7-1.png" alt="2014 DHS Cluster Coordinates: Nairobi" class="img-fluid figure-img column-page" style="width:100.0%"></p> 
 </figure>
-</div>
-</div>
-</div>
+</div> </div> </div>
 </section><section id="buffer-cluster-coordinates" class="level2"><h2 class="anchored" data-anchor-id="buffer-cluster-coordinates">Buffer cluster coordinates</h2>
 <p>As we’ve shown <a href="../2024-02-04-dhs-chirps/#cluster-buffers">before</a>, the next step is to create a buffer around each cluster point location to get a polygon containing the general region around each cluster.</p>
 <p>We’ll first project our cluster points and then create a buffer with <code><a href="https://r-spatial.github.io/sf/reference/geos_unary.html">st_buffer()</a></code>. Then, we’ll project our buffered points to the same coordinate reference system as our NDVI data to prepare to aggregate our NDVI data to our newly-created buffer regions.</p>
 <div class="cell">
+<div class="code-copy-outer-scaffold">
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Project and buffer Nairobi clusters</span></span>
 <span><span class="va">nairobi_gps_buff</span> <span class="op">&lt;-</span> <span class="va">nairobi_gps</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_transform.html">st_transform</a></span><span class="op">(</span>crs <span class="op">=</span> <span class="fl">32637</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="co"># UTM Zone 37N</span></span>
@@ -441,12 +402,15 @@ gtag('config', 'G-0WLH5S9VD5', { 'anonymize_ip': true});
 <span>  <span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_transform.html">st_transform</a></span><span class="op">(</span>crs <span class="op">=</span> <span class="fl">32630</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="co"># UTM Zone 30N</span></span>
 <span>  <span class="fu"><a href="https://r-spatial.github.io/sf/reference/geos_unary.html">st_buffer</a></span><span class="op">(</span>dist <span class="op">=</span> <span class="fl">5000</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_transform.html">st_transform</a></span><span class="op">(</span>crs <span class="op">=</span> <span class="fu"><a href="https://rspatial.github.io/terra/reference/crs.html">crs</a></span><span class="op">(</span><span class="va">ndvi_ouaga</span><span class="op">)</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button>
+</div>
 </div>
 </section></section><section id="ndvi-spatial-aggregation" class="level1 page-columns page-full"><h1>NDVI spatial aggregation</h1>
 <p>At this point, we have everything we need to produce a single time series for each cluster region.</p>
 <section id="basic-approach" class="level2"><h2 class="anchored" data-anchor-id="basic-approach">Basic approach</h2>
 <p><a href="../2024-02-04-dhs-chirps/#aggregating-rainfall-within-cluster-regions">Previously</a>, we introduced terra’s <code><a href="https://rspatial.github.io/terra/reference/extract.html">extract()</a></code>, which will allow us to use the NDVI raster along with our buffered cluster polygons to spatially aggregate the NDVI pixels within each cluster region. For instance, to extract the average NDVI value within each buffer, we could use <code>fun = mean</code> as shown below (note that we’ve set <code>na.rm = TRUE</code> to exclude missing values from the calculation):</p>
 <div class="cell" data-out.lines="5">
+<div class="code-copy-outer-scaffold">
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Extract mean NDVI in each cluster buffer region:</span></span>
 <span><span class="va">ke_mean_ndvi</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rspatial.github.io/terra/reference/extract.html">extract</a></span><span class="op">(</span></span>
 <span>  <span class="va">ndvi_nairobi</span>,</span>
@@ -463,6 +427,8 @@ gtag('config', 'G-0WLH5S9VD5', { 'anonymize_ip': true});
 <span><span class="co">#&gt; 3   3           0.6726900           0.6747525           0.6094023</span></span>
 <span><span class="co">#&gt; 4   4           0.7095437           0.7192108           0.6485346</span></span>
 <span><span class="va">....</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button>
+</div>
 </div>
 <p>This gives us a tabular record where each row corresponds to a cluster and each column to the mean NDVI value in that cluster buffer region for a particular time point.</p>
 <p>However, our interest in NDVI is primarily as a measure for agricultural production, and some areas aren’t intended to be used for agriculture (like water bodies or dense urban environments). Including these low-NDVI pixels in our aggregation serves to reduce the mean NDVI value in a cluster, even if the available <em>agricultural</em> land in that cluster is highly productive.</p>
@@ -471,7 +437,7 @@ gtag('config', 'G-0WLH5S9VD5', { 'anonymize_ip': true});
 <p>Recall that NDVI can range from -1 to 1, where values near and below 0 typically represent water or bare soil. Some of these low NDVI values in our raster are already treated as <code>NA</code>. Using our approach from above (with <code>na.rm = TRUE</code>), these are removed from consideration during aggregation. However, pixels that border these regions may still have low NDVI values. We can set these to <code>NA</code> manually using terra’s <code><a href="https://rspatial.github.io/terra/reference/classify.html">classify()</a></code>.</p>
 <p><code><a href="https://rspatial.github.io/terra/reference/classify.html">classify()</a></code> takes an input matrix that defines the range of values in our raster that should be reclassified. In this case, we create a matrix called <code>subzero_to_na</code> that defines the range of values from <code>-Inf</code> to <code>0</code>. The third value in this matrix indicates the output value for all raster cells that fall within this range.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">subzero_to_na</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="op">-</span><span class="cn">Inf</span>, <span class="fl">0</span>, <span class="cn">NA</span><span class="op">)</span>, nrow <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">subzero_to_na</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="op">-</span><span class="cn">Inf</span>, <span class="fl">0</span>, <span class="cn">NA</span><span class="op">)</span>, nrow <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">subzero_to_na</span></span>
 <span><span class="co">#&gt;      [,1] [,2] [,3]</span></span>
@@ -479,10 +445,14 @@ gtag('config', 'G-0WLH5S9VD5', { 'anonymize_ip': true});
 </div>
 <p>We can use this matrix with our NDVI raster to reclassify sub-zero NDVI values to <code>NA</code>.</p>
 <div class="cell">
+<div class="code-copy-outer-scaffold">
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">ndvi_nairobi</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rspatial.github.io/terra/reference/classify.html">classify</a></span><span class="op">(</span><span class="va">ndvi_nairobi</span>, <span class="va">subzero_to_na</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button>
+</div>
 </div>
 <p>Now, as long as we continue to use <code>na.rm = TRUE</code> in our call to <code><a href="https://rspatial.github.io/terra/reference/extract.html">extract()</a></code>, we’ll automatically ignore these low NDVI values.</p>
 <div class="cell">
+<div class="code-copy-outer-scaffold">
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">ke_mean_ndvi</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rspatial.github.io/terra/reference/extract.html">extract</a></span><span class="op">(</span></span>
 <span>  <span class="va">ndvi_nairobi</span>,</span>
 <span>  <span class="va">nairobi_gps_buff</span>,</span>
@@ -490,12 +460,15 @@ gtag('config', 'G-0WLH5S9VD5', { 'anonymize_ip': true});
 <span>  fun <span class="op">=</span> <span class="va">mean</span>,</span>
 <span>  na.rm <span class="op">=</span> <span class="cn">TRUE</span> <span class="co"># Exclude missing raster values in average</span></span>
 <span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button>
+</div>
 </div>
 </section><section id="idea-2-use-maximum-ndvi" class="level2 page-columns page-full"><h2 class="anchored" data-anchor-id="idea-2-use-maximum-ndvi">Idea 2: Use maximum NDVI</h2>
 <p>Crops are often grown in localized areas, so even if a large portion of a cluster region contains low vegetation values, the crop-producing regions may still be thriving.</p>
 <p>For instance, let’s take an example cluster from the Ouagadougou area. If we plot the NDVI values in its vicinity over the course of the year, we notice a few obvious patterns.</p>
 <div class="cell page-columns page-full">
-<details class="code-fold"><summary>Show plot code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://patchwork.data-imaginist.com">patchwork</a></span><span class="op">)</span></span>
+<details class="code-fold"><summary>Show plot code</summary><div class="code-copy-outer-scaffold">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://patchwork.data-imaginist.com">patchwork</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">x</span> <span class="op">&lt;-</span> <span class="va">ouaga_gps_buff</span><span class="op">[</span><span class="fl">8</span>, <span class="op">]</span></span>
 <span><span class="va">ndvi_clust</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rspatial.github.io/terra/reference/crop.html">crop</a></span><span class="op">(</span><span class="va">ndvi_ouaga</span>, <span class="va">x</span><span class="op">)</span></span>
@@ -516,8 +489,8 @@ gtag('config', 'G-0WLH5S9VD5', { 'anonymize_ip': true});
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">purrr</span><span class="fu">::</span><span class="fu"><a href="https://purrr.tidyverse.org/reference/reduce.html">reduce</a></span><span class="op">(</span><span class="va">panels</span>, <span class="va">`+`</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu">plot_annotation</span><span class="op">(</span>title <span class="op">=</span> <span class="st">"2003 NDVI"</span>, subtitle <span class="op">=</span> <span class="st">"Single Cluster: 2010 Burkina Faso Sample"</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu">plot_layout</span><span class="op">(</span>guides <span class="op">=</span> <span class="st">"collect"</span><span class="op">)</span>  <span class="op">&amp;</span></span>
+<span>  <span class="fu"><a href="https://patchwork.data-imaginist.com/reference/plot_annotation.html">plot_annotation</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"2003 NDVI"</span>, subtitle <span class="op">=</span> <span class="st">"Single Cluster: 2010 Burkina Faso Sample"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://patchwork.data-imaginist.com/reference/plot_layout.html">plot_layout</a></span><span class="op">(</span>guides <span class="op">=</span> <span class="st">"collect"</span><span class="op">)</span>  <span class="op">&amp;</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_void</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">theme_dhs_map</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span><span class="op">(</span></span>
@@ -553,9 +526,12 @@ gtag('config', 'G-0WLH5S9VD5', { 'anonymize_ip': true});
 <span>    <span class="op">)</span>,</span>
 <span>    text <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_text</a></span><span class="op">(</span>family <span class="op">=</span> <span class="st">"cabrito"</span>, size <span class="op">=</span> <span class="fl">10</span><span class="op">)</span>, </span>
 <span>  <span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button>
+</div>
 </details><div class="cell-output-display page-columns page-full">
 <div class="page-columns page-full">
-<figure class="figure page-columns page-full"><p class="page-columns page-full"><img src="index_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid figure-img column-page" style="width:100.0%"></p>
+<figure class="figure page-columns page-full"><p class="page-columns page-full">
+        <img src="index_files/figure-html/unnamed-chunk-13-1.png" alt="2003 NDVI: single cluster: 2010 Burkina Faso sample" class="img-fluid figure-img column-page" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
@@ -566,6 +542,7 @@ gtag('config', 'G-0WLH5S9VD5', { 'anonymize_ip': true});
 <p>Whether this particular pattern is prompted primarily by physical geography (a nearby water source) or human behavior (irrigation), it does serve as an example of why calculating a mean NDVI value may not reflect the lived experience on the ground. If most of an area’s crops are grown in a particular area, the most critical portion of a cluster region may have very high vegetation values, even if the rest of the cluster does not.</p>
 <p>One option to incorporate this into our data processing would be to use the <em>maximum</em> NDVI value as this cluster’s value rather than the mean. This is easily done in R: we just need to change our aggregation function from <code>fun = mean</code> to <code>fun = max</code>:</p>
 <div class="cell">
+<div class="code-copy-outer-scaffold">
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Reclassify low NDVI values</span></span>
 <span><span class="va">ndvi_ouaga</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rspatial.github.io/terra/reference/classify.html">classify</a></span><span class="op">(</span><span class="va">ndvi_ouaga</span>, <span class="va">subzero_to_na</span><span class="op">)</span></span>
 <span></span>
@@ -576,9 +553,12 @@ gtag('config', 'G-0WLH5S9VD5', { 'anonymize_ip': true});
 <span>  fun <span class="op">=</span> <span class="va">max</span>, <span class="co"># Extract max value within cluster, not mean</span></span>
 <span>  na.rm <span class="op">=</span> <span class="cn">TRUE</span></span>
 <span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button>
+</div>
 </div>
 <p>This gives us a similarly formatted output, but each value now represents the maximum NDVI pixel value in a given cluster (row) for a given time point (column):</p>
 <div class="cell" data-out.lines="5">
+<div class="code-copy-outer-scaffold">
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">bf_max_ndvi</span></span>
 <span><span class="co">#&gt;    ID "250m 16 days NDVI" "250m 16 days NDVI" "250m 16 days NDVI"</span></span>
 <span><span class="co">#&gt; 1   1              0.4393              0.3828              0.3759</span></span>
@@ -586,22 +566,28 @@ gtag('config', 'G-0WLH5S9VD5', { 'anonymize_ip': true});
 <span><span class="co">#&gt; 3   3              0.6664              0.4498              0.4392</span></span>
 <span><span class="co">#&gt; 4   4              0.4393              0.3828              0.3759</span></span>
 <span><span class="va">....</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button>
+</div>
 </div>
 <section id="comparing-maximum-and-mean-aggregation" class="level3 page-columns page-full"><h3 class="anchored" data-anchor-id="comparing-maximum-and-mean-aggregation">Comparing maximum and mean aggregation</h3>
 <p>Using the maximum cluster region NDVI value (rather than the mean) will obviously provide a different NDVI estimate for each cluster, but how much of a difference does this decision make overall?</p>
 <p>First, let’s extract the <strong>mean</strong> NDVI values for our Ouagadougou clusters as we did earlier for Nairobi:</p>
-<div class="cell">
+ <div class="cell">
+ <div class="code-copy-outer-scaffold">
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb15"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">bf_mean_ndvi</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rspatial.github.io/terra/reference/extract.html">extract</a></span><span class="op">(</span></span>
-<span>  <span class="va">ndvi_ouaga</span>,</span>
-<span>  <span class="va">ouaga_gps_buff</span>,</span>
-<span>  weights <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>  fun <span class="op">=</span> <span class="va">mean</span>,</span>
-<span>  na.rm <span class="op">=</span> <span class="cn">TRUE</span></span>
-<span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span>   <span class="va">ndvi_ouaga</span>,</span>
+<span>   <span class="va">ouaga_gps_buff</span>,</span>
+<span>   weights <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>   fun <span class="op">=</span> <span class="va">mean</span>,</span>
+<span>   na.rm <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span> <span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button>
 </div>
+ </div>
 <p>Now we can compare our maximum and mean NDVI values for each cluster. In the plot below, each line corresponds to a DHS cluster, with the lower points showing the mean NDVI value for that cluster and the higher points representing the max NDVI value for that cluster (for a single date):</p>
 <div class="cell page-columns page-full">
-<details class="code-fold"><summary>Show plot code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb16"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span><span class="op">(</span><span class="va">bf_max_ndvi</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"ID"</span>, <span class="fu"><a href="https://rdrr.io/r/base/character.html">as.character</a></span><span class="op">(</span><span class="fu"><a href="https://rspatial.github.io/terra/reference/time.html">time</a></span><span class="op">(</span><span class="va">ndvi_ouaga</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<details class="code-fold"><summary>Show plot code</summary><div class="code-copy-outer-scaffold">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb16"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span><span class="op">(</span><span class="va">bf_max_ndvi</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"ID"</span>, <span class="fu"><a href="https://rdrr.io/r/base/character.html">as.character</a></span><span class="op">(</span><span class="fu"><a href="https://rspatial.github.io/terra/reference/time.html">time</a></span><span class="op">(</span><span class="va">ndvi_ouaga</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span><span class="op">(</span><span class="va">bf_mean_ndvi</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"ID"</span>, <span class="fu"><a href="https://rdrr.io/r/base/character.html">as.character</a></span><span class="op">(</span><span class="fu"><a href="https://rspatial.github.io/terra/reference/time.html">time</a></span><span class="op">(</span><span class="va">ndvi_ouaga</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">bf_max_ndvi</span> <span class="op">&lt;-</span> <span class="va">bf_max_ndvi</span> <span class="op">|&gt;</span></span>
@@ -662,9 +648,11 @@ gtag('config', 'G-0WLH5S9VD5', { 'anonymize_ip': true});
 <span>    panel.grid.major.x <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_blank</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>    panel.grid.minor.y <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_blank</a></span><span class="op">(</span><span class="op">)</span></span>
 <span>  <span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button>
+</div>
 </details><div class="cell-output-display page-columns page-full">
 <div class="page-columns page-full">
-<figure class="figure page-columns page-full"><p class="page-columns page-full"><img src="index_files/figure-html/listing-img-1.png" class="img-fluid figure-img column-page" style="width:100.0%"></p>
+<figure class="figure page-columns page-full"><p class="page-columns page-full"><img src="index_files/figure-html/listing-img-1.png" class="img-fluid figure-img column-page" alt="Difference in max and mean NDVI: 2010 DHS clusters: Ouagadougou region" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
@@ -690,38 +678,51 @@ Note
 <p>As an alternative, it’s also possible to get the NDVI value at a certain <em>percentile</em> of a given cluster’s pixel values. That is, we could get the NDVI value that represents the 95th percentile of all NDVI values in a given cluster. In R, we can do this with the <code><a href="https://rspatial.github.io/terra/reference/quantile.html">quantile()</a></code> function.</p>
 <p>Recall that <code><a href="https://rspatial.github.io/terra/reference/extract.html">extract()</a></code> allows us to provide an <a href="../2024-04-15-chirts-metrics/index.html#scaling-up">anonymous function</a> to its <code>fun</code> argument. We can use <code><a href="https://rspatial.github.io/terra/reference/quantile.html">quantile()</a></code> with the <code>0.95</code> probability level (for instance) to get the 95th percentile NDVI value for each cluster:</p>
 <div class="cell">
+<div class="code-copy-outer-scaffold">
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb17"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rspatial.github.io/terra/reference/extract.html">extract</a></span><span class="op">(</span></span>
 <span>  <span class="va">ndvi_ouaga</span>,</span>
 <span>  <span class="va">ouaga_gps_buff</span>,</span>
 <span>  fun <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="https://rspatial.github.io/terra/reference/quantile.html">quantile</a></span><span class="op">(</span><span class="va">x</span>, <span class="fl">0.95</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button>
+</div>
 </div>
 <p>Calculating the quantile for a cluster may mitigate the effect of outliers, but because NDVI pixels are correlated with one another (that is, pixels with high NDVI values will disproportionately be located next to other pixels with high values), it’s not unusual to observe several pixels near the maximum value in a cluster. In these cases, a quantile approach may not produce a significant difference from using the maximum.</p>
 </section></section><section id="idea-3-a-relative-measure" class="level2 page-columns page-full"><h2 class="anchored" data-anchor-id="idea-3-a-relative-measure">Idea 3: A relative measure</h2>
 <p>Because NDVI is an index, its values don’t have any intrinsic units (what does it really mean when we see an NDVI value of 0.6, for example?). This means that NDVI is often easier to interpret when considered <em>relative</em> to past NDVI values in a given location. Instead of aggregating NDVI directly, we can compare each pixel to its prior values over the course of many years. These long-run comparisons are called <strong>normals</strong>.</p>
 <p>To demonstrate, imagine we wanted to calculate the deviation from normal NDVI we observed in 2021. First, we’ll split our final year of data (2021) from the rest of the time series:</p>
 <div class="cell">
+<div class="code-copy-outer-scaffold">
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb18"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Split 2021 data from the rest of our data for demonstration</span></span>
 <span><span class="va">is_2021</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://lubridate.tidyverse.org/reference/year.html">year</a></span><span class="op">(</span><span class="fu"><a href="https://rspatial.github.io/terra/reference/time.html">time</a></span><span class="op">(</span><span class="va">ndvi_nairobi</span><span class="op">)</span><span class="op">)</span> <span class="op">==</span> <span class="fl">2021</span></span>
 <span></span>
 <span><span class="va">ndvi_nairobi_2021</span> <span class="op">&lt;-</span> <span class="va">ndvi_nairobi</span><span class="op">[[</span><span class="va">is_2021</span><span class="op">]</span><span class="op">]</span></span>
 <span><span class="va">ndvi_nairobi_comp</span> <span class="op">&lt;-</span> <span class="va">ndvi_nairobi</span><span class="op">[[</span><span class="op">!</span><span class="va">is_2021</span><span class="op">]</span><span class="op">]</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button>
+</div>
 </div>
 <p>Remember that our NDVI data are recorded on 16-day intervals; we can simplify by calculating the mean <em>monthly</em> NDVI for 2021 and for the rest of the series:</p>
 <div class="cell">
+<div class="code-copy-outer-scaffold">
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb19"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">ndvi_nairobi_2021</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rspatial.github.io/terra/reference/tapp.html">tapp</a></span><span class="op">(</span><span class="va">ndvi_nairobi_2021</span>, fun <span class="op">=</span> <span class="va">mean</span>, index <span class="op">=</span> <span class="st">"months"</span><span class="op">)</span></span>
 <span><span class="va">ndvi_nairobi_comp</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rspatial.github.io/terra/reference/tapp.html">tapp</a></span><span class="op">(</span><span class="va">ndvi_nairobi_comp</span>, fun <span class="op">=</span> <span class="va">mean</span>, index <span class="op">=</span> <span class="st">"months"</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button>
+</div>
 </div>
 
 <div class="no-row-height column-margin column-container"><div class="">
 <p>We first introduced terra’s <code><a href="https://rspatial.github.io/terra/reference/tapp.html">tapp()</a></code> in our <a href="../2024-04-15-chirts-metrics/index.html#average-monthly-temperature">CHIRTS post</a>.</p>
 </div></div><p>Now our 2021 data and our comparison data are both measured at the monthly level. We can simply subtract them to get the monthly deviation of 2021’s NDVI values from the long-run normal NDVI for each pixel:</p>
 <div class="cell">
+<div class="code-copy-outer-scaffold">
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb20"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">ndvi_dev</span> <span class="op">&lt;-</span> <span class="va">ndvi_nairobi_2021</span> <span class="op">-</span> <span class="va">ndvi_nairobi_comp</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button>
+</div>
 </div>
 <p>Recall that subtracting two rasters in terra will operate layer-by-layer. This means that we will correctly subtract each month of 2021 from the corresponding average <em>for that month</em> in the 18-year monthly average raster.</p>
 <div class="cell page-columns page-full">
-<details class="code-fold"><summary>Show plot code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb21"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Helper to split raster layers into a list for small-multiple panel mapping</span></span>
+<details class="code-fold"><summary>Show plot code</summary><div class="code-copy-outer-scaffold">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb21"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Helper to split raster layers into a list for small-multiple panel mapping</span></span>
 <span><span class="va">split_raster</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">r</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="fu">purrr</span><span class="fu">::</span><span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq_len</a></span><span class="op">(</span><span class="fu"><a href="https://rspatial.github.io/terra/reference/dimensions.html">nlyr</a></span><span class="op">(</span><span class="va">r</span><span class="op">)</span><span class="op">)</span>, <span class="kw">function</span><span class="op">(</span><span class="va">i</span><span class="op">)</span> <span class="va">r</span><span class="op">[[</span><span class="va">i</span><span class="op">]</span><span class="op">]</span><span class="op">)</span></span>
 <span><span class="op">}</span></span>
@@ -773,15 +774,17 @@ Note
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Plot</span></span>
-<span><span class="fu">wrap_plots</span><span class="op">(</span><span class="va">panels</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu">plot_layout</span><span class="op">(</span>guides <span class="op">=</span> <span class="st">"collect"</span>, ncol <span class="op">=</span> <span class="fl">4</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu">plot_annotation</span><span class="op">(</span></span>
+<span><span class="fu"><a href="https://patchwork.data-imaginist.com/reference/wrap_plots.html">wrap_plots</a></span><span class="op">(</span><span class="va">panels</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://patchwork.data-imaginist.com/reference/plot_layout.html">plot_layout</a></span><span class="op">(</span>guides <span class="op">=</span> <span class="st">"collect"</span>, ncol <span class="op">=</span> <span class="fl">4</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://patchwork.data-imaginist.com/reference/plot_annotation.html">plot_annotation</a></span><span class="op">(</span></span>
 <span>    title <span class="op">=</span> <span class="st">"Deviation from 18-Year Normal NDVI"</span>,</span>
 <span>    subtitle <span class="op">=</span> <span class="st">"Nairobi region, 2021"</span></span>
 <span>  <span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button>
+</div>
 </details><div class="cell-output-display page-columns page-full">
 <div class="page-columns page-full">
-<figure class="figure page-columns page-full"><p class="page-columns page-full"><img src="index_files/figure-html/unnamed-chunk-21-1.png" class="img-fluid figure-img column-page" style="width:100.0%"></p>
+<figure class="figure page-columns page-full"><p class="page-columns page-full"><img src="index_files/figure-html/unnamed-chunk-21-1.png" alt="Deviation from 18-year normal NDVI: Nairobi region, 2021" class="img-fluid figure-img column-page" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
@@ -789,6 +792,7 @@ Note
 <p>This approach gives us a sense of whether certain parts of the year were more or less vegetated than normal. Depending on when periods of abnormally low vegetation occur, they could be an indicator of poor food production.</p>
 <p>As before, we could proceed to aggregate these values to our DHS clusters with <code><a href="https://rspatial.github.io/terra/reference/extract.html">extract()</a></code>:</p>
 <div class="cell">
+<div class="code-copy-outer-scaffold">
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb22"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rspatial.github.io/terra/reference/extract.html">extract</a></span><span class="op">(</span></span>
 <span>  <span class="va">ndvi_dev</span>,</span>
 <span>  <span class="va">nairobi_gps_buff</span>,</span>
@@ -796,6 +800,8 @@ Note
 <span>  fun <span class="op">=</span> <span class="va">mean</span>,</span>
 <span>  na.rm <span class="op">=</span> <span class="cn">TRUE</span></span>
 <span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button>
+</div>
 </div>
 <hr>
 <p>Note that this is by no means an exhaustive list of aggregation techniques you might use with NDVI data. By demonstrating several possible options, our goal is to emphasize that selecting an appropriate method is a process of evaluating its relative advantages and disadvantages in the context of your overall research.</p>
@@ -804,7 +810,8 @@ Note
 <p>Seasonal changes figure prominently into our understanding of how NDVI may reflect conditions for people living in a given area. Certain staple crops are likely grown in a particular part of the season, so higher NDVI during that time range may be a better indication of food access than at other times of the year. Similarly, we may not be concerned about low NDVI values at times of year when crops aren’t typically grown in the first place.</p>
 <p>We can see this reflected in the time series of mean NDVI values for each of our Ouagadougou cluster regions below. An obvious cyclical pattern appears each year:</p>
 <div class="cell page-columns page-full">
-<details class="code-fold"><summary>Show plot code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb23"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">dates</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fu"><a href="https://rspatial.github.io/terra/reference/unique.html">unique</a></span><span class="op">(</span><span class="va">bf_mean_ndvi</span><span class="op">$</span><span class="va">time</span><span class="op">)</span>, <span class="st">"2022-01-01"</span><span class="op">)</span></span>
+<details class="code-fold"><summary>Show plot code</summary><div class="code-copy-outer-scaffold">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb23"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">dates</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fu"><a href="https://rspatial.github.io/terra/reference/unique.html">unique</a></span><span class="op">(</span><span class="va">bf_mean_ndvi</span><span class="op">$</span><span class="va">time</span><span class="op">)</span>, <span class="st">"2022-01-01"</span><span class="op">)</span></span>
 <span><span class="va">dates</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html">as.numeric</a></span><span class="op">(</span><span class="va">dates</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/which.html">which</a></span><span class="op">(</span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/day.html">mday</a></span><span class="op">(</span><span class="va">dates</span><span class="op">)</span> <span class="op">==</span> <span class="fl">1</span> <span class="op">&amp;</span> <span class="fu"><a href="https://lubridate.tidyverse.org/reference/month.html">month</a></span><span class="op">(</span><span class="va">dates</span><span class="op">)</span> <span class="op">==</span> <span class="fl">1</span><span class="op">)</span><span class="op">]</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">bf_mean_ndvi</span><span class="op">)</span> <span class="op">+</span></span>
@@ -817,16 +824,19 @@ Note
 <span>        panel.grid.major.x <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_blank</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>        panel.grid.major.y <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_line</a></span><span class="op">(</span>linewidth <span class="op">=</span> <span class="fl">0.7</span>, linetype <span class="op">=</span> <span class="st">"dotted"</span><span class="op">)</span>,</span>
 <span>        axis.title.x <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_blank</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button>
+</div>
 </details><div class="cell-output-display page-columns page-full">
 <div class="page-columns page-full">
-<figure class="figure page-columns page-full"><p class="page-columns page-full"><img src="index_files/figure-html/unnamed-chunk-23-1.png" class="img-fluid figure-img column-page" style="width:100.0%"></p>
+<figure class="figure page-columns page-full"><p class="page-columns page-full"><img src="index_files/figure-html/unnamed-chunk-23-1.png" alt="NDVI: Ouagadougou region" class="img-fluid figure-img column-page" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
 </div>
 <p>However, other areas (like Nairobi) show a lot more variability:</p>
 <div class="cell page-columns page-full">
-<details class="code-fold"><summary>Show plot code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb24"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span><span class="op">(</span><span class="va">ke_mean_ndvi</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"ID"</span>, <span class="fu"><a href="https://rdrr.io/r/base/character.html">as.character</a></span><span class="op">(</span><span class="fu"><a href="https://rspatial.github.io/terra/reference/time.html">time</a></span><span class="op">(</span><span class="va">ndvi_nairobi</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<details class="code-fold"><summary>Show plot code</summary><div class="code-copy-outer-scaffold">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb24"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span><span class="op">(</span><span class="va">ke_mean_ndvi</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"ID"</span>, <span class="fu"><a href="https://rdrr.io/r/base/character.html">as.character</a></span><span class="op">(</span><span class="fu"><a href="https://rspatial.github.io/terra/reference/time.html">time</a></span><span class="op">(</span><span class="va">ndvi_nairobi</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">ke_mean_ndvi</span> <span class="op">&lt;-</span> <span class="va">ke_mean_ndvi</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu">tidyr</span><span class="fu">::</span><span class="fu"><a href="https://tidyr.tidyverse.org/reference/pivot_longer.html">pivot_longer</a></span><span class="op">(</span><span class="op">-</span><span class="va">ID</span><span class="op">)</span> <span class="op">|&gt;</span></span>
@@ -846,9 +856,11 @@ Note
 <span>        panel.grid.major.x <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_blank</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>        panel.grid.major.y <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_line</a></span><span class="op">(</span>linewidth <span class="op">=</span> <span class="fl">0.7</span>, linetype <span class="op">=</span> <span class="st">"dotted"</span><span class="op">)</span>,</span>
 <span>        axis.title.x <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_blank</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button>
+</div>
 </details><div class="cell-output-display page-columns page-full">
 <div class="page-columns page-full">
-<figure class="figure page-columns page-full"><p class="page-columns page-full"><img src="index_files/figure-html/unnamed-chunk-24-1.png" class="img-fluid figure-img column-page" style="width:100.0%"></p>
+<figure class="figure page-columns page-full"><p class="page-columns page-full"><img src="index_files/figure-html/unnamed-chunk-24-1.png" alt="NDVI: Nairobi region" class="img-fluid figure-img column-page" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
