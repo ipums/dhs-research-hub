@@ -10,7 +10,21 @@
 <atom:link href="https://ipums.github.io/dhs-research-hub/index.xml" rel="self" type="application/rss+xml"/>
 <description>Understand population health in its environmental context</description>
 <generator>quarto-1.8.25</generator>
-<lastBuildDate>Wed, 25 Mar 2026 05:00:00 GMT</lastBuildDate>
+<lastBuildDate>Fri, 15 May 2026 05:00:00 GMT</lastBuildDate>
+<item>
+  <title>Access to Healthcare Part 2: The 2SFCA Model</title>
+  <dc:creator>Grace Cooper</dc:creator>
+  <link>https://ipums.github.io/dhs-research-hub/posts/2026-05-15-distance-pt2/</link>
+  <description><![CDATA[ Health outcomes and healthcare utilization rates are influenced by spatial accessibility to health, especially in rural areas of developing countries. This second post in a series of three describes one of the most effective ways to measure spatial accessibility: the Two-Step Floating Catchment Area (2SFCA) Model. ]]></description>
+  <category>Health care</category>
+  <category>Accessibility</category>
+  <category>Distance models</category>
+  <category>Gravity models</category>
+  <category>Population density</category>
+  <category>Network analysis</category>
+  <guid>https://ipums.github.io/dhs-research-hub/posts/2026-05-15-distance-pt2/</guid>
+  <pubDate>Fri, 15 May 2026 05:00:00 GMT</pubDate>
+</item>
 <item>
   <title>Access to Healthcare Part 1: How it is Measured</title>
   <dc:creator>Grace Cooper</dc:creator>
@@ -283,7 +297,7 @@
   <category>sf</category>
   <guid>https://ipums.github.io/dhs-research-hub/posts/2024-08-16-ndvi-data-2/</guid>
   <pubDate>Fri, 16 Aug 2024 05:00:00 GMT</pubDate>
-  <media:content url="https://ipums.github.io/dhs-research-hub/posts/2024-08-16-ndvi-data-2/index_files/figure-html/listing-img-1.png" medium="image" type="image/png"/>
+  <media:content url="https://ipums.github.io/dhs-research-hub/posts/2024-08-16-ndvi-data-2/index_files/figure-html/listing-img-1.png" medium="image" type="image/png" height="115" width="144"/>
 </item>
 <item>
   <title>An Iterative Workflow for Loading NDVI Data in R</title>
@@ -321,21 +335,6 @@
   <guid>https://ipums.github.io/dhs-research-hub/posts/2024-07-02-ndvi-concepts/</guid>
   <pubDate>Tue, 02 Jul 2024 05:00:00 GMT</pubDate>
   <media:content url="https://ipums.github.io/dhs-research-hub/posts/2024-07-02-ndvi-concepts/images/max_ndvi.png" medium="image" type="image/png" height="65" width="144"/>
-</item>
-<item>
-  <title>Incorporating Environmental and Reproductive History Data</title>
-  <dc:creator>Sunnee Billingsley</dc:creator>
-  <link>https://ipums.github.io/dhs-research-hub/posts/2024-06-11-climate-reproduction/</link>
-  <description><![CDATA[ Understanding the challenges when using longitudinal data with DHS surveys ]]></description>
-  <category>Extreme weather</category>
-  <category>Reproductive history</category>
-  <category>Longitudinal data</category>
-  <category>Time series</category>
-  <category>Methodology</category>
-  <category>Research concepts</category>
-  <guid>https://ipums.github.io/dhs-research-hub/posts/2024-06-11-climate-reproduction/</guid>
-  <pubDate>Tue, 11 Jun 2024 05:00:00 GMT</pubDate>
-  <media:content url="https://ipums.github.io/dhs-research-hub/posts/2024-06-11-climate-reproduction/images/ptest.jpg" medium="image" type="image/jpeg"/>
 </item>
 </channel>
 </rss>

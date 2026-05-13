@@ -44,7 +44,7 @@ ul.task-list li input[type="checkbox"] {
 <link href="../../site_libs/quarto-html/quarto-syntax-highlighting-be0d74190db5c030392493894a628b9f.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap-da84e0e5cdc5f5c48afcfb2c964d6c43.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-9c6de082b0d67051b7eb27b44d87adf0.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -81,12 +81,19 @@ gtag('js', new Date());
 gtag('config', 'G-0WLH5S9VD5', { 'anonymize_ip': true});
 </script>
 <!-- Added to patch a bug in quarto that is causing "broken ARIA menu" errors in WAVE scans -->
+
 <script>
+
     document.addEventListener("DOMContentLoaded", function () {
+
         document.querySelectorAll(".navbar-toggler[role='menu']").forEach(function (el) {
+
             el.removeAttribute("role");
+
         });
+
     });
+
 </script>
 
 
@@ -598,7 +605,7 @@ Warning
 </div>
 <p>As with other layers, we can adjust the symbology of the buffer regions (e.g., to decrease opacity) by right clicking the layer in the <span class="menu-instr">Layers</span> pane and selecting <span class="menu-instr">Properties ‣ Symbology</span>.</p>
 <p>Using the <span class="menu-instr">Magnifier</span> tool in the bottom right, we can zoom into specific areas to inspect parts of the map without changing the overall map scale, which helps in closely examining details (<a href="#fig-10" class="quarto-xref">Figure&nbsp;8</a>).</p>
-<div id="fig-10" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center" alt="QGIS UI: Using the Magnifier tool">
+<div id="fig-10" class="quarto-float quarto-figure quarto-figure-center anchored" alt="QGIS UI: Using the Magnifier tool" data-fig-align="center">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-10-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="images/Fig10.png" class="img-fluid quarto-figure quarto-figure-center figure-img" alt="QGIS UI: Using the Magnifier tool">
@@ -617,7 +624,7 @@ Figure&nbsp;8: Use the Magnifier tool to inspect geoprocessing output
 <div class="no-row-height column-margin column-container"><div class="">
 <p>If you can’t find a tool, you can always search for it in the search bar. For instance, a search for “Zonal statistics” would reveal where the tool is located.</p>
 </div></div><p>In the window that opens, set the <span class="menu-instr">Input Layer</span> to <code>DHS_10km_Buffers.shp</code> and the <span class="menu-instr">Raster Layer</span> to <code>Kenya_Clipped_Tmax_2016.tif</code>. Set the <span class="menu-instr">output column prefix</span> to <code>"Tmax_"</code>. Under <span class="menu-instr">Statistics to calculate</span>, choose <em>Mean</em> to compute the average temperature for each buffer based on the raster pixels within that buffer. Save the file in the Shapefile sub-folder with the name <code>Mean_Tmax_buffer.shp</code> (<a href="#fig-11" class="quarto-xref">Figure&nbsp;9</a>).</p>
-<div id="fig-11" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center" alt="QGIS UI: Zonal Statistics">
+<div id="fig-11" class="quarto-float quarto-figure quarto-figure-center anchored" alt="QGIS UI: Zonal Statistics" data-fig-align="center">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-11-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="images/Fig11.png" class="img-fluid quarto-figure quarto-figure-center figure-img" alt="QGIS UI: Zonal Statistics">

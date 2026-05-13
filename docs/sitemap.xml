@@ -1,135 +1,139 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://ipums.github.io/dhs-research-hub/LICENSE.html</loc>
-    <lastmod>2026-03-24T20:27:50.687Z</lastmod>
-  </url>
-  <url>
-    <loc>https://ipums.github.io/dhs-research-hub/CODE_OF_CONDUCT.html</loc>
-    <lastmod>2026-03-24T20:27:50.687Z</lastmod>
-  </url>
-  <url>
-    <loc>https://ipums.github.io/dhs-research-hub/blog-post-workflow.html</loc>
-    <lastmod>2026-04-03T19:39:51.761Z</lastmod>
-  </url>
-  <url>
-    <loc>https://ipums.github.io/dhs-research-hub/posts/2024-08-16-ndvi-data-2/index.html</loc>
-    <lastmod>2026-04-06T14:48:22.019Z</lastmod>
-  </url>
-  <url>
-    <loc>https://ipums.github.io/dhs-research-hub/posts/2024-04-15-chirts-metrics/index.html</loc>
-    <lastmod>2026-04-01T21:01:39.329Z</lastmod>
-  </url>
-  <url>
-    <loc>https://ipums.github.io/dhs-research-hub/posts/2026-03-02-land-cover-pt2/index.html</loc>
-    <lastmod>2026-04-01T21:01:57.868Z</lastmod>
-  </url>
-  <url>
-    <loc>https://ipums.github.io/dhs-research-hub/posts/2026-02-06-land-cover-intro/index.html</loc>
-    <lastmod>2026-04-01T21:01:57.863Z</lastmod>
-  </url>
-  <url>
-    <loc>https://ipums.github.io/dhs-research-hub/posts/2024-12-06-qualitative-methods/index.html</loc>
-    <lastmod>2026-04-01T21:01:39.482Z</lastmod>
+    <loc>https://ipums.github.io/dhs-research-hub/posts/2026-05-15-distance-pt2/index.html</loc>
+    <lastmod>2026-05-13T14:43:28.181Z</lastmod>
   </url>
   <url>
     <loc>https://ipums.github.io/dhs-research-hub/posts/2026-03-13-land-cover-pt3/index.html</loc>
-    <lastmod>2026-04-01T21:01:57.869Z</lastmod>
+    <lastmod>2026-04-27T15:44:20.962Z</lastmod>
   </url>
   <url>
-    <loc>https://ipums.github.io/dhs-research-hub/posts/2024-09-13-leaflet-pt1/index.html</loc>
-    <lastmod>2026-04-01T21:01:39.455Z</lastmod>
-  </url>
-  <url>
-    <loc>https://ipums.github.io/dhs-research-hub/posts/2024-02-01-getting-started-with-r/index.html</loc>
-    <lastmod>2026-04-01T20:52:27.968Z</lastmod>
-  </url>
-  <url>
-    <loc>https://ipums.github.io/dhs-research-hub/posts/2024-07-02-ndvi-concepts/index.html</loc>
-    <lastmod>2026-04-01T21:01:39.376Z</lastmod>
+    <loc>https://ipums.github.io/dhs-research-hub/posts/2026-02-06-land-cover-intro/index.html</loc>
+    <lastmod>2026-04-27T15:44:20.878Z</lastmod>
   </url>
   <url>
     <loc>https://ipums.github.io/dhs-research-hub/posts/2025-10-24-forecasting-pt4/index.html</loc>
-    <lastmod>2026-04-01T21:01:57.824Z</lastmod>
-  </url>
-  <url>
-    <loc>https://ipums.github.io/dhs-research-hub/posts/2024-08-30-pop-density/index.html</loc>
-    <lastmod>2026-04-01T21:01:39.393Z</lastmod>
-  </url>
-  <url>
-    <loc>https://ipums.github.io/dhs-research-hub/posts/2025-04-23-forecasting-pt1/index.html</loc>
-    <lastmod>2026-04-01T21:01:39.484Z</lastmod>
-  </url>
-  <url>
-    <loc>https://ipums.github.io/dhs-research-hub/posts/2024-04-09-spatial-harmonization/index.html</loc>
-    <lastmod>2026-04-01T21:01:39.327Z</lastmod>
-  </url>
-  <url>
-    <loc>https://ipums.github.io/dhs-research-hub/posts/2024-10-25-qgis/index.html</loc>
-    <lastmod>2026-04-01T21:01:39.482Z</lastmod>
-  </url>
-  <url>
-    <loc>https://ipums.github.io/dhs-research-hub/posts/2025-11-21-diet-diversity-ndvi/index.html</loc>
-    <lastmod>2026-04-01T21:01:57.862Z</lastmod>
-  </url>
-  <url>
-    <loc>https://ipums.github.io/dhs-research-hub/posts/2024-08-01-ndvi-data/index.html</loc>
-    <lastmod>2026-04-01T21:01:39.386Z</lastmod>
-  </url>
-  <url>
-    <loc>https://ipums.github.io/dhs-research-hub/posts/2024-06-11-climate-reproduction/index.html</loc>
-    <lastmod>2026-04-01T21:01:39.376Z</lastmod>
+    <lastmod>2026-04-27T15:44:20.840Z</lastmod>
   </url>
   <url>
     <loc>https://ipums.github.io/dhs-research-hub/posts/2025-08-06-intro-diet-diversity/index.html</loc>
-    <lastmod>2026-04-01T21:01:39.517Z</lastmod>
+    <lastmod>2026-04-27T15:44:20.838Z</lastmod>
   </url>
   <url>
-    <loc>https://ipums.github.io/dhs-research-hub/posts/2024-02-02-download-dhs-data/index.html</loc>
-    <lastmod>2026-04-01T21:01:39.309Z</lastmod>
+    <loc>https://ipums.github.io/dhs-research-hub/posts/2025-04-23-forecasting-pt1/index.html</loc>
+    <lastmod>2026-04-27T15:44:20.836Z</lastmod>
   </url>
   <url>
-    <loc>https://ipums.github.io/dhs-research-hub/posts/2025-09-05-forecasting-pt3/index.html</loc>
-    <lastmod>2026-04-01T21:01:57.802Z</lastmod>
-  </url>
-  <url>
-    <loc>https://ipums.github.io/dhs-research-hub/posts/2024-02-03-climate-theory/index.html</loc>
-    <lastmod>2026-04-01T19:28:02.893Z</lastmod>
+    <loc>https://ipums.github.io/dhs-research-hub/posts/2024-12-06-qualitative-methods/index.html</loc>
+    <lastmod>2026-04-27T15:44:20.833Z</lastmod>
   </url>
   <url>
     <loc>https://ipums.github.io/dhs-research-hub/posts/2024-09-30-leaflet-pt2/index.html</loc>
-    <lastmod>2026-04-06T14:53:20.460Z</lastmod>
+    <lastmod>2026-04-27T15:44:20.821Z</lastmod>
   </url>
   <url>
-    <loc>https://ipums.github.io/dhs-research-hub/posts/2026-03-25-health-care-distance/index.html</loc>
-    <lastmod>2026-04-01T21:01:57.869Z</lastmod>
+    <loc>https://ipums.github.io/dhs-research-hub/posts/2024-08-30-pop-density/index.html</loc>
+    <lastmod>2026-04-27T15:44:20.813Z</lastmod>
   </url>
   <url>
-    <loc>https://ipums.github.io/dhs-research-hub/posts/2025-03-31-viirs/index.html</loc>
-    <lastmod>2026-04-03T19:42:09.489Z</lastmod>
+    <loc>https://ipums.github.io/dhs-research-hub/posts/2024-08-01-ndvi-data/index.html</loc>
+    <lastmod>2026-04-27T15:44:20.812Z</lastmod>
+  </url>
+  <url>
+    <loc>https://ipums.github.io/dhs-research-hub/posts/2024-06-11-climate-reproduction/index.html</loc>
+    <lastmod>2026-04-27T15:44:20.808Z</lastmod>
+  </url>
+  <url>
+    <loc>https://ipums.github.io/dhs-research-hub/posts/2024-04-15-chirts-metrics/index.html</loc>
+    <lastmod>2026-04-27T15:44:20.808Z</lastmod>
   </url>
   <url>
     <loc>https://ipums.github.io/dhs-research-hub/posts/2024-02-23-rainfall-insights/index.html</loc>
-    <lastmod>2026-04-01T21:01:39.326Z</lastmod>
+    <lastmod>2026-04-27T15:44:20.806Z</lastmod>
   </url>
   <url>
-    <loc>https://ipums.github.io/dhs-research-hub/posts/2024-05-31-ts-join/index.html</loc>
-    <lastmod>2026-04-01T21:01:39.376Z</lastmod>
+    <loc>https://ipums.github.io/dhs-research-hub/posts/2024-02-03-climate-theory/index.html</loc>
+    <lastmod>2026-04-27T15:44:20.762Z</lastmod>
   </url>
   <url>
-    <loc>https://ipums.github.io/dhs-research-hub/posts/2025-06-03-forecasting-pt2/index.html</loc>
-    <lastmod>2026-04-01T21:01:39.491Z</lastmod>
-  </url>
-  <url>
-    <loc>https://ipums.github.io/dhs-research-hub/posts/2024-02-04-dhs-chirps/index.html</loc>
-    <lastmod>2026-04-01T21:01:39.326Z</lastmod>
+    <loc>https://ipums.github.io/dhs-research-hub/posts/2024-02-01-getting-started-with-r/index.html</loc>
+    <lastmod>2026-04-27T15:44:20.736Z</lastmod>
   </url>
   <url>
     <loc>https://ipums.github.io/dhs-research-hub/index.html</loc>
-    <lastmod>2026-04-01T21:01:39.304Z</lastmod>
+    <lastmod>2026-04-27T15:44:20.712Z</lastmod>
+  </url>
+  <url>
+    <loc>https://ipums.github.io/dhs-research-hub/blog-post-workflow.html</loc>
+    <lastmod>2026-04-27T15:44:20.508Z</lastmod>
   </url>
   <url>
     <loc>https://ipums.github.io/dhs-research-hub/about.html</loc>
-    <lastmod>2026-04-03T14:30:36.027Z</lastmod>
+    <lastmod>2026-04-27T15:44:20.508Z</lastmod>
+  </url>
+  <url>
+    <loc>https://ipums.github.io/dhs-research-hub/CODE_OF_CONDUCT.html</loc>
+    <lastmod>2025-10-24T15:37:45.361Z</lastmod>
+  </url>
+  <url>
+    <loc>https://ipums.github.io/dhs-research-hub/LICENSE.html</loc>
+    <lastmod>2025-10-24T15:37:45.369Z</lastmod>
+  </url>
+  <url>
+    <loc>https://ipums.github.io/dhs-research-hub/posts/2024-02-02-download-dhs-data/index.html</loc>
+    <lastmod>2026-04-27T15:44:20.737Z</lastmod>
+  </url>
+  <url>
+    <loc>https://ipums.github.io/dhs-research-hub/posts/2024-02-04-dhs-chirps/index.html</loc>
+    <lastmod>2026-04-27T15:44:20.763Z</lastmod>
+  </url>
+  <url>
+    <loc>https://ipums.github.io/dhs-research-hub/posts/2024-04-09-spatial-harmonization/index.html</loc>
+    <lastmod>2026-04-27T15:44:20.807Z</lastmod>
+  </url>
+  <url>
+    <loc>https://ipums.github.io/dhs-research-hub/posts/2024-05-31-ts-join/index.html</loc>
+    <lastmod>2026-04-27T15:44:20.808Z</lastmod>
+  </url>
+  <url>
+    <loc>https://ipums.github.io/dhs-research-hub/posts/2024-07-02-ndvi-concepts/index.html</loc>
+    <lastmod>2026-04-27T15:44:20.810Z</lastmod>
+  </url>
+  <url>
+    <loc>https://ipums.github.io/dhs-research-hub/posts/2024-08-16-ndvi-data-2/index.html</loc>
+    <lastmod>2026-04-27T15:44:20.812Z</lastmod>
+  </url>
+  <url>
+    <loc>https://ipums.github.io/dhs-research-hub/posts/2024-09-13-leaflet-pt1/index.html</loc>
+    <lastmod>2026-04-27T15:44:20.820Z</lastmod>
+  </url>
+  <url>
+    <loc>https://ipums.github.io/dhs-research-hub/posts/2024-10-25-qgis/index.html</loc>
+    <lastmod>2026-04-27T15:44:20.832Z</lastmod>
+  </url>
+  <url>
+    <loc>https://ipums.github.io/dhs-research-hub/posts/2025-03-31-viirs/index.html</loc>
+    <lastmod>2026-04-27T15:44:20.835Z</lastmod>
+  </url>
+  <url>
+    <loc>https://ipums.github.io/dhs-research-hub/posts/2025-06-03-forecasting-pt2/index.html</loc>
+    <lastmod>2026-04-27T15:44:20.837Z</lastmod>
+  </url>
+  <url>
+    <loc>https://ipums.github.io/dhs-research-hub/posts/2025-09-05-forecasting-pt3/index.html</loc>
+    <lastmod>2026-04-27T15:44:20.838Z</lastmod>
+  </url>
+  <url>
+    <loc>https://ipums.github.io/dhs-research-hub/posts/2025-11-21-diet-diversity-ndvi/index.html</loc>
+    <lastmod>2026-04-27T15:44:20.851Z</lastmod>
+  </url>
+  <url>
+    <loc>https://ipums.github.io/dhs-research-hub/posts/2026-03-02-land-cover-pt2/index.html</loc>
+    <lastmod>2026-04-27T15:44:20.961Z</lastmod>
+  </url>
+  <url>
+    <loc>https://ipums.github.io/dhs-research-hub/posts/2026-03-25-health-care-distance/index.html</loc>
+    <lastmod>2026-04-30T20:34:58.129Z</lastmod>
   </url>
 </urlset>

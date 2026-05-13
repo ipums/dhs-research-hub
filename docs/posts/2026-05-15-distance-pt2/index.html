@@ -1,0 +1,1105 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.25">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Grace Cooper">
+<meta name="dcterms.date" content="2026-05-15">
+<meta name="description" content="Health outcomes and healthcare utilization rates are influenced by spatial accessibility to health, especially in rural areas of developing countries. This second post in a series of three describes one of the most effective ways to measure spatial accessibility: the Two-Step Floating Catchment Area (2SFCA) Model.">
+
+<title>Access to Healthcare Part 2: The 2SFCA Model – IPUMS DHS Spatial Analysis and Health Research Hub</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<link href="../../images/favicon/favicon-32x32.ico" rel="icon">
+<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-be0d74190db5c030392493894a628b9f.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-9c6de082b0d67051b7eb27b44d87adf0.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-0WLH5S9VD5"></script>
+
+<script type="text/javascript">
+
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-0WLH5S9VD5', { 'anonymize_ip': true});
+</script>
+<!-- Added to patch a bug in quarto that is causing "broken ARIA menu" errors in WAVE scans -->
+
+<script>
+
+    document.addEventListener("DOMContentLoaded", function () {
+
+        document.querySelectorAll(".navbar-toggler[role='menu']").forEach(function (el) {
+
+            el.removeAttribute("role");
+
+        });
+
+    });
+
+</script>
+
+
+<meta property="og:title" content="IPUMS DHS Spatial Analysis and Health Research Hub">
+<meta property="og:description" content="Understand population health in its environmental context">
+<meta property="og:image" content="https://ipums.github.io/dhs-research-hub/posts/2026-05-15-distance-pt2/images/dhs_logo_navy_pad.png">
+<meta property="og:site_name" content="IPUMS DHS Spatial Analysis and Health Research Hub">
+<meta name="twitter:title" content="IPUMS DHS Spatial Analysis and Health Research Hub">
+<meta name="twitter:description" content="Understand population health in its environmental context">
+<meta name="twitter:image" content="https://ipums.github.io/dhs-research-hub/posts/2026-05-15-distance-pt2/images/dhs_logo_navy_pad.png">
+<meta name="twitter:card" content="summary_large_image">
+</head>
+
+<body class="floating nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top quarto-banner">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a href="https://www.idhsdata.org/idhs/" class="navbar-brand navbar-brand-logo">
+    <img src="../../images/dhs_logo_white.png" alt="IPUMS DHS Spatial Analysis and Health Research Hub" class="navbar-logo light-content">
+    <img src="../../images/dhs_logo_white.png" alt="IPUMS DHS Spatial Analysis and Health Research Hub" class="navbar-logo dark-content">
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../index.html"> 
+<span class="menu-text">Spatial Analysis and Health Research Hub</span></a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-getting-started" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Getting Started</span>
+    </a>
+    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="nav-menu-getting-started">    
+        <li>
+    <a class="dropdown-item" href="../../posts/2024-02-01-getting-started-with-r/index.html">
+ <span class="dropdown-text">An Introduction to R</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../posts/2024-02-02-download-dhs-data/index.html">
+ <span class="dropdown-text">Obtaining IPUMS DHS Data</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-community" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Community</span>
+    </a>
+    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="nav-menu-community">    
+        <li>
+    <a class="dropdown-item" href="https://forum.ipums.org">
+ <span class="dropdown-text">IPUMS Forum</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../CODE_OF_CONDUCT.html">
+ <span class="dropdown-text">Code of Conduct</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../LICENSE.html">
+ <span class="dropdown-text">License</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="../../index.html"> 
+<span class="menu-text">Posts</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../about.html"> 
+<span class="menu-text">About</span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/ipums/dhs-research-hub"> <i class="bi bi-github" role="img" aria-label="GitHub repository">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="../../index.xml"> <i class="bi bi-rss" role="img" aria-label="RSS feed">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://twitter.com/ipumsGH"> <i class="bi bi-twitter-x" role="img" aria-label="IPUMS on X">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://forum.ipums.org"> <i class="bi bi-people-fill" role="img" aria-label="IPUMS Forum">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://www.ipums.org/"> <i class="bi bi-globe" role="img" aria-label="IPUMS Homepage">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<header id="title-block-header" class="quarto-title-block default toc-left page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body">
+      <h1 class="title">Access to Healthcare Part 2: The 2SFCA Model</h1>
+                  <div>
+        <div class="description">
+          Health outcomes and healthcare utilization rates are influenced by spatial accessibility to health, especially in rural areas of developing countries. This second post in a series of three describes one of the most effective ways to measure spatial accessibility: the Two-Step Floating Catchment Area (2SFCA) Model.
+        </div>
+      </div>
+                          <div class="quarto-categories">
+                <div class="quarto-category">Health care</div>
+                <div class="quarto-category">Accessibility</div>
+                <div class="quarto-category">Distance models</div>
+                <div class="quarto-category">Gravity models</div>
+                <div class="quarto-category">Population density</div>
+                <div class="quarto-category">Network analysis</div>
+              </div>
+                  </div>
+  </div>
+    
+  <div class="quarto-title-meta-author">
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-heading">Affiliation</div>
+    
+      <div class="quarto-title-meta-contents">
+      <p class="author">Grace Cooper </p>
+    </div>
+    <div class="quarto-title-meta-contents">
+          <p class="affiliation">
+              Senior Data Analyst, IPUMS
+            </p>
+        </div>
+    </div>
+
+  <div class="quarto-title-meta">
+
+        
+      <div>
+      <div class="quarto-title-meta-heading">Published</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">May 15, 2026</p>
+      </div>
+    </div>
+    
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <nav id="TOC" role="doc-toc" class="toc-active" data-toc-expanded="1">
+    <h2 id="toc-title">Contents</h2>
+   
+  <ul>
+  <li><a href="#the-two-step-floating-catchment-area-2sfca-model" id="toc-the-two-step-floating-catchment-area-2sfca-model" class="nav-link active" data-scroll-target="#the-two-step-floating-catchment-area-2sfca-model">The Two-Step Floating Catchment Area (2SFCA) Model</a>
+  <ul class="collapse">
+  <li><a href="#step-1" id="toc-step-1" class="nav-link" data-scroll-target="#step-1">Step 1</a></li>
+  <li><a href="#step-2" id="toc-step-2" class="nav-link" data-scroll-target="#step-2">Step 2</a></li>
+  </ul></li>
+  <li><a href="#enhancements-of-the-2sfca-model" id="toc-enhancements-of-the-2sfca-model" class="nav-link" data-scroll-target="#enhancements-of-the-2sfca-model">Enhancements of the 2SFCA Model</a>
+  <ul class="collapse">
+  <li><a href="#continuous-distance-decay-aligns-better-with-reality" id="toc-continuous-distance-decay-aligns-better-with-reality" class="nav-link" data-scroll-target="#continuous-distance-decay-aligns-better-with-reality">Continuous distance decay aligns better with reality</a></li>
+  <li><a href="#population-density-rural-catchments-are-bigger-than-urban-ones" id="toc-population-density-rural-catchments-are-bigger-than-urban-ones" class="nav-link" data-scroll-target="#population-density-rural-catchments-are-bigger-than-urban-ones">Population density; rural catchments are bigger than urban ones</a></li>
+  <li><a href="#competition-between-facilities" id="toc-competition-between-facilities" class="nav-link" data-scroll-target="#competition-between-facilities">Competition between facilities</a></li>
+  <li><a href="#insurance-availability-and-and-health-status-of-populations" id="toc-insurance-availability-and-and-health-status-of-populations" class="nav-link" data-scroll-target="#insurance-availability-and-and-health-status-of-populations">Insurance availability and and health status of populations</a></li>
+  <li><a href="#multiple-modes-of-transportation" id="toc-multiple-modes-of-transportation" class="nav-link" data-scroll-target="#multiple-modes-of-transportation">Multiple modes of transportation</a></li>
+  </ul></li>
+  <li><a href="#limitations-of-the-2sfca-model" id="toc-limitations-of-the-2sfca-model" class="nav-link" data-scroll-target="#limitations-of-the-2sfca-model">Limitations of the 2SFCA Model</a>
+  <ul class="collapse">
+  <li><a href="#overestimation-of-demand" id="toc-overestimation-of-demand" class="nav-link" data-scroll-target="#overestimation-of-demand">Overestimation of demand</a></li>
+  <li><a href="#dependence-on-aggregate-population-data" id="toc-dependence-on-aggregate-population-data" class="nav-link" data-scroll-target="#dependence-on-aggregate-population-data">Dependence on aggregate population data</a>
+  <ul class="collapse">
+  <li><a href="#population-data-availability-in-less-developed-countries" id="toc-population-data-availability-in-less-developed-countries" class="nav-link" data-scroll-target="#population-data-availability-in-less-developed-countries">Population data availability in less developed countries</a></li>
+  <li><a href="#population-distribution-in-kenya" id="toc-population-distribution-in-kenya" class="nav-link" data-scroll-target="#population-distribution-in-kenya">Population Distribution in Kenya</a></li>
+  <li><a href="#aggregate-population-counts-how-they-are-used-in-spatial-analysis" id="toc-aggregate-population-counts-how-they-are-used-in-spatial-analysis" class="nav-link" data-scroll-target="#aggregate-population-counts-how-they-are-used-in-spatial-analysis">Aggregate population counts: how they are used in spatial analysis</a></li>
+  <li><a href="#gridded-population-data-fine-grained-understanding-of-where-populations-exist" id="toc-gridded-population-data-fine-grained-understanding-of-where-populations-exist" class="nav-link" data-scroll-target="#gridded-population-data-fine-grained-understanding-of-where-populations-exist">Gridded population data: fine-grained understanding of where populations exist</a></li>
+  </ul></li>
+  <li><a href="#dependence-on-road-network-data-to-create-facility-catchments" id="toc-dependence-on-road-network-data-to-create-facility-catchments" class="nav-link" data-scroll-target="#dependence-on-road-network-data-to-create-facility-catchments">Dependence on road network data to create facility catchments</a></li>
+  </ul></li>
+  <li><a href="#the-missing-piece-a-raster-based-approach" id="toc-the-missing-piece-a-raster-based-approach" class="nav-link" data-scroll-target="#the-missing-piece-a-raster-based-approach">The Missing Piece: a raster-based approach</a>
+  <ul class="collapse">
+  <li><a href="#gridded-population-data" id="toc-gridded-population-data" class="nav-link" data-scroll-target="#gridded-population-data">Gridded population data</a>
+  <ul class="collapse">
+  <li><a href="#often-underutilized-in-spatial-accessibility-models" id="toc-often-underutilized-in-spatial-accessibility-models" class="nav-link" data-scroll-target="#often-underutilized-in-spatial-accessibility-models">Often underutilized in spatial accessibility models</a></li>
+  <li><a href="#methods-to-use-it-are-opaque-or-degrade-the-population-data" id="toc-methods-to-use-it-are-opaque-or-degrade-the-population-data" class="nav-link" data-scroll-target="#methods-to-use-it-are-opaque-or-degrade-the-population-data">Methods to use it are opaque or degrade the population data</a></li>
+  </ul></li>
+  <li><a href="#use-a-friction-surface-not-network-analysis" id="toc-use-a-friction-surface-not-network-analysis" class="nav-link" data-scroll-target="#use-a-friction-surface-not-network-analysis">Use a friction surface, not network analysis</a></li>
+  </ul></li>
+  <li><a href="#looking-ahead" id="toc-looking-ahead" class="nav-link" data-scroll-target="#looking-ahead">Looking ahead</a></li>
+  </ul>
+</nav>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
+    </div>
+<!-- main -->
+<main class="content quarto-banner-title-block" id="quarto-document-content">
+
+
+
+
+
+<p>Spatial accessibility to health care, or the difficulty experienced by a person attempting to travel to a healthcare facility, is impacted by three components: the time it takes to get there, the mode of transportation available, and the supply and demand of healthcare services in the area. Though it tells us a great deal about the spatial barriers to health access, this last component, supply and demand, is often excluded from simple measurements of accessibility (such as the distance to a facility). In gravity models, such as the Two-Step Floating Catchment Area (2SFCA) model, supply and demand are represented as the provider to population ratio (PP Ratio), where the supply (the capacity of clinics and hospitals) is divided by the demand of services (the population in need within the same area).<span class="citation" data-cites="ouma_access_2018 paez_demand_2019"><sup><a href="#ref-ouma_access_2018" role="doc-biblioref">1</a>,<a href="#ref-paez_demand_2019" role="doc-biblioref">2</a></sup></span></p>
+<section id="the-two-step-floating-catchment-area-2sfca-model" class="level1">
+<h1>The Two-Step Floating Catchment Area (2SFCA) Model</h1>
+<p>Spatial accessibility measured using a basic gravity model considers the provider size and distance between the population and provider. Spatial accessibility based on the 2SFCA model similarly depends on provider size and distance, but also accounts for competition for services (i.e.&nbsp;how many other people are competing for a single provider).<span class="citation" data-cites="luo_measures_2003"><sup><a href="#ref-luo_measures_2003" role="doc-biblioref">3</a></sup></span></p>
+<section id="step-1" class="level2">
+<h2 class="anchored" data-anchor-id="step-1">Step 1</h2>
+<p>Start by calculating the provider-to-population ratio (PP Ratio) for each facility. Through summation of the population within facility catchment areas (blue circles), we estimate the population (demand) to whom each facility is expected to provide services. The PP Ratio is calculated by dividing the facility capacity (supply), which is commonly estimated as the number of beds or doctors, by the population demand.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/Step_1_Map.png" class="img-fluid figure-img" alt="Map depicting health facilities with icon sizes proportional to service capacity, circles indicating facility catchment areas, and nearby population points."></p>
+<figcaption>Figure 1. Step one of the 2SFCA model. Calculation of the provider-to-population ratio. Facility capacity represented by red graduated circles; the larger the circle, the greater the capacity.</figcaption>
+</figure>
+</div>
+</section>
+<section id="step-2" class="level2">
+<h2 class="anchored" data-anchor-id="step-2">Step 2</h2>
+<p>Next calculate the accessibility score for each population point. For each population point, identify all facilities that are within the travel threshold of a population point through spatial overlay between facility catchment areas and population points. In the example below, we use a 60km radius as the facility catchment area. For each population point, sum the PP Ratios for all facilities whose catchment areas spatially intersect with the population point; this is the accessibility score. In the figure below, accessibility scores have been multiplied by 1,000 for readability. Assuming the capacity in this example comes from the number of beds available at each facility, the accessibility score represents the number of hospital beds available per 1,000 people.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/Step_2_Map.png" class="img-fluid figure-img" alt="Map depicting health facilities in relation to nearby population clusters.  The size of the health facility icons are proportional to their PP ratio, and the population cluster icons are proprtional to their accessibility score."></p>
+<figcaption>Figure 2. Step two of the 2SFCA model. Calculation of population accessibility scores.</figcaption>
+</figure>
+</div>
+<p>This framework is widely used to study spatial accessibility because it is conceptually intuitive. Although the accessibility score can be expressed in units of beds per population, it represents potential access rather than the actual allocation of beds. Final accessibility scores are typically interpreted relatively for this reason; describing how accessible services are to one population compared to others in the area. Not only does it account for the capacity of providers and the distance between providers and populations, it considers competition for services which does affect accessibility to services in reality.<span class="citation" data-cites="paez_demand_2019"><sup><a href="#ref-paez_demand_2019" role="doc-biblioref">2</a></sup></span></p>
+</section>
+</section>
+<section id="enhancements-of-the-2sfca-model" class="level1">
+<h1>Enhancements of the 2SFCA Model</h1>
+<p>The advantages of the 2SFCA model are in its adaptability; researchers can incorporate other factors into their analysis as needed. Depending on data availability, variants of the model can be used to account for continuous or hybrid distance decay, variable catchment sizes, regional competition, adjusted supply and demand, or multi-modal frameworks.</p>
+<p><strong>Table 1. Published works using 2SFCA models by category</strong></p>
+<table class="caption-top table">
+<tbody>
+<tr class="odd">
+<th colspan="2" data-quarto-table-cell-role="th">2SFCA Enhancement</th>
+<th data-quarto-table-cell-role="th">Model Name</th>
+<th data-quarto-table-cell-role="th">Citation</th>
+</tr>
+<tr class="even">
+<td rowspan="15">Distance Decay</td>
+<td rowspan="5">Original (Binary)</td>
+<td>2SFCA</td>
+<td>Joseph and Bantock (1982)</td>
+</tr>
+<tr class="odd">
+<td>2SFCA</td>
+<td>Luo and Wang (2003)</td>
+</tr>
+<tr class="even">
+<td><strong>2SFCA</strong></td>
+<td><strong>Mutono et al. (2022)</strong></td>
+</tr>
+<tr class="odd">
+<td>Optimized 2SFCA</td>
+<td>Ngui and Apparicio (2011)</td>
+</tr>
+<tr class="even">
+<td>2SFCA</td>
+<td>Yao et al. (2013)</td>
+</tr>
+<tr class="odd">
+<td rowspan="6">Continuous</td>
+<td>Gravity-type Gaussian 2SFCA</td>
+<td>Dai (2010)</td>
+</tr>
+<tr class="even">
+<td>Kernel Density (KD2SFCA)</td>
+<td>Dai and Wang (2011)</td>
+</tr>
+<tr class="odd">
+<td>Kernel Density (KD2SFCA)</td>
+<td>Polzin et al (2014)</td>
+</tr>
+<tr class="even">
+<td>Hierarchical 2SFCA (H2SFCA)</td>
+<td>Tao et al (2020)</td>
+</tr>
+<tr class="odd">
+<td><strong>Gravity-type Gaussian 2SFCA</strong></td>
+<td><strong>Tao et al (2025)</strong></td>
+</tr>
+<tr class="even">
+<td><strong>Grid-to-level 2SFCA (GTL-2SFCA)</strong></td>
+<td><strong>Zhang et al (2021)</strong></td>
+</tr>
+<tr class="odd">
+<td rowspan="4">Hybrid</td>
+<td>Enhanced 2SFCA (E2SFCA)</td>
+<td>Bryant and Delamater (2019)</td>
+</tr>
+<tr class="even">
+<td><strong>Multi-modal 2SFCA (MM2SFCA)</strong></td>
+<td><strong>Langford et al (2016)</strong></td>
+</tr>
+<tr class="odd">
+<td>Enhanced 2SFCA (E2SFCA)</td>
+<td>Luo and Qi (2009)</td>
+</tr>
+<tr class="even">
+<td>Enhanced 2SFCA (E2SFCA)</td>
+<td>Vadrevu and Kanjilal (2009)</td>
+</tr>
+<tr class="odd">
+<td colspan="2" rowspan="6">Variable Catchment Size</td>
+<td>3SFCA</td>
+<td>Bell et al (2013)</td>
+</tr>
+<tr class="even">
+<td>Nearest-Neighbor Modified (NN-M2SFCA)</td>
+<td>Jamtsho et al (2015)</td>
+</tr>
+<tr class="odd">
+<td>Variable (V2SFCA)</td>
+<td>Luo and Whippo (2012)</td>
+</tr>
+<tr class="even">
+<td>Dynamic (D2SFCA)</td>
+<td>McGrail and Humphreys (2014)</td>
+</tr>
+<tr class="odd">
+<td><strong>Variable (V2SFCA)</strong></td>
+<td><strong>Su et al (2022)</strong></td>
+</tr>
+<tr class="even">
+<td>Multiple Catchment Sizes (MC2SFCA)</td>
+<td>Tao et al (2014)</td>
+</tr>
+<tr class="odd">
+<td colspan="2" rowspan="5">Regional Competition</td>
+<td><strong>Modified (M2SFCA)</strong></td>
+<td><strong>Delamater (2013)</strong></td>
+</tr>
+<tr class="even">
+<td>Multinomial Logit (MNL 2SFCA)</td>
+<td>Demitry et al (2022)</td>
+</tr>
+<tr class="odd">
+<td>3SFCA</td>
+<td>Luo (2014)</td>
+</tr>
+<tr class="even">
+<td>Balanced (B2SFCA)</td>
+<td>Paez et al (2019)</td>
+</tr>
+<tr class="odd">
+<td><strong>Enhanced (E2SFCA)</strong></td>
+<td><strong>Wan et al (2012)</strong></td>
+</tr>
+<tr class="even">
+<td colspan="2">Supply and Demand</td>
+<td>Supply-Demand Adjusted (SDA-2SFCA)</td>
+<td>Shao and Luo (2022)</td>
+</tr>
+<tr class="odd">
+<td colspan="2">Multi-Modal Framework</td>
+<td>Multi-Modal (MGa2SFCA)</td>
+<td>Ni et al (2019)</td>
+</tr>
+</tbody>
+</table>
+<p><em>Variations of the 2SFCA model. Studies completed using gridded population data highlighted in bold. Source: Grace Cooper.</em></p>
+<section id="continuous-distance-decay-aligns-better-with-reality" class="level2">
+<h2 class="anchored" data-anchor-id="continuous-distance-decay-aligns-better-with-reality">Continuous distance decay aligns better with reality</h2>
+<p>Distance decay is the phenomenon where people are more likely to travel to places closer to them than those that are farther away, assuming they are ‘equal’ in other ways, such as capacity, quality of care, and services provided<span class="citation" data-cites="bryant_examination_2019"><sup><a href="#ref-bryant_examination_2019" role="doc-biblioref">4</a></sup></span>. Researchers apply distance decay to their 2SFCA models in one of three ways: binary, continuous, or hybrid. The original 2SFCA model assumes binary distance decay, meaning that the effect of distance on healthcare utilization is assumed to be constant within the catchment area and those who live outside of a facility catchment area are assumed to have zero access to healthcare<span class="citation" data-cites="joseph_measuring_1982 luo_measures_2003 mutono_impact_2022 ngui_optimizing_2011 yao_geographical_2013"><sup><a href="#ref-luo_measures_2003" role="doc-biblioref">3</a>,<a href="#ref-joseph_measuring_1982" role="doc-biblioref">5</a>–<a href="#ref-yao_geographical_2013" role="doc-biblioref">8</a></sup></span>. Since binary distance decay assumes the effect of distance is equal for all people within a catchment area, researchers developed enhanced versions of the model to more realistically account for the effect of distance on healthcare utilization. Models accounting for continuous decay replace the binary weight used in the original 2SFCA model (1 if a population center is within a catchment area and 0 if it is outside) with a continuous decay function. In calculation of the PP Ratio in step one, each population center is weighted by distance, rather than simply summing the population within a catchment equally. Calculation of accessibility in step two applies a decay function such as the Gaussian decay constant<span class="citation" data-cites="tao_modifiable_2025"><sup><a href="#ref-tao_modifiable_2025" role="doc-biblioref">9</a></sup></span> to allow facilities closer to a population center to contribute more to accessibility than distant ones<span class="citation" data-cites="dai_black_2010 dai_geographic_2011 polzin_extended_2014 tao_hierarchical_2020 tao_modifiable_2025 zhang_equity_2021"><sup><a href="#ref-tao_modifiable_2025" role="doc-biblioref">9</a>–<a href="#ref-zhang_equity_2021" role="doc-biblioref">14</a></sup></span>. Models using a hybrid approach apply a continuous decay weight within a maximum catchment area and assume zero accessibility outside of the catchment, like a binary model<span class="citation" data-cites="bryant_examination_2019 langford_multi-modal_2016 luo_enhanced_2009 vadrevu_measuring_2016"><sup><a href="#ref-bryant_examination_2019" role="doc-biblioref">4</a>,<a href="#ref-langford_multi-modal_2016" role="doc-biblioref">15</a>–<a href="#ref-vadrevu_measuring_2016" role="doc-biblioref">17</a></sup></span>.</p>
+</section>
+<section id="population-density-rural-catchments-are-bigger-than-urban-ones" class="level2">
+<h2 class="anchored" data-anchor-id="population-density-rural-catchments-are-bigger-than-urban-ones">Population density; rural catchments are bigger than urban ones</h2>
+<p>The 2SFCA can also be enhanced to account for variable catchment sizes. While the standard model applies the same fixed catchment size (such as 30 minute travel time) for every provider, regardless of whether they are located in a rural area with low demand or urban area with high demand, a variable catchment model expands catchment areas outward until the facility capacity is depleted. This means in dense urban areas, catchment areas will likely be small due to capacity being used up quickly within a small radius whereas in sparse rural areas, catchments become much larger to reach capacity. This enhancement is useful especially in studies that examine both urban and rural areas because densely populated areas do not need large service areas while facilities in sparsely populated areas must provide services to people farther away.<span class="citation" data-cites="bell_access_2013 jamtsho_spatio-temporal_2015 luo_variable_2012 mcgrail_measuring_2014 su_using_2022 tao_hierarchical_2020"><sup><a href="#ref-tao_hierarchical_2020" role="doc-biblioref">13</a>,<a href="#ref-bell_access_2013" role="doc-biblioref">18</a>–<a href="#ref-su_using_2022" role="doc-biblioref">22</a></sup></span></p>
+</section>
+<section id="competition-between-facilities" class="level2">
+<h2 class="anchored" data-anchor-id="competition-between-facilities">Competition between facilities</h2>
+<p>Regional competition is influential in studies concerned with how the capacity of nearby facilities will impact the choice of which facility to utilize, such as in urban areas. While the standard 2SFCA model implicitly accounts for regional competition in step one by summing up all people who can potentially use a certain facility, reducing accessibility in highly dense areas, it can be modified to further account for regional competition in multiple ways<span class="citation" data-cites="delamater_measuring_2012 demitiry_accessibility_2022 luo_integrating_2014 paez_demand_2019"><sup><a href="#ref-paez_demand_2019" role="doc-biblioref">2</a>,<a href="#ref-delamater_measuring_2012" role="doc-biblioref">23</a>–<a href="#ref-luo_integrating_2014" role="doc-biblioref">25</a></sup></span>. In one study by Wan and others, the authors created a 3-step method that adds a selection probability to split demand across competing facilities for populations with overlapping catchment areas<span class="citation" data-cites="wan_relative_2012"><sup><a href="#ref-wan_relative_2012" role="doc-biblioref">26</a></sup></span>. The standard 2SFCA model sums all population within the catchment area for a facility, even if some of the population overlaps with other facility catchments, which means it is counting the same population multiple times, effectively overestimating demand and ignoring competition between providers. The 3-step model solves this problem by estimating which facility populations are likely to use and only counting them once.</p>
+</section>
+<section id="insurance-availability-and-and-health-status-of-populations" class="level2">
+<h2 class="anchored" data-anchor-id="insurance-availability-and-and-health-status-of-populations">Insurance availability and and health status of populations</h2>
+<p>Another extension of the 2SFCA model, the supply-demand adjusted (SDA-2SFCA) model, accounts for a more realistic measure of supply and demand based on insurance networks and healthcare needs<span class="citation" data-cites="shao_supply-demand_2022"><sup><a href="#ref-shao_supply-demand_2022" role="doc-biblioref">27</a></sup></span>. The authors argue the assumptions held by the standard 2SFCA model, that all providers are equally available and all people have the same needs for healthcare, are false. To combat this, they adjust for supply by splitting facility capacity according to insurance networks and, similarly, the population demand is weighted by healthcare needs according to demographic characteristics (such as age and gender) due to the fact that some groups use healthcare more frequently than others. This is followed by a separate 2SFCA calculation for each insurance group. While this method likely represents supply and demand of services more accurately than the standard model, it requires detailed information about health insurance coverage that is not widely available.</p>
+</section>
+<section id="multiple-modes-of-transportation" class="level2">
+<h2 class="anchored" data-anchor-id="multiple-modes-of-transportation">Multiple modes of transportation</h2>
+<p>The standard 2SFCA model assumes a population will travel to a facility using a single mode of transportation (i.e.&nbsp;walking, biking, or driving); in rural areas, reality is rarely this simplistic. People often need to complete trips to the doctor using a combination of transportation modes. For instance, a mother and her child may need to take a long walk to the nearest bus stop, then use public transportation to get to the urban center, then complete their trip with another walk to the clinic. In another example, a family might get a ride in a car to a small urban center, then use bicycles or motorcycles to travel to the clinic in the next town that provides the specific services they need. A study by Ni and others attempts to solve this problem by including several transportation modes into both steps of the model<span class="citation" data-cites="ni_multi-mode_2019"><sup><a href="#ref-ni_multi-mode_2019" role="doc-biblioref">28</a></sup></span>. First, the authors conducted a travel behavior survey, according to distance, to estimate transportation mode probabilities; for instance, for longer distances people reported they were more likely to use a car, for medium distances, they often biked or used public transportation, and for shorter distances, they likely walked. In step one, the population demand is multiplied by the probability weight; the weighted demand is then summed across all travel modes. These same mode-specific probabilities are used to sum accessibility by travel mode, assuming each facility contributes accessibility through all travel modes according to the probability weight initially calculated. This study effectively accounts for multiple modes of transportation, however it requires additional survey information about common modes of transportation.</p>
+</section>
+</section>
+<section id="limitations-of-the-2sfca-model" class="level1">
+<h1>Limitations of the 2SFCA Model</h1>
+<p>The 2SFCA model does have its limitations. It is a static spatial measure that does not allow travel time, supply of services, or population demand to change over time (i.e.&nbsp;throughout the course of the day). For instance, clinics are generally only open during business hours, which impacts availability for people who only have accessibility to a small clinic and cannot leave work during regular business hours. In addition, travel times in urban areas change throughout the day, such as during morning and afternoon rush hours.</p>
+<section id="overestimation-of-demand" class="level2">
+<h2 class="anchored" data-anchor-id="overestimation-of-demand">Overestimation of demand</h2>
+<p>As discussed previously, the 2SFCA overestimates demand for health care because it counts populations within the catchment areas of multiple facilities multiple times; it assumes each facility serves the entire population within its catchment area, even those populations who have access to other facilities. This produces a bias in provider-to-population ratios, potentially underestimating accessibility in areas with a high density of facilities<span class="citation" data-cites="hierink_differences_2022"><sup><a href="#ref-hierink_differences_2022" role="doc-biblioref">29</a></sup></span>.</p>
+</section>
+<section id="dependence-on-aggregate-population-data" class="level2">
+<h2 class="anchored" data-anchor-id="dependence-on-aggregate-population-data">Dependence on aggregate population data</h2>
+<p>Perhaps the biggest limitation to the model is its dependence on aggregate census data. Regions of the world with the poorest accessibility and health status may also be limited in the availability of detailed data. Most studies that implement the 2SFCA model utilize aggregate census population counts at small administrative unit levels, such as census tracts or wards. This produces spatial bias, assuming the demand for services is evenly distributed across the study area, related to the modifiable areal unit problem (MAUP), which is statistical bias created by the use of geographic data that are aggregated into spatial units, such as arbitrarily defined administrative units<span class="citation" data-cites="tao_modifiable_2025"><sup><a href="#ref-tao_modifiable_2025" role="doc-biblioref">9</a></sup></span>.</p>
+<section id="population-data-availability-in-less-developed-countries" class="level3">
+<h3 class="anchored" data-anchor-id="population-data-availability-in-less-developed-countries">Population data availability in less developed countries</h3>
+<p>The limitations of the model due to the use of aggregate population count data are exacerbated in less developed countries and areas that are highly rural, such as in sub-Saharan Africa (SSA). In many parts of SSA, administrative units with available population counts can be spatially very large, much too large for meaningful spatial analysis of human behavior. In addition, census data in less developed countries is often collected less frequently than in more developed countries, making the data available often more outdated than is acceptable for modern research. Aggregation of population data results in loss of spatial heterogeneity that is more complex with larger administrative units.</p>
+</section>
+<section id="population-distribution-in-kenya" class="level3">
+<h3 class="anchored" data-anchor-id="population-distribution-in-kenya">Population Distribution in Kenya</h3>
+<p>Kenya’s population is concentrated in the central and southwestern regions of the country. The map highlights the locations of two districts in Kenya, in red, that will be used for visualization purposes to demonstrate how different population distributions can be; Kisii, in the southwestern corner of Kenya, is highly urbanized and relatively small in size compared to Mandera in the northeastern corner of the country, a large and highly rural district with very sparse population focused in small urbanized centers.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/Kenya_Map.png" class="img-fluid figure-img" alt="Map depicting Kenya district boundaries and population density in shades of blue."></p>
+<figcaption>Figure 3. Map of Kenya with Administrative District Boundaries and WorldPop Unconstrained population data. Districts used to visualize population density in an urban area (Kisii) and rural area (Mandera) are outlined in red.</figcaption>
+</figure>
+</div>
+</section>
+<section id="aggregate-population-counts-how-they-are-used-in-spatial-analysis" class="level3">
+<h3 class="anchored" data-anchor-id="aggregate-population-counts-how-they-are-used-in-spatial-analysis">Aggregate population counts: how they are used in spatial analysis</h3>
+<p>Accessibility models that use aggregate census data for population inputs produce vastly different results from those that use gridded population data. In the 2SFCA model, researchers who use population counts aggregated to the subcounty level must estimate population locations using either the geographic center of the administrative unit (shown in the maps below) or the population-weighted center of the administrative unit, if smaller administrative units are available to calculate it. Kisii, a more densely populated district, has smaller administrative units which allows for more granular estimates of where people live. Mandera, much less densely populated, has larger subcounties and thus less accurate estimates of where people live using subcounty centroids. Visual inspection of these two cases reveals that accessibility models based on aggregate population counts will create an implicit bias toward urban areas and less accurate estimates of accessibility for rural populations.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/Aggregate_pop_maps.png" class="img-fluid figure-img" alt="Map depicting aggregate population counts filling in entire sections in solid shades of blue within subcounty boundaries of Kisii and Mandera counties."></p>
+<figcaption>Figure 4. Aggregate population counts for two districts in Kenya: Kisii (urban) and Mandera (rural).</figcaption>
+</figure>
+</div>
+</section>
+<section id="gridded-population-data-fine-grained-understanding-of-where-populations-exist" class="level3">
+<h3 class="anchored" data-anchor-id="gridded-population-data-fine-grained-understanding-of-where-populations-exist">Gridded population data: fine-grained understanding of where populations exist</h3>
+<p>Accessibility models based on gridded population data, such as WorldPop, enable researchers to assess accessibility with much higher accuracy for both urban and rural areas. Through examination of the gridded population distribution in the Kisii district, it is clear that the most densely populated area is in the center of the district, similar to the distribution shown by aggregate population map. The gridded population distribution in Mandera district is very different from the aggregate population map. Most rural population points in the northern part of the district are along a large river on the northern boundary, a trend that is missed when population distribution is summarized using large subcounty units. These comparisons show that researchers dependent on census data to study spatial accessibility using a 2SFCA model are limited to study urban areas in more developed countries, due to the availability of small administrative units. This is a big limitation of the usefulness of the 2SFCA model that can be resolved with the use of gridded population data in its models.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/Gridded_pop_maps.png" class="img-fluid figure-img" alt="Map depicting population counts using blue scale at a high resolution within Kisii and Mandera counties of Kenya.  Kisii has higher population overall with several dense and expansive population clusters.  Mandera is sparsely populated with several small population centers."></p>
+<figcaption>Figure 5. Gridded population distribution for two districts in Kenya: Kisii (urban) and Mandera (rural) using WorldPop unconstrained, 1km resolution.</figcaption>
+</figure>
+</div>
+</section>
+</section>
+<section id="dependence-on-road-network-data-to-create-facility-catchments" class="level2">
+<h2 class="anchored" data-anchor-id="dependence-on-road-network-data-to-create-facility-catchments">Dependence on road network data to create facility catchments</h2>
+<p>The standard 2SFCA model has historically used road network data to create catchment areas around healthcare facilities, which requires complete road network data for the entire study area. Research in sub-Saharan Africa (SSA) often uses OpenStreetMap (OSM) for network analysis, however OSM data usually misses small (but important) roads in the most rural areas of SSA, and thus is not adequate for 2SFCA models. The alternative in these areas, when road network data is not adequately available, is to use least-cost path analysis to construct walk, bike, or driving speeds using a friction surface based on land cover data, river and wetland data, and roads data where available. Creating a catchment area around a facility based on a friction surface is complex due to the fact that raster analysis tools (such as Esri’s Distance Accumulation) must be adapted to create individual catchment areas for all facilities in an area. The standard methods to conduct a 2SFCA analysis rely on vector data (road networks, facility points, population points) that can be used with computational power readily available to most researchers and students using a laptop.</p>
+</section>
+</section>
+<section id="the-missing-piece-a-raster-based-approach" class="level1">
+<h1>The Missing Piece: a raster-based approach</h1>
+<p>The limitations described above outline the practical challenges faced by researchers completing a spatial accessibility analysis using the 2SFCA model in rural areas of less developed countries, mainly tied to lack of the available data types commonly used in the model. As it was built for urban areas with high-quality data, most models use road network data to build catchment areas and aggregate census data at very small administrative unit levels to define where people live. These types of datasets are often unavailable at the level of quality necessary for spatial accessibility analysis in less developed countries.</p>
+<section id="gridded-population-data" class="level2">
+<h2 class="anchored" data-anchor-id="gridded-population-data">Gridded population data</h2>
+<p>Gridded population datasets, also known as population density layers, as described in detail in a previous blog post, <a href="https://tech.popdata.org/dhs-research-hub/posts/2024-08-30-pop-density/">Measuring Population Density</a>, estimate the spatial distribution of people at high spatial resolutions. Many of them provide raster-based, global estimates of populations at 1km to 30m cell size resolution. The result is a raster image that describes the number of people who live in each grid cell. The most prominent global gridded population datasets produce updates to estimates annually or at 5-year intervals, providing researchers with recent estimates for cross-sectional analyses and extensive temporal availability for longitudinal studies. These datasets are ideal for spatial accessibility analyses due to the high spatial resolution of populations they provide, independence from administrative unit boundaries or census timelines, and availability in areas with sparse populations, where little other population data is available.</p>
+<section id="often-underutilized-in-spatial-accessibility-models" class="level3">
+<h3 class="anchored" data-anchor-id="often-underutilized-in-spatial-accessibility-models">Often underutilized in spatial accessibility models</h3>
+<p>There is a disconnect between the use of gridded population datasets to inform our understanding of where populations exist in rural areas of developing countries and the use of 2SFCA models to examine spatial accessibility to health services in the same areas. Gridded population data have been validated in numerous studies and are used widely in other areas of study, such as disaster assessment and risk management, land use change modeling, environmental change analyses, and socioeconomic analyses<span class="citation" data-cites="chen_multiple_2020"><sup><a href="#ref-chen_multiple_2020" role="doc-biblioref">30</a></sup></span>. Despite the clear advantage of using them, they are underutilized in studies that use the 2SFCA model for spatial accessibility analysis.</p>
+</section>
+<section id="methods-to-use-it-are-opaque-or-degrade-the-population-data" class="level3">
+<h3 class="anchored" data-anchor-id="methods-to-use-it-are-opaque-or-degrade-the-population-data">Methods to use it are opaque or degrade the population data</h3>
+<p>In studies that do use gridded population data in 2SFCA models, the authors needed to use specific methods to enable the use of raster data as the input for population locations. Many studies relied on APIs to complete their analysis, as it requires high computational resources<span class="citation" data-cites="mutono_impact_2022 ni_multi-mode_2019 tao_modifiable_2025 zhang_spatial_2019 zhang_equity_2021"><sup><a href="#ref-mutono_impact_2022" role="doc-biblioref">6</a>,<a href="#ref-tao_modifiable_2025" role="doc-biblioref">9</a>,<a href="#ref-zhang_equity_2021" role="doc-biblioref">14</a>,<a href="#ref-ni_multi-mode_2019" role="doc-biblioref">28</a>,<a href="#ref-zhang_spatial_2019" role="doc-biblioref">31</a></sup></span>. Jamtsho and others converted gridded population data to points (the center of each grid cell became a point with population information), then clustered the points to nearby village point data to reduce the number of population centers in their analysis<span class="citation" data-cites="jamtsho_spatio-temporal_2015"><sup><a href="#ref-jamtsho_spatio-temporal_2015" role="doc-biblioref">19</a></sup></span>. By aggregating the gridded data, the authors lost the location accuracy provided by the gridded population dataset. Luo and Qi used gridded population data in the U.S. by breaking it up into regions within Illinois to enable calculations on smaller portions<span class="citation" data-cites="luo_enhanced_2009"><sup><a href="#ref-luo_enhanced_2009" role="doc-biblioref">16</a></sup></span>. This method is transparent and keeps the integrity of the original gridded population data, however it produces edge effects at region boundaries, assuming populations do not cross these boundaries to access healthcare.</p>
+</section>
+</section>
+<section id="use-a-friction-surface-not-network-analysis" class="level2">
+<h2 class="anchored" data-anchor-id="use-a-friction-surface-not-network-analysis">Use a friction surface, not network analysis</h2>
+<p>When road network data is not adequately available, one could use least-cost path analysis to construct walk, bike, or driving speeds using a friction surface based on available land cover data, river and wetland data, and/or roads data. Creating a catchment area around a facility based on a friction surface is complex due to the fact that raster analysis tools (such as Esri’s Distance Accumulation) must be adapted to create individual catchment areas for all facilities in an area. The standard methods to conduct a 2SFCA analysis rely on vector data (road networks, facility points, population points) that can be used with computational power readily available to most researchers and students using a laptop.</p>
+</section>
+</section>
+<section id="looking-ahead" class="level1">
+<h1>Looking ahead</h1>
+<p>The 2SFCA model must be adapted to use gridded population data and a friction surface for calculation of catchment areas. Because these datasets are very large, they create an analysis that is computationally expensive and complex. The next blog post in this series will provide the workarounds researchers can use to combat these challenges, including a walk-through for how to complete a 2SFCA model using gridded population data and a friction surface.</p>
+
+
+
+</section>
+
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" data-line-spacing="2" role="list">
+<div id="ref-ouma_access_2018" class="csl-entry" role="listitem">
+1. Ouma, P. O., Maina, J., Thuranira, P. N., Macharia, P. M., Alegana, V. A., English, M., Okiro, E. A., &amp; Snow, R. W. (2018). Access to emergency hospital care provided by the public sector in sub-<span>Saharan</span> <span>Africa</span> in 2015: A geocoded inventory and spatial analysis. <em>The Lancet Global Health</em>, <em>6</em>(3), e342–e350. <a href="https://doi.org/10.1016/S2214-109X(17)30488-6">https://doi.org/10.1016/S2214-109X(17)30488-6</a>
+</div>
+<div id="ref-paez_demand_2019" class="csl-entry" role="listitem">
+2. Paez, A., Higgins, C. D., &amp; Vivona, S. F. (2019). Demand and level of service inflation in <span>Floating</span> <span>Catchment</span> <span>Area</span> (<span>FCA</span>) methods. <em>PLOS ONE</em>, <em>14</em>(6), e0218773. <a href="https://doi.org/10.1371/journal.pone.0218773">https://doi.org/10.1371/journal.pone.0218773</a>
+</div>
+<div id="ref-luo_measures_2003" class="csl-entry" role="listitem">
+3. Luo, W., &amp; Wang, F. (2003). Measures of <span>Spatial</span> <span>Accessibility</span> to <span>Health</span> <span>Care</span> in a <span>GIS</span> <span>Environment</span>: <span>Synthesis</span> and a <span>Case</span> <span>Study</span> in the <span>Chicago</span> <span>Region</span>. <em>Environment and Planning B: Planning and Design</em>, <em>30</em>(6), 865–884. <a href="https://doi.org/10.1068/b29120">https://doi.org/10.1068/b29120</a>
+</div>
+<div id="ref-bryant_examination_2019" class="csl-entry" role="listitem">
+4. Bryant, J., &amp; Delamater, P. L. (2019). Examination of spatial accessibility at micro- and macro-levels using the enhanced two-step floating catchment area (<span>E2SFCA</span>) method. <em>Annals of GIS</em>, <em>25</em>(3), 219–229. <a href="https://doi.org/10.1080/19475683.2019.1641553">https://doi.org/10.1080/19475683.2019.1641553</a>
+</div>
+<div id="ref-joseph_measuring_1982" class="csl-entry" role="listitem">
+5. Joseph, A. E., &amp; Bantock, P. R. (1982). Measuring potential physical accessibility to general practitioners in rural areas: <span>A</span> method and case study. <em>Social Science &amp; Medicine</em>, <em>16</em>(1), 85–90. <a href="https://doi.org/10.1016/0277-9536(82)90428-2">https://doi.org/10.1016/0277-9536(82)90428-2</a>
+</div>
+<div id="ref-mutono_impact_2022" class="csl-entry" role="listitem">
+6. Mutono, N., Wright, J. A., Mutunga, M., Mutembei, H., &amp; Thumbi, S. M. (2022). Impact of traffic congestion on spatial access to healthcare services in <span>Nairobi</span>. <em>Frontiers in Health Services</em>, <em>2</em>, 788173. <a href="https://doi.org/10.3389/frhs.2022.788173">https://doi.org/10.3389/frhs.2022.788173</a>
+</div>
+<div id="ref-ngui_optimizing_2011" class="csl-entry" role="listitem">
+7. Ngui, A. N., &amp; Apparicio, P. (2011). Optimizing the two-step floating catchment area method for measuring spatial accessibility to medical clinics in <span>Montreal</span>. <em>BMC Health Services Research</em>, <em>11</em>(1), 166. <a href="https://doi.org/10.1186/1472-6963-11-166">https://doi.org/10.1186/1472-6963-11-166</a>
+</div>
+<div id="ref-yao_geographical_2013" class="csl-entry" role="listitem">
+8. Yao, J., Murray, A. T., &amp; Agadjanian, V. (2013). A geographical perspective on access to sexual and reproductive health care for women in rural <span>Africa</span>. <em>Social Science &amp; Medicine</em>, <em>96</em>, 60–68. <a href="https://doi.org/10.1016/j.socscimed.2013.07.025">https://doi.org/10.1016/j.socscimed.2013.07.025</a>
+</div>
+<div id="ref-tao_modifiable_2025" class="csl-entry" role="listitem">
+9. Tao, Z., Zhang, R., Liu, C., &amp; Zhong, Q. (2025). On the <span>Modifiable</span> <span>Areal</span> <span>Unit</span> <span>Problem</span> (<span>MAUP</span>) in healthcare accessibility measurement via the two-step floating catchment area (<span>2SFCA</span>) method. <em>Health &amp; Place</em>, <em>93</em>, 103468. <a href="https://doi.org/10.1016/j.healthplace.2025.103468">https://doi.org/10.1016/j.healthplace.2025.103468</a>
+</div>
+<div id="ref-dai_black_2010" class="csl-entry" role="listitem">
+10. Dai, D. (2010). Black residential segregation, disparities in spatial access to health care facilities, and late-stage breast cancer diagnosis in metropolitan <span>Detroit</span>. <em>Health &amp; Place</em>, <em>16</em>(5), 1038–1052. <a href="https://doi.org/10.1016/j.healthplace.2010.06.012">https://doi.org/10.1016/j.healthplace.2010.06.012</a>
+</div>
+<div id="ref-dai_geographic_2011" class="csl-entry" role="listitem">
+11. Dai, D., &amp; Wang, F. (2011). Geographic disparities in accessibility to food stores in southwest <span>Mississippi</span>. <em>Environment and Planning B: Planning and Design</em>, <em>38</em>(4), 659–677. <a href="https://doi.org/10.1068/b36149">https://doi.org/10.1068/b36149</a>
+</div>
+<div id="ref-polzin_extended_2014" class="csl-entry" role="listitem">
+12. Polzin, P., Borges, J., &amp; Coelho, A. (2014). An <span>Extended</span> <span>Kernel</span> <span>Density</span> <span>Two</span>-<span>Step</span> <span>Floating</span> <span>Catchment</span> <span>Area</span> <span>Method</span> to <span>Analyze</span> <span>Access</span> to <span>Health</span> <span>Care</span>. <em>Environment and Planning B: Planning and Design</em>, <em>41</em>(4), 717–735. <a href="https://doi.org/10.1068/b120050p">https://doi.org/10.1068/b120050p</a>
+</div>
+<div id="ref-tao_hierarchical_2020" class="csl-entry" role="listitem">
+13. Tao, Z., Cheng, Y., &amp; Liu, J. (2020). Hierarchical two-step floating catchment area (<span>2SFCA</span>) method: Measuring the spatial accessibility to hierarchical healthcare facilities in <span>Shenzhen</span>, <span>China</span>. <em>International Journal for Equity in Health</em>, <em>19</em>(1), 164. <a href="https://doi.org/10.1186/s12939-020-01280-7">https://doi.org/10.1186/s12939-020-01280-7</a>
+</div>
+<div id="ref-zhang_equity_2021" class="csl-entry" role="listitem">
+14. Zhang, S., Song, X., &amp; Zhou, J. (2021). An equity and efficiency integrated grid-to-level <span>2SFCA</span> approach: Spatial accessibility of multilevel healthcare. <em>International Journal for Equity in Health</em>, <em>20</em>(1), 229. <a href="https://doi.org/10.1186/s12939-021-01553-9">https://doi.org/10.1186/s12939-021-01553-9</a>
+</div>
+<div id="ref-langford_multi-modal_2016" class="csl-entry" role="listitem">
+15. Langford, M., Higgs, G., &amp; Fry, R. (2016). Multi-modal two-step floating catchment area analysis of primary health care accessibility. <em>Health &amp; Place</em>, <em>38</em>, 70–81. <a href="https://doi.org/10.1016/j.healthplace.2015.11.007">https://doi.org/10.1016/j.healthplace.2015.11.007</a>
+</div>
+<div id="ref-luo_enhanced_2009" class="csl-entry" role="listitem">
+16. Luo, W., &amp; Qi, Y. (2009). An enhanced two-step floating catchment area (<span>E2SFCA</span>) method for measuring spatial accessibility to primary care physicians. <em>Health &amp; Place</em>, <em>15</em>(4), 1100–1107. <a href="https://doi.org/10.1016/j.healthplace.2009.06.002">https://doi.org/10.1016/j.healthplace.2009.06.002</a>
+</div>
+<div id="ref-vadrevu_measuring_2016" class="csl-entry" role="listitem">
+17. Vadrevu, L., &amp; Kanjilal, B. (2016). Measuring spatial equity and access to maternal health services using enhanced two step floating catchment area method (<span>E2SFCA</span>) – a case study of the <span>Indian</span> <span>Sundarbans</span>. <em>International Journal for Equity in Health</em>, <em>15</em>(1), 87. <a href="https://doi.org/10.1186/s12939-016-0376-y">https://doi.org/10.1186/s12939-016-0376-y</a>
+</div>
+<div id="ref-bell_access_2013" class="csl-entry" role="listitem">
+18. Bell, S., Wilson, K., Bissonnette, L., &amp; Shah, T. (2013). Access to <span>Primary</span> <span>Health</span> <span>Care</span>: <span>Does</span> <span>Neighborhood</span> of <span>Residence</span> <span>Matter</span>? <em>Annals of the Association of American Geographers</em>, <em>103</em>(1), 85–105. <a href="https://doi.org/10.1080/00045608.2012.685050">https://doi.org/10.1080/00045608.2012.685050</a>
+</div>
+<div id="ref-jamtsho_spatio-temporal_2015" class="csl-entry" role="listitem">
+19. Jamtsho, S., Corner, R., &amp; Dewan, A. (2015). Spatio-<span>Temporal</span> <span>Analysis</span> of <span>Spatial</span> <span>Accessibility</span> to <span>Primary</span> <span>Health</span> <span>Care</span> in <span>Bhutan</span>. <em>ISPRS International Journal of Geo-Information</em>, <em>4</em>(3), 1584–1604. <a href="https://doi.org/10.3390/ijgi4031584">https://doi.org/10.3390/ijgi4031584</a>
+</div>
+<div id="ref-luo_variable_2012" class="csl-entry" role="listitem">
+20. Luo, W., &amp; Whippo, T. (2012). Variable catchment sizes for the two-step floating catchment area (<span>2SFCA</span>) method. <em>Health &amp; Place</em>, <em>18</em>(4), 789–795. <a href="https://doi.org/10.1016/j.healthplace.2012.04.002">https://doi.org/10.1016/j.healthplace.2012.04.002</a>
+</div>
+<div id="ref-mcgrail_measuring_2014" class="csl-entry" role="listitem">
+21. McGrail, M. R., &amp; Humphreys, J. S. (2014). Measuring spatial accessibility to primary health care services: <span>Utilising</span> dynamic catchment sizes. <em>Applied Geography</em>, <em>54</em>, 182–188. <a href="https://doi.org/10.1016/j.apgeog.2014.08.005">https://doi.org/10.1016/j.apgeog.2014.08.005</a>
+</div>
+<div id="ref-su_using_2022" class="csl-entry" role="listitem">
+22. Su, H., Chen, W., &amp; Cheng, M. (2022). Using the variable two-step floating catchment area method to measure the potential spatial accessibility of urban emergency shelters. <em>GeoJournal</em>, <em>87</em>(4), 2625–2639. <a href="https://doi.org/10.1007/s10708-021-10389-3">https://doi.org/10.1007/s10708-021-10389-3</a>
+</div>
+<div id="ref-delamater_measuring_2012" class="csl-entry" role="listitem">
+23. Delamater, P. L., Messina, J. P., Shortridge, A. M., &amp; Grady, S. C. (2012). Measuring geographic access to health care: Raster and network-based methods. <em>International Journal of Health Geographics</em>, <em>11</em>(1), 15. <a href="https://doi.org/10.1186/1476-072x-11-15">https://doi.org/10.1186/1476-072x-11-15</a>
+</div>
+<div id="ref-demitiry_accessibility_2022" class="csl-entry" role="listitem">
+24. Demitiry, M., Higgins, C. D., Páez, A., &amp; Miller, E. J. (2022). Accessibility to primary care physicians: <span>Comparing</span> floating catchments with a utility-based approach. <em>Journal of Transport Geography</em>, <em>101</em>, 103356. <a href="https://doi.org/10.1016/j.jtrangeo.2022.103356">https://doi.org/10.1016/j.jtrangeo.2022.103356</a>
+</div>
+<div id="ref-luo_integrating_2014" class="csl-entry" role="listitem">
+25. Luo, J. (2014). Integrating the <span>Huff</span> <span>Model</span> and <span>Floating</span> <span>Catchment</span> <span>Area</span> <span>Methods</span> to <span>Analyze</span> <span>Spatial</span> <span>Access</span> to <span>Healthcare</span> <span>Services</span>. <em>Transactions in GIS</em>, <em>18</em>(3), 436–448. <a href="https://doi.org/10.1111/tgis.12096">https://doi.org/10.1111/tgis.12096</a>
+</div>
+<div id="ref-wan_relative_2012" class="csl-entry" role="listitem">
+26. Wan, N., Zhan, F. B., Zou, B., &amp; Chow, E. (2012). A relative spatial access assessment approach for analyzing potential spatial access to colorectal cancer services in <span>Texas</span>. <em>Applied Geography</em>, <em>32</em>(2), 291–299. <a href="https://doi.org/10.1016/j.apgeog.2011.05.001">https://doi.org/10.1016/j.apgeog.2011.05.001</a>
+</div>
+<div id="ref-shao_supply-demand_2022" class="csl-entry" role="listitem">
+27. Shao, Y., &amp; Luo, W. (2022). Supply-demand adjusted two-steps floating catchment area (<span>SDA</span>-<span>2SFCA</span>) model for measuring spatial access to health care. <em>Social Science &amp; Medicine</em>, <em>296</em>, 114727. <a href="https://doi.org/10.1016/j.socscimed.2022.114727">https://doi.org/10.1016/j.socscimed.2022.114727</a>
+</div>
+<div id="ref-ni_multi-mode_2019" class="csl-entry" role="listitem">
+28. Ni, J., Liang, M., Lin, Y., Wu, Y., &amp; Wang, C. (2019). Multi-<span>Mode</span> <span>Two</span>-<span>Step</span> <span>Floating</span> <span>Catchment</span> <span>Area</span> (<span>2SFCA</span>) <span>Method</span> to <span>Measure</span> the <span>Potential</span> <span>Spatial</span> <span>Accessibility</span> of <span>Healthcare</span> <span>Services</span>. <em>ISPRS International Journal of Geo-Information</em>, <em>8</em>(5), 236. <a href="https://doi.org/10.3390/ijgi8050236">https://doi.org/10.3390/ijgi8050236</a>
+</div>
+<div id="ref-hierink_differences_2022" class="csl-entry" role="listitem">
+29. Hierink, F., Boo, G., Macharia, P. M., Ouma, P. O., Timoner, P., Levy, M., Tschirhart, K., Leyk, S., Oliphant, N., Tatem, A. J., &amp; Ray, N. (2022). Differences between gridded population data impact measures of geographic access to healthcare in sub-<span>Saharan</span> <span>Africa</span>. <em>Communications Medicine</em>, <em>2</em>(1), 117. <a href="https://doi.org/10.1038/s43856-022-00179-4">https://doi.org/10.1038/s43856-022-00179-4</a>
+</div>
+<div id="ref-chen_multiple_2020" class="csl-entry" role="listitem">
+30. Chen, R., Yan, H., Liu, F., Du, W., &amp; Yang, Y. (2020). Multiple <span>Global</span> <span>Population</span> <span>Datasets</span>: <span>Differences</span> and <span>Spatial</span> <span>Distribution</span> <span>Characteristics</span>. <em>ISPRS International Journal of Geo-Information</em>, <em>9</em>(11), 637. <a href="https://doi.org/10.3390/ijgi9110637">https://doi.org/10.3390/ijgi9110637</a>
+</div>
+<div id="ref-zhang_spatial_2019" class="csl-entry" role="listitem">
+31. Zhang, S., Song, X., Wei, Y., &amp; Deng, W. (2019). Spatial <span>Equity</span> of <span>Multilevel</span> <span>Healthcare</span> in the <span>Metropolis</span> of <span>Chengdu</span>, <span>China</span>: <span>A</span> <span>New</span> <span>Assessment</span> <span>Approach</span>. <em>International Journal of Environmental Research and Public Health</em>, <em>16</em>(3), 493. <a href="https://doi.org/10.3390/ijerph16030493">https://doi.org/10.3390/ijerph16030493</a>
+</div>
+</div></section></div></main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/ipums\.github\.io\/dhs-research-hub");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+      &nbsp;
+    </div>   
+    <div class="nav-footer-center">
+<p>Developed by <a href="https://www.ipums.org">IPUMS</a> at the University of Minnesota<br>Licensed under the <a href="https://www.mozilla.org/en-US/MPL/2.0/">Mozilla Public License Version 2.0</a></p>
+</div>
+    <div class="nav-footer-right">
+      &nbsp;
+    </div>
+  </div>
+</footer>
+
+
+
+
+</body></html>
