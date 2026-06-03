@@ -10,7 +10,21 @@
 <atom:link href="https://ipums.github.io/dhs-research-hub/index.xml" rel="self" type="application/rss+xml"/>
 <description>Understand population health in its environmental context</description>
 <generator>quarto-1.8.25</generator>
-<lastBuildDate>Fri, 15 May 2026 05:00:00 GMT</lastBuildDate>
+<lastBuildDate>Fri, 05 Jun 2026 05:00:00 GMT</lastBuildDate>
+<item>
+  <title>Access to Healthcare Part 3</title>
+  <dc:creator>Grace Cooper</dc:creator>
+  <link>https://ipums.github.io/dhs-research-hub/posts/2026-06-05-distance-pt3/</link>
+  <description><![CDATA[ Spatial accessibility to healthcare, a known barrier to healthcare utilization<span class="citation" data-cites="bain_prevalence_2022"><sup>1</sup></span> which leads to poor health<span class="citation" data-cites="yao_geographical_2013"><sup>2</sup></span>, is understudied in the regions that need it most, such as rural sub-Saharan Africa, due to lack of adequate road network and population data. Spatial accessibility models that account for more complex influences on spatial access, such as distance decay and supply and demand of services (i.e.&nbsp;gravity models such as the Two-Step Floating Catchment Area (2SFCA) model), typically depend on vector-based data that is less available in areas with the most vulnerable populations. Vector-based data include census population counts aggregated to administrative units and road network data. Global gridded population datasets (publicly available, high resolution population estimates), are becoming more widely used in social and population health studies<span class="citation" data-cites="chen_geographic_2017"><sup>3</sup></span>, however they continue to be underutilized in spatial accessibility to health models<span class="citation" data-cites="shao_supply-demand_2022 tao_hierarchical_2020 bryant_examination_2019"><sup>4–6</sup></span>. This post describes an innovative method researchers can use to incorporate gridded population, land cover, and elevation data into a 2SFCA model for use in any region in the world, regardless of administrative data availability. ]]></description>
+  <category>Health care</category>
+  <category>Accessibility</category>
+  <category>Distance models</category>
+  <category>Gravity models</category>
+  <category>Population density</category>
+  <category>Network analysis</category>
+  <guid>https://ipums.github.io/dhs-research-hub/posts/2026-06-05-distance-pt3/</guid>
+  <pubDate>Fri, 05 Jun 2026 05:00:00 GMT</pubDate>
+</item>
 <item>
   <title>Access to Healthcare Part 2: The 2SFCA Model</title>
   <dc:creator>Grace Cooper</dc:creator>
@@ -320,21 +334,6 @@
   <guid>https://ipums.github.io/dhs-research-hub/posts/2024-08-01-ndvi-data/</guid>
   <pubDate>Thu, 01 Aug 2024 05:00:00 GMT</pubDate>
   <media:content url="https://ipums.github.io/dhs-research-hub/posts/2024-08-01-ndvi-data/index_files/figure-html/listing-img-1.png" medium="image" type="image/png" height="115" width="144"/>
-</item>
-<item>
-  <title>Introducing NDVI as a Tool for Population Health Research</title>
-  <dc:creator>Jude Mikal</dc:creator>
-  <link>https://ipums.github.io/dhs-research-hub/posts/2024-07-02-ndvi-concepts/</link>
-  <description><![CDATA[ Satellite imagery can be used in conjunction with place-specific research methods to assess food production and its impacts ]]></description>
-  <category>Extreme weather</category>
-  <category>NDVI</category>
-  <category>Food production</category>
-  <category>Agriculture</category>
-  <category>Methodology</category>
-  <category>Research concepts</category>
-  <guid>https://ipums.github.io/dhs-research-hub/posts/2024-07-02-ndvi-concepts/</guid>
-  <pubDate>Tue, 02 Jul 2024 05:00:00 GMT</pubDate>
-  <media:content url="https://ipums.github.io/dhs-research-hub/posts/2024-07-02-ndvi-concepts/images/max_ndvi.png" medium="image" type="image/png" height="65" width="144"/>
 </item>
 </channel>
 </rss>
