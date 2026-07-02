@@ -22,6 +22,7 @@ To work on the blog, you'll need the following:
 -   R
 -   RStudio
 -   Git
+-   A University of Minnesota github.com account
 -   A few particular R packages
 
 If you're working on your own machine, follow the instructions below to
@@ -75,25 +76,24 @@ them in a fresh RStudio session (in the RStudio toolbar, select [Session
 
 ## Configure Git and access blog materials
 
-### Initialize your UMN GitHub account
+### Confirm GitHub access
 
 The DHS Research Hub blog materials exist in both a **public** and
 **private** format. When you're working on the blog, you'll be working
-on the private site, which is hosted on the UMN Enterprise GitHub server
-at <https://github.umn.edu/mpc/dhs-research-hub>.
+on the private site, which is hosted in the `umn-isrdi` organization on
+GitHub at <https://github.com/umn-isrdi/dhs-research-hub>.
 
-The UMN GitHub server is accessible only to people affiliated with UMN.
-By working in this environment, we can develop and edit new posts
-without having to worry about them becoming visible on the public site
-prematurely. Also, it allows us to store files necessary for certain
-posts (e.g., IPUMS data files) without making those files publicly
-visible. Members of the blog "admin" team will be responsible for
-migrating completed posts to the public version of the site.
+Access to the private GitHub repository is limited to approved
+collaborators. By working in this environment, we can develop and edit
+new posts without having to worry about them becoming visible on the
+public site prematurely. Also, it allows us to store files necessary for
+certain posts (e.g., IPUMS data files) without making those files
+publicly visible. Members of the blog "admin" team will be responsible
+for migrating completed posts to the public version of the site.
 
-Since you're affiliated with UMN, you automatically have access to an
-account on UMN GitHub. To initialize an account, visit
-<https://github.umn.edu> and log in with your University Internet ID and
-password.
+Before continuing, make sure you can log in to
+<https://github.com> with the GitHub account that has been granted
+access to the private repository.
 
 ### Install Git
 
@@ -149,16 +149,16 @@ the git executable
 knitr::include_graphics("images/bpw/git-menu.png")
 ```
 
-### Configure Git with your UMN GitHub credentials {#configure-git}
+### Configure Git with your GitHub credentials {#configure-git}
 
 Finally, we'll provide Git with the username and email associated with
-our UMN GitHub account. We'll also need to generate a Personal Access
-Token (PAT) for our account. The PAT functions like a password that
-allows you to interact with your UMN GitHub account from R and the
-command line.
+the GitHub account you'll use for the private repository. We'll also
+need to generate a Personal Access Token (PAT) for our account. The PAT
+functions like a password that allows you to interact with GitHub from R
+and the command line.
 
-First, set the username and email address associated with your UMN
-GitHub account. Git commands need to be run in the RStudio Terminal.
+First, set the username and email address associated with your GitHub
+account. Git commands need to be run in the RStudio Terminal.
 
 ::: callout-important
 Note that the RStudio Terminal is *not* the same thing as the RStudio
@@ -190,7 +190,7 @@ Run the following in your RStudio
 console to launch a webpage where you can configure a new PAT:
 
 ```{r, eval = F, echo = T}
-usethis::create_github_token(host = "https://github.umn.edu")
+usethis::create_github_token(host = "https://github.com")
 ```
 
 You can leave the default boxes checked and click the green [Generate
@@ -199,26 +199,18 @@ digits—this is your new PAT. **Don't close this page yet!** Return to
 your RStudio console and run:
 
 ```{r, eval=F, echo=T}
-gitcreds::gitcreds_set("https://github.umn.edu")
+gitcreds::gitcreds_set("https://github.com")
 ```
 
 This will prompt you to enter a new token. Follow the instructions to
 copy and paste the PAT you just generated in your browser and press
-Enter. From now on, RStudio and Git will be able to access your UMN
-GitHub account automatically.
-
-::: callout-note
-If you have a personal GitHub account at
-[https://github.com](https://www.github.com) you could repeat this
-process substituting `"https://github.com"` for
-`"https://github.umn.edu"`, and Git will automatically choose the right
-credentials based on the repository associated with your project.
-:::
+Enter. From now on, RStudio and Git will be able to access your GitHub
+account automatically.
 
 ### Clone the DHS Research Hub Repository
 
 Now that we have Git configured, we can download (or *clone*) a copy of
-the blog materials from UMN GitHub.
+the blog materials from GitHub.
 
 Open RStudio and navigate to [File ‣ New Project]{.menu-instr}, then
 select [Version Control]{.menu-instr}:
@@ -235,8 +227,9 @@ Choose [Git]{.menu-instr} to clone the project from a GitHub repository:
 knitr::include_graphics("images/bpw/use_git.png")
 ```
 
-On the next menu page, enter the address for the UMN GitHub repository:
-`https://github.umn.edu/mpc/dhs-research-hub/`
+On the next menu page, enter the address for the internal GitHub
+repository:
+`https://github.com/umn-isrdi/dhs-research-hub.git`
 
 Hit the tab key and the project directory name should populate
 automatically. If not, enter `dhs-research-hub` as the directory name:
@@ -247,9 +240,9 @@ knitr::include_graphics("images/bpw/clone_info.png")
 ```
 
 ::: callout-warning
-Make sure to clone the **private** version of the repository (the one
-located at github.umn.edu), not the **public** version (located at
-github.com).
+Make sure to clone the **private** version of the repository (the one in
+the `umn-isrdi` organization), not the **public** version (located in the
+`ipums` organization).
 :::
 
 In the third field, choose the location where you would like to store
@@ -477,12 +470,12 @@ like so:
 ```
 
 This structure will allow the data to be shared within the team in the
-UMN GitHub repository, but will prevent those data from being published
+internal GitHub repository, but will prevent those data from being published
 publicly.
 
 ::: callout-tip
 If you're working with any data that you don't even want to publish to
-**UMN Enterprise GitHub** (e.g., if the data files are too large), put
+the **internal GitHub repository** (e.g., if the data files are too large), put
 those files in a sub-directory called `data_local`. These files will
 automatically be ignored by Git, but they will still be available on
 your local system.
@@ -515,13 +508,13 @@ skipped headings, and unlabeled elements.
 ### Push your post to GitHub
 
 When you're finished writing, you'll need to share (or *push*) your
-changes to the UMN GitHub repository.
+changes to the internal GitHub repository.
 
 ::: callout-note
-Pushing to the UMN GitHub repository is not the same thing as publishing
-your post to the live website. Your post won't go live until someone
-from the admin team merges your post into the main branch and migrates
-it to the public GitHub repository.
+Pushing to the internal GitHub repository is not the same thing as
+publishing your post to the live website. Your post won't go live until
+someone from the admin team merges your post into the main branch and
+migrates it to the public GitHub repository.
 :::
 
 Render your post one more time by clicking [Render]{.menu-instr}.
@@ -543,7 +536,7 @@ Then push the changes to GitHub:
 git push
 ```
 
-Now, if you visit the repository on UMN GitHub, your post will appear in
+Now, if you visit the internal GitHub repository, your post will appear in
 a new branch!
 
 ::: column-page
@@ -555,7 +548,7 @@ a new branch!
 ## Pull the author's branch to your computer
 
 Any time that you want to review an author's post, you'll always need to
-get the latest copy of their branch from the UMN GitHub repository. If
+get the latest copy of their branch from the internal GitHub repository. If
 this is the first time you've read a draft for the post, the author's
 branch won't yet be listed in RStudio.
 
@@ -628,7 +621,7 @@ And push to GitHub:
 git push
 ```
 
-Now, if you visit our UMN GitHub repository, you'll see that your edited
+Now, if you visit our internal GitHub repository, you'll see that your edited
 files appear on the author's branch.
 
 # Publishing a post (admin only)
@@ -638,13 +631,13 @@ to your local dhs-research-hub repository. **You only need to follow
 these instructions if you are involved in managing updates to the live
 blog.** All of these commands can be run in the RStudio Terminal.
 
-## Rename UMN GitHub remote
+## Rename internal GitHub remote
 
 In this step, we will link a new remote (referencing the public version
 of the site on github.com) to our GitHub repository. You only need to do
 this step once.
 
-Before adding a second remote, it's best to rename the UMN GitHub remote
+Before adding a second remote, it's best to rename the internal GitHub remote
 to disambiguate it from the new one that we will be adding. You can
 check the current name with:
 
@@ -771,7 +764,7 @@ commit histories between the private and public repositories:
 
 A Pull Request is a formalized way of merging one Git branch into
 another. To open a Pull Request, go to the [internal blog GitHub
-repository](https://github.umn.edu/mpc/dhs-research-hub), click [Pull
+repository](https://github.com/umn-isrdi/dhs-research-hub), click [Pull
 Requests ‣ New Pull Request]{.menu-instr}.
 
 ::: column-page
