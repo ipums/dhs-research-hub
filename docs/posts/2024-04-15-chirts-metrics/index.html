@@ -1,15 +1,12 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
-
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
 <meta name="generator" content="quarto-1.8.25">
-
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-
 <meta name="author" content="Finn Roberts">
 <meta name="dcterms.date" content="2024-04-15">
 <meta name="description" content="Generalize your code to more easily aggregate time-varying environmental data">
-
 <title>Flexible Workflows with CHIRTS Temperature Data – IPUMS DHS Spatial Analysis and Health Research Hub</title>
 <style>
 code{white-space: pre-wrap;}
@@ -80,7 +77,6 @@ div.csl-indent {
   margin-left: 2em;
 }</style>
 
-
 <script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
 <script src="../../site_libs/quarto-nav/headroom.min.js"></script>
 <script src="../../site_libs/clipboard/clipboard.min.js"></script>
@@ -99,8 +95,7 @@ div.csl-indent {
 <link href="../../site_libs/quarto-html/quarto-syntax-highlighting-be0d74190db5c030392493894a628b9f.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap-9c6de082b0d67051b7eb27b44d87adf0.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
-<script id="quarto-search-options" type="application/json">{
+<link href="../../site_libs/bootstrap/bootstrap-da84e0e5cdc5f5c48afcfb2c964d6c43.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light"><script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
   "collapse-after": 3,
@@ -125,33 +120,19 @@ div.csl-indent {
     "search-submit-button-title": "Submit",
     "search-label": "Search"
   }
-}</script>
-<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-0WLH5S9VD5"></script>
-
-<script type="text/javascript">
+}</script><script async="" src="https://www.googletagmanager.com/gtag/js?id=G-0WLH5S9VD5"></script><script type="text/javascript">
 
 window.dataLayer = window.dataLayer || [];
 function gtag(){dataLayer.push(arguments);}
 gtag('js', new Date());
 gtag('config', 'G-0WLH5S9VD5', { 'anonymize_ip': true});
-</script>
-<!-- Added to patch a bug in quarto that is causing "broken ARIA menu" errors in WAVE scans -->
-
-<script>
-
+</script><!-- Added to patch a bug in quarto that is causing "broken ARIA menu" errors in WAVE scans --><script>
     document.addEventListener("DOMContentLoaded", function () {
-
         document.querySelectorAll(".navbar-toggler[role='menu']").forEach(function (el) {
-
             el.removeAttribute("role");
-
         });
-
     });
-
 </script>
-
-
 <meta property="og:title" content="Reproducible Workflows with CHIRTS Temperature Data">
 <meta property="og:description" content="Build flexibile workflows to more easily aggregate time-varying environmental data">
 <meta property="og:image" content="https://ipums.github.io/dhs-research-hub/posts/2024-04-15-chirts-metrics/index_files/figure-html/listing-img-1.png">
@@ -167,18 +148,13 @@ gtag('config', 'G-0WLH5S9VD5', { 'anonymize_ip': true});
 <meta name="twitter:image:alt" content="Proportion of days above threshold">
 <meta name="twitter:card" content="summary_large_image">
 </head>
-
 <body class="floating nav-fixed slimcontent quarto-light">
 
 <div id="quarto-search-results"></div>
-  <header id="quarto-header" class="headroom fixed-top quarto-banner">
-    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
-      <div class="navbar-container container-fluid">
+  <header id="quarto-header" class="headroom fixed-top quarto-banner"><nav class="navbar navbar-expand-lg " data-bs-theme="dark"><div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
     <a href="https://www.idhsdata.org/idhs/" class="navbar-brand navbar-brand-logo">
-    <img src="../../images/dhs_logo_white.png" alt="IPUMS DHS Spatial Analysis and Health Research Hub" class="navbar-logo light-content">
-    <img src="../../images/dhs_logo_white.png" alt="IPUMS DHS Spatial Analysis and Health Research Hub" class="navbar-logo dark-content">
-    </a>
+    <img src="../../images/dhs_logo_white.png" alt="IPUMS DHS Spatial Analysis and Health Research Hub" class="navbar-logo light-content"><img src="../../images/dhs_logo_white.png" alt="IPUMS DHS Spatial Analysis and Health Research Hub" class="navbar-logo dark-content"></a>
   </div>
             <div id="quarto-search" class="" title="Search"></div>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
@@ -186,18 +162,18 @@ gtag('config', 'G-0WLH5S9VD5', { 'anonymize_ip': true});
 </button>
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
-  <li class="nav-item">
+<li class="nav-item">
     <a class="nav-link" href="../../index.html"> 
 <span class="menu-text">Spatial Analysis and Health Research Hub</span></a>
   </li>  
 </ul>
-            <ul class="navbar-nav navbar-nav-scroll ms-auto">
-  <li class="nav-item dropdown ">
+<ul class="navbar-nav navbar-nav-scroll ms-auto">
+<li class="nav-item dropdown ">
     <a class="nav-link dropdown-toggle" href="#" id="nav-menu-getting-started" role="link" data-bs-toggle="dropdown" aria-expanded="false">
  <span class="menu-text">Getting Started</span>
     </a>
-    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="nav-menu-getting-started">    
-        <li>
+    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="nav-menu-getting-started">
+<li>
     <a class="dropdown-item" href="../../posts/2024-02-01-getting-started-with-r/index.html">
  <span class="dropdown-text">An Introduction to R</span></a>
   </li>  
@@ -206,13 +182,13 @@ gtag('config', 'G-0WLH5S9VD5', { 'anonymize_ip': true});
  <span class="dropdown-text">Obtaining IPUMS DHS Data</span></a>
   </li>  
     </ul>
-  </li>
+</li>
   <li class="nav-item dropdown ">
     <a class="nav-link dropdown-toggle" href="#" id="nav-menu-community" role="link" data-bs-toggle="dropdown" aria-expanded="false">
  <span class="menu-text">Community</span>
     </a>
-    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="nav-menu-community">    
-        <li>
+    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="nav-menu-community">
+<li>
     <a class="dropdown-item" href="https://forum.ipums.org">
  <span class="dropdown-text">IPUMS Forum</span></a>
   </li>  
@@ -225,7 +201,7 @@ gtag('config', 'G-0WLH5S9VD5', { 'anonymize_ip': true});
  <span class="dropdown-text">License</span></a>
   </li>  
     </ul>
-  </li>
+</li>
   <li class="nav-item">
     <a class="nav-link" href="../../index.html"> 
 <span class="menu-text">Posts</span></a>
@@ -260,15 +236,11 @@ gtag('config', 'G-0WLH5S9VD5', { 'anonymize_ip': true});
 <span class="menu-text"></span></a>
   </li>  
 </ul>
-          </div> <!-- /navcollapse -->
+</div> <!-- /navcollapse -->
             <div class="quarto-navbar-tools">
 </div>
       </div> <!-- /container-fluid -->
-    </nav>
-</header>
-<!-- content -->
-<header id="title-block-header" class="quarto-title-block default toc-left page-columns page-full">
-  <div class="quarto-title-banner page-columns page-full">
+    </nav></header><!-- content --><header id="title-block-header" class="quarto-title-block default toc-left page-columns page-full"><div class="quarto-title-banner page-columns page-full">
     <div class="quarto-title column-body">
       <h1 class="title">Flexible Workflows with CHIRTS Temperature Data</h1>
                   <div>
@@ -322,56 +294,57 @@ gtag('config', 'G-0WLH5S9VD5', { 'anonymize_ip': true});
   
   </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
-    <nav id="TOC" role="doc-toc" class="toc-active" data-toc-expanded="1">
-    <h2 id="toc-title">Contents</h2>
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto"><nav id="TOC" role="doc-toc" class="toc-active" data-toc-expanded="1"><h2 id="toc-title">Contents</h2>
    
   <ul>
-  <li><a href="#a-new-approach" id="toc-a-new-approach" class="nav-link active" data-scroll-target="#a-new-approach">A new approach</a></li>
-  <li><a href="#data-preparation" id="toc-data-preparation" class="nav-link" data-scroll-target="#data-preparation">Data preparation</a>
+<li><a href="#a-new-approach" id="toc-a-new-approach" class="nav-link active" data-scroll-target="#a-new-approach">A new approach</a></li>
+  <li>
+<a href="#data-preparation" id="toc-data-preparation" class="nav-link" data-scroll-target="#data-preparation">Data preparation</a>
   <ul class="collapse">
-  <li><a href="#dhs-boundaries" id="toc-dhs-boundaries" class="nav-link" data-scroll-target="#dhs-boundaries">DHS boundaries</a></li>
-  <li><a href="#chirts" id="toc-chirts" class="nav-link" data-scroll-target="#chirts">CHIRTS</a>
+<li><a href="#dhs-boundaries" id="toc-dhs-boundaries" class="nav-link" data-scroll-target="#dhs-boundaries">DHS boundaries</a></li>
+  <li>
+<a href="#chirts" id="toc-chirts" class="nav-link" data-scroll-target="#chirts">CHIRTS</a>
   <ul class="collapse">
-  <li><a href="#manual-download" id="toc-manual-download" class="nav-link" data-scroll-target="#manual-download">Manual download</a></li>
+<li><a href="#manual-download" id="toc-manual-download" class="nav-link" data-scroll-target="#manual-download">Manual download</a></li>
   <li><a href="#access-via-the-chirps-package" id="toc-access-via-the-chirps-package" class="nav-link" data-scroll-target="#access-via-the-chirps-package">Access via the chirps package</a></li>
-  </ul></li>
-  </ul></li>
-  <li><a href="#calculating-monthly-temperature-metrics" id="toc-calculating-monthly-temperature-metrics" class="nav-link" data-scroll-target="#calculating-monthly-temperature-metrics">Calculating monthly temperature metrics</a>
-  <ul class="collapse">
-  <li><a href="#average-monthly-temperature" id="toc-average-monthly-temperature" class="nav-link" data-scroll-target="#average-monthly-temperature">1. Average monthly temperature</a></li>
-  <li><a href="#days-above" id="toc-days-above" class="nav-link" data-scroll-target="#days-above">2. Days above a temperature threshold</a>
-  <ul class="collapse">
-  <li><a href="#logical-raster-operations" id="toc-logical-raster-operations" class="nav-link" data-scroll-target="#logical-raster-operations">Logical raster operations</a></li>
-  </ul></li>
-  <li><a href="#heatwaves-consecutive-days-above-a-temperature-threshold" id="toc-heatwaves-consecutive-days-above-a-temperature-threshold" class="nav-link" data-scroll-target="#heatwaves-consecutive-days-above-a-temperature-threshold">3. Heatwaves: Consecutive days above a temperature threshold</a>
-  <ul class="collapse">
-  <li><a href="#custom-functions" id="toc-custom-functions" class="nav-link" data-scroll-target="#custom-functions">Custom functions</a></li>
-  <li><a href="#scaling-up" id="toc-scaling-up" class="nav-link" data-scroll-target="#scaling-up">Scaling up</a></li>
-  </ul></li>
-  </ul></li>
-  <li><a href="#up-next" id="toc-up-next" class="nav-link" data-scroll-target="#up-next">Up next</a>
-  <ul class="collapse">
-  
-  </ul></li>
   </ul>
-</nav>
-</nav>
-<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+</li>
+  </ul>
+</li>
+  <li>
+<a href="#calculating-monthly-temperature-metrics" id="toc-calculating-monthly-temperature-metrics" class="nav-link" data-scroll-target="#calculating-monthly-temperature-metrics">Calculating monthly temperature metrics</a>
+  <ul class="collapse">
+<li><a href="#average-monthly-temperature" id="toc-average-monthly-temperature" class="nav-link" data-scroll-target="#average-monthly-temperature">1. Average monthly temperature</a></li>
+  <li>
+<a href="#days-above" id="toc-days-above" class="nav-link" data-scroll-target="#days-above">2. Days above a temperature threshold</a>
+  <ul class="collapse">
+<li><a href="#logical-raster-operations" id="toc-logical-raster-operations" class="nav-link" data-scroll-target="#logical-raster-operations">Logical raster operations</a></li>
+  </ul>
+</li>
+  <li>
+<a href="#heatwaves-consecutive-days-above-a-temperature-threshold" id="toc-heatwaves-consecutive-days-above-a-temperature-threshold" class="nav-link" data-scroll-target="#heatwaves-consecutive-days-above-a-temperature-threshold">3. Heatwaves: Consecutive days above a temperature threshold</a>
+  <ul class="collapse">
+<li><a href="#custom-functions" id="toc-custom-functions" class="nav-link" data-scroll-target="#custom-functions">Custom functions</a></li>
+  <li><a href="#scaling-up" id="toc-scaling-up" class="nav-link" data-scroll-target="#scaling-up">Scaling up</a></li>
+  </ul>
+</li>
+  </ul>
+</li>
+  <li>
+<a href="#up-next" id="toc-up-next" class="nav-link" data-scroll-target="#up-next">Up next</a>
+  <ul class="collapse">
+
+  </ul>
+</li>
+  </ul></nav>
+</nav><div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
     </div>
 <!-- main -->
-<main class="content quarto-banner-title-block page-columns page-full" id="quarto-document-content">
-
-
-
-
-
-<p>In our <a href="../2024-02-04-dhs-chirps/index.html">previous technical post</a>, we showed how to reduce a daily time series of environmental data for an entire country into a single digestible metric that can be attached to <a href="https://www.dhsprogram.com/">DHS survey</a> data for use in an analysis.</p>
+<main class="content quarto-banner-title-block page-columns page-full" id="quarto-document-content"><p>In our <a href="../2024-02-04-dhs-chirps/index.html">previous technical post</a>, we showed how to reduce a daily time series of environmental data for an entire country into a single digestible metric that can be attached to <a href="https://www.dhsprogram.com/">DHS survey</a> data for use in an analysis.</p>
 <p>However, as we mentioned then, a long-run average isn’t always the most appropriate way to aggregate raster values across time. As an example, imagine we were interested in the impacts of <strong>extreme heat</strong> on child <strong>birth weight</strong>. The proximate conditions in the several months preceding each child’s birth are likely to be more consequential for that child’s health than the average conditions over many years.<span class="citation" data-cites="Grace2021"><sup><a href="#ref-Grace2021" role="doc-biblioref">1</a></sup></span></p>
-<section id="a-new-approach" class="level1">
-<h1>A new approach</h1>
+<section id="a-new-approach" class="level1"><h1>A new approach</h1>
 <p>To explore this idea, we could instead aggregate temperature data to the a more fine-grained temporal level and selectively consider the temperature in a specified time range before each child’s birth.</p>
 <p>Fortunately, DHS surveys do record some temporal information, including the timing of the survey interview as well as birth dates for survey respondents and children. But these details are recorded at the <strong>monthly</strong> level. To account for the uncertainty in the dates reported in DHS surveys, we need to aggregate our CHIRTS data to the monthly level as well.</p>
 <p>This approach adds three key dimensions to the techniques introduced in our precipitation post. We need to:</p>
@@ -383,43 +356,40 @@ gtag('config', 'G-0WLH5S9VD5', { 'anonymize_ip': true});
 <p>This post focuses on the first item; our next post in this series will consider the other two. First, we’ll show how to obtain the necessary data for this demonstration, which come from <a href="https://www.idhsdata.org/idhs/">IPUMS DHS</a> and the <a href="https://chc.ucsb.edu/">Climate Hazards Center</a> (CHC). Then, we’ll build on some of the tools and techniques presented in our <a href="../2024-02-04-dhs-chirps/index.html">first technical post</a> to demonstrate several ways to operationalize and calculate temperature exposure at the monthly level.</p>
 <p>Before we get started, we’ll load the main packages that we’ll use in this post:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ipumsr)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(terra)</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sf)</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggspatial)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tech.popdata.org/ipumsr/">ipumsr</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://rspatial.org/">terra</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://r-spatial.github.io/sf/">sf</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org">ggplot2</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://paleolimbot.github.io/ggspatial/">ggspatial</a></span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-</section>
-<section id="data-preparation" class="level1 page-columns page-full">
-<h1>Data preparation</h1>
-<section id="dhs-boundaries" class="level2">
-<h2 class="anchored" data-anchor-id="dhs-boundaries">DHS boundaries</h2>
+</section><section id="data-preparation" class="level1 page-columns page-full"><h1>Data preparation</h1>
+<section id="dhs-boundaries" class="level2"><h2 class="anchored" data-anchor-id="dhs-boundaries">DHS boundaries</h2>
 <p>For this series, we’ll use the 2012 DHS sample for Mali. We won’t be working with the survey data until our next post, but we will be using the integrated administrative boundary files from IPUMS in our maps.</p>
 <p>You can download the boundary data directly from IPUMS DHS by clicking the <strong>shapefile</strong> link under the Mali section of <a href="https://www.idhsdata.org/idhs/gis.shtml">this table</a>. We’ve placed this shapefile in the <code>data/gps</code> directory within our project.</p>
-<p><a href="../2024-02-04-dhs-chirps/#loading-cluster-coordinates">Previously</a>, we unzipped the shapefile and loaded it with <code>st_read()</code> from the sf package. However, since IPUMS often distributes shapefiles in zip archives, ipumsr provides <code>read_ipums_sf()</code> as a way to read a shapefile directly without manually extracting the compressed files. We’ll use this convenience to load our boundary data into an <code>sf</code> object:</p>
+<p><a href="../2024-02-04-dhs-chirps/#loading-cluster-coordinates">Previously</a>, we unzipped the shapefile and loaded it with <code><a href="https://r-spatial.github.io/sf/reference/st_read.html">st_read()</a></code> from the sf package. However, since IPUMS often distributes shapefiles in zip archives, ipumsr provides <code><a href="https://tech.popdata.org/ipumsr/reference/read_ipums_sf.html">read_ipums_sf()</a></code> as a way to read a shapefile directly without manually extracting the compressed files. We’ll use this convenience to load our boundary data into an <code>sf</code> object:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>ml_borders <span class="ot">&lt;-</span> <span class="fu">read_ipums_sf</span>(<span class="st">"data/gps/geo_ml1995_2018.zip"</span>)</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>ml_borders</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Simple feature collection with 8 features and 3 fields</span></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Geometry type: POLYGON</span></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Dimension:     XY</span></span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Bounding box:  xmin: -12.23888 ymin: 10.14781 xmax: 4.267383 ymax: 25.00108</span></span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Geodetic CRS:  WGS 84</span></span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 8 × 4</span></span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   CNTRY_NAME ADMIN_NAME    DHSCODE                                      geometry</span></span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   &lt;chr&gt;      &lt;chr&gt;           &lt;int&gt;                                 &lt;POLYGON [°]&gt;</span></span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1 Mali       Kayes               1 ((-9.330095 15.50158, -9.320187 15.50138, -9…</span></span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2 Mali       Ségou               4 ((-3.962041 13.50099, -3.963767 13.50299, -3…</span></span>
-<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3 Mali       Mopti               5 ((-0.7440053 15.06439, -0.9481987 14.88898, …</span></span>
-<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4 Mali       Tombouctou          6 ((-0.005279168 21.87488, -0.006277 21.87317,…</span></span>
-<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5 Mali       Bamako              9 ((-7.932848 12.68226, -7.932015 12.68209, -7…</span></span>
-<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 6 Mali       Sikasso             3 ((-4.472905 12.71992, -4.472977 12.71908, -4…</span></span>
-<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 7 Mali       Koulikoro           2 ((-9.076561 15.50138, -9.000042 15.50046, -8…</span></span>
-<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 8 Mali       Gao and Kidal       7 ((-0.4509285 15.0843, -0.450753 15.0864, -0.…</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">ml_borders</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tech.popdata.org/ipumsr/reference/read_ipums_sf.html">read_ipums_sf</a></span><span class="op">(</span><span class="st">"data/gps/geo_ml1995_2018.zip"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">ml_borders</span></span>
+<span><span class="co">#&gt; Simple feature collection with 8 features and 3 fields</span></span>
+<span><span class="co">#&gt; Geometry type: POLYGON</span></span>
+<span><span class="co">#&gt; Dimension:     XY</span></span>
+<span><span class="co">#&gt; Bounding box:  xmin: -12.23888 ymin: 10.14781 xmax: 4.267383 ymax: 25.00108</span></span>
+<span><span class="co">#&gt; Geodetic CRS:  WGS 84</span></span>
+<span><span class="co">#&gt; # A tibble: 8 × 4</span></span>
+<span><span class="co">#&gt;   CNTRY_NAME ADMIN_NAME    DHSCODE                                      geometry</span></span>
+<span><span class="co">#&gt;   &lt;chr&gt;      &lt;chr&gt;           &lt;int&gt;                                 &lt;POLYGON [°]&gt;</span></span>
+<span><span class="co">#&gt; 1 Mali       Kayes               1 ((-9.330095 15.50158, -9.320187 15.50138, -9…</span></span>
+<span><span class="co">#&gt; 2 Mali       Ségou               4 ((-3.962041 13.50099, -3.963767 13.50299, -3…</span></span>
+<span><span class="co">#&gt; 3 Mali       Mopti               5 ((-0.7440053 15.06439, -0.9481987 14.88898, …</span></span>
+<span><span class="co">#&gt; 4 Mali       Tombouctou          6 ((-0.005279168 21.87488, -0.006277 21.87317,…</span></span>
+<span><span class="co">#&gt; 5 Mali       Bamako              9 ((-7.932848 12.68226, -7.932015 12.68209, -7…</span></span>
+<span><span class="co">#&gt; 6 Mali       Sikasso             3 ((-4.472905 12.71992, -4.472977 12.71908, -4…</span></span>
+<span><span class="co">#&gt; 7 Mali       Koulikoro           2 ((-9.076561 15.50138, -9.000042 15.50046, -8…</span></span>
+<span><span class="co">#&gt; 8 Mali       Gao and Kidal       7 ((-0.4509285 15.0843, -0.450753 15.0864, -0.…</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Our boundary file includes borders for individual administrative units within Mali. However, it’s often useful to have a single external border for spatial operations and mapping.</p>
-<p>To combine internal borders, we can use <code>st_union()</code> from <code>{sf}</code>. However, in this case, we first need to simplify our file so that <code>st_union()</code> works properly.</p>
+<p>To combine internal borders, we can use <code><a href="https://r-spatial.github.io/sf/reference/geos_combine.html">st_union()</a></code> from <a href="https://r-spatial.github.io/sf/">sf</a>. However, in this case, we first need to simplify our file so that <code><a href="https://r-spatial.github.io/sf/reference/geos_combine.html">st_union()</a></code> works properly.</p>
 <div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -430,24 +400,22 @@ Tip
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>For some spatial files, small misalignments may cause problems for certain spatial operations. Often, you’ll notice these issues in your maps if errant lines or points appear in unexpected places. You can check whether a file is topologically valid with <code>st_is_valid()</code>.</p>
+<p>For some spatial files, small misalignments may cause problems for certain spatial operations. Often, you’ll notice these issues in your maps if errant lines or points appear in unexpected places. You can check whether a file is topologically valid with <code><a href="https://r-spatial.github.io/sf/reference/valid.html">st_is_valid()</a></code>.</p>
 </div>
 </div>
-<p>We use <code>st_make_valid()</code> to correct some of these issues. Then, we can combine our internal geometries with <code>st_union()</code> and simplify our external border slightly.</p>
+<p>We use <code><a href="https://r-spatial.github.io/sf/reference/valid.html">st_make_valid()</a></code> to correct some of these issues. Then, we can combine our internal geometries with <code><a href="https://r-spatial.github.io/sf/reference/geos_combine.html">st_union()</a></code> and simplify our external border slightly.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Validate internal borders</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>ml_borders_neat <span class="ot">&lt;-</span> <span class="fu">st_make_valid</span>(ml_borders)</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Collapse internal borders to get single country border</span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>ml_borders_out <span class="ot">&lt;-</span> ml_borders_neat <span class="sc">|&gt;</span> </span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_union</span>() <span class="sc">|&gt;</span> </span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_simplify</span>(<span class="at">dTolerance =</span> <span class="dv">1000</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_as_sf</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Validate internal borders</span></span>
+<span><span class="va">ml_borders_neat</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r-spatial.github.io/sf/reference/valid.html">st_make_valid</a></span><span class="op">(</span><span class="va">ml_borders</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Collapse internal borders to get single country border</span></span>
+<span><span class="va">ml_borders_out</span> <span class="op">&lt;-</span> <span class="va">ml_borders_neat</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://r-spatial.github.io/sf/reference/geos_combine.html">st_union</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://r-spatial.github.io/sf/reference/geos_unary.html">st_simplify</a></span><span class="op">(</span>dTolerance <span class="op">=</span> <span class="fl">1000</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_as_sf.html">st_as_sf</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Now, we have both detailed internal borders as well as a single country border.</p>
-</section>
-<section id="chirts" class="level2 page-columns page-full">
-<h2 class="anchored" data-anchor-id="chirts">CHIRTS</h2>
+</section><section id="chirts" class="level2 page-columns page-full"><h2 class="anchored" data-anchor-id="chirts">CHIRTS</h2>
 <p>For our temperature data, we’ll use the <a href="https://www.chc.ucsb.edu/data/chirtsdaily">Climate Hazards Center Infrared Temperature with Stations</a> (CHIRTS) dataset.<span class="citation" data-cites="Funk2019"><sup><a href="#ref-Funk2019" role="doc-biblioref">2</a></sup></span> CHIRTS provides daily estimates for several temperature metrics at a 0.05° (~5 kilometer) raster resolution. CHIRTS provides estimates of the following measures:</p>
 <ul>
 <li>Daily maximum air temperature (2 meters above ground)</li>
@@ -458,9 +426,8 @@ Tip
 <p>The most appropriate metric will depend on the nature of your research. For instance, relevant temperature metrics for studying the effects of heat on the human body are likely different from those used for studying agricultural productivity.</p>
 <p>For health research, it’s also worth considering the specifics of the population of interest, as they may employ adaptive strategies or be at increased risk of heat exposure due to common pre-existing conditions or lifestyle features.<span class="citation" data-cites="Vanos2020"><sup><a href="#ref-Vanos2020" role="doc-biblioref">3</a></sup></span></p>
 <p>Since this post focuses specifically on R techniques (and not on methodological considerations), we’ll keep it simple and use <strong>daily maximum air temperature</strong>.</p>
-<p>There are two ways to go about obtaining the CHIRTS data: either via manual download or via the <code>{chirps}</code> R package.</p>
-<section id="manual-download" class="level3">
-<h3 class="anchored" data-anchor-id="manual-download">Manual download</h3>
+<p>There are two ways to go about obtaining the CHIRTS data: either via manual download or via the <a href="https://docs.ropensci.org/chirps/">chirps</a> R package.</p>
+<section id="manual-download" class="level3"><h3 class="anchored" data-anchor-id="manual-download">Manual download</h3>
 <p>CHIRTS data for Africa can be <a href="http://data.chc.ucsb.edu/products/CHIRTSdaily/v1.0/africa_netcdf_p05/">downloaded directly</a> from the Climate Hazards Center.</p>
 <p>Data are distributed as <a href="https://www.unidata.ucar.edu/software/netcdf/">NetCDF</a> files, a common format for distributing scientific raster data structures. NetCDF files contain metadata about the file contents (for instance, about the temporal or spatial dimensions of the data), which will be useful later when we aggregate data to the monthly level.</p>
 <p>You’ll notice that the files—each of which contains a full year’s worth of data for the entire continent of Africa—contain 3.3 <em>Giga</em>bytes of data apiece. For this demonstration, we’ll therefore only download a single year of data.</p>
@@ -479,7 +446,7 @@ Tip
 </div>
 </div>
 <p>We’re working with the 2012 Mali sample from IPUMS DHS for this example, so we’ll download the <code>Tmax.2012.nc</code> file from the <a href="http://data.chc.ucsb.edu/products/CHIRTSdaily/v1.0/africa_netcdf_p05/">CHC listing</a>. We’ve placed this file in the <code>data</code> directory.</p>
-<p>Fortunately, we don’t need to learn any new tools to handle this file, as support for NetCDF is already built into <code>{terra}</code>. We can easily load the raster with <code>rast()</code>:</p>
+<p>Fortunately, we don’t need to learn any new tools to handle this file, as support for NetCDF is already built into <a href="https://rspatial.org/">terra</a>. We can easily load the raster with <code><a href="https://rspatial.github.io/terra/reference/rast.html">rast()</a></code>:</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold">
 <div class="code-copy-outer-scaffold"><div id="cb4" class="sourceCode">
@@ -490,28 +457,30 @@ Tip
 </button>
 </div>
 </div>
-<p>In this post we’ll be particularly interested in the temporal dimension of our raster data. Typically, a raster stack will represent time in layers, where each layer represents the recorded values at a particular point in time. terra’s <code>SpatRaster</code> objects have a built-in representation of time, which can be accessed with the <code>time()</code> function:</p>
+<p>In this post we’ll be particularly interested in the temporal dimension of our raster data. Typically, a raster stack will represent time in layers, where each layer represents the recorded values at a particular point in time. terra’s <code>SpatRaster</code> objects have a built-in representation of time, which can be accessed with the <code><a href="https://rspatial.github.io/terra/reference/time.html">time()</a></code> function:</p>
 <div class="cell" data-out.lines="3">
-<div class="code-copy-outer-scaffold"><div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rspatial.github.io/terra/reference/time.html">time</a></span><span class="op">(</span><span class="va">ml_chirts</span><span class="op">)</span></span>
+<div class="code-copy-outer-scaffold">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rspatial.github.io/terra/reference/time.html">time</a></span><span class="op">(</span><span class="va">ml_chirts</span><span class="op">)</span></span>
 <span><span class="co">#&gt;   [1] "2012-01-01" "2012-01-02" "2012-01-03" "2012-01-04" "2012-01-05"</span></span>
 <span><span class="co">#&gt;   [6] "2012-01-06" "2012-01-07" "2012-01-08" "2012-01-09" "2012-01-10"</span></span>
 <span><span class="co">#&gt;  [11] "2012-01-11" "2012-01-12" "2012-01-13" "2012-01-14" "2012-01-15"</span></span>
-<span><span class="va">....</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span><span class="va">....</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button>
+</div>
 </div>
 <p>We can see that the temporal information contained in the NetCDF file was automatically included when we loaded this raster into R. Each of these dates correspond to a layer in the <code>SpatRaster</code>. This temporal representation will become useful when we aggregate temperature to the monthly level.</p>
-<section id="crop-chirts-raster" class="level4">
-<h4 class="anchored" data-anchor-id="crop-chirts-raster">Crop CHIRTS raster</h4>
+<section id="crop-chirts-raster" class="level4"><h4 class="anchored" data-anchor-id="crop-chirts-raster">Crop CHIRTS raster</h4>
 <p>Downloading data from the CHC provides a raster for the entire African continent. We can greatly speed up our future processing by cropping this raster to our area of interest using the Mali borders that we loaded above.</p>
 <p>First, we’ll add a 10 kilometer buffer around the country border so that we retain the CHIRTS data just outside of the country as well. That way, if any DHS clusters fall in the border regions of the country, we will still be able to calculate temperature metrics in their general vicinity.</p>
 <p>We’ve covered buffering <a href="../2024-02-04-dhs-chirps/#cluster-buffers">in the past</a> if you need to refresh your memory on this process.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Transform to UTM 29N coordinates, buffer, and convert back to WGS84</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>ml_borders_buffer <span class="ot">&lt;-</span> ml_borders_out <span class="sc">|&gt;</span> </span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_transform</span>(<span class="at">crs =</span> <span class="dv">32629</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_buffer</span>(<span class="at">dist =</span> <span class="dv">10000</span>) <span class="sc">|&gt;</span></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_transform</span>(<span class="at">crs =</span> <span class="dv">4326</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Transform to UTM 29N coordinates, buffer, and convert back to WGS84</span></span>
+<span><span class="va">ml_borders_buffer</span> <span class="op">&lt;-</span> <span class="va">ml_borders_out</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_transform.html">st_transform</a></span><span class="op">(</span>crs <span class="op">=</span> <span class="fl">32629</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://r-spatial.github.io/sf/reference/geos_unary.html">st_buffer</a></span><span class="op">(</span>dist <span class="op">=</span> <span class="fl">10000</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_transform.html">st_transform</a></span><span class="op">(</span>crs <span class="op">=</span> <span class="fl">4326</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<p>Finally, we can crop the CHIRTS raster to our buffered border region with terra’s <code>crop()</code>:</p>
+<p>Finally, we can crop the CHIRTS raster to our buffered border region with terra’s <code><a href="https://rspatial.github.io/terra/reference/crop.html">crop()</a></code>:</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold">
 <div class="code-copy-outer-scaffold"><div id="cb7" class="sourceCode">
@@ -522,34 +491,35 @@ Tip
 </button>
 </div>
 </div>
-</section>
-</section>
-<section id="access-via-the-chirps-package" class="level3 page-columns page-full">
-<h3 class="anchored" data-anchor-id="access-via-the-chirps-package">Access via the chirps package</h3>
-<p>You may recall from our <a href="../2024-02-04-dhs-chirps/#option-2-the-chirps-package">previous technical post</a> that CHC data can be obtained via the <code>{chirps}</code> package in R. This package provides access to CHIRTS data as well.</p>
+</section></section><section id="access-via-the-chirps-package" class="level3 page-columns page-full"><h3 class="anchored" data-anchor-id="access-via-the-chirps-package">Access via the chirps package</h3>
+<p>You may recall from our <a href="../2024-02-04-dhs-chirps/#option-2-the-chirps-package">previous technical post</a> that CHC data can be obtained via the <a href="https://docs.ropensci.org/chirps/">chirps</a> package in R. This package provides access to CHIRTS data as well.</p>
 <p>You can obtain CHIRTS from the chirps package by providing a spatial boundary representing the area of interest for which the CHIRTS raster data should be obtained. You’ll also need to specify a temporal range and temperature variable.</p>
 <p>In this case, we’ll use the buffered administrative borders for Mali that we downloaded earlier, specify the 2012 time range, and select the <code>"Tmax"</code> variable:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>ml_chirts2 <span class="ot">&lt;-</span> chirps<span class="sc">::</span><span class="fu">get_chirts</span>(</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">vect</span>(ml_borders_buffer), </span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">dates =</span> <span class="fu">c</span>(<span class="st">"2012-01-01"</span>, <span class="st">"2012-12-31"</span>),</span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">var =</span> <span class="st">"Tmax"</span></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">ml_chirts2</span> <span class="op">&lt;-</span> <span class="fu">chirps</span><span class="fu">::</span><span class="fu">get_chirts</span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="https://rspatial.github.io/terra/reference/vect.html">vect</a></span><span class="op">(</span><span class="va">ml_borders_buffer</span><span class="op">)</span>, </span>
+<span>  dates <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"2012-01-01"</span>, <span class="st">"2012-12-31"</span><span class="op">)</span>,</span>
+<span>  var <span class="op">=</span> <span class="st">"Tmax"</span></span>
+<span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 
 <div class="no-row-height column-margin column-container"><div class="">
-<p>We convert our administrative borders to a terra <code>SpatVector</code> object with <code>vect()</code> because this is the spatial structure expected by <code>get_chirts()</code>.</p>
+<p>We convert our administrative borders to a terra <code>SpatVector</code> object with <code><a href="https://rspatial.github.io/terra/reference/vect.html">vect()</a></code> because this is the spatial structure expected by <code>get_chirts()</code>.</p>
 </div></div><p>In contrast to the NetCDF files provided when downloading CHIRTS data directly, obtaining data via the chirps package does not provide any temporal metadata:</p>
 <div class="cell" data-out.lines="3">
-<div class="code-copy-outer-scaffold"><div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rspatial.github.io/terra/reference/time.html">time</a></span><span class="op">(</span><span class="va">ml_chirts2</span><span class="op">)</span></span>
+<div class="code-copy-outer-scaffold">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rspatial.github.io/terra/reference/time.html">time</a></span><span class="op">(</span><span class="va">ml_chirts2</span><span class="op">)</span></span>
 <span><span class="co">#&gt;   [1] NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA</span></span>
 <span><span class="co">#&gt;  [26] NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA</span></span>
 <span><span class="co">#&gt;  [51] NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA</span></span>
-<span><span class="va">....</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span><span class="va">....</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button>
 </div>
-<p>Since we know that we have a full year of data, we can construct the temporal metadata manually. We’ll use the <code>{lubridate}</code> package to make this a little easier:</p>
+</div>
+<p>Since we know that we have a full year of data, we can construct the temporal metadata manually. We’ll use the <a href="https://lubridate.tidyverse.org">lubridate</a> package to make this a little easier:</p>
 <div class="cell" data-out.lines="3">
-<div class="code-copy-outer-scaffold"><div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Convert strings to Date objects specifying year-month-day (ymd) format:</span></span>
+<div class="code-copy-outer-scaffold">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Convert strings to Date objects specifying year-month-day (ymd) format:</span></span>
 <span><span class="va">start</span> <span class="op">&lt;-</span> <span class="fu">lubridate</span><span class="fu">::</span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/ymd.html">ymd</a></span><span class="op">(</span><span class="st">"2012-01-01"</span><span class="op">)</span></span>
 <span><span class="va">end</span> <span class="op">&lt;-</span> <span class="fu">lubridate</span><span class="fu">::</span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/ymd.html">ymd</a></span><span class="op">(</span><span class="st">"2012-12-31"</span><span class="op">)</span></span>
 <span></span>
@@ -560,7 +530,9 @@ Tip
 <span><span class="co">#&gt;   [1] "2012-01-01" "2012-01-02" "2012-01-03" "2012-01-04" "2012-01-05"</span></span>
 <span><span class="co">#&gt;   [6] "2012-01-06" "2012-01-07" "2012-01-08" "2012-01-09" "2012-01-10"</span></span>
 <span><span class="co">#&gt;  [11] "2012-01-11" "2012-01-12" "2012-01-13" "2012-01-14" "2012-01-15"</span></span>
-<span><span class="va">....</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span><span class="va">....</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button>
+</div>
 </div>
 <div class="callout callout-style-default callout-caution callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -580,11 +552,7 @@ Caution
 <div class="no-row-height column-margin column-container"><div class="">
 <p>We’re not going to explicitly demonstrate how we produce our maps in this post since some are fairly complicated to set up. If you’re curious, you can peek at the collapsed code blocks to see how each of our maps are produced.</p>
 </div></div><p class="page-columns page-full"><img src="index_files/figure-html/unnamed-chunk-14-1.png" class="column-page img-fluid" style="width:100.0%" alt="Mali daily maximum temperature on January 1, 2012."></p>
-</section>
-</section>
-</section>
-<section id="calculating-monthly-temperature-metrics" class="level1 page-columns page-full">
-<h1>Calculating monthly temperature metrics</h1>
+</section></section></section><section id="calculating-monthly-temperature-metrics" class="level1 page-columns page-full"><h1>Calculating monthly temperature metrics</h1>
 <p>As we mentioned in the introduction, our ultimate goal is to identify the temperature trends prior to each birth in our DHS sample. However, DHS survey data record temporal information about interviews and births at the <strong>monthly</strong> level. Thus, the most accurate we can be is to identify temperature running up to the <strong>month</strong> immediately prior to a child’s birth.</p>
 <p>We therefore need to aggregate our daily CHIRTS data to the monthly level. In the rest of the post, we’ll demonstrate how to calculate several possible monthly metrics in R. Then, in a future post, we’ll demonstrate how to attach the monthly CHIRTS data to each record in our DHS sample.</p>
 <div class="callout callout-style-default callout-note callout-titled">
@@ -600,11 +568,10 @@ Caution
 <p>A vast array of methods to identify extreme temperature and heatwave exposure exist in the literature, and we can’t demonstrate the processing required for each and every one. However, the approaches we demonstrate should give you a sense of the tools and techniques available for you when working with temperature data in your own research.</p>
 </div>
 </div>
-<section id="average-monthly-temperature" class="level2 page-columns page-full">
-<h2 class="anchored" data-anchor-id="average-monthly-temperature">1. Average monthly temperature</h2>
+<section id="average-monthly-temperature" class="level2 page-columns page-full"><h2 class="anchored" data-anchor-id="average-monthly-temperature">1. Average monthly temperature</h2>
 <p>For our first metric, we’ll take a simple approach and calculate an average monthly temperature.</p>
-<p><a href="../2024-02-04-dhs-chirps/#summarize-precipitation-values">Previously</a>, we introduced terra’s <code>mean()</code> method, which allows you to calculate a single mean across all layers of a <code>SpatRaster</code> object. In this case, we also want to calculate a mean, but we need to adapt our approach so we can do so for each month independently.</p>
-<p>Enter terra’s <code>tapp()</code> function. <code>tapp()</code> allows you to apply a function to <strong>groups of raster layers</strong>. You can indicate which layers should be grouped together with the <code>index</code> argument. For instance, to independently calculate the mean of the first three layers and the second three layers, we could use the following <code>index</code>:</p>
+<p><a href="../2024-02-04-dhs-chirps/#summarize-precipitation-values">Previously</a>, we introduced terra’s <code><a href="https://rspatial.github.io/terra/reference/summarize-generics.html">mean()</a></code> method, which allows you to calculate a single mean across all layers of a <code>SpatRaster</code> object. In this case, we also want to calculate a mean, but we need to adapt our approach so we can do so for each month independently.</p>
+<p>Enter terra’s <code><a href="https://rspatial.github.io/terra/reference/tapp.html">tapp()</a></code> function. <code><a href="https://rspatial.github.io/terra/reference/tapp.html">tapp()</a></code> allows you to apply a function to <strong>groups of raster layers</strong>. You can indicate which layers should be grouped together with the <code>index</code> argument. For instance, to independently calculate the mean of the first three layers and the second three layers, we could use the following <code>index</code>:</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold">
 <div class="code-copy-outer-scaffold"><div id="cb13" class="sourceCode">
@@ -657,16 +624,13 @@ Caution
 <p class="page-columns page-full"><img src="index_files/figure-html/unnamed-chunk-17-1.png" class="column-page img-fluid" style="width:100.0%" alt="Average monthly maximum temperature, Mali 2012."></p>
 <p>Note that the CHC does provide a <a href="https://chc.ucsb.edu/data/chirtsmonthly">CHIRTS product</a> that has been pre-aggregated to the monthly level. For projects relying on average monthly temperature, this is likely a better option than manually aggregating more fine-grained CHIRTS data.</p>
 <p>However, the advantage to working with <em>daily</em> CHIRTS data is that we have the flexibility to calculate our own custom monthly temperature metrics that aren’t necessarily provided out-of-the-box. We’ll demonstrate one in the next section.</p>
-</section>
-<section id="days-above" class="level2 page-columns page-full">
-<h2 class="anchored" data-anchor-id="days-above">2. Days above a temperature threshold</h2>
+</section><section id="days-above" class="level2 page-columns page-full"><h2 class="anchored" data-anchor-id="days-above">2. Days above a temperature threshold</h2>
 <p>Average temperature may be a straightforward monthly temperature metric, but it doesn’t do a very good job of capturing acute temperature <strong>anomalies</strong>. When it comes to human health, evidence suggests that temperatures above certain thresholds are associated with physiological impairments, though the precise threshold depends on several factors.<span class="citation" data-cites="Vanos2020"><sup><a href="#ref-Vanos2020" role="doc-biblioref">3</a></sup></span> Regardless, these extreme events may be masked when we average across an entire month.</p>
 <p>To explore this possibility, we’ll calculate the proportion of days in each month that exceed a certain raw temperature threshold. We’ll use 35°C as our threshold, which represents a value near the upper end of Mali’s temperature distribution<span class="citation" data-cites="Grace2021"><sup><a href="#ref-Grace2021" role="doc-biblioref">1</a></sup></span> and is similar to other commonly used (though occasionally questionable) thresholds.<span class="citation" data-cites="Vanos2020"><sup><a href="#ref-Vanos2020" role="doc-biblioref">3</a></sup></span></p>
 
 <div class="no-row-height column-margin column-container"><div class="">
 <p>Typically, you would want a more thorough justification of your threshold temperature. This post is not intended to represent a real analysis, so we select 35°C for the purposes of demonstration.</p>
-</div></div><section id="logical-raster-operations" class="level3 page-columns page-full">
-<h3 class="anchored" data-anchor-id="logical-raster-operations">Logical raster operations</h3>
+</div></div><section id="logical-raster-operations" class="level3 page-columns page-full"><h3 class="anchored" data-anchor-id="logical-raster-operations">Logical raster operations</h3>
 <p>We can exploit the fact that terra supports logical operations on <code>SpatRaster</code> objects to help us calculate this metric. For instance, we can compare the entire raster to a set value with the familiar <code>&gt;</code> operator:</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold">
@@ -705,7 +669,7 @@ Caution
 <div class="no-row-height column-margin column-container"><div class="">
 <p>When treating logical values as numeric, <code>TRUE</code> is treated as a <code>1</code> and <code>FALSE</code> is treated as a <code>0</code>.</p>
 </div></div><p>However, we also need to account for the fact that not all months contain the same number of days. We therefore produce a <em>proportion</em> of each month’s days that meet our temperature threshold by dividing by the number of days in each month.</p>
-<p>For binary data, this turns out to be the same as calculating a mean, so we can use a similar approach as we did when calculating average monthly temperature. The difference is that we now provide our binary raster (<code>ml_bin</code>) to the <code>tapp()</code> function:</p>
+<p>For binary data, this turns out to be the same as calculating a mean, so we can use a similar approach as we did when calculating average monthly temperature. The difference is that we now provide our binary raster (<code>ml_bin</code>) to the <code><a href="https://rspatial.github.io/terra/reference/tapp.html">tapp()</a></code> function:</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold">
 <div class="code-copy-outer-scaffold"><div id="cb18" class="sourceCode">
@@ -719,35 +683,38 @@ Caution
 <p>Once again, we end up with a <code>SpatRaster</code> with 12 layers. However, in this case, each raster pixel reflects the proportion of days above 35° in that month.</p>
 <p class="page-columns page-full"><img src="index_files/figure-html/listing-img-1.png" class="column-page img-fluid" style="width:100.0%" alt="Proportion of days above 35 degrees Celsius by month, Mali 2012."></p>
 <p>This approach reveals a bit more detail about the <em>consistency</em> of the temperature exposure during certain months. As we can see, some months are spent almost entirely above 35°C across the country. This continual exposure may be more strongly related to health than the averages we calculated in the section above.</p>
-</section>
-</section>
-<section id="heatwaves-consecutive-days-above-a-temperature-threshold" class="level2 page-columns page-full">
-<h2 class="anchored" data-anchor-id="heatwaves-consecutive-days-above-a-temperature-threshold">3. Heatwaves: Consecutive days above a temperature threshold</h2>
+</section></section><section id="heatwaves-consecutive-days-above-a-temperature-threshold" class="level2 page-columns page-full"><h2 class="anchored" data-anchor-id="heatwaves-consecutive-days-above-a-temperature-threshold">3. Heatwaves: Consecutive days above a temperature threshold</h2>
 <p>Continual exposure to high temperatures likely has a more pronounced health impact than isolated hot days. Accordingly, most heatwave definitions attempt to identify <strong>sequences</strong> of days that meet certain temperature criteria.</p>
 <p>We can build upon our previous temperature metric to produce a simple heatwave definition that identifies all days that belong to a sequence of 3+ days in a row that all meet the 35°C threshold used earlier.</p>
 <p>How should we go about identifying sequences of days? To simplify things, let’s pull out the daily CHIRTS values for a single pixel in our raster to use as an example:</p>
 <div class="cell" data-out.lines="3">
-<div class="code-copy-outer-scaffold"><div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb20"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Extract values from a single pixel of CHIRTS data</span></span>
+<div class="code-copy-outer-scaffold">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb20"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Extract values from a single pixel of CHIRTS data</span></span>
 <span><span class="va">px1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html">as.numeric</a></span><span class="op">(</span><span class="va">ml_chirts</span><span class="op">[</span><span class="fl">1</span>, <span class="fl">1</span><span class="op">]</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">px1</span></span>
 <span><span class="co">#&gt;   [1] 22.08196 22.25259 24.63318 25.46410 25.11430 24.69748 25.71723 27.64781</span></span>
 <span><span class="co">#&gt;   [9] 25.00261 22.27929 24.83206 22.42412 24.87811 28.53550 27.20606 26.75240</span></span>
 <span><span class="co">#&gt;  [17] 22.12105 22.98229 20.55801 19.10251 20.74286 22.91010 22.37615 22.23903</span></span>
-<span><span class="va">....</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span><span class="va">....</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button>
+</div>
 </div>
 <p>As we demonstrated above, it’s easy to identify the layers that are above a given threshold:</p>
 <div class="cell" data-out.lines="3">
-<div class="code-copy-outer-scaffold"><div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb21"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">px1_bin</span> <span class="op">&lt;-</span> <span class="va">px1</span> <span class="op">&gt;</span> <span class="fl">35</span></span>
+<div class="code-copy-outer-scaffold">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb21"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">px1_bin</span> <span class="op">&lt;-</span> <span class="va">px1</span> <span class="op">&gt;</span> <span class="fl">35</span></span>
 <span></span>
 <span><span class="va">px1_bin</span></span>
 <span><span class="co">#&gt;   [1] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE</span></span>
 <span><span class="co">#&gt;  [13] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE</span></span>
 <span><span class="co">#&gt;  [25] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE</span></span>
-<span><span class="va">....</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span><span class="va">....</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button>
+</div>
 </div>
 <p>But how do we extract <em>sequences</em> from this vector? One option is to exploit the features of <a href="https://en.wikipedia.org/wiki/Run-length_encoding">run-length encoding</a>. Run-length encoding represents a vector of values as a sequence of <em>runs</em> of a single value and the <em>length</em> of that run.</p>
-<p>We can use the <code>rle()</code> function from base R to convert to run-length encoding:</p>
+<p>We can use the <code><a href="https://rdrr.io/r/base/rle.html">rle()</a></code> function from base R to convert to run-length encoding:</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold">
 <div class="code-copy-outer-scaffold"><div id="cb22" class="sourceCode">
@@ -766,12 +733,15 @@ Caution
 <p>The output shows us that the <code>px1_bin</code> vector starts with a run of 81 <code>FALSE</code> values, then has a run of 1 <code>TRUE</code> value, then 16 <code>FALSE</code> values, and so on. As you can see, run-length encoding provides us both with information about the <em>values</em> and the <em>sequencing</em> of our input vector.</p>
 <p>If we define a heatwave as any sequence of 3+ days above the temperature threshold, each heatwave will be represented by entries with a <em>value</em> of <code>TRUE</code> (days that exceeded the threshold) <strong>and</strong> a <em>length</em> (number of days in a row) of 3 or more. We can use logical operations to identify whether each run is a heatwave or not:</p>
 <div class="cell" data-out.lines="3">
-<div class="code-copy-outer-scaffold"><div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb23"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Identify days that were above threshold and belonged to a 3+ day sequence</span></span>
+<div class="code-copy-outer-scaffold">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb23"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Identify days that were above threshold and belonged to a 3+ day sequence</span></span>
 <span><span class="va">is_heatwave</span> <span class="op">&lt;-</span> <span class="va">px1_rle</span><span class="op">$</span><span class="va">values</span> <span class="op">&amp;</span> <span class="op">(</span><span class="va">px1_rle</span><span class="op">$</span><span class="va">lengths</span> <span class="op">&gt;=</span> <span class="fl">3</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">is_heatwave</span></span>
 <span><span class="co">#&gt;  [1] FALSE FALSE FALSE FALSE FALSE  TRUE FALSE  TRUE FALSE FALSE FALSE  TRUE</span></span>
-<span><span class="co">#&gt; [13] FALSE  TRUE FALSE  TRUE FALSE  TRUE FALSE  TRUE FALSE  TRUE FALSE</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span><span class="co">#&gt; [13] FALSE  TRUE FALSE  TRUE FALSE  TRUE FALSE  TRUE FALSE  TRUE FALSE</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button>
+</div>
 </div>
 <p>Summing this vector will give us the number of unique <em>heatwave events</em> during the year for this sample pixel:</p>
 <div class="cell">
@@ -804,10 +774,9 @@ Caution
 </button>
 </div>
 </div>
-<section id="custom-functions" class="level3">
-<h3 class="anchored" data-anchor-id="custom-functions">Custom functions</h3>
-<p>If we want to calculate the proportion of heatwave days across our entire raster, we can again return to <code>tapp()</code>. However, there’s no built-in function (like <code>mean</code>) that we can use to do the processing we walked through above.</p>
-<p>Instead, we must provide our own <strong>custom function</strong> to indicate the processing that <code>tapp()</code> should perform on each set of layers. To define a function, we use the <code>function()</code> keyword along with several <em>arguments</em>.</p>
+<section id="custom-functions" class="level3"><h3 class="anchored" data-anchor-id="custom-functions">Custom functions</h3>
+<p>If we want to calculate the proportion of heatwave days across our entire raster, we can again return to <code><a href="https://rspatial.github.io/terra/reference/tapp.html">tapp()</a></code>. However, there’s no built-in function (like <code>mean</code>) that we can use to do the processing we walked through above.</p>
+<p>Instead, we must provide our own <strong>custom function</strong> to indicate the processing that <code><a href="https://rspatial.github.io/terra/reference/tapp.html">tapp()</a></code> should perform on each set of layers. To define a function, we use the <code>function()</code> keyword along with several <em>arguments</em>.</p>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -861,8 +830,7 @@ Caution
 </button>
 </div>
 </div>
-<section id="writing-a-more-flexible-function" class="level4">
-<h4 class="anchored" data-anchor-id="writing-a-more-flexible-function">Writing a more flexible function</h4>
+<section id="writing-a-more-flexible-function" class="level4"><h4 class="anchored" data-anchor-id="writing-a-more-flexible-function">Writing a more flexible function</h4>
 <p>Right now, the user of the function has no way to modify the temperature threshold or sequence length used in the heatwave definition, because those values (<code>35</code> and <code>3</code>) are <strong>hard-coded</strong> into our function.</p>
 <p>If we move these values to the function arguments, we allow the <em>user</em> to decide what values these parameters should take. Here is a modified version of <code>prop_heatwave()</code> that does this:</p>
 <div class="cell">
@@ -910,11 +878,8 @@ Caution
 </div>
 </div>
 <p>This example demonstrates how function arguments can be used to produce a more <em>flexible</em> function that can be easily applied across a range of input parameters. Building functions in this way has a bit of an up-front cost, but it often pays for itself by making your future analysis much more robust and scalable.</p>
-</section>
-</section>
-<section id="scaling-up" class="level3 page-columns page-full">
-<h3 class="anchored" data-anchor-id="scaling-up">Scaling up</h3>
-<p>Now that we have a function to calculate our heatwave definition, we can provide it to <code>tapp()</code> with our desired temperature threshold and sequence parameters.</p>
+</section></section><section id="scaling-up" class="level3 page-columns page-full"><h3 class="anchored" data-anchor-id="scaling-up">Scaling up</h3>
+<p>Now that we have a function to calculate our heatwave definition, we can provide it to <code><a href="https://rspatial.github.io/terra/reference/tapp.html">tapp()</a></code> with our desired temperature threshold and sequence parameters.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold">
 <div class="code-copy-outer-scaffold"><div id="cb31" class="sourceCode">
@@ -940,7 +905,7 @@ Caution
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Our <code>fun</code> argument above is written in <em>anonymous function syntax</em>. It may look a little complex, but remember that <code>tapp()</code> expects you to provide a <em>function</em> to its <code>fun</code> argument. Whichever function you provide should be a function of the vector of values for each pixel in the input raster.</p>
+<p>Our <code>fun</code> argument above is written in <em>anonymous function syntax</em>. It may look a little complex, but remember that <code><a href="https://rspatial.github.io/terra/reference/tapp.html">tapp()</a></code> expects you to provide a <em>function</em> to its <code>fun</code> argument. Whichever function you provide should be a function of the vector of values for each pixel in the input raster.</p>
 <p><code>function(x) prop_heatwave(x, ...)</code> indicates that we want to provide each of these vectors <code>x</code> to our <code>prop_heatwave()</code> function (as the <code>temps</code> argument). The <code>thresh</code> and <code>n_seq</code> arguments are fixed across all pixels. (In this case, <code>x</code> is just a placeholder to reference the vector inputs to our function. We could just as easily use another name, but <code>x</code> is traditional and concise.)</p>
 <p>Why didn’t we use this syntax in previous sections? Well, it turns out that <code>fun = mean</code> was simply a shorthand. Writing <code>fun = function(x) mean(x)</code> would have also worked!</p>
 </div>
@@ -962,19 +927,11 @@ Caution
 </div>
 <p class="page-columns page-full"><img src="index_files/figure-html/unnamed-chunk-37-1.png" class="column-page img-fluid" style="width:100.0%" alt="Difference between the two heatwave definitions."></p>
 <p>As we can see, modifying our definition does indeed produce meaningful differences in the prevalence of heatwave days in various parts of the country. Which definition is appropriate will depend on your particular research questions and aims. However, building custom functions into your workflow will make it much easier to quickly compare different definitions, facilitating sensitivity analyses and robustness checks.</p>
-</section>
-</section>
-</section>
-<section id="up-next" class="level1">
-<h1>Up next</h1>
+</section></section></section><section id="up-next" class="level1"><h1>Up next</h1>
 <p>There are many temperature exposure concepts that we didn’t address in this post, like climatological normals, seasonality, humidity, and more. However, the techniques we introduced should give you a solid foundation for building flexible workflows to compute environmental metrics that you use commonly in your research.</p>
 <p>This post is the first in a short series. In our next technical post, we’ll build on the metrics we produced here to demonstrate how we can use the monthly environmental data in conjunction with the dates recorded in DHS surveys.</p>
 <p>We’ll extract values for our temperature metrics at the locations of the survey responses and attach these values to our DHS records on a month-by-month basis. This will allow us to finally link time-specific temperature values to individual births in the DHS!</p>
-
-</section>
-
-<div id="quarto-appendix" class="default"><section id="getting-help" class="level2 appendix"><h2 class="anchored quarto-appendix-heading">Getting Help</h2><div class="quarto-appendix-contents">
-
+</section><div id="quarto-appendix" class="default"><section id="getting-help" class="level2 appendix"><h2 class="anchored quarto-appendix-heading">Getting Help</h2><div class="quarto-appendix-contents">
 <p>Questions or comments? Check out the <a href="https://forum.ipums.org">IPUMS User Forum</a> or reach out to IPUMS User Support at ipums@umn.edu.</p>
 
 
@@ -992,8 +949,7 @@ Caution
 <div id="ref-Livezey2007" class="csl-entry" role="listitem">
 4. Livezey, R. E., Vinnikov, K. Y., Timofeyeva, M. M., Tinker, R., &amp; van den Dool, H. M. (2007). Estimation and extrapolation of climate normals and climatic trends. <em>Journal of Applied Meteorology and Climatology</em>, <em>46</em>, 1759–1776. <a href="https://doi.org/10.1175/2007JAMC1666.1">https://doi.org/10.1175/2007JAMC1666.1</a>
 </div>
-</div></section></div></main> <!-- /main -->
-<script id="quarto-html-after-body" type="application/javascript">
+</div></section></div></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     const icon = "";
     const anchorJS = new window.AnchorJS();
@@ -1394,8 +1350,7 @@ Caution
   });
   </script>
 </div> <!-- /content -->
-<footer class="footer">
-  <div class="nav-footer">
+<footer class="footer"><div class="nav-footer">
     <div class="nav-footer-left">
       &nbsp;
     </div>   
@@ -1407,8 +1362,6 @@ Caution
     </div>
   </div>
 </footer>
-
-
 
 
 </body></html>

@@ -10,7 +10,22 @@
 <atom:link href="https://ipums.github.io/dhs-research-hub/index.xml" rel="self" type="application/rss+xml"/>
 <description>Understand population health in its environmental context</description>
 <generator>quarto-1.8.25</generator>
-<lastBuildDate>Fri, 05 Jun 2026 05:00:00 GMT</lastBuildDate>
+<lastBuildDate>Tue, 07 Jul 2026 05:00:00 GMT</lastBuildDate>
+<item>
+  <title>Introduction on using remotely sensed data to measure deforestation</title>
+  <dc:creator>Devon Kristiansen</dc:creator>
+  <link>https://ipums.github.io/dhs-research-hub/posts/2026-07-07-deforestation/</link>
+  <description><![CDATA[ If you read our three-part series on remotely-sensed vegetative indices and land cover data, you might be wondering, what’s next? One application is to measure long term change in forest cover over certain areas. ]]></description>
+  <category>Land Cover</category>
+  <category>Forest Cover</category>
+  <category>terra</category>
+  <category>Deforestation</category>
+  <category>R</category>
+  <category>ggspatial</category>
+  <category>sf</category>
+  <guid>https://ipums.github.io/dhs-research-hub/posts/2026-07-07-deforestation/</guid>
+  <pubDate>Tue, 07 Jul 2026 05:00:00 GMT</pubDate>
+</item>
 <item>
   <title>Access to Healthcare Part 3</title>
   <dc:creator>Grace Cooper</dc:creator>
@@ -312,28 +327,6 @@
   <guid>https://ipums.github.io/dhs-research-hub/posts/2024-08-16-ndvi-data-2/</guid>
   <pubDate>Fri, 16 Aug 2024 05:00:00 GMT</pubDate>
   <media:content url="https://ipums.github.io/dhs-research-hub/posts/2024-08-16-ndvi-data-2/index_files/figure-html/listing-img-1.png" medium="image" type="image/png" height="115" width="144"/>
-</item>
-<item>
-  <title>An Iterative Workflow for Loading NDVI Data in R</title>
-  <dc:creator>Finn Roberts</dc:creator>
-  <link>https://ipums.github.io/dhs-research-hub/posts/2024-08-01-ndvi-data/</link>
-  <description><![CDATA[ Use purrr and terra to efficiently integrate NDVI data across multiple spatial extents ]]></description>
-  <category>NDVI</category>
-  <category>Agriculture</category>
-  <category>Extreme weather</category>
-  <category>Food production</category>
-  <category>Importing Data</category>
-  <category>R</category>
-  <category>Reproducible workflows</category>
-  <category>Time series</category>
-  <category>stringr</category>
-  <category>purrr</category>
-  <category>terra</category>
-  <category>ggspatial</category>
-  <category>sf</category>
-  <guid>https://ipums.github.io/dhs-research-hub/posts/2024-08-01-ndvi-data/</guid>
-  <pubDate>Thu, 01 Aug 2024 05:00:00 GMT</pubDate>
-  <media:content url="https://ipums.github.io/dhs-research-hub/posts/2024-08-01-ndvi-data/index_files/figure-html/listing-img-1.png" medium="image" type="image/png" height="115" width="144"/>
 </item>
 </channel>
 </rss>
