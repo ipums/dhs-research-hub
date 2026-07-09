@@ -12,5 +12,4 @@ page-layout: full
 title-block-banner: true
 ---
 
-
 ## Latest posts
