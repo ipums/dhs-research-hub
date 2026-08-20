@@ -10,7 +10,22 @@
 <atom:link href="https://ipums.github.io/dhs-research-hub/index.xml" rel="self" type="application/rss+xml"/>
 <description>Understand population health in its environmental context</description>
 <generator>quarto-1.8.25</generator>
-<lastBuildDate>Tue, 07 Jul 2026 05:00:00 GMT</lastBuildDate>
+<lastBuildDate>Thu, 20 Aug 2026 05:00:00 GMT</lastBuildDate>
+<item>
+  <title>Measuring forest cover loss using remotely sensed data - Part 2</title>
+  <dc:creator>Devon Kristiansen</dc:creator>
+  <link>https://ipums.github.io/dhs-research-hub/posts/2026-08-07-forest-degradation/</link>
+  <description><![CDATA[ <a href="https://tech.popdata.org/dhs-research-hub/posts/2026-07-07-deforestation/">In our last post</a>, we estimated the net forest cover loss in hectares in the Democratic Republic of the Congo between 2001 and 2021. This involved using coarse spatial resolution land cover data from NASA, which indicated whether the pixel was majority forest with a canopy density of at least 60%. A source of uncertainty here, however, is that we might not be observing forest loss using simple land cover data at a spatial scale of 0.05 degrees per pixel. The level of spatial resolution may be too course to accurately categorize forest loss. ]]></description>
+  <category>Vegetative Continuous Fields</category>
+  <category>Forest Cover Loss</category>
+  <category>DHS microdata</category>
+  <category>terra</category>
+  <category>R</category>
+  <category>ggspatial</category>
+  <category>sf</category>
+  <guid>https://ipums.github.io/dhs-research-hub/posts/2026-08-07-forest-degradation/</guid>
+  <pubDate>Thu, 20 Aug 2026 05:00:00 GMT</pubDate>
+</item>
 <item>
   <title>Introduction on using remotely sensed data to measure deforestation</title>
   <dc:creator>Devon Kristiansen</dc:creator>
@@ -307,26 +322,6 @@
   <guid>https://ipums.github.io/dhs-research-hub/posts/2024-08-30-pop-density/</guid>
   <pubDate>Fri, 30 Aug 2024 05:00:00 GMT</pubDate>
   <media:content url="https://ipums.github.io/dhs-research-hub/posts/2024-08-30-pop-density/images/listing-img.png" medium="image" type="image/png" height="140" width="144"/>
-</item>
-<item>
-  <title>Aggregation Methods for NDVI Data</title>
-  <dc:creator>Finn Roberts</dc:creator>
-  <link>https://ipums.github.io/dhs-research-hub/posts/2024-08-16-ndvi-data-2/</link>
-  <description><![CDATA[ We use data from two regions to illustrate approaches to processing NDVI data ]]></description>
-  <category>NDVI</category>
-  <category>Seasonality</category>
-  <category>Climatological normals</category>
-  <category>Agriculture</category>
-  <category>Extreme weather</category>
-  <category>Food production</category>
-  <category>R</category>
-  <category>Time series</category>
-  <category>terra</category>
-  <category>ggspatial</category>
-  <category>sf</category>
-  <guid>https://ipums.github.io/dhs-research-hub/posts/2024-08-16-ndvi-data-2/</guid>
-  <pubDate>Fri, 16 Aug 2024 05:00:00 GMT</pubDate>
-  <media:content url="https://ipums.github.io/dhs-research-hub/posts/2024-08-16-ndvi-data-2/index_files/figure-html/listing-img-1.png" medium="image" type="image/png" height="115" width="144"/>
 </item>
 </channel>
 </rss>
